@@ -1771,22 +1771,25 @@ while not done:
                             k -= 1
                 if erase_count >= 1:
                     previous_time = current_time
-                    combo_count += 1
+                    #combo_count += 1
                     if erase_count == 1:
                         ui_variables.break_sound.play()
                         ui_variables.single_sound.play()
                         score += 50 * level * erase_count + combo_count
+                        combo_count += 1
                     elif erase_count == 2:
                         ui_variables.break_sound.play()
                         ui_variables.double_sound.play()
                         ui_variables.double_sound.play()
                         score += 150 * level * erase_count + 2 * combo_count
+                        combo_count += 2
                     elif erase_count == 3:
                         ui_variables.break_sound.play()
                         ui_variables.triple_sound.play()
                         ui_variables.triple_sound.play()
                         ui_variables.triple_sound.play()
                         score += 350 * level * erase_count + 3 * combo_count
+                        combo_count += 3
                     elif erase_count == 4:
                         ui_variables.break_sound.play()
                         ui_variables.tetris_sound.play()
@@ -1794,6 +1797,7 @@ while not done:
                         ui_variables.tetris_sound.play()
                         ui_variables.tetris_sound.play()
                         score += 1000 * level * erase_count + 4 * combo_count
+                        combo_count += 4
                         screen.blit(ui_variables.combo_4ring, (250, 160))
 
                     for i in range(1, 11):
