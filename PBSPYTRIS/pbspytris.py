@@ -591,6 +591,8 @@ score = 0
 level = 1
 goal = level * 5
 bottom_count = 0
+gold = 0
+s_gold = 0
 hard_drop = False
 
 volume_setting = False
@@ -1180,6 +1182,7 @@ while not done:
                     combo_count = 0
                     goal = level * 5
                     bottom_count = 0
+                    s_gold = 0
                     hard_drop = False
                     name_location = 0
                     name = [65, 65, 65]
@@ -1747,6 +1750,7 @@ while not done:
                 screen.blit(name_2, (int(board_width * 0.494), int(board_height * 0.55)))
                 screen.blit(name_3, (int(board_width * 0.545), int(board_height * 0.55)))
 
+
                 if blink:
 
                     blink = False
@@ -1768,6 +1772,9 @@ while not done:
                     outfile.write(chr(name[0]) + chr(name[1]) + chr(name[2]) + ' ' + str(score) + '\n')
                     outfile.close()
 
+                    s_gold = (int)score*0.01
+                    gold += s_gold
+
                     game_over = False
                     hold = False  #
                     dx, dy = 3, 0  #
@@ -1781,6 +1788,7 @@ while not done:
                     level = 1
                     goal = level * 5
                     bottom_count = 0  #
+                    s_gold = 0
                     hard_drop = False  #
                     name_location = 0
                     name = [65, 65, 65]
@@ -1849,6 +1857,10 @@ while not done:
                     outfile.write(chr(name[0]) + chr(name[1]) + chr(name[2]) + ' ' + str(score) + '\n')
                     outfile.close()
 
+                    s_gold = (int)score*0.01
+                    gold += s_gold
+
+
                     game_over = False
                     hold = False  #
                     dx, dy = 3, 0  #
@@ -1862,6 +1874,7 @@ while not done:
                     level = 1
                     goal = level * 5
                     bottom_count = 0  #
+                    s_gold = 0
                     hard_drop = False  #
                     name_location = 0
                     name = [65, 65, 65]
@@ -1895,6 +1908,7 @@ while not done:
                     level = 1
                     goal = level * 5
                     bottom_count = 0
+                    s_gold = 0
                     hard_drop = False
                     name_location = 0
                     name = [65, 65, 65]
@@ -1921,6 +1935,7 @@ while not done:
                     level = 1
                     goal = level * 5
                     bottom_count = 0
+                    s_gold = 0
                     hard_drop = False
                     name_location = 0
                     name = [65, 65, 65]
