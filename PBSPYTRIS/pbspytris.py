@@ -144,7 +144,7 @@ clicked_start_button_image = 'assets/vector/clicked_start_button.png'
 # single -> start button
 
 shop_button_image = 'assets/vector/shop_button.png'
-clicked_start_button_image = 'assets/vector/clicked_shop_button.png'
+clicked_shop_button_image = 'assets/vector/clicked_shop_button.png'
 # add shop button
 
 help_button_image = 'assets/vector/help_button.png'
