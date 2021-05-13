@@ -123,30 +123,38 @@ class ui_variables:
     t_block = [table_image, cyan_image, blue_image, orange_image, yellow_image, green_image, pink_image, red_image,
                ghost_image, linessent_image]
 
+class button(): # 버튼 객체 생성
+    def __init__(self, board_width, board_height, x_rate,
+                y_rate, width_rate, height_rate, img=''): #버튼생성
+        self.x=board_width*x_rate #버튼 x좌표
+        self.y = board_height * y_rate #버튼 y좌표
+        self.width = int(board_width * width_rate) #버튼 너비
+        self.height = int(board_height * height_rate) #버튼 높이
+        self.x_rate = x_rate #board_width * x_rate = x좌표
+        self.y_rate = y_rate #board_height * y_rate = y좌표
+        self.width_rate = width_rate #board_width * width_rate = 버튼 너비
+        self.height_rate = height_rate #board_height * height_rate = 버튼 높이
+        self.image = img #불러올 버튼 이미지
 
-class button(): # 버튼 객체 생성, 
-    def __init__(self, x, y, width, height, id, img=''):
-        self.x = x
-        self.y = y
-        self.width = width
-        self.height = height
-        self.id = id
-        self.image = img
+    def change(self, board_width, board_height): #버튼 위치, 크기 바꾸기
+        self.x = board_width * self.x_rate #x좌표
+        self.y = board_height * self.y_rate #y좌표
+        self.width = int(board_width * self.width_rate) #너비
+        self.height = int(board_height * self.height_rate) #높이
 
-    def draw(self, win, outline=None):
+    def draw(self, win, outline=None): #버튼 보이게 만들기
         if outline:
             draw_image(screen, self.image, self.x, self.y, self.width, self.height)
 
     def isOver(self, pos):
+        #마우스의 위치에 따라 버튼 누르기 pos[0]은 마우스 x좌표, pos[1]은 마우스 y좌표
         if pos[0] > self.x - (self.width / 2) and pos[0] < self.x + (self.width / 2):
             if pos[1] > self.y - (self.height / 2) and pos[1] < self.y + (self.height / 2):
                 return True
         return False
 
-
 start_image = 'assets/images/start.png'
 help_image = 'assets/images/help.png'
-start_button = button(board_width * 0.5, board_height * 0.5, 146, 43, 1, start_image)
 
 background_image = 'assets/vector/Background.png'
 
@@ -228,89 +236,89 @@ clicked_minus_button_image = 'assets/vector/clicked_minus_button.png'
 check_button_image = 'assets/vector/checkbox_button.png'
 clicked_check_button_image = 'assets/vector/clicked_checkbox_button.png'
 
-mute_button = button(board_width * 0.5, board_height * 0.23, 
-                    int(board_width * 0.1875), int(board_height * 0.1444), 
-                    1, mute_button_image)
-start_button = button(board_width * 0.78, board_height * 0.23, 
-                    int(board_width * 0.3734), int(board_height * 0.1777),
-                    1, start_button_image)
-help_button = button(board_width * 0.78, board_height * 0.63, 
-                    int(board_width * 0.3734), int(board_height * 0.1777), 
-                    3, help_button_image)
-quit_button = button(board_width * 0.78, board_height * 0.83, 
-                    int(board_width * 0.3734), int(board_height * 0.1777), 
-                    4, quit_button_image)
-setting_icon = button(board_width * 0.1, board_height * 0.85, 
-                    int(board_height * 0.23), int(board_height * 0.23), 
-                    5, setting_vector)
-leaderboard_icon = button(board_width * 0.1, board_height * 0.6, 
-                    int(board_height * 0.23), int(board_height * 0.23), 
-                    6, leaderboard_vector)
+# button(x좌표, y좌표, 버튼 너비, 버튼 높이, 아이디?, 이미지주소)
+# button(보드가로, 보드세로, x좌표, y좌표, 버튼 너비, 버튼 높이, 이미지주소) <-tk
 
-resume_button = button(board_width * 0.5, board_height * 0.23, 
-                    int(board_width * 0.3734), int(board_height * 0.1777), 
-                    1, resume_button_image)
-restart_button = button(board_width * 0.5, board_height * 0.43, 
-                    int(board_width * 0.3734), int(board_height * 0.1777),
-                    1, restart_button_image)
-setting_button = button(board_width * 0.5, board_height * 0.63, 
-                    int(board_width * 0.3734), int(board_height * 0.1777),
-                    1, setting_button_image)
-pause_quit_button = button(board_width * 0.5, board_height * 0.83, 
-                    int(board_width * 0.3734), int(board_height * 0.1777),
-                    1, quit_button_image)
+mute_button = button(board_width, board_height, 
+                    0.5, 0.23, 0.32, 0.095, mute_button_image)
 
-back_button = button(board_width * 0.5, board_height * 0.9, 
-                    int(board_width * 0.3734), int(board_height * 0.1777), 
-                    1, back_button_image)
-volume_icon = button(board_width * 0.4, board_height * 0.5, 
-                    int(board_height * 0.23), int(board_height * 0.23), 
-                    5, volume_vector)
-screen_icon = button(board_width * 0.6, board_height * 0.5, 
-                    int(board_height * 0.23), int(board_height * 0.23), 
-                    6, screen_vector)
-ok_button = button(board_width * 0.5, board_height * 0.83, 
-                    int(board_width * 0.3734), int(board_height * 0.1777), 
-                    1, ok_button_image)
+start_button = button(board_width, board_height,
+                    0.78, 0.23, 0.32, 0.095, start_button_image)
 
-menu_button = button(board_width * 0.5, board_height * 0.23, 
-                    int(board_width * 0.3734), int(board_height * 0.1777), 
-                    1, menu_button_image)
-gameover_quit_button = button(board_width * 0.5, board_height * 0.43, 
-                    int(board_width * 0.3734), int(board_height * 0.1777), 
-                    1, quit_button_image)
+shop_button = button(board_width, board_height,
+                    0.78, 0.43, 0.32, 0.095, shop_button_image)
+
+help_button = button(board_width, board_height,
+                    0.78, 0.63, 0.32, 0.095, help_button_image)
+
+quit_button = button(board_width, board_height,
+                    0.78, 0.83, 0.32, 0.095, quit_button_image)
+
+setting_icon = button(board_width, board_height,
+                    0.1, 0.85, 0.12, 0.12, setting_vector)
+
+leaderboard_icon = button(board_width, board_height,
+                    0.1, 0.65, 0.12, 0.12, leaderboard_vector)
+
+resume_button = button(board_width, board_height,
+                    0.5, 0.23, 0.32, 0.095, resume_button_image)
+
+restart_button = button(board_width, board_height,
+                    0.5, 0.43, 0.32, 0.095, restart_button_image)
+
+setting_button = button(board_width, board_height,
+                    0.5, 0.63, 0.32, 0.095, setting_button_image)
+
+pause_quit_button = button(board_width, board_height,
+                    0.5, 0.83, 0.32, 0.095, quit_button_image)
+
+back_button = button(board_width, board_height,
+                    0.5, 0.9, 0.32, 0.095, back_button_image)
+
+volume_icon = button(board_width, board_height,
+                    0.4, 0.5, 0.12, 0.12, volume_vector)
+
+screen_icon = button(board_width, board_height,
+                    0.6, 0.5, 0.12, 0.12, screen_vector)
+
+ok_button = button(board_width, board_height,
+                    0.5, 0.83, 0.32, 0.095, ok_button_image)
+
+menu_button = button(board_width, board_height,
+                    0.5, 0.23, 0.32, 0.095, menu_button_image)
                     
+gameover_quit_button = button(board_width, board_height,
+                    0.5, 0.43, 0.32, 0.095, quit_button_image)
 volume = 1.0
 
-effect_plus_button = button(board_width * 0.43, board_height * 0.43, 
-                    int(board_width * 0.0625), int(board_height * 0.1111), 
-                    1, plus_button_image)
-effect_minus_button = button(board_width * 0.57, board_height * 0.43, 
-                    int(board_width * 0.0625), int(board_height * 0.1111), 
-                    1, minus_button_image)
+effect_plus_button = button(board_width, board_height,
+                    0.43, 0.43, 0.12, 0.12, plus_button_image)
 
-sound_plus_button = button(board_width * 0.43, board_height * 0.63, 
-                    int(board_width * 0.0625), int(board_height * 0.1111), 
-                    1, plus_button_image)
-sound_minus_button = button(board_width * 0.57, board_height * 0.63, 
-                    int(board_width * 0.0625), int(board_height * 0.1111), 
-                    1, minus_button_image)
-
-mute_check_button = button(board_width * 0.2, board_height * 0.4, 
-                    int(board_width * 0.0625), int(board_height * 0.1111),
-                           1, check_button_image)
-smallsize_check_button = button(board_width * 0.5, board_height * 0.25, 
-                    int(board_width * 0.1875), int(board_height * 0.1444), 
-                    1, smallsize_board)
-midiumsize_check_button = button(board_width * 0.5, board_height * 0.45, 
-                    int(board_width * 0.1875), int(board_height * 0.1444), 
-                    1, midiumsize_board)
-bigsize_check_button = button(board_width * 0.5, board_height * 0.65, 
-                    int(board_width * 0.1875), int(board_height * 0.1444), 
-                    1, bigsize_board)
+effect_minus_button = button(board_width, board_height,
+                    0.57, 0.43, 0.12, 0.12, minus_button_image)
+                    
+sound_plus_button = button(board_width, board_height,
+                    0.43, 0.63, 0.12, 0.12, plus_button_image)
+                    
+sound_minus_button = button(board_width, board_height,
+                    0.57, 0.63, 0.12, 0.12, plus_button_image)
+                    
+mute_check_button = button(board_width, board_height,
+                    0.2, 0.4, 0.12, 0.12, check_button_image)
+                    
+smallsize_check_button = button(board_width, board_height,
+                        0.5, 0.25, 0.32, 0.095, smallsize_board)
+                                            
+midiumsize_check_button = button(board_width, board_height,
+                        0.5, 0.45, 0.32, 0.095, midiumsize_board)
+                                            
+bigsize_check_button = button(board_width, board_height,
+                        0.5, 0.65, 0.32, 0.095, bigsize_board)
 
 tetris3 = pygame.image.load("assets/images/tetris3.png")
 tetris4 = pygame.transform.smoothscale(tetris3, (200, 150))
+
+# 624, 138
 
 
 def set_screen_interface():
