@@ -7,17 +7,25 @@ from mino import *
 from random import *
 from pygame.locals import *
 
-# Define
-block_size = 17  # Height, width of single block
-width = 10  # Board width
-height = 20  # Board height
+# Define : 변하지 않는 변수 선언
 
+block_size = 17  # Height, width of single block
+width = 10  # 게임 보드 폭
+height = 20  # 게임 보드 높이
+
+<<<<<<< develop
 board_x = 10
 board_y = 20
 board_width = 800
 board_height = 450
 block_size = int(board_height * 0.045)
 gold = 0
+=======
+board_width = 800   # 게임 화면 폭
+board_height = 450  # 게임 화면 높이
+block_size = int(board_height * 0.045) # 20.25
+
+>>>>>>> main
 framerate = 30  # Bigger -> Slower
 
 initialize = True
@@ -71,20 +79,21 @@ class ui_variables:
     large_combos = []
     combo_ring = pygame.image.load("assets/Combo/4combo ring.png")  # 4블록 동시제거 그래픽
     combo_4ring = pygame.transform.smoothscale(combo_ring, (200, 100))
+    # 10가지의 콤보 이미지 로드
     for i in range(1, 11):
         combos.append(pygame.image.load("assets/Combo/" + str(i) + "combo.png"))
         large_combos.append(pygame.transform.smoothscale(combos[i - 1], (150, 200)))
 
     combos_sound = []
-    for i in range(1, 10):
+    for i in range(1, 10):  # 1-9까지의 콤보 사운드 로드
         combos_sound.append(pygame.mixer.Sound("assets/sounds/SFX_" + str(i + 2) + "Combo.wav"))
 
     #rainbow 보너스 점수 graphic
     rainbow_vector = pygame.image.load('assets/vector/rainbow.png')
     # Background colors
     black = (10, 10, 10)  # rgb(10, 10, 10)
-    white = (0, 153, 153)  # rgb(255, 255, 255) # 청록색으로 변경
-    real_white = (255, 255, 255)  # rgb(255, 255, 255) # 청록색으로 변경
+    white = (211, 211, 211)  # rgb(255, 255, 255) # 밝은 회색으로 변경
+    real_white = (211, 211, 211)  # rgb(255, 255, 255) # 밝은 회색으로 변경
 
     grey_1 = (70, 130, 180)  # rgb(26, 26, 26) 테두리 파랑색
     grey_2 = (221, 221, 221)  # rgb(35, 35, 35)
@@ -115,7 +124,7 @@ class ui_variables:
                ghost_image, linessent_image]
 
 
-class button():
+class button(): # 버튼 객체 생성, 
     def __init__(self, x, y, width, height, id, img=''):
         self.x = x
         self.y = y
@@ -141,8 +150,13 @@ start_button = button(board_width * 0.5, board_height * 0.5, 146, 43, 1, start_i
 
 background_image = 'assets/vector/Background.png'
 
-single_button_image = 'assets/vector/single_button.png'
-clicked_single_button_image = 'assets/vector/clicked_single_button.png'
+start_button_image = 'assets/vector/start_button.png'
+clicked_start_button_image = 'assets/vector/clicked_start_button.png'
+# single -> start button
+
+shop_button_image = 'assets/vector/shop_button.png'
+clicked_shop_button_image = 'assets/vector/clicked_shop_button.png'
+# add shop button
 
 help_button_image = 'assets/vector/help_button.png'
 clicked_help_button_image = 'assets/vector/clicked_help_button.png'
@@ -160,6 +174,14 @@ pause_board_image = 'assets/vector/pause_board.png'
 leader_board_image = 'assets/vector/leader_board.png'
 setting_board_image = 'assets/vector/setting_board.png'
 gameover_board_image = 'assets/vector/gameover_board.png'
+mode_board_image = 'assets/vector/mode_board.png'
+# add mode_board
+
+# add item icon
+bomb = 'assets/vector/bomb.png'
+tnt = 'assets/vector/tnt.png'
+gold = 'assets/vector/gold.png'
+earthquake = 'assets/vector/earthquake.png'
 
 smallsize_board = 'assets/vector/screensize1.png'
 midiumsize_board = 'assets/vector/screensize2.png'
@@ -206,70 +228,94 @@ clicked_minus_button_image = 'assets/vector/clicked_minus_button.png'
 check_button_image = 'assets/vector/checkbox_button.png'
 clicked_check_button_image = 'assets/vector/clicked_checkbox_button.png'
 
-mute_button = button(board_width * 0.5, board_height * 0.23, int(board_width * 0.1875), int(board_height * 0.1444), 1,
-                     mute_button_image)
+mute_button = button(board_width * 0.5, board_height * 0.23, 
+                    int(board_width * 0.1875), int(board_height * 0.1444), 
+                    1, mute_button_image)
+start_button = button(board_width * 0.78, board_height * 0.23, 
+                    int(board_width * 0.3734), int(board_height * 0.1777),
+                    1, start_button_image)
+help_button = button(board_width * 0.78, board_height * 0.63, 
+                    int(board_width * 0.3734), int(board_height * 0.1777), 
+                    3, help_button_image)
+quit_button = button(board_width * 0.78, board_height * 0.83, 
+                    int(board_width * 0.3734), int(board_height * 0.1777), 
+                    4, quit_button_image)
+setting_icon = button(board_width * 0.1, board_height * 0.85, 
+                    int(board_height * 0.23), int(board_height * 0.23), 
+                    5, setting_vector)
+leaderboard_icon = button(board_width * 0.1, board_height * 0.6, 
+                    int(board_height * 0.23), int(board_height * 0.23), 
+                    6, leaderboard_vector)
 
-single_button = button(board_width * 0.78, board_height * 0.23, int(board_width * 0.3734), int(board_height * 0.1777),
-                       1, single_button_image)
-help_button = button(board_width * 0.78, board_height * 0.63, int(board_width * 0.3734), int(board_height * 0.1777), 3,
-                     help_button_image)
-quit_button = button(board_width * 0.78, board_height * 0.83, int(board_width * 0.3734), int(board_height * 0.1777), 4,
-                     quit_button_image)
-setting_icon = button(board_width * 0.1, board_height * 0.85, int(board_height * 0.23), int(board_height * 0.23), 5,
-                      setting_vector)
-leaderboard_icon = button(board_width * 0.1, board_height * 0.6, int(board_height * 0.23), int(board_height * 0.23), 6,
-                          leaderboard_vector)
+resume_button = button(board_width * 0.5, board_height * 0.23, 
+                    int(board_width * 0.3734), int(board_height * 0.1777), 
+                    1, resume_button_image)
+restart_button = button(board_width * 0.5, board_height * 0.43, 
+                    int(board_width * 0.3734), int(board_height * 0.1777),
+                    1, restart_button_image)
+setting_button = button(board_width * 0.5, board_height * 0.63, 
+                    int(board_width * 0.3734), int(board_height * 0.1777),
+                    1, setting_button_image)
+pause_quit_button = button(board_width * 0.5, board_height * 0.83, 
+                    int(board_width * 0.3734), int(board_height * 0.1777),
+                    1, quit_button_image)
 
-resume_button = button(board_width * 0.5, board_height * 0.23, int(board_width * 0.3734), int(board_height * 0.1777), 1,
-                       resume_button_image)
-restart_button = button(board_width * 0.5, board_height * 0.43, int(board_width * 0.3734), int(board_height * 0.1777),
-                        1, restart_button_image)
-setting_button = button(board_width * 0.5, board_height * 0.63, int(board_width * 0.3734), int(board_height * 0.1777),
-                        1, setting_button_image)
-pause_quit_button = button(board_width * 0.5, board_height * 0.83, int(board_width * 0.3734),
-                           int(board_height * 0.1777), 1, quit_button_image)
+back_button = button(board_width * 0.5, board_height * 0.9, 
+                    int(board_width * 0.3734), int(board_height * 0.1777), 
+                    1, back_button_image)
+volume_icon = button(board_width * 0.4, board_height * 0.5, 
+                    int(board_height * 0.23), int(board_height * 0.23), 
+                    5, volume_vector)
+screen_icon = button(board_width * 0.6, board_height * 0.5, 
+                    int(board_height * 0.23), int(board_height * 0.23), 
+                    6, screen_vector)
+ok_button = button(board_width * 0.5, board_height * 0.83, 
+                    int(board_width * 0.3734), int(board_height * 0.1777), 
+                    1, ok_button_image)
 
-back_button = button(board_width * 0.5, board_height * 0.9, int(board_width * 0.3734), int(board_height * 0.1777), 1,
-                     back_button_image)
-volume_icon = button(board_width * 0.4, board_height * 0.5, int(board_height * 0.23), int(board_height * 0.23), 5,
-                     volume_vector)
-screen_icon = button(board_width * 0.6, board_height * 0.5, int(board_height * 0.23), int(board_height * 0.23), 6,
-                     screen_vector)
-ok_button = button(board_width * 0.5, board_height * 0.83, int(board_width * 0.3734), int(board_height * 0.1777), 1,
-                   ok_button_image)
-
-menu_button = button(board_width * 0.5, board_height * 0.23, int(board_width * 0.3734), int(board_height * 0.1777), 1,
-                     menu_button_image)
-gameover_quit_button = button(board_width * 0.5, board_height * 0.43, int(board_width * 0.3734),
-                              int(board_height * 0.1777), 1, quit_button_image)
+menu_button = button(board_width * 0.5, board_height * 0.23, 
+                    int(board_width * 0.3734), int(board_height * 0.1777), 
+                    1, menu_button_image)
+gameover_quit_button = button(board_width * 0.5, board_height * 0.43, 
+                    int(board_width * 0.3734), int(board_height * 0.1777), 
+                    1, quit_button_image)
+                    
 volume = 1.0
 
-effect_plus_button = button(board_width * 0.43, board_height * 0.43, int(board_width * 0.0625),
-                            int(board_height * 0.1111), 1, plus_button_image)
-effect_minus_button = button(board_width * 0.57, board_height * 0.43, int(board_width * 0.0625),
-                             int(board_height * 0.1111), 1, minus_button_image)
+effect_plus_button = button(board_width * 0.43, board_height * 0.43, 
+                    int(board_width * 0.0625), int(board_height * 0.1111), 
+                    1, plus_button_image)
+effect_minus_button = button(board_width * 0.57, board_height * 0.43, 
+                    int(board_width * 0.0625), int(board_height * 0.1111), 
+                    1, minus_button_image)
 
-sound_plus_button = button(board_width * 0.43, board_height * 0.63, int(board_width * 0.0625),
-                           int(board_height * 0.1111), 1, plus_button_image)
-sound_minus_button = button(board_width * 0.57, board_height * 0.63, int(board_width * 0.0625),
-                            int(board_height * 0.1111), 1, minus_button_image)
+sound_plus_button = button(board_width * 0.43, board_height * 0.63, 
+                    int(board_width * 0.0625), int(board_height * 0.1111), 
+                    1, plus_button_image)
+sound_minus_button = button(board_width * 0.57, board_height * 0.63, 
+                    int(board_width * 0.0625), int(board_height * 0.1111), 
+                    1, minus_button_image)
 
-mute_check_button = button(board_width * 0.2, board_height * 0.4, int(board_width * 0.0625), int(board_height * 0.1111),
+mute_check_button = button(board_width * 0.2, board_height * 0.4, 
+                    int(board_width * 0.0625), int(board_height * 0.1111),
                            1, check_button_image)
-smallsize_check_button = button(board_width * 0.5, board_height * 0.25, int(board_width * 0.1875),
-                                int(board_height * 0.1444), 1, smallsize_board)
-midiumsize_check_button = button(board_width * 0.5, board_height * 0.45, int(board_width * 0.1875),
-                                 int(board_height * 0.1444), 1, midiumsize_board)
-bigsize_check_button = button(board_width * 0.5, board_height * 0.65, int(board_width * 0.1875),
-                              int(board_height * 0.1444), 1, bigsize_board)
+smallsize_check_button = button(board_width * 0.5, board_height * 0.25, 
+                    int(board_width * 0.1875), int(board_height * 0.1444), 
+                    1, smallsize_board)
+midiumsize_check_button = button(board_width * 0.5, board_height * 0.45, 
+                    int(board_width * 0.1875), int(board_height * 0.1444), 
+                    1, midiumsize_board)
+bigsize_check_button = button(board_width * 0.5, board_height * 0.65, 
+                    int(board_width * 0.1875), int(board_height * 0.1444), 
+                    1, bigsize_board)
 
 tetris3 = pygame.image.load("assets/images/tetris3.png")
 tetris4 = pygame.transform.smoothscale(tetris3, (200, 150))
 
 
 def set_screen_interface():
-    single_button = button(board_width * 0.78, board_height * 0.23, int(board_width * 0.3734),
-                           int(board_height * 0.1777), 1, single_button_image)
+    start_button = button(board_width * 0.78, board_height * 0.23, int(board_width * 0.3734),
+                           int(board_height * 0.1777), 1, start_button_image)
     help_button = button(board_width * 0.78, board_height * 0.63, int(board_width * 0.3734), int(board_height * 0.1777),
                          3, help_button_image)
     quit_button = button(board_width * 0.78, board_height * 0.83, int(board_width * 0.3734), int(board_height * 0.1777),
@@ -759,7 +805,7 @@ while not done:
     elif screen_setting:
         screen.fill(ui_variables.white)
         draw_image(screen, background_image, board_width * 0.5, board_height * 0.5, board_width, board_height)
-        single_button.draw(screen, (0, 0, 0))
+        start_button.draw(screen, (0, 0, 0))
         help_button.draw(screen, (0, 0, 0))
         quit_button.draw(screen, (0, 0, 0))
         setting_icon.draw(screen, (0, 0, 0))
@@ -815,8 +861,8 @@ while not done:
                     board_height = 450
                     block_size = int(board_height * 0.045)
                     screen = pygame.display.set_mode((board_width, board_height), pygame.RESIZABLE)
-                    single_button = button(board_width * 0.78, board_height * 0.23, int(board_width * 0.3734),
-                                           int(board_height * 0.1777), 1, single_button_image)
+                    start_button = button(board_width * 0.78, board_height * 0.23, int(board_width * 0.3734),
+                                           int(board_height * 0.1777), 1, start_button_image)
                     #여기에 난이도 모드랑 샌드박스모드 추가해야되는듯 (크기 조절 필요)
                     help_button = button(board_width * 0.78, board_height * 0.63, int(board_width * 0.3734),
                                          int(board_height * 0.1777), 3, help_button_image)
@@ -878,8 +924,8 @@ while not done:
                     board_height = 675
                     block_size = int(board_height * 0.045)
                     screen = pygame.display.set_mode((board_width, board_height), pygame.RESIZABLE)
-                    single_button = button(board_width * 0.78, board_height * 0.23, int(board_width * 0.3734),
-                                           int(board_height * 0.1777), 1, single_button_image)
+                    start_button = button(board_width * 0.78, board_height * 0.23, int(board_width * 0.3734),
+                                           int(board_height * 0.1777), 1, start_button_image)
                     #여기에 난이도 모드랑 샌드박스모드 추가해야되는듯 (크기 조절 필요)
                     help_button = button(board_width * 0.78, board_height * 0.63, int(board_width * 0.3734),
                                          int(board_height * 0.1777), 3, help_button_image)
@@ -942,8 +988,8 @@ while not done:
                     board_height = 900
                     block_size = int(board_height * 0.045)
                     screen = pygame.display.set_mode((board_width, board_height), pygame.RESIZABLE)
-                    single_button = button(board_width * 0.78, board_height * 0.23, int(board_width * 0.3734),
-                                           int(board_height * 0.1777), 1, single_button_image)
+                    start_button = button(board_width * 0.78, board_height * 0.23, int(board_width * 0.3734),
+                                           int(board_height * 0.1777), 1, start_button_image)
                     #여기에 난이도 모드랑 샌드박스모드 추가해야되는듯 (크기 조절 필요)
                     help_button = button(board_width * 0.78, board_height * 0.63, int(board_width * 0.3734),
                                          int(board_height * 0.1777), 3, help_button_image)
@@ -1000,7 +1046,7 @@ while not done:
 
     elif setting:
         draw_image(screen, background_image, board_width * 0.5, board_height * 0.5, board_width, board_height)
-        single_button.draw(screen, (0, 0, 0))
+        start_button.draw(screen, (0, 0, 0))
         
         help_button.draw(screen, (0, 0, 0))
         quit_button.draw(screen, (0, 0, 0))
@@ -1078,8 +1124,8 @@ while not done:
                 board_height = event.h
                 block_size = int(board_height * 0.045)
                 screen = pygame.display.set_mode((board_width, board_height), pygame.RESIZABLE)
-                single_button = button(board_width * 0.78, board_height * 0.23, int(board_width * 0.3734),
-                                       int(board_height * 0.1777), 1, single_button_image)
+                start_button = button(board_width * 0.78, board_height * 0.23, int(board_width * 0.3734),
+                                       int(board_height * 0.1777), 1, start_button_image)
                 
                 help_button = button(board_width * 0.78, board_height * 0.63, int(board_width * 0.3734),
                                      int(board_height * 0.1777), 3, help_button_image)
@@ -1193,8 +1239,8 @@ while not done:
                 block_size = int(board_height * 0.045)
 
                 screen = pygame.display.set_mode((board_width, board_height), pygame.RESIZABLE)
-                single_button = button(board_width * 0.78, board_height * 0.23, int(board_width * 0.3734),
-                                       int(board_height * 0.1777), 1, single_button_image)
+                start_button = button(board_width * 0.78, board_height * 0.23, int(board_width * 0.3734),
+                                       int(board_height * 0.1777), 1, start_button_image)
                 
                 help_button = button(board_width * 0.78, board_height * 0.63, int(board_width * 0.3734),
                                      int(board_height * 0.1777), 3, help_button_image)
@@ -1230,7 +1276,7 @@ while not done:
                                               int(board_height * 0.1777), 1, quit_button_image)
     elif help:
         draw_image(screen, background_image, board_width * 0.5, board_height * 0.5, board_width, board_height)
-        single_button.draw(screen, (0, 0, 0))
+        start_button.draw(screen, (0, 0, 0))
 
         help_button.draw(screen, (0, 0, 0))
         quit_button.draw(screen, (0, 0, 0))
@@ -1271,8 +1317,8 @@ while not done:
                 block_size = int(board_height * 0.045)
 
                 screen = pygame.display.set_mode((board_width, board_height), pygame.RESIZABLE)
-                single_button = button(board_width * 0.78, board_height * 0.23, int(board_width * 0.3734),
-                                       int(board_height * 0.1777), 1, single_button_image)
+                start_button = button(board_width * 0.78, board_height * 0.23, int(board_width * 0.3734),
+                                       int(board_height * 0.1777), 1, start_button_image)
             
                 help_button = button(board_width * 0.78, board_height * 0.63, int(board_width * 0.3734),
                                      int(board_height * 0.1777), 3, help_button_image)
@@ -1309,7 +1355,7 @@ while not done:
     # Game screen
     elif leader_board:
         draw_image(screen, background_image, board_width * 0.5, board_height * 0.5, board_width, board_height)
-        single_button.draw(screen, (0, 0, 0))
+        start_button.draw(screen, (0, 0, 0))
         
         help_button.draw(screen, (0, 0, 0))
         quit_button.draw(screen, (0, 0, 0))
@@ -1361,8 +1407,8 @@ while not done:
                 block_size = int(board_height * 0.045)
 
                 screen = pygame.display.set_mode((board_width, board_height), pygame.RESIZABLE)
-                single_button = button(board_width * 0.78, board_height * 0.23, int(board_width * 0.3734),
-                                       int(board_height * 0.1777), 1, single_button_image)
+                start_button = button(board_width * 0.78, board_height * 0.23, int(board_width * 0.3734),
+                                       int(board_height * 0.1777), 1, start_button_image)
                 
                 help_button = button(board_width * 0.78, board_height * 0.63, int(board_width * 0.3734),
                                      int(board_height * 0.1777), 3, help_button_image)
@@ -1673,8 +1719,8 @@ while not done:
                 block_size = int(board_height * 0.045)
 
                 screen = pygame.display.set_mode((board_width, board_height), pygame.RESIZABLE)
-                single_button = button(board_width * 0.78, board_height * 0.23, int(board_width * 0.3734),
-                                       int(board_height * 0.1777), 1, single_button_image)
+                start_button = button(board_width * 0.78, board_height * 0.23, int(board_width * 0.3734),
+                                       int(board_height * 0.1777), 1, start_button_image)
                 
                 help_button = button(board_width * 0.78, board_height * 0.63, int(board_width * 0.3734),
                                      int(board_height * 0.1777), 3, help_button_image)
@@ -1844,8 +1890,8 @@ while not done:
                 block_size = int(board_height * 0.045)
 
                 screen = pygame.display.set_mode((board_width, board_height), pygame.RESIZABLE)
-                single_button = button(board_width * 0.78, board_height * 0.23, int(board_width * 0.3734),
-                                       int(board_height * 0.1777), 1, single_button_image)
+                start_button = button(board_width * 0.78, board_height * 0.23, int(board_width * 0.3734),
+                                       int(board_height * 0.1777), 1, start_button_image)
                 
                 help_button = button(board_width * 0.78, board_height * 0.63, int(board_width * 0.3734),
                                      int(board_height * 0.1777), 3, help_button_image)
@@ -1898,10 +1944,10 @@ while not done:
                     ui_variables.click_sound.play()
                     start = True
             elif event.type == pygame.MOUSEMOTION:
-                if single_button.isOver(pos):
-                    single_button.image = clicked_single_button_image
+                if start_button.isOver(pos):
+                    start_button.image = clicked_start_button_image
                 else:
-                    single_button.image = single_button_image
+                    start_button.image = start_button_image
                 
 
 
@@ -1925,7 +1971,7 @@ while not done:
                 else:
                     leaderboard_icon.image = leaderboard_vector
             elif event.type == pygame.MOUSEBUTTONDOWN:
-                if single_button.isOver(pos):
+                if start_button.isOver(pos):
                     ui_variables.click_sound.play()
                     previous_time = pygame.time.get_ticks()
                     start = True
@@ -1951,8 +1997,8 @@ while not done:
                 block_size = int(board_height * 0.045)
 
                 screen = pygame.display.set_mode((board_width, board_height), pygame.RESIZABLE)
-                single_button = button(board_width * 0.78, board_height * 0.23, int(board_width * 0.3734),
-                                       int(board_height * 0.1777), 1, single_button_image)
+                start_button = button(board_width * 0.78, board_height * 0.23, int(board_width * 0.3734),
+                                       int(board_height * 0.1777), 1, start_button_image)
                 
                 help_button = button(board_width * 0.78, board_height * 0.63, int(board_width * 0.3734),
                                      int(board_height * 0.1777), 3, help_button_image)
@@ -1990,7 +2036,7 @@ while not done:
 
         draw_image(screen, background_image, board_width * 0.5, board_height * 0.5, board_width, board_height)
 
-        single_button.draw(screen, (0, 0, 0))
+        start_button.draw(screen, (0, 0, 0))
         
         help_button.draw(screen, (0, 0, 0))
         quit_button.draw(screen, (0, 0, 0))
