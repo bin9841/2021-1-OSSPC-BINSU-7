@@ -13,22 +13,11 @@ block_size = 17  # Height, width of single block
 width = 10  # 게임 보드 폭
 height = 20  # 게임 보드 높이
 
-<<<<<<< develop
-board_x = 10
-board_y = 20
-board_width = 800
-board_height = 450
-block_size = int(board_height * 0.045)
-gold = 0
-=======
 board_width = 800   # 게임 화면 폭
 board_height = 450  # 게임 화면 높이
 block_size = int(board_height * 0.045) # 20.25
 
->>>>>>> main
 framerate = 30  # Bigger -> Slower
-
-initialize = True
 
 pygame.init()
 
@@ -522,8 +511,8 @@ def erase_mino(x, y, mino, r):
     grid = tetrimino.mino_map[mino - 1][r]
 
     # Erase ghost
-    for j in range(board_y+1):
-        for i in range(board_x):
+    for j in range(21):
+        for i in range(10):
             if matrix[i][j] == 8:
                 matrix[i][j] = 0
 
@@ -541,7 +530,7 @@ def is_bottom(x, y, mino, r):
     for i in range(4):
         for j in range(4):
             if grid[i][j] != 0:
-                if (y + i + 1) > board_y:
+                if (y + i + 1) > 20:
                     return True
                 elif matrix[x + j][y + i + 1] != 0 and matrix[x + j][y + i + 1] != 8:
                     return True
@@ -571,7 +560,7 @@ def is_rightedge(x, y, mino, r):
     for i in range(4):
         for j in range(4):
             if grid[i][j] != 0:
-                if (x + j + 1) >= board_x:
+                if (x + j + 1) > 9:
                     return True
                 elif matrix[x + j + 1][y + i] != 0:
                     return True
@@ -589,7 +578,7 @@ def is_turnable_r(x, y, mino, r):
     for i in range(4):
         for j in range(4):
             if grid[i][j] != 0:
-                if (x + j) < 0 or (x + j) >= board_x or (y + i) < 0 or (y + i) > board_y:
+                if (x + j) < 0 or (x + j) > 9 or (y + i) < 0 or (y + i) > 20:
                     return False
                 elif matrix[x + j][y + i] != 0:
                     return False
@@ -606,7 +595,7 @@ def is_turnable_l(x, y, mino, r):
     for i in range(4):
         for j in range(4):
             if grid[i][j] != 0:
-                if (x + j) < 0 or (x + j) > 9 or (y + i) < 0 or (y + i) > board_y:
+                if (x + j) < 0 or (x + j) > 9 or (y + i) < 0 or (y + i) > 20:
                     return False
                 elif matrix[x + j][y + i] != 0:
                     return False
@@ -632,81 +621,74 @@ def set_vol(val):
     print(volume)
     ui_variables.click_sound.set_volume(volume)
 
-def set_initial_values():
-    global combo_count, score, level, goal, s_gold, bottom_count, hard_drop, attack_point, dx, dy, rotation, mino, next_mino1, next_mino2, hold, hold_mino, framerate, matrix, blink, start, pause, done, game_over, leader_board, setting, volume_setting, screen_setting, pvp, help, name_location, name, previous_time, current_time, pause_time, lines, leaders, volume, game_status
-    framerate = 30
 
-    # Initial values
-    blink = False
-    start = False
-    pause = False
-    done = False
-    game_over = False
-    leader_board = False
-    setting = False
-    help = False
-    combo_count = 0
-    score = 0
-    level = 1
-    goal = level * 5
-    bottom_count = 0
-    s_gold = 0
-    hard_drop = False
+# Initial values
+blink = False
+start = False
+pause = False
+done = False
+game_over = False
+leader_board = False
+setting = False
+help = False
+combo_count = 0
+score = 0
+level = 1
+goal = level * 5
+bottom_count = 0
+hard_drop = False
 
-    volume_setting = False
-    screen_setting = False
-    keyboard_setting = False
+volume_setting = False
+screen_setting = False
+keyboard_setting = False
 
-    music_volume = 10
-    effect_volume = 10
-    attack_point = 0 #어택모드에 사용할지?
+music_volume = 10
+effect_volume = 10
+attack_point = 0 #어택모드에 사용할지?
 
-    dx, dy = 3, 0  # Minos location status
+dx, dy = 3, 0  # Minos location status
 
-    rotation = 0  # Minos rotation status
+rotation = 0  # Minos rotation status
 
-    mino = randint(1, 7)  # Current mino
+mino = randint(1, 7)  # Current mino
 
-    next_mino1 = randint(1, 7)  # Next mino1
-    next_mino2 = randint(1, 7)  # Next mino2
+next_mino1 = randint(1, 7)  # Next mino1
+next_mino2 = randint(1, 7)  # Next mino2
 
-    hold = False  # Hold status
+hold = False  # Hold status
 
-    hold_mino = -1  # Holded mino
+hold_mino = -1  # Holded mino
 
-    name_location = 0
-    name = [65, 65, 65]
-    previous_time = pygame.time.get_ticks()
-    current_time = pygame.time.get_ticks()
-    pause_time = pygame.time.get_ticks()
+name_location = 0
+name = [65, 65, 65]
+previous_time = pygame.time.get_ticks()
+current_time = pygame.time.get_ticks()
+pause_time = pygame.time.get_ticks()
 
-    with open('leaderboard.txt') as f:
-        lines = f.readlines()
-    lines = [line.rstrip('\n') for line in open('leaderboard.txt')]
+with open('leaderboard.txt') as f:
+    lines = f.readlines()
+lines = [line.rstrip('\n') for line in open('leaderboard.txt')]
 
-    leaders = {'AAA': 0, 'BBB': 0, 'CCC': 0}
-    for i in lines:
-        leaders[i.split(' ')[0]] = int(i.split(' ')[1])
-    leaders = sorted(leaders.items(), key=operator.itemgetter(1), reverse=True)
+leaders = {'AAA': 0, 'BBB': 0, 'CCC': 0}
+for i in lines:
+    leaders[i.split(' ')[0]] = int(i.split(' ')[1])
+leaders = sorted(leaders.items(), key=operator.itemgetter(1), reverse=True)
 
-    matrix = [[0 for y in range(height + 1)] for x in range(width)]  # Board matrix
-
-    volume = 1.0
-
-    ui_variables.click_sound.set_volume(volume)
-
-    pygame.mixer.init()
-    ui_variables.intro_sound.set_volume(0.1)
-    ui_variables.intro_sound.play()
-    game_status = ''
-    ui_variables.break_sound.set_volume(0.2)
-
-set_initial_values()
-pygame.time.set_timer(pygame.USEREVENT, 10)
+matrix = [[0 for y in range(height + 1)] for x in range(width)]  # Board matrix
 
 ###########################################################
 # Loop Start
 ###########################################################
+
+volume = 1.0
+
+ui_variables.click_sound.set_volume(volume)
+
+pygame.mixer.init()
+ui_variables.intro_sound.set_volume(0.1)
+ui_variables.intro_sound.play()
+game_status = ''
+ui_variables.break_sound.set_volume(0.2)
 
 while not done:
 
@@ -1229,6 +1211,24 @@ while not done:
                     setting = True
                 if restart_button.isOver(pos):
                     ui_variables.click_sound.play()
+                    hold = False
+                    dx, dy = 3, 0
+                    rotation = 0
+                    mino = randint(1, 7)
+                    next_mino1 = randint(1, 7)
+                    next_mino2 = randint(1, 7)
+                    hold_mino = -1
+                    framerate = 30
+                    score = 0
+                    score = 0
+                    level = 1
+                    combo_count = 0
+                    goal = level * 5
+                    bottom_count = 0
+                    hard_drop = False
+                    name_location = 0
+                    name = [65, 65, 65]
+                    matrix = [[0 for y in range(height + 1)] for x in range(width)]
 
                     pause = False
                     start = False
@@ -1508,9 +1508,9 @@ while not done:
                 rainbow_count = 0
                 matrix_contents = []
 
-                for j in range(board_y+1):
+                for j in range(21):
                     is_full = True
-                    for i in range(board_x):
+                    for i in range(10):
                         if matrix[i][j] == 0: #빈 공간(장애물블록 추가하면 matrix[i][j]==9 or로 넣기)
                             is_full = False
                     if is_full: # 한 줄 꽉 찼을 때
@@ -1520,14 +1520,14 @@ while not done:
 
                         #rainbow보너스 점수
                         rainbow = [1,2,3,4,5,6,7] #각 mino에 해당하는 숫자
-                        for i in range(board_x):
+                        for i in range(10):
                             matrix_contents.append(matrix[i][j]) #현재 클리어된 줄에 있는 mino 종류들 저장
                         rainbow_check = list(set(matrix_contents).intersection(rainbow)) #현재 클리어된 줄에 있는 mino와 mino의 종류중 겹치는 것 저장
                         if rainbow == rainbow_check: #현재 클리어된 줄에 모든 종류 mino 있다면
                             rainbow_count += 1
 
                         while k > 0:
-                            for i in range(board_x):
+                            for i in range(10):
                                 matrix[i][k] = matrix[i][k - 1] # 남아있는 블록 한 줄씩 내리기(덮어쓰기)
                             k -= 1
 
@@ -1792,7 +1792,6 @@ while not done:
                 screen.blit(name_2, (int(board_width * 0.494), int(board_height * 0.55)))
                 screen.blit(name_3, (int(board_width * 0.545), int(board_height * 0.55)))
 
-
                 if blink:
 
                     blink = False
@@ -1813,8 +1812,35 @@ while not done:
                     outfile = open('leaderboard.txt', 'a')
                     outfile.write(chr(name[0]) + chr(name[1]) + chr(name[2]) + ' ' + str(score) + '\n')
                     outfile.close()
-                    
+
                     game_over = False
+                    hold = False  #
+                    dx, dy = 3, 0  #
+                    rotation = 0  #
+                    mino = randint(1, 7)  #
+                    next_mino1 = randint(1, 7)  #
+                    hold_mino = -1  #
+                    framerate = 30
+                    score = 0
+                    combo_count = 0
+                    level = 1
+                    goal = level * 5
+                    bottom_count = 0  #
+                    hard_drop = False  #
+                    name_location = 0
+                    name = [65, 65, 65]
+                    matrix = [[0 for y in range(height + 1)] for x in range(width)]
+
+                    
+                    with open('leaderboard.txt') as f:
+                        lines = f.readlines()
+                    lines = [line.rstrip('\n') for line in open('leaderboard.txt')]
+
+                    leaders = {'AAA': 0, 'BBB': 0, 'CCC': 0}
+                    for i in lines:
+                        leaders[i.split(' ')[0]] = int(i.split(' ')[1])
+                    leaders = sorted(leaders.items(), key=operator.itemgetter(1), reverse=True)
+
                     pygame.time.set_timer(pygame.USEREVENT, 1)
                 elif event.key == K_RIGHT:
                     if name_location != 2:
@@ -1869,11 +1895,55 @@ while not done:
                     outfile.close()
 
                     game_over = False
+                    hold = False  #
+                    dx, dy = 3, 0  #
+                    rotation = 0  #
+                    mino = randint(1, 7)  #
+                    next_mino1 = randint(1, 7)  #
+                    hold_mino = -1  #
+                    framerate = 30
+                    score = 0
+                    combo_count = 0
+                    level = 1
+                    goal = level * 5
+                    bottom_count = 0  #
+                    hard_drop = False  #
+                    name_location = 0
+                    name = [65, 65, 65]
+                    matrix = [[0 for y in range(height + 1)] for x in range(width)]
+
+                    with open('leaderboard.txt') as f:
+                        lines = f.readlines()
+                    lines = [line.rstrip('\n') for line in open('leaderboard.txt')]
+
+                    leaders = {'AAA': 0, 'BBB': 0, 'CCC': 0}
+                    for i in lines:
+                        leaders[i.split(' ')[0]] = int(i.split(' ')[1])
+                    leaders = sorted(leaders.items(), key=operator.itemgetter(1), reverse=True)
+
                     pygame.time.set_timer(pygame.USEREVENT, 1)
 
                 if menu_button.isOver(pos):
                     ui_variables.click_sound.play()
+                    start = False
+                    pvp = False
                     game_over = False
+                    hold = False
+                    dx, dy = 3, 0
+                    rotation = 0
+                    mino = randint(1, 7)
+                    next_mino1 = randint(1, 7)
+                    hold_mino = -1
+                    framerate = 30
+                    score = 0
+                    combo_count = 0
+                    level = 1
+                    goal = level * 5
+                    bottom_count = 0
+                    hard_drop = False
+                    name_location = 0
+                    name = [65, 65, 65]
+                    matrix = [[0 for y in range(height + 1)] for x in range(width)]
                     
                 if restart_button.isOver(pos):
                     if game_status == 'start':
@@ -1884,6 +1954,22 @@ while not done:
                         pygame.mixer.music.play(-1)
                     ui_variables.click_sound.play()
                     game_over = False
+                    hold = False
+                    dx, dy = 3, 0
+                    rotation = 0
+                    mino = randint(1, 7)
+                    next_mino1 = randint(1, 7)
+                    hold_mino = -1
+                    framerate = 30
+                    score = 0
+                    combo_count = 0
+                    level = 1
+                    goal = level * 5
+                    bottom_count = 0
+                    hard_drop = False
+                    name_location = 0
+                    name = [65, 65, 65]
+                    matrix = [[0 for y in range(height + 1)] for x in range(width)]
                     pause = False
 
                 if resume_button.isOver(pos):
@@ -1933,11 +2019,6 @@ while not done:
 
     # Start screen
     else:
-        # 변수 선언 및 초기화
-        if initialize:
-            set_initial_values()
-        initialize = False
-
         for event in pygame.event.get():
             pos = pygame.mouse.get_pos()
             if event.type == QUIT:
@@ -1981,7 +2062,6 @@ while not done:
                     ui_variables.click_sound.play()
                     previous_time = pygame.time.get_ticks()
                     start = True
-                    initialize = True
                     pygame.mixer.music.play(-1)
                 
 
