@@ -3,6 +3,8 @@
 
 import pygame
 import operator
+import wave
+import os
 from mino import *
 from random import *
 from pygame.locals import *
@@ -13,19 +15,12 @@ block_size = 17  # Height, width of single block
 width = 10  # 게임 보드 폭
 height = 20  # 게임 보드 높이
 
-<<<<<<< develop
 board_x = 10
 board_y = 20
 board_width = 800
 board_height = 450
 block_size = int(board_height * 0.045)
 gold = 0
-=======
-board_width = 800   # 게임 화면 폭
-board_height = 450  # 게임 화면 높이
-block_size = int(board_height * 0.045) # 20.25
-
->>>>>>> main
 framerate = 30  # Bigger -> Slower
 
 initialize = True
@@ -620,11 +615,23 @@ def is_stackable(mino):
 
     return True
 
+def set_music_playing_speed(CHANNELS, swidth, Change_RATE):
+    spf = wave.open('assets/sounds/SFX_BattleMusic.wav', 'rb')
+    RATE = spf.getframerate()
+    signal = spf.readframes(-1)
+    if os.path.isfile('assets/sounds/SFX_BattleMusic_Changed.wav'):
+        pygame.mixer.quit()
+        os.remove('assets/sounds/SFX_BattleMusic_Changed.wav')
+        pygame.mixer.init()
+    wf = wave.open('assets/sounds/SFX_BattleMusic_Changed.wav', 'wb')
+    wf.setnchannels(CHANNELS)
+    wf.setsampwidth(swidth)
+    wf.setframerate(RATE * Change_RATE)
+    wf.writeframes(signal)
+    wf.close()
 
-def set_vol(val):
-    volume = int(val) / 100
-    print(volume)
-    ui_variables.click_sound.set_volume(volume)
+    pygame.mixer.music.load('assets/sounds/SFX_BattleMusic_Changed.wav')
+    pygame.mixer.music.play(-1) #위 노래를 반복재생하기 위해 play(-1)로 설정
 
 def set_initial_values():
     global combo_count, score, level, goal, s_gold, bottom_count, hard_drop, attack_point, dx, dy, rotation, mino, next_mino1, next_mino2, hold, hold_mino, framerate, matrix, blink, start, pause, done, game_over, leader_board, setting, volume_setting, screen_setting, pvp, help, name_location, name, previous_time, current_time, pause_time, lines, leaders, volume, game_status
