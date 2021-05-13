@@ -5,6 +5,7 @@ import operator
 from tkinter import *
 from mino import *
 from random import *
+from shop import *
 from pygame.locals import *
 import ctypes 
 

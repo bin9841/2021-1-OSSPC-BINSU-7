@@ -7,16 +7,28 @@ from mino import *
 from random import *
 from pygame.locals import *
 
-# Define
-block_size = 17  # Height, width of single block
-width = 10  # Board width
-height = 20  # Board height
+# Define : 변하지 않는 변수 선언
 
+block_size = 17  # Height, width of single block
+width = 10  # 게임 보드 폭
+height = 20  # 게임 보드 높이
+
+<<<<<<< develop
+board_x = 10
+board_y = 20
 board_width = 800
 board_height = 450
 block_size = int(board_height * 0.045)
+gold = 0
+=======
+board_width = 800   # 게임 화면 폭
+board_height = 450  # 게임 화면 높이
+block_size = int(board_height * 0.045) # 20.25
 
+>>>>>>> main
 framerate = 30  # Bigger -> Slower
+
+initialize = True
 
 pygame.init()
 
@@ -67,20 +79,21 @@ class ui_variables:
     large_combos = []
     combo_ring = pygame.image.load("assets/Combo/4combo ring.png")  # 4블록 동시제거 그래픽
     combo_4ring = pygame.transform.smoothscale(combo_ring, (200, 100))
+    # 10가지의 콤보 이미지 로드
     for i in range(1, 11):
         combos.append(pygame.image.load("assets/Combo/" + str(i) + "combo.png"))
         large_combos.append(pygame.transform.smoothscale(combos[i - 1], (150, 200)))
 
     combos_sound = []
-    for i in range(1, 10):
+    for i in range(1, 10):  # 1-9까지의 콤보 사운드 로드
         combos_sound.append(pygame.mixer.Sound("assets/sounds/SFX_" + str(i + 2) + "Combo.wav"))
 
     #rainbow 보너스 점수 graphic
     rainbow_vector = pygame.image.load('assets/vector/rainbow.png')
     # Background colors
     black = (10, 10, 10)  # rgb(10, 10, 10)
-    white = (0, 153, 153)  # rgb(255, 255, 255) # 청록색으로 변경
-    real_white = (255, 255, 255)  # rgb(255, 255, 255) # 청록색으로 변경
+    white = (211, 211, 211)  # rgb(255, 255, 255) # 밝은 회색으로 변경
+    real_white = (211, 211, 211)  # rgb(255, 255, 255) # 밝은 회색으로 변경
 
     grey_1 = (70, 130, 180)  # rgb(26, 26, 26) 테두리 파랑색
     grey_2 = (221, 221, 221)  # rgb(35, 35, 35)
@@ -110,35 +123,48 @@ class ui_variables:
     t_block = [table_image, cyan_image, blue_image, orange_image, yellow_image, green_image, pink_image, red_image,
                ghost_image, linessent_image]
 
+class button(): # 버튼 객체 생성
+    def __init__(self, board_width, board_height, x_rate,
+                y_rate, width_rate, height_rate, img=''): #버튼생성
+        self.x=board_width*x_rate #버튼 x좌표
+        self.y = board_height * y_rate #버튼 y좌표
+        self.width = int(board_width * width_rate) #버튼 너비
+        self.height = int(board_height * height_rate) #버튼 높이
+        self.x_rate = x_rate #board_width * x_rate = x좌표
+        self.y_rate = y_rate #board_height * y_rate = y좌표
+        self.width_rate = width_rate #board_width * width_rate = 버튼 너비
+        self.height_rate = height_rate #board_height * height_rate = 버튼 높이
+        self.image = img #불러올 버튼 이미지
 
-class button():
-    def __init__(self, x, y, width, height, id, img=''):
-        self.x = x
-        self.y = y
-        self.width = width
-        self.height = height
-        self.id = id
-        self.image = img
+    def change(self, board_width, board_height): #버튼 위치, 크기 바꾸기
+        self.x = board_width * self.x_rate #x좌표
+        self.y = board_height * self.y_rate #y좌표
+        self.width = int(board_width * self.width_rate) #너비
+        self.height = int(board_height * self.height_rate) #높이
 
-    def draw(self, win, outline=None):
+    def draw(self, win, outline=None): #버튼 보이게 만들기
         if outline:
             draw_image(screen, self.image, self.x, self.y, self.width, self.height)
 
     def isOver(self, pos):
+        #마우스의 위치에 따라 버튼 누르기 pos[0]은 마우스 x좌표, pos[1]은 마우스 y좌표
         if pos[0] > self.x - (self.width / 2) and pos[0] < self.x + (self.width / 2):
             if pos[1] > self.y - (self.height / 2) and pos[1] < self.y + (self.height / 2):
                 return True
         return False
 
-
 start_image = 'assets/images/start.png'
 help_image = 'assets/images/help.png'
-start_button = button(board_width * 0.5, board_height * 0.5, 146, 43, 1, start_image)
 
 background_image = 'assets/vector/Background.png'
 
-single_button_image = 'assets/vector/single_button.png'
-clicked_single_button_image = 'assets/vector/clicked_single_button.png'
+start_button_image = 'assets/vector/start_button.png'
+clicked_start_button_image = 'assets/vector/clicked_start_button.png'
+# single -> start button
+
+shop_button_image = 'assets/vector/shop_button.png'
+clicked_shop_button_image = 'assets/vector/clicked_shop_button.png'
+# add shop button
 
 help_button_image = 'assets/vector/help_button.png'
 clicked_help_button_image = 'assets/vector/clicked_help_button.png'
@@ -156,6 +182,14 @@ pause_board_image = 'assets/vector/pause_board.png'
 leader_board_image = 'assets/vector/leader_board.png'
 setting_board_image = 'assets/vector/setting_board.png'
 gameover_board_image = 'assets/vector/gameover_board.png'
+mode_board_image = 'assets/vector/mode_board.png'
+# add mode_board
+
+# add item icon
+bomb = 'assets/vector/bomb.png'
+tnt = 'assets/vector/tnt.png'
+gold = 'assets/vector/gold.png'
+earthquake = 'assets/vector/earthquake.png'
 
 smallsize_board = 'assets/vector/screensize1.png'
 midiumsize_board = 'assets/vector/screensize2.png'
@@ -202,70 +236,94 @@ clicked_minus_button_image = 'assets/vector/clicked_minus_button.png'
 check_button_image = 'assets/vector/checkbox_button.png'
 clicked_check_button_image = 'assets/vector/clicked_checkbox_button.png'
 
-mute_button = button(board_width * 0.5, board_height * 0.23, int(board_width * 0.1875), int(board_height * 0.1444), 1,
-                     mute_button_image)
+# button(x좌표, y좌표, 버튼 너비, 버튼 높이, 아이디?, 이미지주소)
+# button(보드가로, 보드세로, x좌표, y좌표, 버튼 너비, 버튼 높이, 이미지주소) <-tk
 
-single_button = button(board_width * 0.78, board_height * 0.23, int(board_width * 0.3734), int(board_height * 0.1777),
-                       1, single_button_image)
-help_button = button(board_width * 0.78, board_height * 0.63, int(board_width * 0.3734), int(board_height * 0.1777), 3,
-                     help_button_image)
-quit_button = button(board_width * 0.78, board_height * 0.83, int(board_width * 0.3734), int(board_height * 0.1777), 4,
-                     quit_button_image)
-setting_icon = button(board_width * 0.1, board_height * 0.85, int(board_height * 0.23), int(board_height * 0.23), 5,
-                      setting_vector)
-leaderboard_icon = button(board_width * 0.1, board_height * 0.6, int(board_height * 0.23), int(board_height * 0.23), 6,
-                          leaderboard_vector)
+mute_button = button(board_width, board_height, 
+                    0.5, 0.23, 0.32, 0.095, mute_button_image)
 
-resume_button = button(board_width * 0.5, board_height * 0.23, int(board_width * 0.3734), int(board_height * 0.1777), 1,
-                       resume_button_image)
-restart_button = button(board_width * 0.5, board_height * 0.43, int(board_width * 0.3734), int(board_height * 0.1777),
-                        1, restart_button_image)
-setting_button = button(board_width * 0.5, board_height * 0.63, int(board_width * 0.3734), int(board_height * 0.1777),
-                        1, setting_button_image)
-pause_quit_button = button(board_width * 0.5, board_height * 0.83, int(board_width * 0.3734),
-                           int(board_height * 0.1777), 1, quit_button_image)
+start_button = button(board_width, board_height,
+                    0.78, 0.23, 0.32, 0.095, start_button_image)
 
-back_button = button(board_width * 0.5, board_height * 0.9, int(board_width * 0.3734), int(board_height * 0.1777), 1,
-                     back_button_image)
-volume_icon = button(board_width * 0.4, board_height * 0.5, int(board_height * 0.23), int(board_height * 0.23), 5,
-                     volume_vector)
-screen_icon = button(board_width * 0.6, board_height * 0.5, int(board_height * 0.23), int(board_height * 0.23), 6,
-                     screen_vector)
-ok_button = button(board_width * 0.5, board_height * 0.83, int(board_width * 0.3734), int(board_height * 0.1777), 1,
-                   ok_button_image)
+shop_button = button(board_width, board_height,
+                    0.78, 0.43, 0.32, 0.095, shop_button_image)
 
-menu_button = button(board_width * 0.5, board_height * 0.23, int(board_width * 0.3734), int(board_height * 0.1777), 1,
-                     menu_button_image)
-gameover_quit_button = button(board_width * 0.5, board_height * 0.43, int(board_width * 0.3734),
-                              int(board_height * 0.1777), 1, quit_button_image)
+help_button = button(board_width, board_height,
+                    0.78, 0.63, 0.32, 0.095, help_button_image)
+
+quit_button = button(board_width, board_height,
+                    0.78, 0.83, 0.32, 0.095, quit_button_image)
+
+setting_icon = button(board_width, board_height,
+                    0.1, 0.85, 0.12, 0.12, setting_vector)
+
+leaderboard_icon = button(board_width, board_height,
+                    0.1, 0.65, 0.12, 0.12, leaderboard_vector)
+
+resume_button = button(board_width, board_height,
+                    0.5, 0.23, 0.32, 0.095, resume_button_image)
+
+restart_button = button(board_width, board_height,
+                    0.5, 0.43, 0.32, 0.095, restart_button_image)
+
+setting_button = button(board_width, board_height,
+                    0.5, 0.63, 0.32, 0.095, setting_button_image)
+
+pause_quit_button = button(board_width, board_height,
+                    0.5, 0.83, 0.32, 0.095, quit_button_image)
+
+back_button = button(board_width, board_height,
+                    0.5, 0.9, 0.32, 0.095, back_button_image)
+
+volume_icon = button(board_width, board_height,
+                    0.4, 0.5, 0.12, 0.12, volume_vector)
+
+screen_icon = button(board_width, board_height,
+                    0.6, 0.5, 0.12, 0.12, screen_vector)
+
+ok_button = button(board_width, board_height,
+                    0.5, 0.83, 0.32, 0.095, ok_button_image)
+
+menu_button = button(board_width, board_height,
+                    0.5, 0.23, 0.32, 0.095, menu_button_image)
+                    
+gameover_quit_button = button(board_width, board_height,
+                    0.5, 0.43, 0.32, 0.095, quit_button_image)
 volume = 1.0
 
-effect_plus_button = button(board_width * 0.43, board_height * 0.43, int(board_width * 0.0625),
-                            int(board_height * 0.1111), 1, plus_button_image)
-effect_minus_button = button(board_width * 0.57, board_height * 0.43, int(board_width * 0.0625),
-                             int(board_height * 0.1111), 1, minus_button_image)
+effect_plus_button = button(board_width, board_height,
+                    0.43, 0.43, 0.12, 0.12, plus_button_image)
 
-sound_plus_button = button(board_width * 0.43, board_height * 0.63, int(board_width * 0.0625),
-                           int(board_height * 0.1111), 1, plus_button_image)
-sound_minus_button = button(board_width * 0.57, board_height * 0.63, int(board_width * 0.0625),
-                            int(board_height * 0.1111), 1, minus_button_image)
-
-mute_check_button = button(board_width * 0.2, board_height * 0.4, int(board_width * 0.0625), int(board_height * 0.1111),
-                           1, check_button_image)
-smallsize_check_button = button(board_width * 0.5, board_height * 0.25, int(board_width * 0.1875),
-                                int(board_height * 0.1444), 1, smallsize_board)
-midiumsize_check_button = button(board_width * 0.5, board_height * 0.45, int(board_width * 0.1875),
-                                 int(board_height * 0.1444), 1, midiumsize_board)
-bigsize_check_button = button(board_width * 0.5, board_height * 0.65, int(board_width * 0.1875),
-                              int(board_height * 0.1444), 1, bigsize_board)
+effect_minus_button = button(board_width, board_height,
+                    0.57, 0.43, 0.12, 0.12, minus_button_image)
+                    
+sound_plus_button = button(board_width, board_height,
+                    0.43, 0.63, 0.12, 0.12, plus_button_image)
+                    
+sound_minus_button = button(board_width, board_height,
+                    0.57, 0.63, 0.12, 0.12, plus_button_image)
+                    
+mute_check_button = button(board_width, board_height,
+                    0.2, 0.4, 0.12, 0.12, check_button_image)
+                    
+smallsize_check_button = button(board_width, board_height,
+                        0.5, 0.25, 0.32, 0.095, smallsize_board)
+                                            
+midiumsize_check_button = button(board_width, board_height,
+                        0.5, 0.45, 0.32, 0.095, midiumsize_board)
+                                            
+bigsize_check_button = button(board_width, board_height,
+                        0.5, 0.65, 0.32, 0.095, bigsize_board)
 
 tetris3 = pygame.image.load("assets/images/tetris3.png")
 tetris4 = pygame.transform.smoothscale(tetris3, (200, 150))
 
+# 624, 138
+
 
 def set_screen_interface():
-    single_button = button(board_width * 0.78, board_height * 0.23, int(board_width * 0.3734),
-                           int(board_height * 0.1777), 1, single_button_image)
+    start_button = button(board_width * 0.78, board_height * 0.23, int(board_width * 0.3734),
+                           int(board_height * 0.1777), 1, start_button_image)
     help_button = button(board_width * 0.78, board_height * 0.63, int(board_width * 0.3734), int(board_height * 0.1777),
                          3, help_button_image)
     quit_button = button(board_width * 0.78, board_height * 0.83, int(board_width * 0.3734), int(board_height * 0.1777),
@@ -466,8 +524,8 @@ def erase_mino(x, y, mino, r):
     grid = tetrimino.mino_map[mino - 1][r]
 
     # Erase ghost
-    for j in range(21):
-        for i in range(10):
+    for j in range(board_y+1):
+        for i in range(board_x):
             if matrix[i][j] == 8:
                 matrix[i][j] = 0
 
@@ -485,7 +543,7 @@ def is_bottom(x, y, mino, r):
     for i in range(4):
         for j in range(4):
             if grid[i][j] != 0:
-                if (y + i + 1) > 20:
+                if (y + i + 1) > board_y:
                     return True
                 elif matrix[x + j][y + i + 1] != 0 and matrix[x + j][y + i + 1] != 8:
                     return True
@@ -515,7 +573,7 @@ def is_rightedge(x, y, mino, r):
     for i in range(4):
         for j in range(4):
             if grid[i][j] != 0:
-                if (x + j + 1) > 9:
+                if (x + j + 1) >= board_x:
                     return True
                 elif matrix[x + j + 1][y + i] != 0:
                     return True
@@ -533,7 +591,7 @@ def is_turnable_r(x, y, mino, r):
     for i in range(4):
         for j in range(4):
             if grid[i][j] != 0:
-                if (x + j) < 0 or (x + j) > 9 or (y + i) < 0 or (y + i) > 20:
+                if (x + j) < 0 or (x + j) >= board_x or (y + i) < 0 or (y + i) > board_y:
                     return False
                 elif matrix[x + j][y + i] != 0:
                     return False
@@ -550,7 +608,7 @@ def is_turnable_l(x, y, mino, r):
     for i in range(4):
         for j in range(4):
             if grid[i][j] != 0:
-                if (x + j) < 0 or (x + j) > 9 or (y + i) < 0 or (y + i) > 20:
+                if (x + j) < 0 or (x + j) > 9 or (y + i) < 0 or (y + i) > board_y:
                     return False
                 elif matrix[x + j][y + i] != 0:
                     return False
@@ -576,74 +634,81 @@ def set_vol(val):
     print(volume)
     ui_variables.click_sound.set_volume(volume)
 
+def set_initial_values():
+    global combo_count, score, level, goal, s_gold, bottom_count, hard_drop, attack_point, dx, dy, rotation, mino, next_mino1, next_mino2, hold, hold_mino, framerate, matrix, blink, start, pause, done, game_over, leader_board, setting, volume_setting, screen_setting, pvp, help, name_location, name, previous_time, current_time, pause_time, lines, leaders, volume, game_status
+    framerate = 30
 
-# Initial values
-blink = False
-start = False
-pause = False
-done = False
-game_over = False
-leader_board = False
-setting = False
-help = False
-combo_count = 0
-score = 0
-level = 1
-goal = level * 5
-bottom_count = 0
-hard_drop = False
+    # Initial values
+    blink = False
+    start = False
+    pause = False
+    done = False
+    game_over = False
+    leader_board = False
+    setting = False
+    help = False
+    combo_count = 0
+    score = 0
+    level = 1
+    goal = level * 5
+    bottom_count = 0
+    s_gold = 0
+    hard_drop = False
 
-volume_setting = False
-screen_setting = False
-keyboard_setting = False
+    volume_setting = False
+    screen_setting = False
+    keyboard_setting = False
 
-music_volume = 10
-effect_volume = 10
-attack_point = 0 #어택모드에 사용할지?
+    music_volume = 10
+    effect_volume = 10
+    attack_point = 0 #어택모드에 사용할지?
 
-dx, dy = 3, 0  # Minos location status
+    dx, dy = 3, 0  # Minos location status
 
-rotation = 0  # Minos rotation status
+    rotation = 0  # Minos rotation status
 
-mino = randint(1, 7)  # Current mino
+    mino = randint(1, 7)  # Current mino
 
-next_mino1 = randint(1, 7)  # Next mino1
-next_mino2 = randint(1, 7)  # Next mino2
+    next_mino1 = randint(1, 7)  # Next mino1
+    next_mino2 = randint(1, 7)  # Next mino2
 
-hold = False  # Hold status
+    hold = False  # Hold status
 
-hold_mino = -1  # Holded mino
+    hold_mino = -1  # Holded mino
 
-name_location = 0
-name = [65, 65, 65]
-previous_time = pygame.time.get_ticks()
-current_time = pygame.time.get_ticks()
-pause_time = pygame.time.get_ticks()
+    name_location = 0
+    name = [65, 65, 65]
+    previous_time = pygame.time.get_ticks()
+    current_time = pygame.time.get_ticks()
+    pause_time = pygame.time.get_ticks()
 
-with open('leaderboard.txt') as f:
-    lines = f.readlines()
-lines = [line.rstrip('\n') for line in open('leaderboard.txt')]
+    with open('leaderboard.txt') as f:
+        lines = f.readlines()
+    lines = [line.rstrip('\n') for line in open('leaderboard.txt')]
 
-leaders = {'AAA': 0, 'BBB': 0, 'CCC': 0}
-for i in lines:
-    leaders[i.split(' ')[0]] = int(i.split(' ')[1])
-leaders = sorted(leaders.items(), key=operator.itemgetter(1), reverse=True)
+    leaders = {'AAA': 0, 'BBB': 0, 'CCC': 0}
+    for i in lines:
+        leaders[i.split(' ')[0]] = int(i.split(' ')[1])
+    leaders = sorted(leaders.items(), key=operator.itemgetter(1), reverse=True)
 
-matrix = [[0 for y in range(height + 1)] for x in range(width)]  # Board matrix
+    matrix = [[0 for y in range(height + 1)] for x in range(width)]  # Board matrix
+
+    volume = 1.0
+
+    ui_variables.click_sound.set_volume(volume)
+
+    pygame.mixer.init()
+    ui_variables.intro_sound.set_volume(0.1)
+    ui_variables.intro_sound.play()
+    game_status = ''
+    ui_variables.break_sound.set_volume(0.2)
+
+set_initial_values()
+pygame.time.set_timer(pygame.USEREVENT, 10)
 
 ###########################################################
 # Loop Start
 ###########################################################
-
-volume = 1.0
-
-ui_variables.click_sound.set_volume(volume)
-
-pygame.mixer.init()
-ui_variables.intro_sound.set_volume(0.1)
-ui_variables.intro_sound.play()
-game_status = ''
-ui_variables.break_sound.set_volume(0.2)
 
 while not done:
 
@@ -748,7 +813,7 @@ while not done:
     elif screen_setting:
         screen.fill(ui_variables.white)
         draw_image(screen, background_image, board_width * 0.5, board_height * 0.5, board_width, board_height)
-        single_button.draw(screen, (0, 0, 0))
+        start_button.draw(screen, (0, 0, 0))
         help_button.draw(screen, (0, 0, 0))
         quit_button.draw(screen, (0, 0, 0))
         setting_icon.draw(screen, (0, 0, 0))
@@ -804,8 +869,8 @@ while not done:
                     board_height = 450
                     block_size = int(board_height * 0.045)
                     screen = pygame.display.set_mode((board_width, board_height), pygame.RESIZABLE)
-                    single_button = button(board_width * 0.78, board_height * 0.23, int(board_width * 0.3734),
-                                           int(board_height * 0.1777), 1, single_button_image)
+                    start_button = button(board_width * 0.78, board_height * 0.23, int(board_width * 0.3734),
+                                           int(board_height * 0.1777), 1, start_button_image)
                     #여기에 난이도 모드랑 샌드박스모드 추가해야되는듯 (크기 조절 필요)
                     help_button = button(board_width * 0.78, board_height * 0.63, int(board_width * 0.3734),
                                          int(board_height * 0.1777), 3, help_button_image)
@@ -867,8 +932,8 @@ while not done:
                     board_height = 675
                     block_size = int(board_height * 0.045)
                     screen = pygame.display.set_mode((board_width, board_height), pygame.RESIZABLE)
-                    single_button = button(board_width * 0.78, board_height * 0.23, int(board_width * 0.3734),
-                                           int(board_height * 0.1777), 1, single_button_image)
+                    start_button = button(board_width * 0.78, board_height * 0.23, int(board_width * 0.3734),
+                                           int(board_height * 0.1777), 1, start_button_image)
                     #여기에 난이도 모드랑 샌드박스모드 추가해야되는듯 (크기 조절 필요)
                     help_button = button(board_width * 0.78, board_height * 0.63, int(board_width * 0.3734),
                                          int(board_height * 0.1777), 3, help_button_image)
@@ -931,8 +996,8 @@ while not done:
                     board_height = 900
                     block_size = int(board_height * 0.045)
                     screen = pygame.display.set_mode((board_width, board_height), pygame.RESIZABLE)
-                    single_button = button(board_width * 0.78, board_height * 0.23, int(board_width * 0.3734),
-                                           int(board_height * 0.1777), 1, single_button_image)
+                    start_button = button(board_width * 0.78, board_height * 0.23, int(board_width * 0.3734),
+                                           int(board_height * 0.1777), 1, start_button_image)
                     #여기에 난이도 모드랑 샌드박스모드 추가해야되는듯 (크기 조절 필요)
                     help_button = button(board_width * 0.78, board_height * 0.63, int(board_width * 0.3734),
                                          int(board_height * 0.1777), 3, help_button_image)
@@ -989,7 +1054,7 @@ while not done:
 
     elif setting:
         draw_image(screen, background_image, board_width * 0.5, board_height * 0.5, board_width, board_height)
-        single_button.draw(screen, (0, 0, 0))
+        start_button.draw(screen, (0, 0, 0))
         
         help_button.draw(screen, (0, 0, 0))
         quit_button.draw(screen, (0, 0, 0))
@@ -1067,8 +1132,8 @@ while not done:
                 board_height = event.h
                 block_size = int(board_height * 0.045)
                 screen = pygame.display.set_mode((board_width, board_height), pygame.RESIZABLE)
-                single_button = button(board_width * 0.78, board_height * 0.23, int(board_width * 0.3734),
-                                       int(board_height * 0.1777), 1, single_button_image)
+                start_button = button(board_width * 0.78, board_height * 0.23, int(board_width * 0.3734),
+                                       int(board_height * 0.1777), 1, start_button_image)
                 
                 help_button = button(board_width * 0.78, board_height * 0.63, int(board_width * 0.3734),
                                      int(board_height * 0.1777), 3, help_button_image)
@@ -1166,24 +1231,6 @@ while not done:
                     setting = True
                 if restart_button.isOver(pos):
                     ui_variables.click_sound.play()
-                    hold = False
-                    dx, dy = 3, 0
-                    rotation = 0
-                    mino = randint(1, 7)
-                    next_mino1 = randint(1, 7)
-                    next_mino2 = randint(1, 7)
-                    hold_mino = -1
-                    framerate = 30
-                    score = 0
-                    score = 0
-                    level = 1
-                    combo_count = 0
-                    goal = level * 5
-                    bottom_count = 0
-                    hard_drop = False
-                    name_location = 0
-                    name = [65, 65, 65]
-                    matrix = [[0 for y in range(height + 1)] for x in range(width)]
 
                     pause = False
                     start = False
@@ -1200,8 +1247,8 @@ while not done:
                 block_size = int(board_height * 0.045)
 
                 screen = pygame.display.set_mode((board_width, board_height), pygame.RESIZABLE)
-                single_button = button(board_width * 0.78, board_height * 0.23, int(board_width * 0.3734),
-                                       int(board_height * 0.1777), 1, single_button_image)
+                start_button = button(board_width * 0.78, board_height * 0.23, int(board_width * 0.3734),
+                                       int(board_height * 0.1777), 1, start_button_image)
                 
                 help_button = button(board_width * 0.78, board_height * 0.63, int(board_width * 0.3734),
                                      int(board_height * 0.1777), 3, help_button_image)
@@ -1237,7 +1284,7 @@ while not done:
                                               int(board_height * 0.1777), 1, quit_button_image)
     elif help:
         draw_image(screen, background_image, board_width * 0.5, board_height * 0.5, board_width, board_height)
-        single_button.draw(screen, (0, 0, 0))
+        start_button.draw(screen, (0, 0, 0))
 
         help_button.draw(screen, (0, 0, 0))
         quit_button.draw(screen, (0, 0, 0))
@@ -1278,8 +1325,8 @@ while not done:
                 block_size = int(board_height * 0.045)
 
                 screen = pygame.display.set_mode((board_width, board_height), pygame.RESIZABLE)
-                single_button = button(board_width * 0.78, board_height * 0.23, int(board_width * 0.3734),
-                                       int(board_height * 0.1777), 1, single_button_image)
+                start_button = button(board_width * 0.78, board_height * 0.23, int(board_width * 0.3734),
+                                       int(board_height * 0.1777), 1, start_button_image)
             
                 help_button = button(board_width * 0.78, board_height * 0.63, int(board_width * 0.3734),
                                      int(board_height * 0.1777), 3, help_button_image)
@@ -1316,7 +1363,7 @@ while not done:
     # Game screen
     elif leader_board:
         draw_image(screen, background_image, board_width * 0.5, board_height * 0.5, board_width, board_height)
-        single_button.draw(screen, (0, 0, 0))
+        start_button.draw(screen, (0, 0, 0))
         
         help_button.draw(screen, (0, 0, 0))
         quit_button.draw(screen, (0, 0, 0))
@@ -1368,8 +1415,8 @@ while not done:
                 block_size = int(board_height * 0.045)
 
                 screen = pygame.display.set_mode((board_width, board_height), pygame.RESIZABLE)
-                single_button = button(board_width * 0.78, board_height * 0.23, int(board_width * 0.3734),
-                                       int(board_height * 0.1777), 1, single_button_image)
+                start_button = button(board_width * 0.78, board_height * 0.23, int(board_width * 0.3734),
+                                       int(board_height * 0.1777), 1, start_button_image)
                 
                 help_button = button(board_width * 0.78, board_height * 0.63, int(board_width * 0.3734),
                                      int(board_height * 0.1777), 3, help_button_image)
@@ -1463,9 +1510,9 @@ while not done:
                 rainbow_count = 0
                 matrix_contents = []
 
-                for j in range(21):
+                for j in range(board_y+1):
                     is_full = True
-                    for i in range(10):
+                    for i in range(board_x):
                         if matrix[i][j] == 0: #빈 공간(장애물블록 추가하면 matrix[i][j]==9 or로 넣기)
                             is_full = False
                     if is_full: # 한 줄 꽉 찼을 때
@@ -1475,14 +1522,14 @@ while not done:
 
                         #rainbow보너스 점수
                         rainbow = [1,2,3,4,5,6,7] #각 mino에 해당하는 숫자
-                        for i in range(10):
+                        for i in range(board_x):
                             matrix_contents.append(matrix[i][j]) #현재 클리어된 줄에 있는 mino 종류들 저장
                         rainbow_check = list(set(matrix_contents).intersection(rainbow)) #현재 클리어된 줄에 있는 mino와 mino의 종류중 겹치는 것 저장
                         if rainbow == rainbow_check: #현재 클리어된 줄에 모든 종류 mino 있다면
                             rainbow_count += 1
 
                         while k > 0:
-                            for i in range(10):
+                            for i in range(board_x):
                                 matrix[i][k] = matrix[i][k - 1] # 남아있는 블록 한 줄씩 내리기(덮어쓰기)
                             k -= 1
 
@@ -1680,8 +1727,8 @@ while not done:
                 block_size = int(board_height * 0.045)
 
                 screen = pygame.display.set_mode((board_width, board_height), pygame.RESIZABLE)
-                single_button = button(board_width * 0.78, board_height * 0.23, int(board_width * 0.3734),
-                                       int(board_height * 0.1777), 1, single_button_image)
+                start_button = button(board_width * 0.78, board_height * 0.23, int(board_width * 0.3734),
+                                       int(board_height * 0.1777), 1, start_button_image)
                 
                 help_button = button(board_width * 0.78, board_height * 0.63, int(board_width * 0.3734),
                                      int(board_height * 0.1777), 3, help_button_image)
@@ -1747,6 +1794,7 @@ while not done:
                 screen.blit(name_2, (int(board_width * 0.494), int(board_height * 0.55)))
                 screen.blit(name_3, (int(board_width * 0.545), int(board_height * 0.55)))
 
+
                 if blink:
 
                     blink = False
@@ -1767,35 +1815,8 @@ while not done:
                     outfile = open('leaderboard.txt', 'a')
                     outfile.write(chr(name[0]) + chr(name[1]) + chr(name[2]) + ' ' + str(score) + '\n')
                     outfile.close()
-
-                    game_over = False
-                    hold = False  #
-                    dx, dy = 3, 0  #
-                    rotation = 0  #
-                    mino = randint(1, 7)  #
-                    next_mino1 = randint(1, 7)  #
-                    hold_mino = -1  #
-                    framerate = 30
-                    score = 0
-                    combo_count = 0
-                    level = 1
-                    goal = level * 5
-                    bottom_count = 0  #
-                    hard_drop = False  #
-                    name_location = 0
-                    name = [65, 65, 65]
-                    matrix = [[0 for y in range(height + 1)] for x in range(width)]
-
                     
-                    with open('leaderboard.txt') as f:
-                        lines = f.readlines()
-                    lines = [line.rstrip('\n') for line in open('leaderboard.txt')]
-
-                    leaders = {'AAA': 0, 'BBB': 0, 'CCC': 0}
-                    for i in lines:
-                        leaders[i.split(' ')[0]] = int(i.split(' ')[1])
-                    leaders = sorted(leaders.items(), key=operator.itemgetter(1), reverse=True)
-
+                    game_over = False
                     pygame.time.set_timer(pygame.USEREVENT, 1)
                 elif event.key == K_RIGHT:
                     if name_location != 2:
@@ -1850,55 +1871,11 @@ while not done:
                     outfile.close()
 
                     game_over = False
-                    hold = False  #
-                    dx, dy = 3, 0  #
-                    rotation = 0  #
-                    mino = randint(1, 7)  #
-                    next_mino1 = randint(1, 7)  #
-                    hold_mino = -1  #
-                    framerate = 30
-                    score = 0
-                    combo_count = 0
-                    level = 1
-                    goal = level * 5
-                    bottom_count = 0  #
-                    hard_drop = False  #
-                    name_location = 0
-                    name = [65, 65, 65]
-                    matrix = [[0 for y in range(height + 1)] for x in range(width)]
-
-                    with open('leaderboard.txt') as f:
-                        lines = f.readlines()
-                    lines = [line.rstrip('\n') for line in open('leaderboard.txt')]
-
-                    leaders = {'AAA': 0, 'BBB': 0, 'CCC': 0}
-                    for i in lines:
-                        leaders[i.split(' ')[0]] = int(i.split(' ')[1])
-                    leaders = sorted(leaders.items(), key=operator.itemgetter(1), reverse=True)
-
                     pygame.time.set_timer(pygame.USEREVENT, 1)
 
                 if menu_button.isOver(pos):
                     ui_variables.click_sound.play()
-                    start = False
-                    pvp = False
                     game_over = False
-                    hold = False
-                    dx, dy = 3, 0
-                    rotation = 0
-                    mino = randint(1, 7)
-                    next_mino1 = randint(1, 7)
-                    hold_mino = -1
-                    framerate = 30
-                    score = 0
-                    combo_count = 0
-                    level = 1
-                    goal = level * 5
-                    bottom_count = 0
-                    hard_drop = False
-                    name_location = 0
-                    name = [65, 65, 65]
-                    matrix = [[0 for y in range(height + 1)] for x in range(width)]
                     
                 if restart_button.isOver(pos):
                     if game_status == 'start':
@@ -1909,22 +1886,6 @@ while not done:
                         pygame.mixer.music.play(-1)
                     ui_variables.click_sound.play()
                     game_over = False
-                    hold = False
-                    dx, dy = 3, 0
-                    rotation = 0
-                    mino = randint(1, 7)
-                    next_mino1 = randint(1, 7)
-                    hold_mino = -1
-                    framerate = 30
-                    score = 0
-                    combo_count = 0
-                    level = 1
-                    goal = level * 5
-                    bottom_count = 0
-                    hard_drop = False
-                    name_location = 0
-                    name = [65, 65, 65]
-                    matrix = [[0 for y in range(height + 1)] for x in range(width)]
                     pause = False
 
                 if resume_button.isOver(pos):
@@ -1937,8 +1898,8 @@ while not done:
                 block_size = int(board_height * 0.045)
 
                 screen = pygame.display.set_mode((board_width, board_height), pygame.RESIZABLE)
-                single_button = button(board_width * 0.78, board_height * 0.23, int(board_width * 0.3734),
-                                       int(board_height * 0.1777), 1, single_button_image)
+                start_button = button(board_width * 0.78, board_height * 0.23, int(board_width * 0.3734),
+                                       int(board_height * 0.1777), 1, start_button_image)
                 
                 help_button = button(board_width * 0.78, board_height * 0.63, int(board_width * 0.3734),
                                      int(board_height * 0.1777), 3, help_button_image)
@@ -1974,6 +1935,11 @@ while not done:
 
     # Start screen
     else:
+        # 변수 선언 및 초기화
+        if initialize:
+            set_initial_values()
+        initialize = False
+
         for event in pygame.event.get():
             pos = pygame.mouse.get_pos()
             if event.type == QUIT:
@@ -1986,10 +1952,10 @@ while not done:
                     ui_variables.click_sound.play()
                     start = True
             elif event.type == pygame.MOUSEMOTION:
-                if single_button.isOver(pos):
-                    single_button.image = clicked_single_button_image
+                if start_button.isOver(pos):
+                    start_button.image = clicked_start_button_image
                 else:
-                    single_button.image = single_button_image
+                    start_button.image = start_button_image
                 
 
 
@@ -2013,10 +1979,11 @@ while not done:
                 else:
                     leaderboard_icon.image = leaderboard_vector
             elif event.type == pygame.MOUSEBUTTONDOWN:
-                if single_button.isOver(pos):
+                if start_button.isOver(pos):
                     ui_variables.click_sound.play()
                     previous_time = pygame.time.get_ticks()
                     start = True
+                    initialize = True
                     pygame.mixer.music.play(-1)
                 
 
@@ -2038,8 +2005,8 @@ while not done:
                 block_size = int(board_height * 0.045)
 
                 screen = pygame.display.set_mode((board_width, board_height), pygame.RESIZABLE)
-                single_button = button(board_width * 0.78, board_height * 0.23, int(board_width * 0.3734),
-                                       int(board_height * 0.1777), 1, single_button_image)
+                start_button = button(board_width * 0.78, board_height * 0.23, int(board_width * 0.3734),
+                                       int(board_height * 0.1777), 1, start_button_image)
                 
                 help_button = button(board_width * 0.78, board_height * 0.63, int(board_width * 0.3734),
                                      int(board_height * 0.1777), 3, help_button_image)
@@ -2077,7 +2044,7 @@ while not done:
 
         draw_image(screen, background_image, board_width * 0.5, board_height * 0.5, board_width, board_height)
 
-        single_button.draw(screen, (0, 0, 0))
+        start_button.draw(screen, (0, 0, 0))
         
         help_button.draw(screen, (0, 0, 0))
         quit_button.draw(screen, (0, 0, 0))
