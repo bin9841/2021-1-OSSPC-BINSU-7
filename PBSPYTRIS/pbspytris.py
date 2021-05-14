@@ -4,6 +4,7 @@
 import pygame
 import operator
 <<<<<<< HEAD
+<<<<<<< HEAD
 from mino import *
 from random import *
 from pygame.locals import *
@@ -30,6 +31,8 @@ pygame.display.set_caption("PBS PYTETRIS")
 class ui_variables:
     # Fonts
 =======
+=======
+>>>>>>> parent of 1e44485 (Merge develop from csid)
 import wave
 from mino import *
 from random import *
@@ -72,19 +75,28 @@ screen = pygame.display.set_mode((board_width, board_height), pygame.RESIZABLE) 
 pygame.display.set_caption("TETRIS KINGDOM") #GUI 창의 이름
 
 class ui_variables:
+<<<<<<< HEAD
+>>>>>>> parent of 1e44485 (Merge develop from csid)
+=======
 >>>>>>> parent of 1e44485 (Merge develop from csid)
     font_path = "./assets/fonts/OpenSans-Light.ttf"
     font_path_b = "./assets/fonts/OpenSans-Bold.ttf"
     font_path_i = "./assets/fonts/Inconsolata/Inconsolata.otf"
 
 <<<<<<< HEAD
+<<<<<<< HEAD
     h1 = pygame.font.Font(font_path_b, 80)
     h2 = pygame.font.Font(font_path_b, 30)
 =======
+=======
+>>>>>>> parent of 1e44485 (Merge develop from csid)
     # Font(글씨체, 글자크기)
     h1 = pygame.font.Font(font_path_b, 80)
     h2 = pygame.font.Font(font_path_b, 30)
     h3 = pygame.font.Font(font_path_b, 25)
+<<<<<<< HEAD
+>>>>>>> parent of 1e44485 (Merge develop from csid)
+=======
 >>>>>>> parent of 1e44485 (Merge develop from csid)
     h4 = pygame.font.Font(font_path_b, 20)
     h5 = pygame.font.Font(font_path_b, 13)
@@ -98,6 +110,7 @@ class ui_variables:
 
     # Sounds
 <<<<<<< HEAD
+<<<<<<< HEAD
 
     pygame.mixer.music.load("assets/sounds/SFX_BattleMusic.wav")
     pygame.mixer.music.set_volume(0.3)
@@ -107,19 +120,28 @@ class ui_variables:
     break_sound = pygame.mixer.Sound("assets/sounds/SFX_Break.wav")
     click_sound = pygame.mixer.Sound("assets/sounds/SFX_ButtonUp.wav")
 =======
+=======
+>>>>>>> parent of 1e44485 (Merge develop from csid)
     pygame.mixer.music.load("assets/sounds/SFX_BattleMusic.wav") #음악 불러옴
     pygame.mixer.music.set_volume(0.5) # 이 부분도 필요 없음, set_volume에 추가해야 함
     intro_sound = pygame.mixer.Sound("assets/sounds/SFX_Intro.wav")
     fall_sound = pygame.mixer.Sound("assets/sounds/SFX_Fall.wav")
     break_sound = pygame.mixer.Sound("assets/sounds/SFX_Break.wav")
     click_sound = pygame.mixer.Sound("assets/sounds/SFX_ButtonUp.wav") #여기부터
+<<<<<<< HEAD
+>>>>>>> parent of 1e44485 (Merge develop from csid)
+=======
 >>>>>>> parent of 1e44485 (Merge develop from csid)
     move_sound = pygame.mixer.Sound("assets/sounds/SFX_PieceMoveLR.wav")
     drop_sound = pygame.mixer.Sound("assets/sounds/SFX_PieceHardDrop.wav")
     single_sound = pygame.mixer.Sound("assets/sounds/SFX_SpecialLineClearSingle.wav")
     double_sound = pygame.mixer.Sound("assets/sounds/SFX_SpecialLineClearDouble.wav")
 <<<<<<< HEAD
+<<<<<<< HEAD
     triple_sound = pygame.mixer.Sound("assets/sounds/SFX_SpecialLineClearTriple.wav")
+=======
+    triple_sound = pygame.mixer.Sound("assets/sounds/SFX_SpecialLineClearTriple.wav") #여기까지는 기존코드
+>>>>>>> parent of 1e44485 (Merge develop from csid)
 =======
     triple_sound = pygame.mixer.Sound("assets/sounds/SFX_SpecialLineClearTriple.wav") #여기까지는 기존코드
 >>>>>>> parent of 1e44485 (Merge develop from csid)
@@ -131,6 +153,7 @@ class ui_variables:
     combos = []
     large_combos = []
     combo_ring = pygame.image.load("assets/Combo/4combo ring.png")  # 4블록 동시제거 그래픽
+<<<<<<< HEAD
 <<<<<<< HEAD
     combo_4ring = pygame.transform.smoothscale(combo_ring, (200, 100))
     for i in range(1, 11):
@@ -155,6 +178,8 @@ class ui_variables:
 
     # Tetrimino colors
 =======
+=======
+>>>>>>> parent of 1e44485 (Merge develop from csid)
     combo_4ring = pygame.transform.smoothscale(combo_ring, (200, 100)) #이미지를 특정 크기로 불러옴, 200=가로크기, 100=세로크기#
     for i in range(1, 11): #10가지의 콤보 이미지 존재. 각 숫자에 해당하는 이미지 불러옴
         combos.append(pygame.image.load("assets/Combo/" + str(i) + "combo.png"))
@@ -180,6 +205,9 @@ class ui_variables:
     bright_yellow = (255, 217, 102)  # 밝은 노랑
 
     # Tetrimino colors. RGB 값에 해당함
+<<<<<<< HEAD
+>>>>>>> parent of 1e44485 (Merge develop from csid)
+=======
 >>>>>>> parent of 1e44485 (Merge develop from csid)
     cyan = (10, 255, 226)  # rgb(69, 206, 204) # I
     blue = (64, 105, 255)  # rgb(64, 111, 249) # J
@@ -203,6 +231,7 @@ class ui_variables:
     t_block = [table_image, cyan_image, blue_image, orange_image, yellow_image, green_image, pink_image, red_image,
                ghost_image, linessent_image]
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 
 class button():
@@ -235,6 +264,11 @@ background_image = 'assets/vector/Background.png'
 background_image = 'assets/vector/kingdom.jpg' #홈 배경화면
 gamebackground_image = 'assets/vector/snowymountains.png' #게임 배경화면
 >>>>>>> parent of 1e44485 (Merge develop from csid)
+=======
+#각 이미지 주소
+background_image = 'assets/vector/kingdom.jpg' #홈 배경화면
+gamebackground_image = 'assets/vector/snowymountains.png' #게임 배경화면
+>>>>>>> parent of 1e44485 (Merge develop from csid)
 
 single_button_image = 'assets/vector/single_button.png'
 clicked_single_button_image = 'assets/vector/clicked_single_button.png'
@@ -249,9 +283,12 @@ quit_button_image = 'assets/vector/quit_button.png'
 clicked_quit_button_image = 'assets/vector/clicked_quit_button.png'
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 leaderboard_vector = 'assets/vector/leaderboard_vector.png'
 clicked_leaderboard_vector = 'assets/vector/clicked_leader_vector.png'
 =======
+=======
+>>>>>>> parent of 1e44485 (Merge develop from csid)
 gravity_button_image = 'assets/vector/gravity_button.png'
 clicked_gravity_button_image = 'assets/vector/clicked_gravity_button.png'
 
@@ -260,6 +297,9 @@ clicked_timeattack_button_image = 'assets/vector/clicked_timeattack_button.png'
 
 leaderboard_vector = 'assets/vector/leaderboard_vector.png'
 clicked_leaderboard_vector = 'assets/vector/clicked_leaderboard_vector.png'
+<<<<<<< HEAD
+>>>>>>> parent of 1e44485 (Merge develop from csid)
+=======
 >>>>>>> parent of 1e44485 (Merge develop from csid)
 
 setting_vector = 'assets/vector/setting_vector.png'
@@ -270,6 +310,10 @@ leader_board_image = 'assets/vector/leader_board.png'
 setting_board_image = 'assets/vector/setting_board.png'
 gameover_board_image = 'assets/vector/gameover_board.png'
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+gameover_image = 'assets/vector/gameover.png'
+>>>>>>> parent of 1e44485 (Merge develop from csid)
 =======
 gameover_image = 'assets/vector/gameover.png'
 >>>>>>> parent of 1e44485 (Merge develop from csid)
@@ -279,8 +323,13 @@ midiumsize_board = 'assets/vector/screensize2.png'
 bigsize_board = 'assets/vector/screensize3.png'
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 mute_button_image = 'assets/vector/mute_button.png'
 ##clicked_mute_button_image = 'assets/vector/clicked_mute_button.png'
+=======
+mute_button_image = 'assets/vector/allmute_button.png'
+default_button_image = 'assets/vector/default_button.png'
+>>>>>>> parent of 1e44485 (Merge develop from csid)
 =======
 mute_button_image = 'assets/vector/allmute_button.png'
 default_button_image = 'assets/vector/default_button.png'
@@ -321,6 +370,12 @@ clicked_plus_button_image = 'assets/vector/clicked_plus_button.png'
 minus_button_image = 'assets/vector/minus_button.png'
 clicked_minus_button_image = 'assets/vector/clicked_minus_button.png'
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+#음소거 추가#
+sound_off_button_image = 'assets/vector/sound_off_button.png'
+sound_on_button_image = 'assets/vector/sound_on_button.png'
+>>>>>>> parent of 1e44485 (Merge develop from csid)
 =======
 #음소거 추가#
 sound_off_button_image = 'assets/vector/sound_off_button.png'
@@ -330,6 +385,7 @@ sound_on_button_image = 'assets/vector/sound_on_button.png'
 check_button_image = 'assets/vector/checkbox_button.png'
 clicked_check_button_image = 'assets/vector/clicked_checkbox_button.png'
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 mute_button = button(board_width * 0.5, board_height * 0.23, int(board_width * 0.1875), int(board_height * 0.1444), 1,
                      mute_button_image)
@@ -455,6 +511,8 @@ def set_screen_interface():
 def set_volume():
     ui_variables.fall_sound.set_volume(effect_volume / 10)
 =======
+=======
+>>>>>>> parent of 1e44485 (Merge develop from csid)
 pvp_win_image = 'assets/vector/pvp_win.png'
 pvp_lose_image = 'assets/vector/pvp_lose.png'
 
@@ -556,6 +614,9 @@ button_list = [mute_button, default_button, single_button, pvp_button, help_butt
 
 def set_volume():
     ui_variables.fall_sound.set_volume(effect_volume / 10) #set_volume의 argument는 0.0~1.0으로 이루어져야하기 때문에 소수로 만들어주기 위해 10으로 나눔#
+<<<<<<< HEAD
+>>>>>>> parent of 1e44485 (Merge develop from csid)
+=======
 >>>>>>> parent of 1e44485 (Merge develop from csid)
     ui_variables.click_sound.set_volume(effect_volume / 10)
     ui_variables.break_sound.set_volume(effect_volume / 10)
@@ -570,7 +631,11 @@ def set_volume():
     ui_variables.intro_sound.set_volume(music_volume / 10)
     pygame.mixer.music.set_volume(music_volume / 10)
 <<<<<<< HEAD
+<<<<<<< HEAD
     for i in range(1, 10):
+=======
+    for i in range(1, 10): #10가지의 combo 사운드를 한번에 조절함
+>>>>>>> parent of 1e44485 (Merge develop from csid)
 =======
     for i in range(1, 10): #10가지의 combo 사운드를 한번에 조절함
 >>>>>>> parent of 1e44485 (Merge develop from csid)
@@ -579,8 +644,13 @@ def set_volume():
 
 def draw_image(window, img_path, x, y, width, height):
 <<<<<<< HEAD
+<<<<<<< HEAD
     x = x - (width / 2)
     y = y - (height / 2)
+=======
+    x = x - (width / 2) #해당 이미지의 가운데 x좌표, 가운데 좌표이기 때문에 2로 나눔
+    y = y - (height / 2) #해당 이미지의 가운데 y좌표, 가운데 좌표이기 때문에 2로 나눔
+>>>>>>> parent of 1e44485 (Merge develop from csid)
 =======
     x = x - (width / 2) #해당 이미지의 가운데 x좌표, 가운데 좌표이기 때문에 2로 나눔
     y = y - (height / 2) #해당 이미지의 가운데 y좌표, 가운데 좌표이기 때문에 2로 나눔
@@ -607,6 +677,7 @@ def draw_block(x, y, color):
 
 def draw_block_image(x, y, image):
 <<<<<<< HEAD
+<<<<<<< HEAD
     draw_image(screen, image, x, y, block_size, block_size)
 
 
@@ -614,6 +685,8 @@ def draw_block_image(x, y, image):
 def draw_board(next1, next2, hold, score, level, goal):
     sidebar_width = int(board_width * 0.5312)
 =======
+=======
+>>>>>>> parent of 1e44485 (Merge develop from csid)
     draw_image(screen, image, x, y, block_size, block_size) #(window, 이미지주소, x좌표, y좌표, 너비, 높이)
 
 
@@ -623,11 +696,15 @@ def draw_board(next1, next2, hold, score, level, goal):
 # Draw game screen
 def draw_board(next1, next2, hold, score, level, goal):
     sidebar_width = int(board_width * 0.5312) #크기 비율 고정, 전체 board 가로길이에서 원하는 비율을 곱해줌#
+<<<<<<< HEAD
+>>>>>>> parent of 1e44485 (Merge develop from csid)
+=======
 >>>>>>> parent of 1e44485 (Merge develop from csid)
 
     # Draw sidebar
     pygame.draw.rect(
         screen,
+<<<<<<< HEAD
 <<<<<<< HEAD
         ui_variables.white,
         Rect(sidebar_width, 0, int(board_width * 0.2375), board_height)
@@ -681,6 +758,8 @@ def draw_board(next1, next2, hold, score, level, goal):
 
     # Place texts
 =======
+=======
+>>>>>>> parent of 1e44485 (Merge develop from csid)
         ui_variables.pinkpurple,
         Rect(sidebar_width, 0, int(board_width * 0.2375), board_height) #크기 비율 고정
     )
@@ -757,6 +836,9 @@ def draw_board(next1, next2, hold, score, level, goal):
     #    value = ui_variables.h5.render("TIME : "+str(int(time)), 1, ui_variables.real_white)
     #    screen.blit(value, (int(board_width * -0.445) + sidebar_width, int(board_height * 0.015)))
     # Place texts. 위치 비율 고정, 각각 전체 board 가로길이, 세로길이에 대한 원하는 비율을 곱해줌#
+<<<<<<< HEAD
+>>>>>>> parent of 1e44485 (Merge develop from csid)
+=======
 >>>>>>> parent of 1e44485 (Merge develop from csid)
     screen.blit(text_hold, (int(board_width * 0.045) + sidebar_width, int(board_height * 0.0374)))
     screen.blit(text_next, (int(board_width * 0.045) + sidebar_width, int(board_height * 0.2780)))
@@ -767,6 +849,11 @@ def draw_board(next1, next2, hold, score, level, goal):
     screen.blit(text_combo, (int(board_width * 0.045) + sidebar_width, int(board_height * 0.8395)))
     screen.blit(combo_value, (int(board_width * 0.055) + sidebar_width, int(board_height * 0.8823)))
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+    if debug:
+        screen.blit(speed_value, (int(board_width * 0.065), int(board_height * 0.1)))
+>>>>>>> parent of 1e44485 (Merge develop from csid)
 =======
     if debug:
         screen.blit(speed_value, (int(board_width * 0.065), int(board_height * 0.1)))
@@ -776,9 +863,14 @@ def draw_board(next1, next2, hold, score, level, goal):
     for x in range(width):
         for y in range(height):
 <<<<<<< HEAD
+<<<<<<< HEAD
             dx = int(board_width * 0.25) + block_size * x
             dy = int(board_height * 0.055) + block_size * y
             ## draw_block(dx, dy, ui_variables.t_color[matrix[x][y + 1]])
+=======
+            dx = int(board_width * 0.25) + block_size * x  #위치비율 고정, board 가로길이에 원하는 비율을 곱해줌#
+            dy = int(board_height * 0.055) + block_size * y #위치비율 고정, board 세로길이에 원하는 비율을 곱해줌#
+>>>>>>> parent of 1e44485 (Merge develop from csid)
 =======
             dx = int(board_width * 0.25) + block_size * x  #위치비율 고정, board 가로길이에 원하는 비율을 곱해줌#
             dy = int(board_height * 0.055) + block_size * y #위치비율 고정, board 세로길이에 원하는 비율을 곱해줌#
@@ -788,7 +880,11 @@ def draw_board(next1, next2, hold, score, level, goal):
 
 def draw_1Pboard(next, hold, score, level, goal):
 <<<<<<< HEAD
+<<<<<<< HEAD
     sidebar_width = int(board_width * 0.2867)
+=======
+    sidebar_width = int(board_width * 0.31) #위치비율 고정, board 가로길이에 원하는 비율을 곱해줌#
+>>>>>>> parent of 1e44485 (Merge develop from csid)
 =======
     sidebar_width = int(board_width * 0.31) #위치비율 고정, board 가로길이에 원하는 비율을 곱해줌#
 >>>>>>> parent of 1e44485 (Merge develop from csid)
@@ -796,6 +892,7 @@ def draw_1Pboard(next, hold, score, level, goal):
     # Draw sidebar
     pygame.draw.rect(
         screen,
+<<<<<<< HEAD
 <<<<<<< HEAD
         ui_variables.white,
         Rect(sidebar_width, 0, int(board_width * 0.1875), board_height)
@@ -835,6 +932,8 @@ def draw_1Pboard(next, hold, score, level, goal):
 
     # Place texts
 =======
+=======
+>>>>>>> parent of 1e44485 (Merge develop from csid)
         ui_variables.pinkpurple,
         Rect(sidebar_width, 0, int(board_width * 0.1875), board_height) #크기비율 고정, board 가로길이에 원하는 비율을 곱해줌#
     )
@@ -887,29 +986,43 @@ def draw_1Pboard(next, hold, score, level, goal):
     if debug:
         speed_value = ui_variables.h5.render("SPEED : "+str(framerate), 1, ui_variables.real_white) #speed를 알려주는 framerate(기본값 30. 빨라질 수록 숫자 작아짐)
         screen.blit(speed_value, (int(board_width * 0.045) + sidebar_width, int(board_height * 0.015))) #각각 전체 board 가로길이, 세로길이에 원하는 비율을 곱해줌
+<<<<<<< HEAD
+>>>>>>> parent of 1e44485 (Merge develop from csid)
+=======
 >>>>>>> parent of 1e44485 (Merge develop from csid)
     screen.blit(text_hold, (int(board_width * 0.045) + sidebar_width, int(board_height * 0.0374)))
     screen.blit(text_next, (int(board_width * 0.045) + sidebar_width, int(board_height * 0.2780)))
     screen.blit(text_score, (int(board_width * 0.045) + sidebar_width, int(board_height * 0.5187)))
     screen.blit(score_value, (int(board_width * 0.055) + sidebar_width, int(board_height * 0.5614)))
 <<<<<<< HEAD
+<<<<<<< HEAD
     # screen.blit(text_level, (int(board_width*0.045) + sidebar_width, int(board_height*0.6791)))
     # screen.blit(level_value, (int(board_width*0.055) + sidebar_width , int(board_height*0.7219)))
     # screen.blit(text_combo, (int(board_width*0.045) + sidebar_width , int(board_height*0.8395)))
     # screen.blit(combo_value, (int(board_width*0.055) + sidebar_width, int(board_height*0.8823)))
 =======
+=======
+>>>>>>> parent of 1e44485 (Merge develop from csid)
     screen.blit(text_level, (int(board_width*0.045) + sidebar_width, int(board_height*0.6791)))
     screen.blit(level_value, (int(board_width*0.055) + sidebar_width , int(board_height*0.7219)))
     screen.blit(text_combo, (int(board_width*0.045) + sidebar_width , int(board_height*0.8395)))
     screen.blit(combo_value, (int(board_width*0.055) + sidebar_width, int(board_height*0.8823)))
+<<<<<<< HEAD
+>>>>>>> parent of 1e44485 (Merge develop from csid)
+=======
 >>>>>>> parent of 1e44485 (Merge develop from csid)
 
     # Draw board
     for x in range(width):
         for y in range(height):
 <<<<<<< HEAD
+<<<<<<< HEAD
             dx = int(board_height * 0.055) + block_size * x
             dy = int(board_height * 0.055) + block_size * y
+=======
+            dx = int(board_width * 0.05) + block_size * x #위치 비율 고정, board의 가로길이에 원하는 비율을 곱해줌
+            dy = int(board_height * 0.055) + block_size * y #위치 비율 고정, board의 세로길이에 원하는 비율을 곱해줌
+>>>>>>> parent of 1e44485 (Merge develop from csid)
 =======
             dx = int(board_width * 0.05) + block_size * x #위치 비율 고정, board의 가로길이에 원하는 비율을 곱해줌
             dy = int(board_height * 0.055) + block_size * y #위치 비율 고정, board의 세로길이에 원하는 비율을 곱해줌
@@ -919,7 +1032,11 @@ def draw_1Pboard(next, hold, score, level, goal):
 
 def draw_2Pboard(next, hold, score, level, goal):
 <<<<<<< HEAD
+<<<<<<< HEAD
     sidebar_width = int(board_width * 0.7867)
+=======
+    sidebar_width = int(board_width * 0.82) #위치 비율 고정, , board의 가로길이에 원하는 비율을 곱해줌
+>>>>>>> parent of 1e44485 (Merge develop from csid)
 =======
     sidebar_width = int(board_width * 0.82) #위치 비율 고정, , board의 가로길이에 원하는 비율을 곱해줌
 >>>>>>> parent of 1e44485 (Merge develop from csid)
@@ -928,8 +1045,13 @@ def draw_2Pboard(next, hold, score, level, goal):
     pygame.draw.rect(
         screen,
 <<<<<<< HEAD
+<<<<<<< HEAD
         ui_variables.white,
         Rect(sidebar_width, 0, int(board_width * 0.1875), board_height)
+=======
+        ui_variables.pinkpurple,
+        Rect(sidebar_width, 0, int(board_width * 0.1875), board_height) #크기 비율 고정, , board의 가로길이에 원하는 비율을 곱해줌, Rect(x축, y축, 가로길이, 세로길이)#
+>>>>>>> parent of 1e44485 (Merge develop from csid)
 =======
         ui_variables.pinkpurple,
         Rect(sidebar_width, 0, int(board_width * 0.1875), board_height) #크기 비율 고정, , board의 가로길이에 원하는 비율을 곱해줌, Rect(x축, y축, 가로길이, 세로길이)#
@@ -940,15 +1062,21 @@ def draw_2Pboard(next, hold, score, level, goal):
     grid_n = tetrimino.mino_map[next - 1][0]
 
 <<<<<<< HEAD
+<<<<<<< HEAD
     for i in range(4):  # 16개의 그리드 칸에서 true인 값만 뽑아서 draw.rect
         for j in range(4):
             dx = int(board_width * 0.045) + sidebar_width + block_size * j
             dy = int(board_height * 0.3743) + block_size * i
 =======
+=======
+>>>>>>> parent of 1e44485 (Merge develop from csid)
     for i in range(mino_matrix_y):  # 16개의 그리드 칸에서 true인 값만 뽑아서 draw.rect
         for j in range(mino_matrix_x):
             dx = int(board_width * 0.05) + sidebar_width + block_size * j  #위치 비율 고정, board의 가로길이에 원하는 비율을 곱해줌
             dy = int(board_height * 0.3743) + block_size * i  #위치 비율 고정, board의 세로길이에 원하는 비율을 곱해줌
+<<<<<<< HEAD
+>>>>>>> parent of 1e44485 (Merge develop from csid)
+=======
 >>>>>>> parent of 1e44485 (Merge develop from csid)
             if grid_n[i][j] != 0:
                 draw_block_image(dx, dy, ui_variables.t_block[grid_n[i][j]])
@@ -957,23 +1085,30 @@ def draw_2Pboard(next, hold, score, level, goal):
     grid_h = tetrimino.mino_map[hold - 1][0]
 
 <<<<<<< HEAD
+<<<<<<< HEAD
     if hold_mino != -1:
         for i in range(4):
             for j in range(4):
                 dx = int(board_width * 0.045) + sidebar_width + block_size * j
                 dy = int(board_height * 0.1336) + block_size * i
 =======
+=======
+>>>>>>> parent of 1e44485 (Merge develop from csid)
     if hold_mino_2P != -1:  #기본값이 -1. 즉 hold블록 존재할 떄
         for i in range(mino_matrix_y):
             for j in range(mino_matrix_x):
                 dx = int(board_width * 0.045) + sidebar_width + block_size * j  #위치 비율 고정, board의 가로길이에 원하는 비율을 곱해줌
                 dy = int(board_height * 0.1336) + block_size * i  #위치 비율 고정, board의 세로길이에 원하는 비율을 곱해줌
+<<<<<<< HEAD
+>>>>>>> parent of 1e44485 (Merge develop from csid)
+=======
 >>>>>>> parent of 1e44485 (Merge develop from csid)
                 if grid_h[i][j] != 0:
                     draw_block_image(dx, dy, ui_variables.t_block[grid_h[i][j]])
 
     # Set max score
     if score > 999999:
+<<<<<<< HEAD
 <<<<<<< HEAD
         score = 999999
 
@@ -988,6 +1123,8 @@ def draw_2Pboard(next, hold, score, level, goal):
 
     # Place texts
 =======
+=======
+>>>>>>> parent of 1e44485 (Merge develop from csid)
         score = 999999 #최대 점수가 999999가 넘지 못하도록 설정#
 
     #render("텍스트이름", 안티에일리어싱 적용, 색깔), 즉 아래 코드의 숫자 1=안티에일리어싱 적용에 대한 코드
@@ -1012,29 +1149,43 @@ def draw_2Pboard(next, hold, score, level, goal):
     if debug:
         speed_value = ui_variables.h5.render("SPEED : "+str(framerate_2P), 1, ui_variables.real_white) #speed를 알려주는 framerate(기본값 30. 빨라질 수록 숫자 작아짐)
         screen.blit(speed_value, (int(board_width * 0.045) + sidebar_width, int(board_height * 0.015))) #각각 전체 board의 가로길이, 세로길이에 대해 원하는 비율을 곱해줌
+<<<<<<< HEAD
+>>>>>>> parent of 1e44485 (Merge develop from csid)
+=======
 >>>>>>> parent of 1e44485 (Merge develop from csid)
     screen.blit(text_hold, (int(board_width * 0.045) + sidebar_width, int(board_height * 0.0374)))
     screen.blit(text_next, (int(board_width * 0.045) + sidebar_width, int(board_height * 0.2780)))
     screen.blit(text_score, (int(board_width * 0.045) + sidebar_width, int(board_height * 0.5187)))
     screen.blit(score_value, (int(board_width * 0.055) + sidebar_width, int(board_height * 0.5614)))
 <<<<<<< HEAD
+<<<<<<< HEAD
     # screen.blit(text_level, (int(board_width*0.045) + sidebar_width, int(board_height*0.6791)))
     # screen.blit(level_value, (int(board_width*0.055) + sidebar_width , int(board_height*0.7219)))
     # screen.blit(text_combo, (int(board_width*0.045) + sidebar_width , int(board_height*0.8395)))
     # screen.blit(combo_value, (int(board_width*0.055) + sidebar_width, int(board_height*0.8823)))
 =======
+=======
+>>>>>>> parent of 1e44485 (Merge develop from csid)
     screen.blit(text_level, (int(board_width*0.045) + sidebar_width, int(board_height*0.6791)))
     screen.blit(level_value, (int(board_width*0.055) + sidebar_width , int(board_height*0.7219)))
     screen.blit(text_combo, (int(board_width*0.045) + sidebar_width , int(board_height*0.8395)))
     screen.blit(combo_value, (int(board_width*0.055) + sidebar_width, int(board_height*0.8823)))
+<<<<<<< HEAD
+>>>>>>> parent of 1e44485 (Merge develop from csid)
+=======
 >>>>>>> parent of 1e44485 (Merge develop from csid)
 
     # Draw board
     for x in range(width):
         for y in range(height):
 <<<<<<< HEAD
+<<<<<<< HEAD
             dx = int(board_width * 0.5) + block_size * x
             dy = int(board_height * 0.055) + block_size * y
+=======
+            dx = int(board_width * 0.54) + block_size * x #위치비율 고정
+            dy = int(board_height * 0.055) + block_size * y #위치비율 고정
+>>>>>>> parent of 1e44485 (Merge develop from csid)
 =======
             dx = int(board_width * 0.54) + block_size * x #위치비율 고정
             dy = int(board_height * 0.055) + block_size * y #위치비율 고정
@@ -1043,6 +1194,7 @@ def draw_2Pboard(next, hold, score, level, goal):
 
 
 # Draw a tetrimino
+<<<<<<< HEAD
 <<<<<<< HEAD
 def draw_mino(x, y, mino, r):
     grid = tetrimino.mino_map[mino - 1][r]
@@ -1128,6 +1280,8 @@ def is_bottom(x, y, mino, r):
                     return True
                 elif matrix[x + j][y + i + 1] != 0 and matrix[x + j][y + i + 1] != 8:
 =======
+=======
+>>>>>>> parent of 1e44485 (Merge develop from csid)
 def draw_mino(x, y, mino, r, matrix): #mino는 모양, r은 회전된 모양 중 하나
     grid = tetrimino.mino_map[mino - 1][r] #grid : 출력할 테트리스
 
@@ -1173,6 +1327,7 @@ def is_bottom(x, y, mino, r, matrix):
                 if (y + i + 1) > board_y :   #바닥의 y좌표에 있음(바닥에 닿음)
                     return True
                 elif matrix[x + j][y + i + 1] != 0 and matrix[x + j][y + i + 1] != 8: #그 블록위치에 0, 8 아님(즉 블록 존재 함)
+<<<<<<< HEAD
 >>>>>>> parent of 1e44485 (Merge develop from csid)
                     return True
 
@@ -1204,10 +1359,13 @@ def is_leftedge(x, y, mino, r):
                 if (x + j - 1) < 0:
                     return True
                 elif matrix[x + j - 1][y + i] != 0:
+=======
+>>>>>>> parent of 1e44485 (Merge develop from csid)
                     return True
 
     return False
 
+<<<<<<< HEAD
 
 def is_leftedge_2P(x, y, mino, r):
     grid = tetrimino.mino_map[mino - 1][r]
@@ -1219,6 +1377,8 @@ def is_leftedge_2P(x, y, mino, r):
                     return True
                 elif matrix_2P[x + j - 1][y + i] != 0:
 =======
+=======
+>>>>>>> parent of 1e44485 (Merge develop from csid)
 def gravity(x, y, mino, r, matrix):
     grid = tetrimino.mino_map[mino - 1][r] #grid : 출력할 테트리스
 
@@ -1245,11 +1405,15 @@ def is_leftedge(x, y, mino, r, matrix):
                 if (x + j - 1) < 0:  #맨 왼쪽에 위치함
                     return True
                 elif matrix[x + j - 1][y + i] != 0:  #그 위치의 왼쪽에 이미 무엇인가 존재함
+<<<<<<< HEAD
+>>>>>>> parent of 1e44485 (Merge develop from csid)
+=======
 >>>>>>> parent of 1e44485 (Merge develop from csid)
                     return True
 
     return False
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 
 # Returns true if mino is at the right edge
@@ -1263,6 +1427,8 @@ def is_rightedge(x, y, mino, r):
                     return True
                 elif matrix[x + j + 1][y + i] != 0:
 =======
+=======
+>>>>>>> parent of 1e44485 (Merge develop from csid)
 # Returns true if mino is at the right edge
 def is_rightedge(x, y, mino, r, matrix):
     grid = tetrimino.mino_map[mino - 1][r] #grid : 출력할 테트리스
@@ -1273,6 +1439,7 @@ def is_rightedge(x, y, mino, r, matrix):
                 if (x + j + 1) >= board_x :  #맨 오른쪽에 위치
                     return True
                 elif matrix[x + j + 1][y + i] != 0:   #그 위치의 오른쪽에 이미 무엇인가 존재함
+<<<<<<< HEAD
 >>>>>>> parent of 1e44485 (Merge develop from csid)
                     return True
 
@@ -1289,10 +1456,13 @@ def is_rightedge_2P(x, y, mino, r):
                 if (x + j + 1) > 9:
                     return True
                 elif matrix_2P[x + j + 1][y + i] != 0:
+=======
+>>>>>>> parent of 1e44485 (Merge develop from csid)
                     return True
 
     return False
 
+<<<<<<< HEAD
 
 # Returns true if turning right is possible
 def is_turnable_r(x, y, mino, r):
@@ -1360,6 +1530,8 @@ def is_turnable_l(x, y, mino, r):
                     return False
                 elif matrix[x + j][y + i] != 0:
 =======
+=======
+>>>>>>> parent of 1e44485 (Merge develop from csid)
 def is_turnable_r(x, y, mino, r, matrix):
     if r != 3:  #회전모양 총 0, 1, 2, 3번째 총 4가지 있음
         grid = tetrimino.mino_map[mino - 1][r + 1] #3이 아니면 그 다음 모양
@@ -1388,11 +1560,15 @@ def is_turnable_l(x, y, mino, r, matrix):
                 if (x + j) < 0 or (x + j) >= board_x or (y + i) < 0 or (y + i) > board_y:  #테트리스 matrix크기 벗어나면 못돌림
                     return False
                 elif matrix[x + j][y + i] != 0: #해당 자리에 이미 블록이 있으면 못돌림
+<<<<<<< HEAD
+>>>>>>> parent of 1e44485 (Merge develop from csid)
+=======
 >>>>>>> parent of 1e44485 (Merge develop from csid)
                     return False
 
     return True
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 
 # Returns true if new block is drawable
@@ -1416,6 +1592,8 @@ def is_stackable_2P(mino):
             # print(grid[i][j], matrix[3 + j][i])
             if grid[i][j] != 0 and matrix_2P[3 + j][i] != 0:
 =======
+=======
+>>>>>>> parent of 1e44485 (Merge develop from csid)
 # Returns true if new block is drawable
 def is_stackable(mino, matrix):
     grid = tetrimino.mino_map[mino - 1][0] #grid : 출력할 테트리스
@@ -1423,11 +1601,15 @@ def is_stackable(mino, matrix):
     for i in range(mino_matrix_y):
         for j in range(mino_matrix_x):
             if grid[i][j] != 0 and matrix[3 + j][i] != 0: ###
+<<<<<<< HEAD
+>>>>>>> parent of 1e44485 (Merge develop from csid)
+=======
 >>>>>>> parent of 1e44485 (Merge develop from csid)
                 return False
 
     return True
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 
 def draw_multiboard(next_1P, hold_1P, next_2P, hold_2P, score, level, goal):
@@ -1509,6 +1691,8 @@ matrix = [[0 for y in range(height + 1)] for x in range(width)]  # Board matrix
 
 matrix_2P = [[0 for y in range(height + 1)] for x in range(width)]  # Board matrix
 =======
+=======
+>>>>>>> parent of 1e44485 (Merge develop from csid)
 def draw_multiboard(next_1P, hold_1P, next_2P, hold_2P, score1P, score2P, level1P, level2P, goal1P, goal2P):
     screen.fill(ui_variables.real_white)
     draw_image(screen, gamebackground_image , board_width * 0.5, board_height * 0.5, board_width, board_height) #(window, 이미지주소, x좌표, y좌표, 너비, 높이)
@@ -1636,12 +1820,16 @@ def set_initial_values():
 
 set_initial_values()
 pygame.time.set_timer(pygame.USEREVENT, 10)
+<<<<<<< HEAD
+>>>>>>> parent of 1e44485 (Merge develop from csid)
+=======
 >>>>>>> parent of 1e44485 (Merge develop from csid)
 
 ###########################################################
 # Loop Start
 ###########################################################
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 volume = 1.0
 
@@ -1655,10 +1843,13 @@ ui_variables.break_sound.set_volume(0.2)
 
 =======
 >>>>>>> parent of 1e44485 (Merge develop from csid)
+=======
+>>>>>>> parent of 1e44485 (Merge develop from csid)
 while not done:
 
     # Pause screen
     # ui_variables.click_sound.set_volume(volume)
+<<<<<<< HEAD
 <<<<<<< HEAD
     if volume_setting:
         draw_image(screen, setting_board_image, board_width * 0.5, board_height * 0.5, int(board_height * 1.3),
@@ -1669,6 +1860,8 @@ while not done:
                    int(board_height * 0.1444))
         mute_button.draw(screen, (0, 0, 0))
 =======
+=======
+>>>>>>> parent of 1e44485 (Merge develop from csid)
 
     if volume_setting:
         #배경 약간 어둡게
@@ -1683,11 +1876,15 @@ while not done:
         draw_image(screen, number_board, board_width * 0.45, board_height * 0.53, int(board_width * 0.09), int(board_height * 0.1444))
         draw_image(screen, number_board, board_width * 0.45, board_height * 0.73, int(board_width * 0.09), int(board_height * 0.1444))
         mute_button.draw(screen, (0, 0, 0)) #rgb(0,0,0) = 검정색#
+<<<<<<< HEAD
+>>>>>>> parent of 1e44485 (Merge develop from csid)
+=======
 >>>>>>> parent of 1e44485 (Merge develop from csid)
         effect_plus_button.draw(screen, (0, 0, 0))
         effect_minus_button.draw(screen, (0, 0, 0))
         sound_plus_button.draw(screen, (0, 0, 0))
         sound_minus_button.draw(screen, (0, 0, 0))
+<<<<<<< HEAD
 <<<<<<< HEAD
         back_button.draw(screen, (0, 0, 0))
 
@@ -1701,6 +1898,8 @@ while not done:
         screen.blit(music_volume_size_text, (board_width * 0.485, board_height * 0.4))
         screen.blit(effect_volume_size_text, (board_width * 0.485, board_height * 0.6))
 =======
+=======
+>>>>>>> parent of 1e44485 (Merge develop from csid)
         #음소거 추가#
         effect_sound_on_button.draw(screen,(0,0,0))
         music_sound_on_button.draw(screen,(0,0,0))
@@ -1721,6 +1920,9 @@ while not done:
         effect_volume_size_text = ui_variables.h4.render(str(effect_volume), 1, ui_variables.grey_1)
         screen.blit(music_volume_size_text, (board_width * 0.43, board_height * 0.5)) #위치 비율 고정
         screen.blit(effect_volume_size_text, (board_width * 0.43, board_height * 0.7)) #위치 비율 고정
+<<<<<<< HEAD
+>>>>>>> parent of 1e44485 (Merge develop from csid)
+=======
 >>>>>>> parent of 1e44485 (Merge develop from csid)
 
         for event in pygame.event.get():
@@ -1730,7 +1932,11 @@ while not done:
                 done = True
             elif event.type == USEREVENT:
 <<<<<<< HEAD
+<<<<<<< HEAD
                 pygame.time.set_timer(pygame.USEREVENT, 300)
+=======
+                pygame.time.set_timer(pygame.USEREVENT, 300) #0.3초로 설정
+>>>>>>> parent of 1e44485 (Merge develop from csid)
 =======
                 pygame.time.set_timer(pygame.USEREVENT, 300) #0.3초로 설정
 >>>>>>> parent of 1e44485 (Merge develop from csid)
@@ -1769,6 +1975,7 @@ while not done:
                     ui_variables.click_sound.play()
                     volume_setting = False
 <<<<<<< HEAD
+<<<<<<< HEAD
                 if effect_plus_button.isOver(pos):
                     ui_variables.click_sound.play()
                     if music_volume >= 10:
@@ -1798,6 +2005,8 @@ while not done:
                     effect_volume = 0
                     music_volume = 0
 =======
+=======
+>>>>>>> parent of 1e44485 (Merge develop from csid)
                 if sound_plus_button.isOver(pos):
                     ui_variables.click_sound.play()
                     if music_volume >= 10: #음량 최대크기
@@ -1866,11 +2075,15 @@ while not done:
                         effect_volume = 0 #최소 음량으로
                         default_button.draw(screen,(0,0,0))
                         mute_button.image=default_button_image
+<<<<<<< HEAD
+>>>>>>> parent of 1e44485 (Merge develop from csid)
+=======
 >>>>>>> parent of 1e44485 (Merge develop from csid)
 
                 set_volume()
 
     elif screen_setting:
+<<<<<<< HEAD
 <<<<<<< HEAD
         screen.fill(ui_variables.white)
         draw_image(screen, background_image, board_width * 0.5, board_height * 0.5, board_width, board_height)
@@ -1884,6 +2097,8 @@ while not done:
         draw_image(screen, setting_board_image, board_width * 0.5, board_height * 0.5, int(board_height * 1.3),
                    board_height)
 =======
+=======
+>>>>>>> parent of 1e44485 (Merge develop from csid)
         screen.fill(ui_variables.pinkpurple)
         draw_image(screen, background_image, board_width * 0.5, board_height * 0.5, board_width, board_height) #(window, 이미지주소, x좌표, y좌표, 너비, 높이)
         single_button.draw(screen, (0, 0, 0)) #rgb(0,0,0) = 검정색
@@ -1903,6 +2118,9 @@ while not done:
         screen.blit(pause_surface, (0, 0))
 
         draw_image(screen, setting_board_image, board_width * 0.5, board_height * 0.5, int(board_height * 1.3), board_height) #(window, 이미지주소, x좌표, y좌표, 너비, 높이)
+<<<<<<< HEAD
+>>>>>>> parent of 1e44485 (Merge develop from csid)
+=======
 >>>>>>> parent of 1e44485 (Merge develop from csid)
         smallsize_check_button.draw(screen, (0, 0, 0))
         bigsize_check_button.draw(screen, (0, 0, 0))
@@ -1916,7 +2134,11 @@ while not done:
                 done = True
             elif event.type == USEREVENT:
 <<<<<<< HEAD
+<<<<<<< HEAD
                 pygame.time.set_timer(pygame.USEREVENT, 300)
+=======
+                pygame.time.set_timer(pygame.USEREVENT, 300) #0.3초로 설정
+>>>>>>> parent of 1e44485 (Merge develop from csid)
 =======
                 pygame.time.set_timer(pygame.USEREVENT, 300) #0.3초로 설정
 >>>>>>> parent of 1e44485 (Merge develop from csid)
@@ -1928,6 +2150,7 @@ while not done:
                 else:
                     back_button.image = back_button_image
 
+<<<<<<< HEAD
 <<<<<<< HEAD
                 # if smallsize_check_button.isOver(pos):
                 #    smallsize_check_button.image = clicked_plus_button_image
@@ -1946,6 +2169,8 @@ while not done:
 
 =======
 >>>>>>> parent of 1e44485 (Merge develop from csid)
+=======
+>>>>>>> parent of 1e44485 (Merge develop from csid)
                 pygame.display.update()
 
             elif event.type == pygame.MOUSEBUTTONDOWN:
@@ -1955,6 +2180,7 @@ while not done:
                 if smallsize_check_button.isOver(pos):
                     ui_variables.click_sound.play()
 <<<<<<< HEAD
+<<<<<<< HEAD
 
                     board_width = 800
                     board_height = 450
@@ -2016,6 +2242,8 @@ while not done:
                     bigsize_check_button = button(board_width * 0.5, board_height * 0.65, int(board_width * 0.1875),
                                                   int(board_height * 0.1444), 1, bigsize_board)
 =======
+=======
+>>>>>>> parent of 1e44485 (Merge develop from csid)
                     board_width = 800
                     board_height = 450
                     block_size = int(board_height * 0.045) #블록 크기 비율 고정
@@ -2024,11 +2252,15 @@ while not done:
 
                     for i in range(len(button_list)):
                         button_list[i].change(board_width, board_height)
+<<<<<<< HEAD
+>>>>>>> parent of 1e44485 (Merge develop from csid)
+=======
 >>>>>>> parent of 1e44485 (Merge develop from csid)
                     pygame.display.update()
 
                 if midiumsize_check_button.isOver(pos):
                     ui_variables.click_sound.play()
+<<<<<<< HEAD
 <<<<<<< HEAD
 
                     board_width = 1200
@@ -2094,17 +2326,26 @@ while not done:
                     board_width = 1200
                     board_height = 675
                     block_size = int(board_height * 0.045) #블록 크기 비율 고정
+=======
+                    board_width = 1200
+                    board_height = 675
+                    block_size = int(board_height * 0.045) #블록 크기 비율 고정
+>>>>>>> parent of 1e44485 (Merge develop from csid)
                     screen = pygame.display.set_mode((board_width, board_height), pygame.RESIZABLE)
                     textsize=True
 
                     for i in range(len(button_list)):
                         button_list[i].change(board_width, board_height)
 
+<<<<<<< HEAD
+>>>>>>> parent of 1e44485 (Merge develop from csid)
+=======
 >>>>>>> parent of 1e44485 (Merge develop from csid)
                     pygame.display.update()
 
                 if bigsize_check_button.isOver(pos):
                     ui_variables.click_sound.play()
+<<<<<<< HEAD
 <<<<<<< HEAD
                     block_size = int(board_height * 0.045)
 
@@ -2191,6 +2432,8 @@ while not done:
         # keyboard_icon.draw(screen,(0,0,0))
         screen_icon.draw(screen, (0, 0, 0))
 =======
+=======
+>>>>>>> parent of 1e44485 (Merge develop from csid)
                     board_width = 1600
                     board_height = 900
                     block_size = int(board_height * 0.045) #블록 크기 비율 고정
@@ -2239,6 +2482,9 @@ while not done:
         draw_image(screen, setting_board_image, board_width * 0.5, board_height * 0.5, int(board_height * 1.3), board_height) #(window, 이미지주소, x좌표, y좌표, 너비, 높이)
 
         screen_icon.draw(screen, (0, 0, 0)) #rgb(0,0,0) = 검정색
+<<<<<<< HEAD
+>>>>>>> parent of 1e44485 (Merge develop from csid)
+=======
 >>>>>>> parent of 1e44485 (Merge develop from csid)
         volume_icon.draw(screen, (0, 0, 0))
 
@@ -2251,11 +2497,15 @@ while not done:
                 done = True
             elif event.type == USEREVENT:
 <<<<<<< HEAD
+<<<<<<< HEAD
                 pygame.time.set_timer(pygame.USEREVENT, 300)
 
                 pause_text = ui_variables.h2_b.render("PAUSED", 1, ui_variables.real_white)
                 pause_start = ui_variables.h5.render("Press esc to continue", 1, ui_variables.real_white)
 
+=======
+                pygame.time.set_timer(pygame.USEREVENT, 300) #0.3초로 설정
+>>>>>>> parent of 1e44485 (Merge develop from csid)
 =======
                 pygame.time.set_timer(pygame.USEREVENT, 300) #0.3초로 설정
 >>>>>>> parent of 1e44485 (Merge develop from csid)
@@ -2273,11 +2523,14 @@ while not done:
                     volume_icon.image = volume_vector
 
 <<<<<<< HEAD
+<<<<<<< HEAD
                 # if keyboard_icon.isOver(pos):
                 # keyboard_icon.image = clicked_keyboard_vector
                 # else :
                 # keyboard_icon.image = keyboard_vector
 
+=======
+>>>>>>> parent of 1e44485 (Merge develop from csid)
 =======
 >>>>>>> parent of 1e44485 (Merge develop from csid)
                 if screen_icon.isOver(pos):
@@ -2293,6 +2546,7 @@ while not done:
 
                 if volume_icon.isOver(pos):
                     ui_variables.click_sound.play()
+<<<<<<< HEAD
 <<<<<<< HEAD
 
                     volume_setting = True
@@ -2360,6 +2614,8 @@ while not done:
                    board_height)
         resume_button.draw(screen, (0, 0, 0))
 =======
+=======
+>>>>>>> parent of 1e44485 (Merge develop from csid)
                     volume_setting = True
 
                 if screen_icon.isOver(pos):
@@ -2409,6 +2665,9 @@ while not done:
 
         draw_image(screen, pause_board_image, board_width * 0.5, board_height * 0.5, int(board_height * 0.7428), board_height) #(window, 이미지주소, x좌표, y좌표, 너비, 높이)
         resume_button.draw(screen, (0, 0, 0)) #rgb(0,0,0) = 검정색
+<<<<<<< HEAD
+>>>>>>> parent of 1e44485 (Merge develop from csid)
+=======
 >>>>>>> parent of 1e44485 (Merge develop from csid)
         restart_button.draw(screen, (0, 0, 0))
         setting_button.draw(screen, (0, 0, 0))
@@ -2421,6 +2680,7 @@ while not done:
                 done = True
             elif event.type == USEREVENT:
 <<<<<<< HEAD
+<<<<<<< HEAD
                 pygame.time.set_timer(pygame.USEREVENT, 300)
 
                 pause_text = ui_variables.h2_b.render("PAUSED", 1, ui_variables.real_white)
@@ -2430,31 +2690,46 @@ while not done:
             elif event.type == KEYDOWN:
                 erase_mino(dx, dy, mino, rotation)
 =======
+=======
+>>>>>>> parent of 1e44485 (Merge develop from csid)
                 pygame.time.set_timer(pygame.USEREVENT, 300) #0.3초
                 pygame.display.update()
             elif event.type == KEYDOWN:
                 erase_mino(dx, dy, mino, rotation, matrix)
+<<<<<<< HEAD
+>>>>>>> parent of 1e44485 (Merge develop from csid)
+=======
 >>>>>>> parent of 1e44485 (Merge develop from csid)
                 if event.key == K_ESCAPE:
                     pause = False
                     ui_variables.click_sound.play()
                     pygame.mixer.music.unpause()
 <<<<<<< HEAD
+<<<<<<< HEAD
                     pygame.time.set_timer(pygame.USEREVENT, 1)
             elif event.type == pygame.MOUSEMOTION:
                 if resume_button.isOver(pos):
 =======
+=======
+>>>>>>> parent of 1e44485 (Merge develop from csid)
                     pygame.time.set_timer(pygame.USEREVENT, 1) #0.001초
 
             elif event.type == pygame.MOUSEMOTION:
                 if resume_button.isOver_2(pos):
+<<<<<<< HEAD
+>>>>>>> parent of 1e44485 (Merge develop from csid)
+=======
 >>>>>>> parent of 1e44485 (Merge develop from csid)
                     resume_button.image = clicked_resume_button_image
                 else:
                     resume_button.image = resume_button_image
 
 <<<<<<< HEAD
+<<<<<<< HEAD
                 if restart_button.isOver(pos):
+=======
+                if restart_button.isOver_2(pos):
+>>>>>>> parent of 1e44485 (Merge develop from csid)
 =======
                 if restart_button.isOver_2(pos):
 >>>>>>> parent of 1e44485 (Merge develop from csid)
@@ -2463,22 +2738,29 @@ while not done:
                     restart_button.image = restart_button_image
 
 <<<<<<< HEAD
+<<<<<<< HEAD
                 if setting_button.isOver(pos):
                     setting_button.image = clicked_setting_button_image
                 else:
                     setting_button.image = setting_button_image
                 if pause_quit_button.isOver(pos):
 =======
+=======
+>>>>>>> parent of 1e44485 (Merge develop from csid)
                 if setting_button.isOver_2(pos):
                     setting_button.image = clicked_setting_button_image
                 else:
                     setting_button.image = setting_button_image
                 if pause_quit_button.isOver_2(pos):
+<<<<<<< HEAD
+>>>>>>> parent of 1e44485 (Merge develop from csid)
+=======
 >>>>>>> parent of 1e44485 (Merge develop from csid)
                     pause_quit_button.image = clicked_quit_button_image
                 else:
                     pause_quit_button.image = quit_button_image
                 pygame.display.update()
+<<<<<<< HEAD
 <<<<<<< HEAD
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 if pause_quit_button.isOver(pos):
@@ -2508,6 +2790,8 @@ while not done:
                     name = [65, 65, 65]
                     matrix = [[0 for y in range(height + 1)] for x in range(width)]
 =======
+=======
+>>>>>>> parent of 1e44485 (Merge develop from csid)
 
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 if pause_quit_button.isOver_2(pos):
@@ -2518,11 +2802,15 @@ while not done:
                     setting = True
                 if restart_button.isOver_2(pos):
                     ui_variables.click_sound.play()
+<<<<<<< HEAD
+>>>>>>> parent of 1e44485 (Merge develop from csid)
+=======
 >>>>>>> parent of 1e44485 (Merge develop from csid)
 
                     pause = False
                     start = False
 
+<<<<<<< HEAD
 <<<<<<< HEAD
                     hold_mino_2P = -1  #
                     bottom_count_2P = 0  #
@@ -2600,6 +2888,8 @@ while not done:
 
         # draw_image(screen ,'assets/images/help_image.png', board_width*0.15, 0, int(board_width*0.7), board_height)
 =======
+=======
+>>>>>>> parent of 1e44485 (Merge develop from csid)
                     if pvp:
                         pvp = False
 
@@ -2648,6 +2938,9 @@ while not done:
 
         draw_image(screen, 'assets/vector/help_board.png', board_width * 0.5, board_height * 0.5, int(board_width * 0.8), int(board_height * 0.9)) #(window, 이미지주소, x좌표, y좌표, 너비, 높이)
         draw_image(screen, 'assets/vector/help_image.png', board_width * 0.5, board_height * 0.5, int(board_width * 0.7), int(board_height * 0.55)) #(window, 이미지주소, x좌표, y좌표, 너비, 높이)
+<<<<<<< HEAD
+>>>>>>> parent of 1e44485 (Merge develop from csid)
+=======
 >>>>>>> parent of 1e44485 (Merge develop from csid)
 
         back_button.draw(screen, (0, 0, 0))
@@ -2659,7 +2952,11 @@ while not done:
                 done = True
             elif event.type == USEREVENT:
 <<<<<<< HEAD
+<<<<<<< HEAD
                 pygame.time.set_timer(pygame.USEREVENT, 300)
+=======
+                pygame.time.set_timer(pygame.USEREVENT, 300) #0.3초
+>>>>>>> parent of 1e44485 (Merge develop from csid)
 =======
                 pygame.time.set_timer(pygame.USEREVENT, 300) #0.3초
 >>>>>>> parent of 1e44485 (Merge develop from csid)
@@ -2675,6 +2972,7 @@ while not done:
                 if back_button.isOver(pos):
                     ui_variables.click_sound.play()
                     help = False
+<<<<<<< HEAD
 <<<<<<< HEAD
             elif event.type == VIDEORESIZE:
                 board_width = event.w
@@ -2729,6 +3027,8 @@ while not done:
         leaderboard_icon.draw(screen, (0, 0, 0))
         draw_image(screen, leader_board_image, board_width * 0.5, board_height * 0.5, int(board_height * 1.3),
 =======
+=======
+>>>>>>> parent of 1e44485 (Merge develop from csid)
 
             elif event.type == VIDEORESIZE:
                 board_width = event.w
@@ -2769,11 +3069,15 @@ while not done:
         screen.blit(pause_surface, (0, 0))
 
         draw_image(screen, leader_board_image, board_width * 0.5, board_height * 0.5, int(board_height * 1.3), #(window, 이미지주소, x좌표, y좌표, 너비, 높이)
+<<<<<<< HEAD
+>>>>>>> parent of 1e44485 (Merge develop from csid)
+=======
 >>>>>>> parent of 1e44485 (Merge develop from csid)
                    board_height)
 
         back_button.draw(screen, (0, 0, 0))
 
+<<<<<<< HEAD
 <<<<<<< HEAD
         leader_1 = ui_variables.h1_b.render('1st ' + leaders[0][0] + ' ' + str(leaders[0][1]), 1, ui_variables.grey_1)
         leader_2 = ui_variables.h1_b.render('2nd ' + leaders[1][0] + ' ' + str(leaders[1][1]), 1, ui_variables.grey_1)
@@ -2782,6 +3086,8 @@ while not done:
         screen.blit(leader_2, (board_width * 0.3, board_height * 0.35))
         screen.blit(leader_3, (board_width * 0.3, board_height * 0.55))
 =======
+=======
+>>>>>>> parent of 1e44485 (Merge develop from csid)
         #render("텍스트이름", 안티에일리어싱 적용, 색깔), 즉 아래의 코드에서 숫자 1=안티에일리어싱 적용에 관한 코드
         leader_1 = ui_variables.h1_b.render('1st ' + leaders[0][0] + ' ' + str(leaders[0][1]), 1, ui_variables.grey_1)
         leader_2 = ui_variables.h1_b.render('2nd ' + leaders[1][0] + ' ' + str(leaders[1][1]), 1, ui_variables.grey_1)
@@ -2789,6 +3095,9 @@ while not done:
         screen.blit(leader_1, (board_width * 0.3, board_height * 0.15)) #위치 비율 고정
         screen.blit(leader_2, (board_width * 0.3, board_height * 0.35)) #위치 비율 고정
         screen.blit(leader_3, (board_width * 0.3, board_height * 0.55)) #위치 비율 고정
+<<<<<<< HEAD
+>>>>>>> parent of 1e44485 (Merge develop from csid)
+=======
 >>>>>>> parent of 1e44485 (Merge develop from csid)
 
         for event in pygame.event.get():
@@ -2797,6 +3106,7 @@ while not done:
             if event.type == QUIT:
                 done = True
             elif event.type == USEREVENT:
+<<<<<<< HEAD
 <<<<<<< HEAD
                 pygame.time.set_timer(pygame.USEREVENT, 300)
 
@@ -2811,6 +3121,8 @@ while not done:
                     ui_variables.click_sound.play()
                     pygame.time.set_timer(pygame.USEREVENT, 1)
 =======
+=======
+>>>>>>> parent of 1e44485 (Merge develop from csid)
                 pygame.time.set_timer(pygame.USEREVENT, 300) #0.3초
                 pygame.display.update()
             elif event.type == KEYDOWN:
@@ -2820,6 +3132,9 @@ while not done:
                     ui_variables.click_sound.play()
                     pygame.time.set_timer(pygame.USEREVENT, 1) #0.001초
 
+<<<<<<< HEAD
+>>>>>>> parent of 1e44485 (Merge develop from csid)
+=======
 >>>>>>> parent of 1e44485 (Merge develop from csid)
             elif event.type == pygame.MOUSEMOTION:
                 if back_button.isOver(pos):
@@ -2831,6 +3146,7 @@ while not done:
                 if back_button.isOver(pos):
                     ui_variables.click_sound.play()
                     leader_board = False
+<<<<<<< HEAD
 <<<<<<< HEAD
             elif event.type == VIDEORESIZE:
                 board_width = event.w
@@ -2877,6 +3193,8 @@ while not done:
     elif start:
         for event in pygame.event.get():
 =======
+=======
+>>>>>>> parent of 1e44485 (Merge develop from csid)
 
             elif event.type == VIDEORESIZE:
                 board_width = event.w
@@ -2910,6 +3228,9 @@ while not done:
             elapsed_time = (pygame.time.get_ticks() - start_ticks) / 1000 # 경과 시간 계산
         for event in pygame.event.get():
             pos = pygame.mouse.get_pos()
+<<<<<<< HEAD
+>>>>>>> parent of 1e44485 (Merge develop from csid)
+=======
 >>>>>>> parent of 1e44485 (Merge develop from csid)
             if event.type == QUIT:
                 done = True
@@ -2919,6 +3240,7 @@ while not done:
                     keys_pressed = pygame.key.get_pressed()
                     if keys_pressed[K_DOWN]:
 <<<<<<< HEAD
+<<<<<<< HEAD
                         pygame.time.set_timer(pygame.USEREVENT, framerate * 1)
                     else:
                         pygame.time.set_timer(pygame.USEREVENT, framerate * 20)
@@ -2927,6 +3249,8 @@ while not done:
                 draw_mino(dx, dy, mino, rotation)
                 screen.fill(ui_variables.real_white)
 =======
+=======
+>>>>>>> parent of 1e44485 (Merge develop from csid)
                         pygame.time.set_timer(pygame.USEREVENT, framerate) #프레임 시간만큼 빠르게 소프트드롭
                     else:
                         pygame.time.set_timer(pygame.USEREVENT, game_speed)
@@ -2935,6 +3259,9 @@ while not done:
                 draw_mino(dx, dy, mino, rotation, matrix)
                 screen.fill(ui_variables.real_white)
                 draw_image(screen, gamebackground_image , board_width * 0.5, board_height * 0.5, board_width, board_height) #(window, 이미지주소, x좌표, y좌표, 너비, 높이)
+<<<<<<< HEAD
+>>>>>>> parent of 1e44485 (Merge develop from csid)
+=======
 >>>>>>> parent of 1e44485 (Merge develop from csid)
                 draw_board(next_mino1, next_mino2, hold_mino, score, level, goal)
                 pygame.display.update()
@@ -2942,6 +3269,7 @@ while not done:
                 current_time = pygame.time.get_ticks()
                 # Erase a mino
                 if not game_over:
+<<<<<<< HEAD
 <<<<<<< HEAD
                     erase_mino(dx, dy, mino, rotation)
 
@@ -2951,6 +3279,8 @@ while not done:
 
                 # Create new mino
 =======
+=======
+>>>>>>> parent of 1e44485 (Merge develop from csid)
                     erase_mino(dx, dy, mino, rotation, matrix)
 
                 # Move mino down
@@ -2987,6 +3317,9 @@ while not done:
                         bottom_count += 1
 
                 # Create new mino: 일반 모드
+<<<<<<< HEAD
+>>>>>>> parent of 1e44485 (Merge develop from csid)
+=======
 >>>>>>> parent of 1e44485 (Merge develop from csid)
                 else:
                     if hard_drop or bottom_count == 6:
@@ -2994,18 +3327,24 @@ while not done:
                         bottom_count = 0
                         score += 10 * level
 <<<<<<< HEAD
+<<<<<<< HEAD
                         draw_mino(dx, dy, mino, rotation)
                         screen.fill(ui_variables.real_white)
                         draw_board(next_mino1, next_mino2, hold_mino, score, level, goal)
                         pygame.display.update()
                         if is_stackable(next_mino1):
 =======
+=======
+>>>>>>> parent of 1e44485 (Merge develop from csid)
                         draw_mino(dx, dy, mino, rotation, matrix)
                         screen.fill(ui_variables.real_white)
                         draw_image(screen, gamebackground_image , board_width * 0.5, board_height * 0.5, board_width, board_height) #(window, 이미지주소, x좌표, y좌표, 너비, 높이)
                         draw_board(next_mino1, next_mino2, hold_mino, score, level, goal)
                         pygame.display.update()
                         if is_stackable(next_mino1, matrix):
+<<<<<<< HEAD
+>>>>>>> parent of 1e44485 (Merge develop from csid)
+=======
 >>>>>>> parent of 1e44485 (Merge develop from csid)
                             mino = next_mino1
                             next_mino1 = next_mino2
@@ -3019,7 +3358,11 @@ while not done:
                             game_status = 'start'
                             game_over = True
 <<<<<<< HEAD
+<<<<<<< HEAD
                             pygame.time.set_timer(pygame.USEREVENT, 1)
+=======
+                            pygame.time.set_timer(pygame.USEREVENT, 1) #0.001초
+>>>>>>> parent of 1e44485 (Merge develop from csid)
 =======
                             pygame.time.set_timer(pygame.USEREVENT, 1) #0.001초
 >>>>>>> parent of 1e44485 (Merge develop from csid)
@@ -3028,6 +3371,7 @@ while not done:
 
                 # Erase line
                 erase_count = 0
+<<<<<<< HEAD
 <<<<<<< HEAD
                 combo_value = 0
                 rainbow_count = 0
@@ -3038,6 +3382,8 @@ while not done:
                     for i in range(10):
                         if matrix[i][j] == 0: #빈 공간(장애물블록 추가하면 matrix[i][j]==9 or로 넣기)
 =======
+=======
+>>>>>>> parent of 1e44485 (Merge develop from csid)
                 rainbow_count = 0
                 matrix_contents = []
                 combo_value = 0
@@ -3046,6 +3392,9 @@ while not done:
                     is_full = True
                     for i in range(board_x):
                         if matrix[i][j] == 0 or matrix[i][j] == 9 : #빈 공간이거나, 장애물블록
+<<<<<<< HEAD
+>>>>>>> parent of 1e44485 (Merge develop from csid)
+=======
 >>>>>>> parent of 1e44485 (Merge develop from csid)
                             is_full = False
                     if is_full: # 한 줄 꽉 찼을 때
@@ -3056,7 +3405,11 @@ while not done:
                         #rainbow보너스 점수
                         rainbow = [1,2,3,4,5,6,7] #각 mino에 해당하는 숫자
 <<<<<<< HEAD
+<<<<<<< HEAD
                         for i in range(10):
+=======
+                        for i in range(board_x):
+>>>>>>> parent of 1e44485 (Merge develop from csid)
 =======
                         for i in range(board_x):
 >>>>>>> parent of 1e44485 (Merge develop from csid)
@@ -3067,11 +3420,17 @@ while not done:
 
                         while k > 0:
 <<<<<<< HEAD
+<<<<<<< HEAD
                             for i in range(10):
                                 matrix[i][k] = matrix[i][k - 1] # 남아있는 블록 한 줄씩 내리기(덮어쓰기)
                             k -= 1
 
 
+=======
+                            for i in range(board_x):
+                                matrix[i][k] = matrix[i][k - 1]  # 남아있는 블록 한 줄씩 내리기(덮어쓰기)
+                            k -= 1
+>>>>>>> parent of 1e44485 (Merge develop from csid)
 =======
                             for i in range(board_x):
                                 matrix[i][k] = matrix[i][k - 1]  # 남아있는 블록 한 줄씩 내리기(덮어쓰기)
@@ -3087,6 +3446,11 @@ while not done:
 
                     previous_time = current_time
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+                    combo_count += 1
+                    #점수 계산
+>>>>>>> parent of 1e44485 (Merge develop from csid)
 =======
                     combo_count += 1
                     #점수 계산
@@ -3096,7 +3460,10 @@ while not done:
                         ui_variables.single_sound.play()
                         score += 50 * level * erase_count + combo_count
 <<<<<<< HEAD
+<<<<<<< HEAD
                         combo_count += 1
+=======
+>>>>>>> parent of 1e44485 (Merge develop from csid)
 =======
 >>>>>>> parent of 1e44485 (Merge develop from csid)
                     elif erase_count == 2:
@@ -3105,7 +3472,10 @@ while not done:
                         ui_variables.double_sound.play()
                         score += 150 * level * erase_count + 2 * combo_count
 <<<<<<< HEAD
+<<<<<<< HEAD
                         combo_count += 2
+=======
+>>>>>>> parent of 1e44485 (Merge develop from csid)
 =======
 >>>>>>> parent of 1e44485 (Merge develop from csid)
                     elif erase_count == 3:
@@ -3115,7 +3485,10 @@ while not done:
                         ui_variables.triple_sound.play()
                         score += 350 * level * erase_count + 3 * combo_count
 <<<<<<< HEAD
+<<<<<<< HEAD
                         combo_count += 3
+=======
+>>>>>>> parent of 1e44485 (Merge develop from csid)
 =======
 >>>>>>> parent of 1e44485 (Merge develop from csid)
                     elif erase_count == 4:
@@ -3125,6 +3498,7 @@ while not done:
                         ui_variables.tetris_sound.play()
                         ui_variables.tetris_sound.play()
                         score += 1000 * level * erase_count + 4 * combo_count
+<<<<<<< HEAD
 <<<<<<< HEAD
                         combo_count += 4
                         screen.blit(ui_variables.combo_4ring, (250, 160)) #blit(이미지, 위치)
@@ -3142,6 +3516,8 @@ while not done:
 
                     for i in range(1, 9):
 =======
+=======
+>>>>>>> parent of 1e44485 (Merge develop from csid)
                         screen.blit(ui_variables.combo_4ring, (250, 160)) #blit(이미지, 위치)
                     total_time += 5 # 콤보 시 시간 5초 연장
 
@@ -3155,13 +3531,19 @@ while not done:
                             pygame.time.delay(300)
 
                     for i in range(1, 9): # 1~8의 콤보 사운드
+<<<<<<< HEAD
+>>>>>>> parent of 1e44485 (Merge develop from csid)
+=======
 >>>>>>> parent of 1e44485 (Merge develop from csid)
                         if combo_count == i + 2:  # 3 ~ 11 콤보 사운드
                             ui_variables.combos_sound[i - 1].play()
                         if combo_count > 11:
                             ui_variables.combos_sound[8].play()
 <<<<<<< HEAD
+<<<<<<< HEAD
 
+=======
+>>>>>>> parent of 1e44485 (Merge develop from csid)
 =======
 >>>>>>> parent of 1e44485 (Merge develop from csid)
                 if current_time - previous_time > 10000: #10초가 지나면
@@ -3169,7 +3551,11 @@ while not done:
                     combo_count = 0 #콤보 수 초기화
 
 <<<<<<< HEAD
+<<<<<<< HEAD
                 
+=======
+
+>>>>>>> parent of 1e44485 (Merge develop from csid)
 =======
 
 >>>>>>> parent of 1e44485 (Merge develop from csid)
@@ -3179,6 +3565,7 @@ while not done:
                     level += 1
                     ui_variables.LevelUp_sound.play()
 <<<<<<< HEAD
+<<<<<<< HEAD
                     ui_variables.LevelUp_sound.play()
                     goal += level * 5
                     framerate = int(framerate * 0.8)
@@ -3186,6 +3573,8 @@ while not done:
             elif event.type == KEYDOWN:
                 erase_mino(dx, dy, mino, rotation)
 =======
+=======
+>>>>>>> parent of 1e44485 (Merge develop from csid)
                     goal += level * 5
                     framerate = int(framerate-speed_change)
                     Change_RATE += 1
@@ -3193,6 +3582,9 @@ while not done:
 
             elif event.type == KEYDOWN:
                 erase_mino(dx, dy, mino, rotation, matrix)
+<<<<<<< HEAD
+>>>>>>> parent of 1e44485 (Merge develop from csid)
+=======
 >>>>>>> parent of 1e44485 (Merge develop from csid)
                 if event.key == K_ESCAPE:
                     ui_variables.click_sound.play()
@@ -3201,6 +3593,7 @@ while not done:
                 elif event.key == K_SPACE:
                     ui_variables.fall_sound.play()
                     ui_variables.drop_sound.play()
+<<<<<<< HEAD
 <<<<<<< HEAD
                     while not is_bottom(dx, dy, mino, rotation):
                         dy += 1
@@ -3213,6 +3606,8 @@ while not done:
                 # Hold
                 elif event.key == K_LSHIFT or event.key == K_q:
 =======
+=======
+>>>>>>> parent of 1e44485 (Merge develop from csid)
                     while not is_bottom(dx, dy, mino, rotation, matrix):
                         dy += 1
                     hard_drop = True
@@ -3228,6 +3623,9 @@ while not done:
 
                 # Hold
                 elif event.key == K_RSHIFT : #keyboard 변경하기
+<<<<<<< HEAD
+>>>>>>> parent of 1e44485 (Merge develop from csid)
+=======
 >>>>>>> parent of 1e44485 (Merge develop from csid)
                     if hold == False:
                         ui_variables.move_sound.play()
@@ -3241,6 +3639,7 @@ while not done:
                         dx, dy = 3, 0
                         rotation = 0
                         hold = True
+<<<<<<< HEAD
 <<<<<<< HEAD
                     draw_mino(dx, dy, mino, rotation)
                     screen.fill(ui_variables.real_white)
@@ -3273,6 +3672,8 @@ while not done:
                         rotation += 1
                     elif is_turnable_r(dx - 2, dy, mino, rotation):
 =======
+=======
+>>>>>>> parent of 1e44485 (Merge develop from csid)
                     draw_mino(dx, dy, mino, rotation, matrix)
                     screen.fill(ui_variables.real_white)
                     draw_image(screen, gamebackground_image , board_width * 0.5, board_height * 0.5, board_width, board_height) #(window, 이미지주소, x좌표, y좌표, 너비, 높이)
@@ -3306,12 +3707,16 @@ while not done:
                         dx += 2
                         rotation += 1
                     elif is_turnable_r(dx - 2, dy, mino, rotation, matrix):
+<<<<<<< HEAD
+>>>>>>> parent of 1e44485 (Merge develop from csid)
+=======
 >>>>>>> parent of 1e44485 (Merge develop from csid)
                         ui_variables.move_sound.play()
                         dx -= 2
                         rotation += 1
                     if rotation == 4:
                         rotation = 0
+<<<<<<< HEAD
 <<<<<<< HEAD
                     draw_mino(dx, dy, mino, rotation)
                     screen.fill(ui_variables.real_white)
@@ -3344,6 +3749,8 @@ while not done:
                         rotation += 1
                     elif is_turnable_l(dx - 2, dy, mino, rotation):
 =======
+=======
+>>>>>>> parent of 1e44485 (Merge develop from csid)
                     draw_mino(dx, dy, mino, rotation, matrix)
                     screen.fill(ui_variables.real_white)
                     draw_image(screen, gamebackground_image , board_width * 0.5, board_height * 0.5, board_width, board_height) #(window, 이미지주소, x좌표, y좌표, 너비, 높이)
@@ -3375,11 +3782,15 @@ while not done:
                         dx += 2
                         rotation += 1
                     elif is_turnable_l(dx - 2, dy, mino, rotation, matrix):
+<<<<<<< HEAD
+>>>>>>> parent of 1e44485 (Merge develop from csid)
+=======
 >>>>>>> parent of 1e44485 (Merge develop from csid)
                         ui_variables.move_sound.play()
                         dx -= 2
                     if rotation == -1:
                         rotation = 3
+<<<<<<< HEAD
 <<<<<<< HEAD
                     draw_mino(dx, dy, mino, rotation)
                     screen.fill(ui_variables.real_white)
@@ -3443,6 +3854,8 @@ while not done:
                 gameover_quit_button = button(board_width * 0.5, board_height * 0.43, int(board_width * 0.3734),
                                               int(board_height * 0.1777), 1, quit_button_image)
 =======
+=======
+>>>>>>> parent of 1e44485 (Merge develop from csid)
                     draw_mino(dx, dy, mino, rotation, matrix)
                     screen.fill(ui_variables.real_white)
                     draw_image(screen, gamebackground_image , board_width * 0.5, board_height * 0.5, board_width, board_height) #(window, 이미지주소, x좌표, y좌표, 너비, 높이)
@@ -3592,13 +4005,19 @@ while not done:
             game_over = True
             time_attack = False
             pygame.time.set_timer(pygame.USEREVENT, 1)
+<<<<<<< HEAD
+>>>>>>> parent of 1e44485 (Merge develop from csid)
+=======
 >>>>>>> parent of 1e44485 (Merge develop from csid)
 
         pygame.display.update()
     elif pvp:
         for event in pygame.event.get():
 <<<<<<< HEAD
+<<<<<<< HEAD
             # event.key = pygame.key.get_pressed()
+=======
+>>>>>>> parent of 1e44485 (Merge develop from csid)
 =======
 >>>>>>> parent of 1e44485 (Merge develop from csid)
             if event.type == QUIT:
@@ -3607,6 +4026,7 @@ while not done:
                 # Set speed
                 if not game_over:
                     keys_pressed = pygame.key.get_pressed()
+<<<<<<< HEAD
 <<<<<<< HEAD
                     if keys_pressed[K_DOWN]:
                         pygame.time.set_timer(pygame.USEREVENT, framerate * 1)
@@ -3628,6 +4048,8 @@ while not done:
                 # Move mino down
                 if not is_bottom(dx, dy, mino, rotation):
 =======
+=======
+>>>>>>> parent of 1e44485 (Merge develop from csid)
                     if keys_pressed[K_s]: #프레임만큼의 시간으로 소프트드롭 되도록 함
                         pygame.time.set_timer(pygame.USEREVENT, framerate)
                     elif keys_pressed[K_DOWN] :  #프레임만큼의 시간으로 소프트드롭 되도록 함
@@ -3648,6 +4070,9 @@ while not done:
 
                 # Move mino down
                 if not is_bottom(dx, dy, mino, rotation, matrix):
+<<<<<<< HEAD
+>>>>>>> parent of 1e44485 (Merge develop from csid)
+=======
 >>>>>>> parent of 1e44485 (Merge develop from csid)
                     dy += 1
 
@@ -3657,10 +4082,16 @@ while not done:
                         hard_drop = False
                         bottom_count = 0
 <<<<<<< HEAD
+<<<<<<< HEAD
                         score += 10 * level
                         draw_mino(dx, dy, mino, rotation)
 
                         if is_stackable(next_mino1):
+=======
+                        draw_mino(dx, dy, mino, rotation, matrix)
+
+                        if is_stackable(next_mino1, matrix):
+>>>>>>> parent of 1e44485 (Merge develop from csid)
 =======
                         draw_mino(dx, dy, mino, rotation, matrix)
 
@@ -3673,6 +4104,7 @@ while not done:
                             rotation = 0
                             hold = False
 <<<<<<< HEAD
+<<<<<<< HEAD
                         else:  # 더이상 쌓을 수 없으면 게임오버
                             ui_variables.GameOver_sound.play()
                             pvp = False
@@ -3680,6 +4112,8 @@ while not done:
                             game_over = True
                             pygame.time.set_timer(pygame.USEREVENT, 1)
 =======
+=======
+>>>>>>> parent of 1e44485 (Merge develop from csid)
                             score += 10 * level
                         else:  # 더이상 쌓을 수 없으면 게임오버
                             pvp = True
@@ -3702,13 +4136,20 @@ while not done:
                                 ui_variables.click_sound.play()
                                 game_over = False
                                 pause = False
+<<<<<<< HEAD
+>>>>>>> parent of 1e44485 (Merge develop from csid)
+=======
 >>>>>>> parent of 1e44485 (Merge develop from csid)
                     else:
                         bottom_count += 1
 
                 # Move mino down
 <<<<<<< HEAD
+<<<<<<< HEAD
                 if not is_bottom_2P(dx_2P, dy_2P, mino_2P, rotation_2P):
+=======
+                if not is_bottom(dx_2P, dy_2P, mino_2P, rotation_2P, matrix_2P):
+>>>>>>> parent of 1e44485 (Merge develop from csid)
 =======
                 if not is_bottom(dx_2P, dy_2P, mino_2P, rotation_2P, matrix_2P):
 >>>>>>> parent of 1e44485 (Merge develop from csid)
@@ -3720,6 +4161,7 @@ while not done:
                         hard_drop_2P = False
                         bottom_count_2P = 0
 <<<<<<< HEAD
+<<<<<<< HEAD
                         score += 10 * level
                         draw_mino_2P(dx_2P, dy_2P, mino_2P, rotation_2P)
 
@@ -3727,15 +4169,21 @@ while not done:
                             mino_2P = next_mino1_2P
                             # next_mino1_2P = next_mino2_2P
 =======
+=======
+>>>>>>> parent of 1e44485 (Merge develop from csid)
                         draw_mino(dx_2P, dy_2P, mino_2P, rotation_2P, matrix_2P)
 
                         if is_stackable(next_mino1_2P, matrix_2P):
                             mino_2P = next_mino1_2P
+<<<<<<< HEAD
+>>>>>>> parent of 1e44485 (Merge develop from csid)
+=======
 >>>>>>> parent of 1e44485 (Merge develop from csid)
                             next_mino1_2P = randint(1, 7)
                             dx_2P, dy_2P = 3, 0
                             rotation_2P = 0
                             hold_2P = False
+<<<<<<< HEAD
 <<<<<<< HEAD
                         else:  # 더이상 쌓을 수 없으면 게임오버
                             ui_variables.GameOver_sound.play()
@@ -3744,6 +4192,8 @@ while not done:
                             game_over = True
                             pygame.time.set_timer(pygame.USEREVENT, 1)
 =======
+=======
+>>>>>>> parent of 1e44485 (Merge develop from csid)
                             score_2P += 10 * level_2P
                         else:  # 더이상 쌓을 수 없으면 게임오버
                             pvp = True
@@ -3765,6 +4215,9 @@ while not done:
                                 ui_variables.click_sound.play()
                                 game_over = False
                                 pause = False
+<<<<<<< HEAD
+>>>>>>> parent of 1e44485 (Merge develop from csid)
+=======
 >>>>>>> parent of 1e44485 (Merge develop from csid)
                     else:
                         bottom_count_2P += 1
@@ -3774,6 +4227,7 @@ while not done:
                 erase_count = 0
                 erase_count_2P = 0
                 combo_value = 0
+<<<<<<< HEAD
 <<<<<<< HEAD
                 sent = 0
 
@@ -3840,6 +4294,8 @@ while not done:
                 # combo_count = 0
 
 =======
+=======
+>>>>>>> parent of 1e44485 (Merge develop from csid)
                 combo_value_2P = 0
                 attack_line = 0
                 attack_line_2P = 0
@@ -3890,6 +4346,9 @@ while not done:
                     attack_point_2P += 1
 
                 #1P
+<<<<<<< HEAD
+>>>>>>> parent of 1e44485 (Merge develop from csid)
+=======
 >>>>>>> parent of 1e44485 (Merge develop from csid)
                 if erase_count >= 1:
                     combo_count += 1
@@ -3898,7 +4357,11 @@ while not done:
                         ui_variables.single_sound.play()
                         score += 50 * level * erase_count + combo_count
 <<<<<<< HEAD
+<<<<<<< HEAD
                         sent += 1
+=======
+
+>>>>>>> parent of 1e44485 (Merge develop from csid)
 =======
 
 >>>>>>> parent of 1e44485 (Merge develop from csid)
@@ -3908,7 +4371,11 @@ while not done:
                         ui_variables.double_sound.play()
                         score += 150 * level * erase_count + 2 * combo_count
 <<<<<<< HEAD
+<<<<<<< HEAD
                         sent += 2
+=======
+
+>>>>>>> parent of 1e44485 (Merge develop from csid)
 =======
 
 >>>>>>> parent of 1e44485 (Merge develop from csid)
@@ -3919,7 +4386,11 @@ while not done:
                         ui_variables.triple_sound.play()
                         score += 350 * level * erase_count + 3 * combo_count
 <<<<<<< HEAD
+<<<<<<< HEAD
                         sent += 3
+=======
+
+>>>>>>> parent of 1e44485 (Merge develop from csid)
 =======
 
 >>>>>>> parent of 1e44485 (Merge develop from csid)
@@ -3931,8 +4402,14 @@ while not done:
                         ui_variables.tetris_sound.play()
                         score += 1000 * level * erase_count + 4 * combo_count
 <<<<<<< HEAD
+<<<<<<< HEAD
                         sent += 4
                         screen.blit(ui_variables.combo_4ring, (250, 160))
+=======
+
+                        screen.blit(ui_variables.combo_4ring, (250, 160)) #blit(이미지, 위치)
+
+>>>>>>> parent of 1e44485 (Merge develop from csid)
 =======
 
                         screen.blit(ui_variables.combo_4ring, (250, 160)) #blit(이미지, 위치)
@@ -3955,6 +4432,7 @@ while not done:
                     level += 1
                     ui_variables.LevelUp_sound.play()
 <<<<<<< HEAD
+<<<<<<< HEAD
                     ui_variables.LevelUp_sound.play()
 
                     goal += level * 5
@@ -3964,6 +4442,8 @@ while not done:
                 erase_mino(dx, dy, mino, rotation)
                 erase_mino_2P(dx_2P, dy_2P, mino_2P, rotation_2P)
 =======
+=======
+>>>>>>> parent of 1e44485 (Merge develop from csid)
                     goal += level * 5
                     framerate = int(framerate - speed_change)
                 if level > level_2P and Change_RATE < level + 1:
@@ -4024,11 +4504,15 @@ while not done:
             elif event.type == KEYDOWN:
                 erase_mino(dx, dy, mino, rotation, matrix)
                 erase_mino(dx_2P, dy_2P, mino_2P, rotation_2P, matrix_2P)
+<<<<<<< HEAD
+>>>>>>> parent of 1e44485 (Merge develop from csid)
+=======
 >>>>>>> parent of 1e44485 (Merge develop from csid)
 
                 if event.key == K_ESCAPE:
                     ui_variables.click_sound.play()
                     pause = True
+<<<<<<< HEAD
 <<<<<<< HEAD
                 # Hard drop
                 elif event.key == K_k:
@@ -4054,6 +4538,8 @@ while not done:
                 # Hold
                 elif event.key == K_j:
 =======
+=======
+>>>>>>> parent of 1e44485 (Merge develop from csid)
 
                 #dx, dy는 각각 좌표위치 이동에 해당하며, rotation은 mino.py의 테트리스 블록 회전에 해당함
                 # Hard drop
@@ -4080,6 +4566,9 @@ while not done:
 
                 # Hold
                 elif event.key == K_LSHIFT:
+<<<<<<< HEAD
+>>>>>>> parent of 1e44485 (Merge develop from csid)
+=======
 >>>>>>> parent of 1e44485 (Merge develop from csid)
                     if hold == False:
                         ui_variables.move_sound.play()
@@ -4087,7 +4576,10 @@ while not done:
                             hold_mino = mino
                             mino = next_mino1
 <<<<<<< HEAD
+<<<<<<< HEAD
                             #next_mino1 = next_mino2
+=======
+>>>>>>> parent of 1e44485 (Merge develop from csid)
 =======
 >>>>>>> parent of 1e44485 (Merge develop from csid)
                             next_mino1 = randint(1, 7)
@@ -4097,15 +4589,21 @@ while not done:
                         rotation = 0
                         hold = True
 <<<<<<< HEAD
+<<<<<<< HEAD
                     draw_mino(dx, dy, mino, rotation)
                     draw_mino_2P(dx_2P, dy_2P, mino_2P, rotation_2P)
                     draw_multiboard(next_mino1, hold_mino, next_mino1_2P, hold_mino_2P, score, level, goal)
                 elif event.key == K_f:
 =======
+=======
+>>>>>>> parent of 1e44485 (Merge develop from csid)
                     draw_mino(dx, dy, mino, rotation, matrix)
                     draw_mino(dx_2P, dy_2P, mino_2P, rotation_2P, matrix_2P)
                     draw_multiboard(next_mino1, hold_mino, next_mino1_2P, hold_mino_2P, score, score_2P, level, level_2P, goal, goal_2P)
                 elif event.key == K_RSHIFT:
+<<<<<<< HEAD
+>>>>>>> parent of 1e44485 (Merge develop from csid)
+=======
 >>>>>>> parent of 1e44485 (Merge develop from csid)
                     if hold_2P == False:
                         ui_variables.move_sound.play()
@@ -4113,7 +4611,10 @@ while not done:
                             hold_mino_2P = mino_2P
                             mino_2P = next_mino1_2P
 <<<<<<< HEAD
+<<<<<<< HEAD
                             # next_mino1_2P = next_mino2_2P
+=======
+>>>>>>> parent of 1e44485 (Merge develop from csid)
 =======
 >>>>>>> parent of 1e44485 (Merge develop from csid)
                             next_mino1_2P = randint(1, 7)
@@ -4122,6 +4623,7 @@ while not done:
                         dx_2P, dy_2P = 3, 0
                         rotation_2P = 0
                         hold_2P = True
+<<<<<<< HEAD
 <<<<<<< HEAD
                     draw_mino_2P(dx_2P, dy_2P, mino_2P, rotation_2P)
                     draw_mino(dx, dy, mino, rotation)
@@ -4154,6 +4656,8 @@ while not done:
                         rotation += 1
                     elif is_turnable_r(dx - 2, dy, mino, rotation):
 =======
+=======
+>>>>>>> parent of 1e44485 (Merge develop from csid)
                     draw_mino(dx_2P, dy_2P, mino_2P, rotation_2P, matrix_2P)
                     draw_mino(dx, dy, mino, rotation, matrix)
                     draw_multiboard(next_mino1, hold_mino, next_mino1_2P, hold_mino_2P, score, score_2P, level, level_2P, goal, goal_2P)
@@ -4185,12 +4689,16 @@ while not done:
                         dx += 2
                         rotation += 1
                     elif is_turnable_r(dx - 2, dy, mino, rotation, matrix):
+<<<<<<< HEAD
+>>>>>>> parent of 1e44485 (Merge develop from csid)
+=======
 >>>>>>> parent of 1e44485 (Merge develop from csid)
                         ui_variables.move_sound.play()
                         dx -= 2
                         rotation += 1
                     if rotation == 4:
                         rotation = 0
+<<<<<<< HEAD
 <<<<<<< HEAD
                     draw_mino(dx, dy, mino, rotation)
                     draw_mino_2P(dx_2P, dy_2P, mino_2P, rotation_2P)
@@ -4226,6 +4734,8 @@ while not done:
                         rotation_2P += 1
                     elif is_turnable_r(dx_2P - 2, dy_2P, mino_2P, rotation_2P):
 =======
+=======
+>>>>>>> parent of 1e44485 (Merge develop from csid)
                     draw_mino(dx, dy, mino, rotation, matrix)
                     draw_mino(dx_2P, dy_2P, mino_2P, rotation_2P, matrix_2P)
                     draw_multiboard(next_mino1, hold_mino, next_mino1_2P, hold_mino_2P, score, score_2P, level, level_2P, goal, goal_2P)
@@ -4255,12 +4765,16 @@ while not done:
                         dx_2P += 2
                         rotation_2P += 1
                     elif is_turnable_r(dx_2P - 2, dy_2P, mino_2P, rotation_2P, matrix_2P):
+<<<<<<< HEAD
+>>>>>>> parent of 1e44485 (Merge develop from csid)
+=======
 >>>>>>> parent of 1e44485 (Merge develop from csid)
                         ui_variables.move_sound.play()
                         dx_2P -= 2
                         rotation_2P += 1
                     if rotation_2P == 4:
                         rotation_2P = 0
+<<<<<<< HEAD
 <<<<<<< HEAD
                     draw_mino_2P(dx_2P, dy_2P, mino_2P, rotation_2P)
                     draw_mino(dx, dy, mino, rotation)
@@ -4386,6 +4900,8 @@ while not done:
 
         pygame.display.update()
 =======
+=======
+>>>>>>> parent of 1e44485 (Merge develop from csid)
                     draw_mino(dx_2P, dy_2P, mino_2P, rotation_2P, matrix_2P)
                     draw_mino(dx, dy, mino, rotation, matrix)
                     draw_multiboard(next_mino1, hold_mino, next_mino1_2P, hold_mino_2P, score, score_2P, level, level_2P, goal, goal_2P)
@@ -4524,6 +5040,9 @@ while not done:
 
         pygame.display.update()
 
+<<<<<<< HEAD
+>>>>>>> parent of 1e44485 (Merge develop from csid)
+=======
 >>>>>>> parent of 1e44485 (Merge develop from csid)
     # Game over screen
     elif game_over:
@@ -4534,6 +5053,7 @@ while not done:
                 done = True
             elif event.type == USEREVENT:
                 pygame.mixer.music.stop()
+<<<<<<< HEAD
 <<<<<<< HEAD
                 pygame.time.set_timer(pygame.USEREVENT, 300)
 
@@ -4569,6 +5089,8 @@ while not done:
 
                 pygame.display.update()
 =======
+=======
+>>>>>>> parent of 1e44485 (Merge develop from csid)
                 pygame.time.set_timer(pygame.USEREVENT, 300) #0.3초
 
                 draw_image(screen, gameover_board_image, board_width * 0.5, board_height * 0.5, int(board_height * 0.7428), board_height) #(window, 이미지주소, x좌표, y좌표, 너비, 높이)
@@ -4602,12 +5124,19 @@ while not done:
 
                 pygame.display.update()
 
+<<<<<<< HEAD
+>>>>>>> parent of 1e44485 (Merge develop from csid)
+=======
 >>>>>>> parent of 1e44485 (Merge develop from csid)
             elif event.type == KEYDOWN:
                 if event.key == K_RETURN:
                     ui_variables.click_sound.play()
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+                    #1p점수만 저장함
+>>>>>>> parent of 1e44485 (Merge develop from csid)
 =======
                     #1p점수만 저장함
 >>>>>>> parent of 1e44485 (Merge develop from csid)
@@ -4616,6 +5145,7 @@ while not done:
                     outfile.close()
 
                     game_over = False
+<<<<<<< HEAD
 <<<<<<< HEAD
                     hold = False  #
                     dx, dy = 3, 0  #
@@ -4659,13 +5189,22 @@ while not done:
 
                 #name은 3글자로 name_locationd은 0~2, name[name_location]은 영어 아스키코드로 65~90.
 >>>>>>> parent of 1e44485 (Merge develop from csid)
+=======
+                    pygame.time.set_timer(pygame.USEREVENT, 1) #0.001초
+
+                #name은 3글자로 name_locationd은 0~2, name[name_location]은 영어 아스키코드로 65~90.
+>>>>>>> parent of 1e44485 (Merge develop from csid)
                 elif event.key == K_RIGHT:
                     if name_location != 2:
                         name_location += 1
                     else:
                         name_location = 0
 <<<<<<< HEAD
+<<<<<<< HEAD
                     pygame.time.set_timer(pygame.USEREVENT, 1)
+=======
+                    pygame.time.set_timer(pygame.USEREVENT, 1) #0.001초
+>>>>>>> parent of 1e44485 (Merge develop from csid)
 =======
                     pygame.time.set_timer(pygame.USEREVENT, 1) #0.001초
 >>>>>>> parent of 1e44485 (Merge develop from csid)
@@ -4690,8 +5229,14 @@ while not done:
                         name[name_location] = 90
                     pygame.time.set_timer(pygame.USEREVENT, 1)
 <<<<<<< HEAD
+<<<<<<< HEAD
             elif event.type == pygame.MOUSEMOTION:
                 if resume_button.isOver(pos):
+=======
+
+            elif event.type == pygame.MOUSEMOTION:
+                if resume_button.isOver_2(pos):
+>>>>>>> parent of 1e44485 (Merge develop from csid)
 =======
 
             elif event.type == pygame.MOUSEMOTION:
@@ -4702,7 +5247,11 @@ while not done:
                     menu_button.image = menu_button_image
 
 <<<<<<< HEAD
+<<<<<<< HEAD
                 if restart_button.isOver(pos):
+=======
+                if restart_button.isOver_2(pos):
+>>>>>>> parent of 1e44485 (Merge develop from csid)
 =======
                 if restart_button.isOver_2(pos):
 >>>>>>> parent of 1e44485 (Merge develop from csid)
@@ -4711,7 +5260,11 @@ while not done:
                     restart_button.image = restart_button_image
 
 <<<<<<< HEAD
+<<<<<<< HEAD
                 if ok_button.isOver(pos):
+=======
+                if ok_button.isOver_2(pos):
+>>>>>>> parent of 1e44485 (Merge develop from csid)
 =======
                 if ok_button.isOver_2(pos):
 >>>>>>> parent of 1e44485 (Merge develop from csid)
@@ -4723,6 +5276,7 @@ while not done:
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 if ok_button.isOver(pos):
                     ui_variables.click_sound.play()
+<<<<<<< HEAD
 <<<<<<< HEAD
                     ui_variables.click_sound.play()
 
@@ -4770,16 +5324,22 @@ while not done:
                     leaders = sorted(leaders.items(), key=operator.itemgetter(1), reverse=True)
 
 =======
+=======
+>>>>>>> parent of 1e44485 (Merge develop from csid)
                     #현재 1p점수만 저장함
                     outfile = open('leaderboard.txt', 'a')
                     outfile.write(chr(name[0]) + chr(name[1]) + chr(name[2]) + ' ' + str(score) + '\n')
                     outfile.close()
                     game_over = False
+<<<<<<< HEAD
+>>>>>>> parent of 1e44485 (Merge develop from csid)
+=======
 >>>>>>> parent of 1e44485 (Merge develop from csid)
                     pygame.time.set_timer(pygame.USEREVENT, 1)
 
                 if menu_button.isOver(pos):
                     ui_variables.click_sound.play()
+<<<<<<< HEAD
 <<<<<<< HEAD
                     start = False
                     pvp = False
@@ -4898,6 +5458,8 @@ while not done:
     # Start screen
     else:
 =======
+=======
+>>>>>>> parent of 1e44485 (Merge develop from csid)
                     game_over = False
 
                 if restart_button.isOver_2(pos):
@@ -4949,12 +5511,16 @@ while not done:
             set_initial_values()
         initalize = False
 
+<<<<<<< HEAD
+>>>>>>> parent of 1e44485 (Merge develop from csid)
+=======
 >>>>>>> parent of 1e44485 (Merge develop from csid)
         for event in pygame.event.get():
             pos = pygame.mouse.get_pos()
             if event.type == QUIT:
                 done = True
             elif event.type == USEREVENT:
+<<<<<<< HEAD
 <<<<<<< HEAD
                 pygame.time.set_timer(pygame.USEREVENT, 300)
 
@@ -4965,6 +5531,8 @@ while not done:
             elif event.type == pygame.MOUSEMOTION:
                 if single_button.isOver(pos):
 =======
+=======
+>>>>>>> parent of 1e44485 (Merge develop from csid)
                 pygame.time.set_timer(pygame.USEREVENT, 300) #0.3초
 
             elif event.type == KEYDOWN:
@@ -5019,13 +5587,20 @@ while not done:
 
             elif event.type == pygame.MOUSEMOTION:
                 if single_button.isOver_2(pos):
+<<<<<<< HEAD
+>>>>>>> parent of 1e44485 (Merge develop from csid)
+=======
 >>>>>>> parent of 1e44485 (Merge develop from csid)
                     single_button.image = clicked_single_button_image
                 else:
                     single_button.image = single_button_image
 
 <<<<<<< HEAD
+<<<<<<< HEAD
                 if pvp_button.isOver(pos):
+=======
+                if pvp_button.isOver_2(pos):
+>>>>>>> parent of 1e44485 (Merge develop from csid)
 =======
                 if pvp_button.isOver_2(pos):
 >>>>>>> parent of 1e44485 (Merge develop from csid)
@@ -5034,7 +5609,11 @@ while not done:
                     pvp_button.image = pvp_button_image
 
 <<<<<<< HEAD
+<<<<<<< HEAD
                 if help_button.isOver(pos):
+=======
+                if help_button.isOver_2(pos):
+>>>>>>> parent of 1e44485 (Merge develop from csid)
 =======
                 if help_button.isOver_2(pos):
 >>>>>>> parent of 1e44485 (Merge develop from csid)
@@ -5043,7 +5622,11 @@ while not done:
                     help_button.image = help_button_image
 
 <<<<<<< HEAD
+<<<<<<< HEAD
                 if quit_button.isOver(pos):
+=======
+                if quit_button.isOver_2(pos):
+>>>>>>> parent of 1e44485 (Merge develop from csid)
 =======
                 if quit_button.isOver_2(pos):
 >>>>>>> parent of 1e44485 (Merge develop from csid)
@@ -5052,7 +5635,10 @@ while not done:
                     quit_button.image = quit_button_image
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> parent of 1e44485 (Merge develop from csid)
                 if gravity_button.isOver_2(pos):
                     gravity_button.image = clicked_gravity_button_image
                 else:
@@ -5063,6 +5649,9 @@ while not done:
                 else:
                     timeattack_button.image = timeattack_button_image
 
+<<<<<<< HEAD
+>>>>>>> parent of 1e44485 (Merge develop from csid)
+=======
 >>>>>>> parent of 1e44485 (Merge develop from csid)
                 if setting_icon.isOver(pos):
                     setting_icon.image = clicked_setting_vector
@@ -5075,6 +5664,7 @@ while not done:
                     leaderboard_icon.image = leaderboard_vector
             elif event.type == pygame.MOUSEBUTTONDOWN:
 <<<<<<< HEAD
+<<<<<<< HEAD
                 if single_button.isOver(pos):
                     ui_variables.click_sound.play()
                     previous_time = pygame.time.get_ticks()
@@ -5085,6 +5675,8 @@ while not done:
                     pvp = True
                     pygame.mixer.music.play(-1)
 =======
+=======
+>>>>>>> parent of 1e44485 (Merge develop from csid)
                 if single_button.isOver_2(pos):
                     ui_variables.click_sound.play()
                     previous_time = pygame.time.get_ticks()
@@ -5112,6 +5704,9 @@ while not done:
                     initalize = True
                     pygame.mixer.music.play(-1)
                     ui_variables.intro_sound.stop()
+<<<<<<< HEAD
+>>>>>>> parent of 1e44485 (Merge develop from csid)
+=======
 >>>>>>> parent of 1e44485 (Merge develop from csid)
                 if leaderboard_icon.isOver(pos):
                     ui_variables.click_sound.play()
@@ -5119,6 +5714,7 @@ while not done:
                 if setting_icon.isOver(pos):
                     ui_variables.click_sound.play()
                     setting = True
+<<<<<<< HEAD
 <<<<<<< HEAD
                 if quit_button.isOver(pos):
                     ui_variables.click_sound.play()
@@ -5187,6 +5783,8 @@ while not done:
 pygame.quit()
 
 =======
+=======
+>>>>>>> parent of 1e44485 (Merge develop from csid)
                 if quit_button.isOver_2(pos):
                     ui_variables.click_sound.play()
                     done = True
@@ -5235,4 +5833,7 @@ pygame.quit()
             pygame.display.update()
 
 pygame.quit()
+<<<<<<< HEAD
+>>>>>>> parent of 1e44485 (Merge develop from csid)
+=======
 >>>>>>> parent of 1e44485 (Merge develop from csid)
