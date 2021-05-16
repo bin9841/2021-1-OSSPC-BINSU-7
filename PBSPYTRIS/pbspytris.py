@@ -4,10 +4,13 @@
 import pygame
 import operator
 import wave
+
+import os
+
 from mino import *
 from random import *
 from pygame.locals import *
-import os
+
 
 # Unchanged values Define 변하지 않는 변수 선언
 
@@ -21,10 +24,15 @@ board_width = 800 # Board width
 board_height = 450 # Board height
 board_rate = 0.5625 #가로세로비율
 block_size = int(board_height * 0.045)
+
 mino_matrix_x = 4 #mino는 4*4 배열이어서 이를 for문에 사용
 mino_matrix_y = 4 #mino는 4*4 배열이어서 이를 for문에 사용
 
 speed_change = 2 # 레벨별 블록 하강 속도 상승 정도
+
+gold = 0
+framerate = 30  # Bigger -> Slower
+
 
 min_width = 400
 min_height = 225
@@ -747,6 +755,7 @@ def is_stackable(mino, matrix):
 
     return True
 
+
 def draw_multiboard(next_1P, hold_1P, next_2P, hold_2P, score1P, score2P, level1P, level2P, goal1P, goal2P):
     screen.fill(ui_variables.real_white)
     draw_image(screen, gamebackground_image , board_width * 0.5, board_height * 0.5, board_width, board_height) #(window, 이미지주소, x좌표, y좌표, 너비, 높이)
@@ -758,6 +767,25 @@ def set_vol(val):
     volume = int(val) / 100 #set_volume argenment로 넣기 위해서(소수점을 만들어주기 위해서) 100으로 나눠줌
     print(volume)
     ui_variables.click_sound.set_volume(volume)
+
+def set_music_playing_speed(CHANNELS, swidth, Change_RATE):
+    spf = wave.open('assets/sounds/SFX_BattleMusic.wav', 'rb')
+    RATE = spf.getframerate()
+    signal = spf.readframes(-1)
+    if os.path.isfile('assets/sounds/SFX_BattleMusic_Changed.wav'):
+        pygame.mixer.quit()
+        os.remove('assets/sounds/SFX_BattleMusic_Changed.wav')
+        pygame.mixer.init()
+    wf = wave.open('assets/sounds/SFX_BattleMusic_Changed.wav', 'wb')
+    wf.setnchannels(CHANNELS)
+    wf.setsampwidth(swidth)
+    wf.setframerate(RATE * Change_RATE)
+    wf.writeframes(signal)
+    wf.close()
+
+    pygame.mixer.music.load('assets/sounds/SFX_BattleMusic_Changed.wav')
+    pygame.mixer.music.play(-1) #위 노래를 반복재생하기 위해 play(-1)로 설정
+
 
 def set_music_playing_speed(CHANNELS, swidth, Change_RATE):
     spf = wave.open('assets/sounds/SFX_BattleMusic.wav', 'rb')
@@ -1595,23 +1623,26 @@ while not done:
                         pygame.time.delay(400) #0.4초
 
                     previous_time = current_time
-                    combo_count += 1
+                    
                     #점수 계산
                     if erase_count == 1:
                         ui_variables.break_sound.play()
                         ui_variables.single_sound.play()
                         score += 50 * level * erase_count + combo_count
+                        combo_count += 1
                     elif erase_count == 2:
                         ui_variables.break_sound.play()
                         ui_variables.double_sound.play()
                         ui_variables.double_sound.play()
                         score += 150 * level * erase_count + 2 * combo_count
+                        combo_count += 2
                     elif erase_count == 3:
                         ui_variables.break_sound.play()
                         ui_variables.triple_sound.play()
                         ui_variables.triple_sound.play()
                         ui_variables.triple_sound.play()
                         score += 350 * level * erase_count + 3 * combo_count
+                        combo_count += 3
                     elif erase_count == 4:
                         ui_variables.break_sound.play()
                         ui_variables.tetris_sound.play()
@@ -1619,6 +1650,7 @@ while not done:
                         ui_variables.tetris_sound.play()
                         ui_variables.tetris_sound.play()
                         score += 1000 * level * erase_count + 4 * combo_count
+                        combo_count += 4
                         screen.blit(ui_variables.combo_4ring, (250, 160)) #blit(이미지, 위치)
                     total_time += 5 # 콤보 시 시간 5초 연장
 
