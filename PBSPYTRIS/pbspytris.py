@@ -131,11 +131,11 @@ class ui_variables:
                ghost_image, linessent_image]
 
 #각 이미지 주소
-background_image = 'assets/vector/kingdom.jpg' #홈 배경화면
-gamebackground_image = 'assets/vector/snowymountains.png' #게임 배경화면
+background_image = 'assets/vector/Background.png' #홈 배경화면
+gamebackground_image = 'assets/vector/Background_game.png' #게임 배경화면
 
-single_button_image = 'assets/vector/single_button.png'
-clicked_single_button_image = 'assets/vector/clicked_single_button.png'
+start_button_image = 'assets/vector/start_button.png'
+clicked_start_button_image = 'assets/vector/clicked_start_button.png'
 
 pvp_button_image = 'assets/vector/pvp_button.png'
 clicked_pvp_button_image = 'assets/vector/clicked_pvp_button.png'
@@ -148,9 +148,22 @@ clicked_quit_button_image = 'assets/vector/clicked_quit_button.png'
 
 gravity_button_image = 'assets/vector/gravity_button.png'
 clicked_gravity_button_image = 'assets/vector/clicked_gravity_button.png'
+on_gravity_button_image = 'assets/vector/on_grvaity_button.png' #그래비티 모드 활성화 버튼
 
 timeattack_button_image = 'assets/vector/timeattack_button.png'
 clicked_timeattack_button_image = 'assets/vector/clicked_timeattack_button.png'
+on_timeattack_button_image = 'assetx/vector/on_timeattack_button.png' #타임어택 활성화 버튼
+
+shop_button_image = 'assets/vector/shop_button.png'
+clicked_shop_button_image = 'assets/vector/clicked_shop_button.png'
+#shop 버튼 추가
+
+mode_button_image = 'assets/vector/mode_button.png'
+difficulty_button_image = 'assets/vector/difficulty_button.png' #난이도 조절 버튼
+sandbox_button_image = 'assets/vector/sandbox_button.png' # 샌드박스 버튼
+clicked_sandbox_button_image = 'assets/vector/clicked_sandbox_button.png' # 샌드박스 클릭 버튼
+on_sandbox_button_image = 'assets/vectoron_sandbox.png' # 샌드박스 활성화 버튼 <- 만들어놨는데 필요 없으면 삭제 가능
+
 
 leaderboard_vector = 'assets/vector/leaderboard_vector.png'
 clicked_leaderboard_vector = 'assets/vector/clicked_leaderboard_vector.png'
@@ -163,6 +176,8 @@ leader_board_image = 'assets/vector/leader_board.png'
 setting_board_image = 'assets/vector/setting_board.png'
 gameover_board_image = 'assets/vector/gameover_board.png'
 gameover_image = 'assets/vector/gameover.png'
+mode_board_image = 'assets/vector/mode_board.png' #모드 보드 추가
+help_board_image = 'assets/vector/help_board' # 헬프 보드 추가
 
 smallsize_board = 'assets/vector/screensize1.png'
 midiumsize_board = 'assets/vector/screensize2.png'
@@ -254,17 +269,17 @@ class button(): #버튼객체
 #def __init__(self, board_width, board_height, x_rate, y_rate, width_rate, height_rate, img='')
 #(현재 보드너비, 현재보드높이, 버튼의 x좌표 위치비율, 버튼의 y좌표 위치비율, 버튼의 너비 길이비율, 버튼의 높이 길이비율) - 전체화면 크기에 대한 비율
 
-mute_button = button(board_width, board_height, 0.5, 0.27, 0.25, 0.45, mute_button_image)
-default_button = button(board_width, board_height, 0.5, 0.27, 0.25, 0.45, default_button_image)
+mute_button = button(board_width, board_height, 0.5, 0.27,  0.094, 0.174, mute_button_image)
+default_button = button(board_width, board_height, 0.5, 0.27,  0.094, 0.174, default_button_image)
 
-single_button = button(board_width,board_height, 0.12, 0.55, 0.235, 0.435, single_button_image)
-pvp_button = button(board_width, board_height, 0.35, 0.55, 0.235, 0.435, pvp_button_image)
-help_button = button(board_width, board_height, 0.12, 0.8, 0.235, 0.435, help_button_image)
-quit_button = button(board_width, board_height, 0.35, 0.8, 0.235, 0.435, quit_button_image)
-gravity_button = button(board_width, board_height, 0.58, 0.55, 0.235, 0.435, gravity_button_image)
-timeattack_button = button(board_width, board_height, 0.58, 0.8, 0.235, 0.435, timeattack_button_image)
+start_button = button(board_width,board_height, 0.12, 0.55, 0.094, 0.174, start_button_image)
+shop_button = button(board_width, board_height, 0.35, 0.55, 0.094, 0.174, shop_button_image)
+help_button = button(board_width, board_height, 0.12, 0.8, 0.094, 0.174, help_button_image)
+quit_button = button(board_width, board_height, 0.35, 0.8, 0.094, 0.174, quit_button_image)
+gravity_button = button(board_width, board_height, 0.58, 0.55, 0.094, 0.174, gravity_button_image)
+timeattack_button = button(board_width, board_height, 0.58, 0.8, 0.094, 0.174, timeattack_button_image)
 setting_icon = button(board_width, board_height, 0.9, 0.85, 0.10, 0.15, setting_vector)
-leaderboard_icon = button(board_width, board_height, 0.77, 0.85, 0.15, 0.2, leaderboard_vector)
+leaderboard_icon = button(board_width, board_height, 0.77, 0.85, 0.10, 0.15, leaderboard_vector)
 
 resume_button = button(board_width, board_height, 0.5, 0.23, 0.15, 0.35, resume_button_image)
 restart_button = button(board_width, board_height, 0.5, 0.43, 0.15, 0.35, restart_button_image)
@@ -305,7 +320,7 @@ midiumsize_check_button = button(board_width, board_height, 0.5, 0.45, 0.1875, 0
 bigsize_check_button = button(board_width, board_height, 0.5, 0.65, 0.1875, 0.1444, bigsize_board)
 
 #게임 중 버튼 생성하기위한 버튼객체 리스트 (버튼 전체)
-button_list = [mute_button, default_button, single_button, pvp_button, help_button, quit_button, gravity_button, timeattack_button, resume_button, restart_button, setting_button, pause_quit_button, back_button,
+button_list = [mute_button, default_button, start_button, shop_button, help_button, quit_button, gravity_button, timeattack_button, resume_button, restart_button, setting_button, pause_quit_button, back_button,
         ok_button, menu_button, gameover_quit_button, effect_plus_button, effect_minus_button, sound_plus_button, sound_minus_button, level_plus_button,
         effect_sound_off_button, music_sound_off_button, effect_sound_on_button, music_sound_on_button, mute_check_button, smallsize_check_button, midiumsize_check_button, bigsize_check_button,
         setting_icon, leaderboard_icon, volume_icon, screen_icon, level_minus_button, combo_minus_button, combo_plus_button, speed_minus_button, speed_plus_button]
@@ -1037,8 +1052,8 @@ while not done:
     elif screen_setting:
         screen.fill(ui_variables.pinkpurple)
         draw_image(screen, background_image, board_width * 0.5, board_height * 0.5, board_width, board_height) #(window, 이미지주소, x좌표, y좌표, 너비, 높이)
-        single_button.draw(screen, (0, 0, 0)) #rgb(0,0,0) = 검정색
-        pvp_button.draw(screen, (0, 0, 0))
+        start_button.draw(screen, (0, 0, 0)) #rgb(0,0,0) = 검정색
+        shop_button.draw(screen, (0, 0, 0))
         help_button.draw(screen, (0, 0, 0))
         quit_button.draw(screen, (0, 0, 0))
         gravity_button.draw(screen,(0, 0, 0))
@@ -1118,8 +1133,8 @@ while not done:
                     pygame.display.update()
 
     elif setting:
-        single_button.draw(screen, (0, 0, 0)) #rgb(0,0,0) = 검정색
-        pvp_button.draw(screen, (0, 0, 0))
+        start_button.draw(screen, (0, 0, 0)) #rgb(0,0,0) = 검정색
+        shop_button.draw(screen, (0, 0, 0))
         help_button.draw(screen, (0, 0, 0))
         quit_button.draw(screen, (0, 0, 0))
         gravity_button.draw(screen,(0, 0, 0))
@@ -1326,8 +1341,8 @@ while not done:
 
     elif help:
         draw_image(screen, background_image, board_width * 0.5, board_height * 0.5, board_width, board_height) #(window, 이미지주소, x좌표, y좌표, 너비, 높이)
-        single_button.draw(screen, (0, 0, 0)) #rgb(0,0,0) = 검정색
-        pvp_button.draw(screen, (0, 0, 0))
+        start_button.draw(screen, (0, 0, 0)) #rgb(0,0,0) = 검정색
+        shop_button.draw(screen, (0, 0, 0))
         help_button.draw(screen, (0, 0, 0))
         quit_button.draw(screen, (0, 0, 0))
         gravity_button.draw(screen,(0, 0, 0))
@@ -1389,8 +1404,8 @@ while not done:
     # Game screen
     elif leader_board:
         draw_image(screen, background_image, board_width * 0.5, board_height * 0.5, board_width, board_height) #(window, 이미지주소, x좌표, y좌표, 너비, 높이)
-        single_button.draw(screen, (0, 0, 0)) #rgb(0,0,0) = 검정색
-        pvp_button.draw(screen, (0, 0, 0))
+        start_button.draw(screen, (0, 0, 0)) #rgb(0,0,0) = 검정색
+        shop_button.draw(screen, (0, 0, 0))
         help_button.draw(screen, (0, 0, 0))
         quit_button.draw(screen, (0, 0, 0))
         gravity_button.draw(screen,(0, 0, 0))
@@ -2666,15 +2681,15 @@ while not done:
                         time_attack = False
 
             elif event.type == pygame.MOUSEMOTION:
-                if single_button.isOver_2(pos):
-                    single_button.image = clicked_single_button_image
+                if start_button.isOver_2(pos):
+                    start_button.image = clicked_start_button_image
                 else:
-                    single_button.image = single_button_image
+                    start_button.image = start_button_image
 
-                if pvp_button.isOver_2(pos):
-                    pvp_button.image = clicked_pvp_button_image
+                if shop_button.isOver_2(pos):
+                    shop_button.image = clicked_shop_button_image
                 else:
-                    pvp_button.image = pvp_button_image
+                    shop_button.image = shop_button_image
 
                 if help_button.isOver_2(pos):
                     help_button.image = clicked_help_button_image
@@ -2706,14 +2721,14 @@ while not done:
                 else:
                     leaderboard_icon.image = leaderboard_vector
             elif event.type == pygame.MOUSEBUTTONDOWN:
-                if single_button.isOver_2(pos):
+                if start_button.isOver_2(pos):
                     ui_variables.click_sound.play()
                     previous_time = pygame.time.get_ticks()
                     start = True
                     initalize = True
                     pygame.mixer.music.play(-1) #play(-1) = 노래 반복재생
                     ui_variables.intro_sound.stop()
-                if pvp_button.isOver_2(pos):
+                if shop_button.isOver_2(pos):
                     ui_variables.click_sound.play()
                     pvp = True
                     initalize = True
@@ -2768,8 +2783,8 @@ while not done:
 
         draw_image(screen, background_image, board_width * 0.5, board_height * 0.5, board_width, board_height) #(window, 이미지주소, x좌표, y좌표, 너비, 높이)
 
-        single_button.draw(screen, (0, 0, 0)) #rgb(0,0,0) = 검정색
-        pvp_button.draw(screen, (0, 0, 0))
+        start_button.draw(screen, (0, 0, 0)) #rgb(0,0,0) = 검정색
+        shop_button.draw(screen, (0, 0, 0))
         help_button.draw(screen, (0, 0, 0))
         quit_button.draw(screen, (0, 0, 0))
         gravity_button.draw(screen,(0, 0, 0))
