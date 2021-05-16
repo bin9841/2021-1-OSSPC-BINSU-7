@@ -4,9 +4,7 @@
 import pygame
 import operator
 import wave
-
 import os
-
 from mino import *
 from random import *
 from pygame.locals import *
@@ -24,7 +22,6 @@ board_width = 800 # Board width
 board_height = 450 # Board height
 board_rate = 0.5625 #가로세로비율
 block_size = int(board_height * 0.045)
-
 mino_matrix_x = 4 #mino는 4*4 배열이어서 이를 for문에 사용
 mino_matrix_y = 4 #mino는 4*4 배열이어서 이를 for문에 사용
 
@@ -33,12 +30,12 @@ speed_change = 2 # 레벨별 블록 하강 속도 상승 정도
 gold = 0
 framerate = 30  # Bigger -> Slower
 
-
 min_width = 400
 min_height = 225
 mid_width = 1200
 
 total_time = 60 # 타임 어택 시간
+attack_time = 30 # 어택모드 제한시간
 
 # 기본 볼륨
 music_volume = 5
@@ -50,7 +47,7 @@ pygame.init()
 
 clock = pygame.time.Clock() #창, 화면을 초당 몇번 출력하는가(FPS) clock.tick 높을수록 cpu많이 사용
 screen = pygame.display.set_mode((board_width, board_height), pygame.RESIZABLE) #GUI창 설정하는 변수
-pygame.display.set_caption("TETRIS KINGDOM") #GUI 창의 이름
+pygame.display.set_caption("PBSPYTRIS") #GUI 창의 이름
 
 class ui_variables:
     font_path = "./assets/fonts/OpenSans-Light.ttf"
@@ -428,6 +425,10 @@ def draw_board(next1, next2, hold, score, level, goal):
             time = total_time - elapsed_time
             value = ui_variables.h5.render("TIME : "+str(int(time)), 1, ui_variables.real_white)
             screen.blit(value, (int(board_width * -0.445) + sidebar_width, int(board_height * 0.015))) #각각 전체 board 가로길이, 세로길이에 대한 원하는 비율을 곱해줌#
+        if attack_mode:
+            time = attack_time - elapsed_attack_time
+            value = ui_variables.h5.render("TIME : "+str(int(time)), 1, ui_variables.real_white)
+            screen.blit(value, (int(board_width * -0.445) + sidebar_width, int(board_height * 0.015))) #각각 전체 board 가로길이, 세로길이에 대한 원하는 비율을 곱해줌#
 
     if textsize==True: #render("텍스트이름", 안티에일리어싱 적용, 색깔), 즉 아래의 코드에서 숫자 1=안티에일리어싱 적용에 관한 코드
         text_hold = ui_variables.h3.render("HOLD", 1, ui_variables.real_white)
@@ -444,6 +445,10 @@ def draw_board(next1, next2, hold, score, level, goal):
             time = total_time - elapsed_time
             value = ui_variables.h2.render("TIME : "+str(int(time)), 1, ui_variables.real_white)
             screen.blit(value, (int(board_width * -0.445) + sidebar_width, int(board_height * 0.015)))
+        if attack_mode:
+            time = attack_time - elapsed_attack_time
+            value = ui_variables.h5.render("TIME : "+str(int(time)), 1, ui_variables.real_white)
+            screen.blit(value, (int(board_width * -0.445) + sidebar_width, int(board_height * 0.015))) #각각 전체 board 가로길이, 세로길이에 대한 원하는 비율을 곱해줌#
 
     #if time_attack:
     #    time = total_time - elapsed_time
@@ -683,6 +688,9 @@ def gravity(x, y, mino, r, matrix):
                         matrix[x+j][dy+i] = 9  #떨어지는 블록은 장애물 블록으로 표현
                         matrix[x+j][dy+i-1] = 0  #블록이 한칸 떨어졌으니, 그 위의 기존블록 또는 만들어두었던 장애물 블록은 빈칸으로 처리함(없앰)
 
+def attack(y,matrix):
+    for i in range(board_x): # 가로줄 전체에 대해서
+        matrix[i][y] = 9 # 맨 밑줄부터 장애물 블록으로 채워짐
 
 # Returns true if mino is at the left edge
 def is_leftedge(x, y, mino, r, matrix):
@@ -806,7 +814,7 @@ def set_music_playing_speed(CHANNELS, swidth, Change_RATE):
     pygame.mixer.music.play(-1) #위 노래를 반복재생하기 위해 play(-1)로 설정
 
 def set_initial_values():
-    global combo_count, combo_count_2P, score, level, goal, score_2P, level_2P, goal_2P, bottom_count, bottom_count_2P, hard_drop, hard_drop_2P, attack_point, attack_point_2P, dx, dy, dx_2P, dy_2P, rotation, rotation_2P, mino, mino_2P, next_mino1, next_mino2, next_mino1_2P, hold, hold_2P, hold_mino, hold_mino_2P, framerate, framerate_2P, matrix, matrix_2P, Change_RATE, blink, start, pause, done, game_over, leader_board, setting, volume_setting, screen_setting, pvp, help, gravity_mode, debug, d, e, b, u, g, time_attack, start_ticks, textsize, CHANNELS, swidth, name_location, name, previous_time, current_time, pause_time, lines, leaders, volume, game_status, framerate_blockmove, framerate_2P_blockmove, game_speed, game_speed_2P
+    global combo_status, combo_count, combo_count_2P, score, level, goal, score_2P, level_2P, goal_2P, bottom_count, bottom_count_2P, hard_drop, hard_drop_2P, attack_point, attack_point_2P, dx, dy, dx_2P, dy_2P, rotation, rotation_2P, mino, mino_2P, next_mino1, next_mino2, next_mino1_2P, hold, hold_2P, hold_mino, hold_mino_2P, framerate, framerate_2P, matrix, matrix_2P, Change_RATE, blink, start, pause, done, game_over, leader_board, setting, volume_setting, screen_setting, pvp, help, gravity_mode, debug, d, e, b, u, g, time_attack, start_ticks, textsize, attack_mode, attack_mode_time, attack_board_y, CHANNELS, swidth, name_location, name, previous_time, current_time, pause_time, lines, leaders, volume, game_status, framerate_blockmove, framerate_2P_blockmove, game_speed, game_speed_2P
     framerate = 30 # Bigger -> Slower  기본 블록 하강 속도, 2도 할만 함, 0 또는 음수 이상이어야 함
     framerate_blockmove = framerate * 3 # 블록 이동 시 속도
     game_speed = framerate * 20 # 게임 기본 속도
@@ -837,11 +845,17 @@ def set_initial_values():
     start_ticks = pygame.time.get_ticks()
     textsize = False
 
+    attack_mode = False # 어택모드
+    attack_mode_time = False # 어택모드 30초마다 시간 초기화하도록
+    attack_board_y = 20  #장애물 블록 밑에서부터 생성하도록 board_y와 똑같이 설정
+    
+
     # 게임 음악 속도 조절 관련 변수
     CHANNELS = 1
     swidth = 2
     Change_RATE = 2
 
+    combo_status = False
     combo_count = 0
     combo_count_2P = 0
     score = 0
@@ -1501,6 +1515,11 @@ while not done:
             speed_minus_button.draw(screen, (0, 0, 0))
         if time_attack:
             elapsed_time = (pygame.time.get_ticks() - start_ticks) / 1000 # 경과 시간 계산
+        if attack_mode:
+            if attack_mode_time == False:
+                current_attack_ticks = pygame.time.get_ticks() # 어택모드 진입했을 때의 시간
+                attack_mode_time = True
+            elapsed_attack_time = (pygame.time.get_ticks() - current_attack_ticks) / 1000
         for event in pygame.event.get():
             pos = pygame.mouse.get_pos()
             if event.type == QUIT:
@@ -1601,6 +1620,7 @@ while not done:
                         erase_count += 1
                         k = j
                         combo_value += 1
+                        combo_status = True
 
                         #rainbow보너스 점수
                         rainbow = [1,2,3,4,5,6,7] #각 mino에 해당하는 숫자
@@ -1671,6 +1691,8 @@ while not done:
                 if current_time - previous_time > 10000: #10초가 지나면
                     previous_time = current_time #현재 시간을 과거시간으로 하고
                     combo_count = 0 #콤보 수 초기화
+                if current_time - previous_time > 1000: #콤보만들고 1초 뒤에
+                    combo_status = False #combo_Status가 true가 된 걸 false로 바꿔줌
 
 
                 # Increase level
@@ -1942,7 +1964,16 @@ while not done:
             time_attack = False
             pygame.time.set_timer(pygame.USEREVENT, 1)
 
+        if attack_mode: #어택모드일 때 
+            if attack_time - elapsed_attack_time < 0: # attack_time이 다 지났을 때 
+                attack(attack_board_y,matrix) 
+                attack_mode_time = False #elapsed_attack_time 초기화 
+                attack_board_y -= 1 #장애물 블록 만든 윗 줄에 다음 장애물블록 생성하도록
+            elif combo_status == True: #콤보 만들어졌을 때
+                attack_mode_time = False #elapsed_attack_time 초기화
+
         pygame.display.update()
+
     elif pvp:
         for event in pygame.event.get():
             if event.type == QUIT:
@@ -2761,7 +2792,7 @@ while not done:
                 if timeattack_button.isOver_2(pos):
                     ui_variables.click_sound.play()
                     start = True
-                    time_attack = True
+                    attack_mode = True #임시로 timeattack버튼 누르면 attack_mode 실행되도록 설정
                     initalize = True
                     pygame.mixer.music.play(-1)
                     ui_variables.intro_sound.stop()
