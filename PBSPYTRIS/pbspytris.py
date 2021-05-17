@@ -148,11 +148,15 @@ board_challenge_image = 'assets/vector/board_challenge.png'
 board_gameover_image = 'assets/vector/board_gameover.png'
 board_help_image = 'assets/vector/board_help.png'
 board_leader_image = 'assets/vector/board_leader.png'
-board_mode_image = 'assets/vector/board_mode.png'
 board_number_image = 'assets/vector/board_number.png'
 board_pause_image = 'assets/vector/board_pause.png'
 board_setting_image = 'assets/vector/board_setting.png'
 board_shop_image = 'assets/vector/board_shop.png'
+board_start_image = 'assets/vector/board_start.png'
+board_sandbox_image = 'assets/vector/board_sandbox.png'
+board_difficulty_image = 'assets/vector/board_difficulty.png'
+board_volume_image = 'assets/vector/board_volume.png'
+board_screen_image = 'assets/vector/board_screen.png'
 
 #button
 button_allmute = 'assets/vector/button_allmute.png'
@@ -211,6 +215,21 @@ button_timeattack = 'assets/vector/button_timeattack.png'
 button_timeattack_clicked = 'assets/vector/button_timeattack_clicked.png'
 button_timeattack_on = 'assets/vector/button_timeattack_on.png'
 
+button_difficulty = 'assets/vector/button_difficulty.png'
+button_difficulty_clicked = 'assets/vector/button_difficulty_clicked.png'
+
+button_easy = 'assets/vector/button_easy.png'
+button_easy_clicked = 'assets/vector/button_easy_clicked.png'
+
+button_normal = 'assets/vector/button_normal.png'
+button_normal_clicked = 'assets/vector/button_normal_clicked.png'
+
+button_hard = 'assets/vector/button_hard.png'
+button_hard_clicked = 'assets/vector/button_hard_clicked.png'
+
+button_buy = 'assets/vector/button_buy.png'
+button_buy = 'assets/vector/button_buy_clicked.png'
+
 # check 이 친구는 후에 사용하지 않으면 삭제
 check = 'assets/vector/check.png'
 checkbox = 'assets/vector/check_box.png'
@@ -221,9 +240,7 @@ checkbox_clicked = 'assets/vector/check_clicked_box.png'
 
 # icon : 버튼이 아닌 아이콘, 이벤트 없음
 icon_combo = 'assets/vector/icon_combo.png'
-icon_difficulty = 'assets/vector/icon_difficulty.png'
 icon_level = 'assets/vector/icon_level.png'
-icon_mode = 'assets/vector/icon_mode.png'
 icon_speed = 'assets/vector/icon_speed.png'
 
 # item
@@ -305,56 +322,113 @@ class button(): #버튼객체
 #def __init__(self, board_width, board_height, x_rate, y_rate, width_rate, height_rate, img='')
 #(현재 보드너비, 현재보드높이, 버튼의 x좌표 위치비율, 버튼의 y좌표 위치비율, 버튼의 너비 길이비율, 버튼의 높이 길이비율)
 #  - 전체화면 크기에 대한 비율
+# (800, 450, 800*x좌표, 450*y좌표, 너비 비율, 높이 비율)
 
-mute_button = button(board_width, board_height, 0.5, 0.27,  0.094, 0.174, mute_button_image)
-default_button = button(board_width, board_height, 0.5, 0.27,  0.094, 0.174, default_button_image)
+# main page 1) nothing
+start_button = button(board_width, board_height, 0.375, 0.75, 0.16, 0.084, button_start)
+help_button = button(board_width, board_height, 0.375, 0.84, 0.16, 0.084, button_help)
+shop_button = button(board_width, board_height, 0.625, 0.75, 0.16, 0.084, button_shop)
+quit_button = button(board_width, board_height, 0.625, 0.84, 0.16, 0.084, button_quit)
 
-start_button = button(board_width,board_height, 0.12, 0.55, 0.094, 0.174, start_button_image)
-shop_button = button(board_width, board_height, 0.35, 0.55, 0.094, 0.174, shop_button_image)
-help_button = button(board_width, board_height, 0.12, 0.8, 0.094, 0.174, help_button_image)
-quit_button = button(board_width, board_height, 0.35, 0.8, 0.094, 0.174, quit_button_image)
-gravity_button = button(board_width, board_height, 0.58, 0.55, 0.094, 0.174, gravity_button_image)
-timeattack_button = button(board_width, board_height, 0.58, 0.8, 0.094, 0.174, timeattack_button_image)
-setting_icon = button(board_width, board_height, 0.9, 0.85, 0.10, 0.15, setting_vector)
-leaderboard_icon = button(board_width, board_height, 0.77, 0.85, 0.10, 0.15, leaderboard_vector)
+challenge_vector = button(board_width, board_height, 0.05, 0.9, 0.04, 0.053, vector_challenge)
+leader_vector = button(board_width, board_height, 0.15, 0.9, 0.04, 0.053, vector_leader)
+setting_vector = button(board_width, board_height, 0.95, 0.9, 0.04, 0.053, vector_setting)
 
-resume_button = button(board_width, board_height, 0.5, 0.23, 0.15, 0.35, resume_button_image)
-restart_button = button(board_width, board_height, 0.5, 0.43, 0.15, 0.35, restart_button_image)
-setting_button = button(board_width, board_height, 0.5, 0.63, 0.15, 0.35, setting_button_image)
-pause_quit_button = button(board_width, board_height, 0.5, 0.83, 0.15, 0.35, quit_button_image)
+# main page 2) start board
+single_button = button(board_width, board_height, 0.3, 0.62, 0.16, 0.084, button_single)
+pvp_button = button(board_width, board_height, 0.3, 0.72, 0.16, 0.084, button_pvp)
+sandbox_button = button(board_width, board_height, 0.7, 0.62, 0.16, 0.084, button_sandbox)
+difficulty_button = button(board_width, board_height, 0.7, 0.72, 0.16, 0.084, button_difficulty)
 
-back_button = button(board_width, board_height, 0.5, 0.85, 0.15, 0.35, back_button_image)
-volume_icon = button(board_width, board_height, 0.4, 0.5, 0.12, 0.23, volume_vector)
-screen_icon = button(board_width, board_height, 0.6, 0.5, 0.12, 0.23, screen_vector)
-ok_button = button(board_width, board_height, 0.5, 0.83, 0.15, 0.35, ok_button_image)
+# main page 3) sandbox board
+timeattack_button = button(board_width, board_height, 0.3, 0.37, 0.16, 0.084, button_timeattack)
+gravity_button = button(board_width, board_height, 0.3, 0.46, 0.16, 0.084, button_gravity)
+# number_board1 0.7875, 0.67, 0.04, 0.053
+# number_board2 0.7875, 0.77
+# number_board3 0.7875, 0.87
+level_minus_vector = button(board_width, board_height, 0.7675, 0.33, 0.04, 0.53, vector_minus)
+combo_minus_vector = button(board_width, board_height, 0.7675, 0.42, 0.04, 0.53, vector_minus)
+speed_minus_vector = button(board_width, board_height, 0.7675, 0.51, 0.04, 0.53, vector_minus)
 
-volume = 1.0
+level_plus_vector = button(board_width, board_height, 0.8075, 0.33, 0.04, 0.53, vector_plus)
+combo_plus_vector = button(board_width, board_height, 0.8075, 0.42, 0.04, 0.53, vector_plus)
+speed_plus_vector = button(board_width, board_height, 0.8075, 0.51, 0.04, 0.53, vector_plus)
 
-menu_button = button(board_width, board_height, 0.5, 0.23, 0.15, 0.35, menu_button_image)
-gameover_quit_button = button(board_width, board_height, 0.5, 0.43, 0.15, 0.35, quit_button_image)
+sand_start_button = button(board_width, board_height, 0.5, 0.6, 0.16, 0.084, button_start)
 
-effect_plus_button = button(board_width, board_height, 0.37, 0.73, 0.0625, 0.1111, plus_button_image)
-effect_minus_button = button(board_width, board_height, 0.52, 0.73, 0.0625, 0.1111, minus_button_image)
+# level_icon 0.6125, 0.67, 0.16, 0.084
+# combo_icon 0.6125, 0.77, 0.16, 0.084
+# speed_icon 0.6125, 0.87, 0.16, 0.084
 
-sound_plus_button = button(board_width, board_height, 0.37, 0.53, 0.0625, 0.1111, plus_button_image)
-sound_minus_button = button(board_width, board_height, 0.52, 0.53, 0.0625, 0.1111, minus_button_image)
-level_plus_button = button(board_width, board_height, 0.63, 0.7719, 0.0625, 0.1111, plus_button_image)
-level_minus_button = button(board_width, board_height, 0.56, 0.7719, 0.0625, 0.1111, minus_button_image)
-combo_plus_button = button(board_width, board_height, 0.63, 0.9419, 0.0625, 0.1111, plus_button_image)
-combo_minus_button =button(board_width, board_height, 0.56, 0.9419, 0.0625, 0.1111, minus_button_image)
-speed_plus_button = button(board_width, board_height, 0.18, 0.12, 0.055, 0.09, plus_button_image)
-speed_minus_button =button(board_width, board_height, 0.035, 0.12, 0.055, 0.09, minus_button_image)
+# main page 4) difficulty board
+easy_button     = button(board_width, board_height, 0.2, 0.37, 0.16, 0.084, button_easy)
+normal_button   = button(board_width, board_height, 0.5, 0.37, 0.16, 0.084, button_normal)
+hard_button     = button(board_width, board_height, 0.8, 0.37, 0.16, 0.084, button_hard)
+diff_start_button  = button(board_width, board_height, 0.5, 0.37, 0.16, 0.084, button_start)
 
-#음소거 추가#
-effect_sound_off_button = button(board_width, board_height, 0.65, 0.73, 0.08, 0.15, sound_off_button_image)
-music_sound_off_button = button(board_width, board_height, 0.65, 0.53, 0.08, 0.15, sound_off_button_image)
-effect_sound_on_button = button(board_width, board_height, 0.65, 0.73, 0.08, 0.15, sound_on_button_image)
-music_sound_on_button = button(board_width, board_height, 0.65, 0.53, 0.08, 0.15, sound_on_button_image)
+# main page 5) help board
+# help board
+# help image
 
-mute_check_button = button(board_width, board_height, 0.2, 0.4, 0.0625, 0.1111, check_button_image)
-smallsize_check_button = button(board_width, board_height, 0.5, 0.25, 0.1875, 0.1444, smallsize_board)
-midiumsize_check_button = button(board_width, board_height, 0.5, 0.45, 0.1875, 0.1444, midiumsize_board)
-bigsize_check_button = button(board_width, board_height, 0.5, 0.65, 0.1875, 0.1444, bigsize_board)
+# main page 6) leader board
+
+# main page 7) setting board
+volume_vector = button(board_width, board_height, 0.425, 0.4, 0.04, 0.53, vector_volume)
+screen_vector = button(board_width, board_height, 0.575, 0.4, 0.04, 0.53, vector_screen)
+
+# main page 8) volume board
+allmute_button = button(board_width, board_height, 0.5, 0.24, 0.16, 0.084, button_allmute)
+vol_back_button = button(board_width, board_height,0.5, 0.66, 0.16, 0.084, button_back)
+
+# music_number_board 0.46, 0.38, 0.04, 0.53
+music_plus_vector = button(board_width, board_height, 0.38, 0.38, 0.04, 0.53, vector_plus)
+music_minus_vector = button(board_width, board_height, 0.54, 0.38, 0.04, 0.53, vector_minus)
+music_vol_button = button(board_width, board_height, 0.62, 0.38, 0.04, 0.53, button_volume)
+
+# effect_number_board 0.46, 0.52, 0.04, 0.53
+effect_plus_vector = button(board_width, board_height, 0.38, 0.52, 0.04, 0.53, vector_plus)
+effect_minus_vector = button(board_width, board_height, 0.54, 0.52, 0.04, 0.53, vector_minus)
+effect_vol_button = button(board_width, board_height, 0.62, 0.52, 0.04, 0.53, button_volume)
+
+# main page 9) screen board
+smallsize_button = button(board_width, board_height, 0.5, 0.33, 0.2, 0.08, size_s)
+midiumsize_button = button(board_width, board_height, 0.5, 0.47, 0.2, 0.08, size_m)
+bigsize_button = button(board_width, board_height, 0.5, 0.61, 0.2, 0.08, size_b)
+
+# main page 10) shop board
+bomb_buy_button = button(board_width, board_height, 0.42, 0.24, 0.0925, 0.04, button_buy)
+tnt_buy_button = button(board_width, board_height, 0.42, 0.372, 0.0925, 0.04, button_buy)
+earth_buy_button = button(board_width, board_height, 0.526, 0.24, 0.0925, 0.04, button_buy)
+gold_buy_button = button(board_width, board_height, 0.526, 0.372, 0.0925, 0.04, button_buy)
+
+# game page 1) pause board
+resume_button = button(board_width, board_height, 0.5, 0.33, 0.04, 0.53, button_resume)
+restart_button = button(board_width, board_height, 0.5, 0.42, 0.04, 0.53, button_restart)
+setting_button = button(board_width, board_height, 0.5, 0.51, 0.04, 0.53, button_setting)
+quit_game_button = button(board_width, board_hieght, 0.5, 0.6, 0.04, 0.53, button_quit)
+
+# gmae page 2) setting board
+volume_game_vector = button(board_width, board_height, 0.425, 0.4, 0.04, 0.53, vector_volume)
+screen_game_vector = button(board_width, board_height, 0.575, 0.4, 0.04, 0.53, vector_screen)
+
+# game page 3) volume board
+allmute_game_button = button(board_width, board_height, 0.5, 0.24, 0.16, 0.084, button_allmute)
+vol_back_game_button = button(board_width, board_height,0.5, 0.66, 0.16, 0.084, button_back)
+
+# music_number_board 0.46, 0.38, 0.04, 0.53
+music_plus_game_vector = button(board_width, board_height, 0.38, 0.38, 0.04, 0.53, vector_plus)
+music_minus_game_vector = button(board_width, board_height, 0.54, 0.38, 0.04, 0.53, vector_minus)
+music_vol_game_button = button(board_width, board_height, 0.62, 0.38, 0.04, 0.53, button_volume)
+
+# effect_number_board 0.46, 0.52, 0.04, 0.53
+effect_plus_game_vector = button(board_width, board_height, 0.38, 0.52, 0.04, 0.53, vector_plus)
+effect_minus_game_vector = button(board_width, board_height, 0.54, 0.52, 0.04, 0.53, vector_minus)
+effect_vol_game_button = button(board_width, board_height, 0.62, 0.52, 0.04, 0.53, button_volume)
+
+# game page 4) screen board
+smallsize_game_button = button(board_width, board_height, 0.5, 0.33, 0.2, 0.08, size_s)
+midiumsize_game_button = button(board_width, board_height, 0.5, 0.47, 0.2, 0.08, size_m)
+bigsize_game_button = button(board_width, board_height, 0.5, 0.61, 0.2, 0.08, size_b)
 
 #게임 중 버튼 생성하기위한 버튼객체 리스트 (버튼 전체)
 button_list = [mute_button, default_button, start_button, shop_button, help_button, quit_button, gravity_button, timeattack_button, resume_button, restart_button, setting_button, pause_quit_button, back_button,
