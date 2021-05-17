@@ -139,104 +139,132 @@ class ui_variables:
                ghost_image, linessent_image]
 
 #각 이미지 주소
+# background
 background_image = 'assets/vector/Background.png' #홈 배경화면
 gamebackground_image = 'assets/vector/Background_game.png' #게임 배경화면
 
-start_button_image = 'assets/vector/start_button.png'
-clicked_start_button_image = 'assets/vector/clicked_start_button.png'
+# board
+board_challenge_image = 'assets/vector/board_challenge.png'
+board_gameover_image = 'assets/vector/board_gameover.png'
+board_help_image = 'assets/vector/board_help.png'
+board_leader_image = 'assets/vector/board_leader.png'
+board_mode_image = 'assets/vector/board_mode.png'
+board_number_image = 'assets/vector/board_number.png'
+board_pause_image = 'assets/vector/board_pause.png'
+board_setting_image = 'assets/vector/board_setting.png'
+board_shop_image = 'assets/vector/board_shop.png'
 
-pvp_button_image = 'assets/vector/pvp_button.png'
-clicked_pvp_button_image = 'assets/vector/clicked_pvp_button.png'
+#button
+button_allmute = 'assets/vector/button_allmute.png'
+button_allmute_clicked = 'assets/vector/button_allumute_clicked.png'
+button_allmute_on = 'assets/vector/button_allmute_on.png'
 
-help_button_image = 'assets/vector/help_button.png'
-clicked_help_button_image = 'assets/vector/clicked_help_button.png'
+button_back = 'assets/vector/button_back.png'
+button_back_clicked = 'assets/vector/button_back_clicked.png'
 
-quit_button_image = 'assets/vector/quit_button.png'
-clicked_quit_button_image = 'assets/vector/clicked_quit_button.png'
+button_default = 'assets/vector/button_default.png'
+button_default_clicked = 'assets/vector/button_default_clicked.png'
+button_default_on = 'assets/vector/button_default_on.png'
 
-gravity_button_image = 'assets/vector/gravity_button.png'
-clicked_gravity_button_image = 'assets/vector/clicked_gravity_button.png'
-on_gravity_button_image = 'assets/vector/on_grvaity_button.png' #그래비티 모드 활성화 버튼
+button_gravity = 'assets/vector/button_gravity.png'
+button_gravity_clicked = 'assets/vector/button_gravity_clicked.png'
+button_gravity_on = 'assets/vector/button_gravity_on.png'
 
-timeattack_button_image = 'assets/vector/timeattack_button.png'
-clicked_timeattack_button_image = 'assets/vector/clicked_timeattack_button.png'
-on_timeattack_button_image = 'assetx/vector/on_timeattack_button.png' #타임어택 활성화 버튼
+button_help = 'assets/vector/button_help.png'
+button_help_clicked = 'assets/vector/button_help_clicked.png'
 
-shop_button_image = 'assets/vector/shop_button.png'
-clicked_shop_button_image = 'assets/vector/clicked_shop_button.png'
-#shop 버튼 추가
+button_menu = 'assets/vector/button_menu.png'
+button_menu_clicked = 'assets/vector/button_menu_clicked.png'
 
-mode_button_image = 'assets/vector/mode_button.png'
-difficulty_button_image = 'assets/vector/difficulty_button.png' #난이도 조절 버튼
-sandbox_button_image = 'assets/vector/sandbox_button.png' # 샌드박스 버튼
-clicked_sandbox_button_image = 'assets/vector/clicked_sandbox_button.png' # 샌드박스 클릭 버튼
-on_sandbox_button_image = 'assets/vectoron_sandbox.png' # 샌드박스 활성화 버튼 <- 만들어놨는데 필요 없으면 삭제 가능
+button_ok = 'assets/vector/button_ok.png'
+button_ok_clicked = 'assets/vector/button_ok_clicked.png'
 
+button_pvp = 'assets/vector/button_pvp.png'
+button_pvp_clicked = 'assets/vector/button_pvp_clicked.png'
 
-leaderboard_vector = 'assets/vector/leaderboard_vector.png'
-clicked_leaderboard_vector = 'assets/vector/clicked_leaderboard_vector.png'
+button_quit = 'assets/vector/button_quit.png'
+button_quit_clicked = 'assets/vector/button_quit_clicked.png'
 
-setting_vector = 'assets/vector/setting_vector.png'
-clicked_setting_vector = 'assets/vector/clicked_setting_vector.png'
+button_restart = 'assets/vector/button_restart.png'
+button_restart_clicked = 'assets/vector/button_restart_clicked.png'
 
-pause_board_image = 'assets/vector/pause_board.png'
-leader_board_image = 'assets/vector/leader_board.png'
-setting_board_image = 'assets/vector/setting_board.png'
-gameover_board_image = 'assets/vector/gameover_board.png'
-gameover_image = 'assets/vector/gameover.png'
-mode_board_image = 'assets/vector/mode_board.png' #모드 보드 추가
-help_board_image = 'assets/vector/help_board' # 헬프 보드 추가
+button_resume = 'assets/vector/button_resume.png'
+button_resume_clicked = 'assets/vector/button_resume_clicked.png'
 
-smallsize_board = 'assets/vector/screensize1.png'
-midiumsize_board = 'assets/vector/screensize2.png'
-bigsize_board = 'assets/vector/screensize3.png'
+button_sandbox = 'assets/vector/button_sandbox.png'
+button_sandbox_clicked = 'assets/vector/button_sandbox_clicked.png'
+button_sandbox_on = 'assets/vector/button_sandbox_on.png'
 
-mute_button_image = 'assets/vector/allmute_button.png'
-default_button_image = 'assets/vector/default_button.png'
+button_setting = 'assets/vector/button_setting.png'
+button_setting_clicked = 'assets/vector/button_setting_clicked.png'
 
-number_board = 'assets/vector/number_board.png'
+button_shop = 'assets/vector/button_shop.png'
+button_shop_clicked = 'assets/vector/button_shop_clicked.png'
 
-resume_button_image = 'assets/vector/resume_button.png'
-clicked_resume_button_image = 'assets/vector/clicked_resume_button.png'
+button_single = 'assets/vector/button_single.png'
+button_single_clicked = 'assets/vector/button_single_clicked.png'
 
-restart_button_image = 'assets/vector/restart_button.png'
-clicked_restart_button_image = 'assets/vector/clicked_restart_button.png'
+button_start = 'assets/vector/button_start.png'
+button_start_clicked = 'assets/vector/button_start_clicked.png'
 
-setting_button_image = 'assets/vector/setting_button.png'
-clicked_setting_button_image = 'assets/vector/clicked_setting_button.png'
+button_timeattack = 'assets/vector/button_timeattack.png'
+button_timeattack_clicked = 'assets/vector/button_timeattack_clicked.png'
+button_timeattack_on = 'assets/vector/button_timeattack_on.png'
 
-back_button_image = 'assets/vector/back_button.png'
-clicked_back_button_image = 'assets/vector/clicked_back_button.png'
+# check 이 친구는 후에 사용하지 않으면 삭제
+check = 'assets/vector/check.png'
+checkbox = 'assets/vector/check_box.png'
+checkbox_clicked = 'assets/vector/check_clicked_box.png'
 
-volume_vector = 'assets/vector/volume_vector.png'
-clicked_volume_vector = 'assets/vector/clicked_volume_vector.png'
+# help : keyboard
+# help_image = 'assets/vector/help_imgage.png'
 
-keyboard_vector = 'assets/vector/keyboard_vector.png'
-clicked_keyboard_vector = 'assets/vector/clicked_keyboard_vector.png'
+# icon : 버튼이 아닌 아이콘, 이벤트 없음
+icon_combo = 'assets/vector/icon_combo.png'
+icon_difficulty = 'assets/vector/icon_difficulty.png'
+icon_level = 'assets/vector/icon_level.png'
+icon_mode = 'assets/vector/icon_mode.png'
+icon_speed = 'assets/vector/icon_speed.png'
 
-screen_vector = 'assets/vector/screen_vector.png'
-clicked_screen_vector = 'assets/vector/clicked_screen_vector.png'
+# item
+item_bomb = 'assets/vector/item_bomb.png'
+item_earth = 'assets/vector/item_earth.png'
+item_gold = 'assets/vector/item_gold.png'
+item_tnt = 'assets/vector/item_tnt.png'
 
-menu_button_image = 'assets/vector/menu_button.png'
-clicked_menu_button_image = 'assets/vector/clicked_menu_button.png'
-
-ok_button_image = 'assets/vector/ok_button.png'
-clicked_ok_button_image = 'assets/vector/clicked_ok_button.png'
-
-plus_button_image = 'assets/vector/plus_button.png'
-clicked_plus_button_image = 'assets/vector/clicked_plus_button.png'
-
-minus_button_image = 'assets/vector/minus_button.png'
-clicked_minus_button_image = 'assets/vector/clicked_minus_button.png'
-#음소거 추가#
-sound_off_button_image = 'assets/vector/sound_off_button.png'
-sound_on_button_image = 'assets/vector/sound_on_button.png'
-
-check_button_image = 'assets/vector/checkbox_button.png'
-clicked_check_button_image = 'assets/vector/clicked_checkbox_button.png'
-
+# pvp
 pvp_win_image = 'assets/vector/pvp_win.png'
 pvp_lose_image = 'assets/vector/pvp_lose.png'
+
+# screensize
+size_s = 'assets/vector/screensize1.png'
+size_m = 'assets/vector/screensize2.png'
+size_b = 'assets/vector/screensize3.png'
+
+# vector : 이벤트 존재하는 아이콘
+vector_challenge = 'assets/vector/vector_challenge.png'
+vector_challenge_clicked = 'assets/vector/vector_challenge_clicked.png'
+
+vector_leader = 'assets/vector/vector_leaderboard.png'
+vector_leader_clicked = 'assets/vector/vector_leader_clicked.png'
+
+vector_minus = 'assets/vector/vector_minus.png'
+vector_minus_clicked = 'assets/vector/vector_minus_clicked.png'
+
+vector_plus = 'assets/vector/vector_plus.png'
+vector_plus_clicked = 'assets/vector/vector_plus_clicked.png'
+
+vector_screen = 'assets/vector/vector_screen.png'
+vector_screen_clicked = 'assets/vector/vector_screen_clicked.png'
+
+vector_setting = 'assets/vector/vector_setting.png'
+vector_setting_clicked = 'assets/vector/vector_setting_clicked.png'
+
+vector_sound_off = 'assets/vector/vector_sound_off.png'
+vector_sound_on = 'assets/vector/vector_sound_on.png'
+
+vector_volume = 'assets/vector/vector_volume.png'
+vector_volume_clicked = 'assets/vector/vector_volume_clicked.png'
 
 
 class button(): #버튼객체
@@ -275,7 +303,8 @@ class button(): #버튼객체
 
 #버튼객체 생성 class Button에서 확인
 #def __init__(self, board_width, board_height, x_rate, y_rate, width_rate, height_rate, img='')
-#(현재 보드너비, 현재보드높이, 버튼의 x좌표 위치비율, 버튼의 y좌표 위치비율, 버튼의 너비 길이비율, 버튼의 높이 길이비율) - 전체화면 크기에 대한 비율
+#(현재 보드너비, 현재보드높이, 버튼의 x좌표 위치비율, 버튼의 y좌표 위치비율, 버튼의 너비 길이비율, 버튼의 높이 길이비율)
+#  - 전체화면 크기에 대한 비율
 
 mute_button = button(board_width, board_height, 0.5, 0.27,  0.094, 0.174, mute_button_image)
 default_button = button(board_width, board_height, 0.5, 0.27,  0.094, 0.174, default_button_image)
