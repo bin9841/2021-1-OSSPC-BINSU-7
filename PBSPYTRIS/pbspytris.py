@@ -431,10 +431,23 @@ midiumsize_game_button = button(board_width, board_height, 0.5, 0.47, 0.2, 0.08,
 bigsize_game_button = button(board_width, board_height, 0.5, 0.61, 0.2, 0.08, size_b)
 
 #게임 중 버튼 생성하기위한 버튼객체 리스트 (버튼 전체)
-button_list = [mute_button, default_button, start_button, shop_button, help_button, quit_button, gravity_button, timeattack_button, resume_button, restart_button, setting_button, pause_quit_button, back_button,
-        ok_button, menu_button, gameover_quit_button, effect_plus_button, effect_minus_button, sound_plus_button, sound_minus_button, level_plus_button,
-        effect_sound_off_button, music_sound_off_button, effect_sound_on_button, music_sound_on_button, mute_check_button, smallsize_check_button, midiumsize_check_button, bigsize_check_button,
-        setting_icon, leaderboard_icon, volume_icon, screen_icon, level_minus_button, combo_minus_button, combo_plus_button, speed_minus_button, speed_plus_button]
+button_list = [start_button, help_button, shop_button, quit_button, challenge_vector,
+               leader_vector, setting_vector, # main1
+               single_button, pvp_button, sandbox_button, difficulty_button,#main2
+               timeattack_button, gravity_button, level_minus_vector, combo_minus_vector, speed_minus_vector,
+               level_plus_vector, combo_plus_vector, speed_plus_vector, sand_start_button, #main3
+               easy_button, normal_button, hard_button, diff_start_button, #main4
+               #main5, 6
+               volume_vector, screen_vector, # main 7
+               allmute_button, vol_back_button, music_plus_vector,music_minus_vector, music_vol_button,
+               effect_plus_vector, effect_minus_vector, effect_vol_button, # main 8
+               smallsize_button, midiumsize_button, bigsize_button, # main 9
+               bomb_buy_button, tnt_buy_button, earth_buy_button, gold_buy_button, # main 10
+               resum_button, restart_button, setting_button, quit_game_button, # game 1
+               volume_game_vector, screen_game_vector, # game 2
+               allmute_game_button, vol_back_game_button, # game 3
+               music_plus_game_vector, music_minus_game_vector, music_vol_game_button, effect_plus_game_vector, effect_minus_game_vector, effect_vol_game_button, # game 3
+               smallsize_game_button, midiumsize_game_button, bigsize_game_button] # game 4
 
 
 def set_volume():
