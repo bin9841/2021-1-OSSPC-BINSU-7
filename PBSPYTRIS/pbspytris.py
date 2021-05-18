@@ -383,12 +383,12 @@ vol_back_button = button(board_width, board_height,0.5, 0.66, 0.16, 0.084, butto
 # music_number_board 0.46, 0.38, 0.04, 0.53
 music_plus_vector = button(board_width, board_height, 0.38, 0.38, 0.04, 0.53, vector_plus)
 music_minus_vector = button(board_width, board_height, 0.54, 0.38, 0.04, 0.53, vector_minus)
-music_vol_button = button(board_width, board_height, 0.62, 0.38, 0.04, 0.53, button_volume)
+music_vol_button = button(board_width, board_height, 0.62, 0.38, 0.04, 0.53, vector_volume)
 
 # effect_number_board 0.46, 0.52, 0.04, 0.53
 effect_plus_vector = button(board_width, board_height, 0.38, 0.52, 0.04, 0.53, vector_plus)
 effect_minus_vector = button(board_width, board_height, 0.54, 0.52, 0.04, 0.53, vector_minus)
-effect_vol_button = button(board_width, board_height, 0.62, 0.52, 0.04, 0.53, button_volume)
+effect_vol_button = button(board_width, board_height, 0.62, 0.52, 0.04, 0.53, vector_volume)
 
 # main page 9) screen board
 smallsize_button = button(board_width, board_height, 0.5, 0.33, 0.2, 0.08, size_s)
@@ -405,7 +405,7 @@ gold_buy_button = button(board_width, board_height, 0.526, 0.372, 0.0925, 0.04, 
 resume_button = button(board_width, board_height, 0.5, 0.33, 0.04, 0.53, button_resume)
 restart_button = button(board_width, board_height, 0.5, 0.42, 0.04, 0.53, button_restart)
 setting_button = button(board_width, board_height, 0.5, 0.51, 0.04, 0.53, button_setting)
-quit_game_button = button(board_width, board_hieght, 0.5, 0.6, 0.04, 0.53, button_quit)
+quit_game_button = button(board_width, board_height, 0.5, 0.6, 0.04, 0.53, button_quit)
 
 # gmae page 2) setting board
 volume_game_vector = button(board_width, board_height, 0.425, 0.4, 0.04, 0.53, vector_volume)
@@ -418,12 +418,12 @@ vol_back_game_button = button(board_width, board_height,0.5, 0.66, 0.16, 0.084, 
 # music_number_board 0.46, 0.38, 0.04, 0.53
 music_plus_game_vector = button(board_width, board_height, 0.38, 0.38, 0.04, 0.53, vector_plus)
 music_minus_game_vector = button(board_width, board_height, 0.54, 0.38, 0.04, 0.53, vector_minus)
-music_vol_game_button = button(board_width, board_height, 0.62, 0.38, 0.04, 0.53, button_volume)
+music_vol_game_button = button(board_width, board_height, 0.62, 0.38, 0.04, 0.53, vector_volume)
 
 # effect_number_board 0.46, 0.52, 0.04, 0.53
 effect_plus_game_vector = button(board_width, board_height, 0.38, 0.52, 0.04, 0.53, vector_plus)
 effect_minus_game_vector = button(board_width, board_height, 0.54, 0.52, 0.04, 0.53, vector_minus)
-effect_vol_game_button = button(board_width, board_height, 0.62, 0.52, 0.04, 0.53, button_volume)
+effect_vol_game_button = button(board_width, board_height, 0.62, 0.52, 0.04, 0.53, vector_volume)
 
 # game page 4) screen board
 smallsize_game_button = button(board_width, board_height, 0.5, 0.33, 0.2, 0.08, size_s)
@@ -443,12 +443,12 @@ button_list = [start_button, help_button, shop_button, quit_button, challenge_ve
                effect_plus_vector, effect_minus_vector, effect_vol_button, # main 8
                smallsize_button, midiumsize_button, bigsize_button, # main 9
                bomb_buy_button, tnt_buy_button, earth_buy_button, gold_buy_button, # main 10
-               resum_button, restart_button, setting_button, quit_game_button, # game 1
+               resume_button, restart_button, setting_button, quit_game_button, # game 1
                volume_game_vector, screen_game_vector, # game 2
                allmute_game_button, vol_back_game_button, # game 3
-               music_plus_game_vector, music_minus_game_vector, music_vol_game_button, effect_plus_game_vector, effect_minus_game_vector, effect_vol_game_button, # game 3
+               music_plus_game_vector, music_minus_game_vector, music_vol_game_button,
+                effect_plus_game_vector, effect_minus_game_vector, effect_vol_game_button, # game 3
                smallsize_game_button, midiumsize_game_button, bigsize_game_button] # game 4
-
 
 def set_volume():
     ui_variables.fall_sound.set_volume(effect_volume / 10) #set_volume의 argument는 0.0~1.0으로 이루어져야하기 때문에 소수로 만들어주기 위해 10으로 나눔#
@@ -1052,7 +1052,7 @@ while not done:
         screen.blit(pause_surface, (0, 0)) #위치 비율 고정
 
         #draw_image(window, 이미지주소, x좌표, y좌표, 너비, 높이)
-        draw_image(screen, setting_board_image, board_width * 0.5, board_height * 0.5, int(board_height * 1.3), board_height)
+        draw_image(screen, board_setting_image, board_width * 0.5, board_height * 0.5, int(board_height * 1.3), board_height)
         draw_image(screen, number_board, board_width * 0.45, board_height * 0.53, int(board_width * 0.09), int(board_height * 0.1444))
         draw_image(screen, number_board, board_width * 0.45, board_height * 0.73, int(board_width * 0.09), int(board_height * 0.1444))
         mute_button.draw(screen, (0, 0, 0)) #rgb(0,0,0) = 검정색#
@@ -1276,16 +1276,14 @@ while not done:
                         button_list[i].change(board_width, board_height)
                     pygame.display.update()
 
-    elif setting:
+    elif setting: # main page 1)
         start_button.draw(screen, (0, 0, 0)) #rgb(0,0,0) = 검정색
         shop_button.draw(screen, (0, 0, 0))
         help_button.draw(screen, (0, 0, 0))
         quit_button.draw(screen, (0, 0, 0))
-        gravity_button.draw(screen,(0, 0, 0))
-        timeattack_button.draw(screen,(0, 0, 0))
-        setting_icon.draw(screen, (0, 0, 0))
+        setting_vector.draw(screen, (0, 0, 0))
         #배경 약간 어둡게
-        leaderboard_icon.draw(screen, (0, 0, 0))
+        leader_vector.draw(screen, (0, 0, 0))
         pause_surface = screen.convert_alpha() #투명 가능하도록
         pause_surface.fill((0, 0, 0, 0))  #투명한 검정색으로 덮기
         pygame.draw.rect(pause_surface, (ui_variables.black_pause), [0, 0, int(board_width), int(board_height)]) #(screen, 색깔, 위치 x, y좌표, 너비, 높이)
@@ -1296,7 +1294,7 @@ while not done:
             draw_image(screen, gamebackground_image, board_width * 0.5, board_height * 0.5, board_width, board_height) #(window, 이미지주소, x좌표, y좌표, 너비, 높이)
             draw_board(next_mino1, next_mino2, hold_mino, score, level, goal)
             #배경 약간 어둡게
-            leaderboard_icon.draw(screen, (0, 0, 0))
+            leader_vector.draw(screen, (0, 0, 0))
             pause_surface = screen.convert_alpha() #투명 가능하도록
             pause_surface.fill((0, 0, 0, 0)) #투명한 검정색으로 덮기
             pygame.draw.rect(pause_surface, (ui_variables.black_pause), [0, 0, int(board_width), int(board_height)]) #(screen, 색깔, 위치 x, y좌표, 너비, 높이)
@@ -1305,13 +1303,13 @@ while not done:
             draw_image(screen, gamebackground_image, board_width * 0.5, board_height * 0.5, board_width, board_height) #(window, 이미지주소, x좌표, y좌표, 너비, 높이)
             draw_multiboard(next_mino1, hold_mino, next_mino1_2P, hold_mino_2P, score, score_2P, level, level_2P, goal, goal_2P)
             #배경 약간 어둡게
-            leaderboard_icon.draw(screen, (0, 0, 0))
+            leader_vector.draw(screen, (0, 0, 0))
             pause_surface = screen.convert_alpha() #투명 가능하도록
             pause_surface.fill((0, 0, 0, 0)) #투명한 검정색으로 덮기
             pygame.draw.rect(pause_surface, (ui_variables.black_pause), [0, 0, int(board_width), int(board_height)]) #(screen, 색깔, 위치 x, y좌표, 너비, 높이)
             screen.blit(pause_surface, (0, 0))
 
-        draw_image(screen, setting_board_image, board_width * 0.5, board_height * 0.5, int(board_height * 1.3), board_height) #(window, 이미지주소, x좌표, y좌표, 너비, 높이)
+        draw_image(screen, board_setting_image, board_width * 0.5, board_height * 0.5, int(board_height * 1.3), board_height) #(window, 이미지주소, x좌표, y좌표, 너비, 높이)
 
         screen_icon.draw(screen, (0, 0, 0)) #rgb(0,0,0) = 검정색
         volume_icon.draw(screen, (0, 0, 0))
