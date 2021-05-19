@@ -1493,7 +1493,6 @@ while not done:
         quit_button.draw(screen, (0, 0, 0))
         gravity_button.draw(screen,(0, 0, 0))
         timeattack_button.draw(screen,(0, 0, 0))
-        setting_vector.draw(screen, (0, 0, 0))
         leader_vector.draw(screen, (0, 0, 0))
         #배경 약간 어둡게
         leader_vector.draw(screen, (0, 0, 0))
@@ -1502,7 +1501,7 @@ while not done:
         pygame.draw.rect(pause_surface, (ui_variables.black_pause), [0, 0, int(board_width), int(board_height)])  #(screen, 색깔, 위치 x, y좌표, 너비, 높이)
         screen.blit(pause_surface, (0, 0))
 
-        draw_image(screen, 'assets/vector/help_board.png', board_width * 0.5, board_height * 0.5, int(board_width * 0.8), int(board_height * 0.9)) #(window, 이미지주소, x좌표, y좌표, 너비, 높이)
+        draw_image(screen, board_help, board_width * 0.5, board_height * 0.5, int(board_width * 0.8), int(board_height * 0.9)) #(window, 이미지주소, x좌표, y좌표, 너비, 높이)
         draw_image(screen, 'assets/vector/help_image.png', board_width * 0.5, board_height * 0.5, int(board_width * 0.7), int(board_height * 0.55)) #(window, 이미지주소, x좌표, y좌표, 너비, 높이)
 
         back_button.draw(screen, (0, 0, 0))
@@ -1556,7 +1555,6 @@ while not done:
         quit_button.draw(screen, (0, 0, 0))
         gravity_button.draw(screen,(0, 0, 0))
         timeattack_button.draw(screen,(0, 0, 0))
-        setting_vector.draw(screen, (0, 0, 0))
         leader_vector.draw(screen, (0, 0, 0))
         #배경 약간 어둡게
         leader_vector.draw(screen, (0, 0, 0))
