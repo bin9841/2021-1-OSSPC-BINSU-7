@@ -50,7 +50,7 @@ pygame.init()
 
 clock = pygame.time.Clock() #창, 화면을 초당 몇번 출력하는가(FPS) clock.tick 높을수록 cpu많이 사용
 screen = pygame.display.set_mode((board_width, board_height), pygame.RESIZABLE) #GUI창 설정하는 변수
-pygame.display.set_caption("TETRIS KINGDOM") #GUI 창의 이름
+pygame.display.set_caption("PBS PYTRIS") #GUI 창의 이름
 
 class ui_variables:
     font_path = "./assets/fonts/OpenSans-Light.ttf"
@@ -515,6 +515,17 @@ def draw_board(next1, next2, hold, score, level, goal):
         Rect(sidebar_width, 0, int(board_width * 0.2375), board_height) #크기 비율 고정
     )
 
+    # Draw item
+    dx3 = int(board_width*0.715)
+    dy3_1 = int(board_height*0.578)
+    dy3_2 = int(board_height*0.711)
+    dy3_3 = int(board_height*0.844)
+    i_size_x = int(board_width*0.05)
+    i_size_y = int(board_height*0.089)
+    draw_image(screen, item_bomb, dx3, dy3_1, i_size_x, i_size_y)
+    draw_image(screen, item_tnt, dx3, dy3_2, i_size_x, i_size_y)
+    draw_image(screen, item_earth, dx3, dy3_3, i_size_x, i_size_y)
+
     # Draw next mino 다음 블록
     grid_n1 = tetrimino.mino_map[next1 - 1][0] #(배열이라-1) 다음 블록의 원래 모양
     grid_n2 = tetrimino.mino_map[next2 - 1][0] #(배열이라-1) 다음 블록의 원래 모양
@@ -559,6 +570,9 @@ def draw_board(next1, next2, hold, score, level, goal):
         level_value = ui_variables.h4.render(str(level), 1, ui_variables.real_white)
         text_combo = ui_variables.h5.render("COMBO", 1, ui_variables.real_white)
         combo_value = ui_variables.h4.render(str(combo_count), 1, ui_variables.real_white)
+        bomb_value = ui_variables.h4.render(str(num_bomb), 1, ui_variables.real_white)
+        earth_value = ui_variables.h4.render(str(num_earthquake), 1, ui_variables.real_white)
+        tnt_value = ui_variables.h4.render(str(num_tnt), 1, ui_variables.real_white)
         if debug:
             speed_value = ui_variables.h5.render("SPEED : "+str(framerate), 1, ui_variables.real_white) #speed를 알려주는 framerate(기본값 30. 빨라질 수록 숫자 작아짐)
         if time_attack:
@@ -575,6 +589,9 @@ def draw_board(next1, next2, hold, score, level, goal):
         level_value = ui_variables.h2.render(str(level), 1, ui_variables.real_white)
         text_combo = ui_variables.h3.render("COMBO", 1, ui_variables.real_white)
         combo_value = ui_variables.h2.render(str(combo_count), 1, ui_variables.real_white)
+        bomb_value = ui_variables.h4.render(str(num_bomb), 1, ui_variables.real_white)
+        earth_value = ui_variables.h4.render(str(num_earthquake), 1, ui_variables.real_white)
+        tnt_value = ui_variables.h4.render(str(num_tnt), 1, ui_variables.real_white)
         if debug:
             speed_value = ui_variables.h3.render("SPEED : "+str(framerate), 1, ui_variables.real_white) #speed를 알려주는 framerate(기본값 30. 빨라질 수록 숫자 작아짐)
         if time_attack:
@@ -595,6 +612,9 @@ def draw_board(next1, next2, hold, score, level, goal):
     screen.blit(level_value, (int(board_width * 0.055) + sidebar_width, int(board_height * 0.7219)))
     screen.blit(text_combo, (int(board_width * 0.045) + sidebar_width, int(board_height * 0.8395)))
     screen.blit(combo_value, (int(board_width * 0.055) + sidebar_width, int(board_height * 0.8823)))
+    screen.blit(bomb_value, (int(board_width*0.715), int(board_height*0.62)))
+    screen.blit(earth_value, (int(board_width*0.715), int(board_height * 0.78)))
+    screen.blit(tnt_value, (int(board_width*0.715), int(board_height * 0.90)))
     if debug:
         screen.blit(speed_value, (int(board_width * 0.065), int(board_height * 0.1)))
 
@@ -652,6 +672,9 @@ def draw_1Pboard(next, hold, score, level, goal):
         level_value = ui_variables.h4.render(str(level), 1, ui_variables.real_white)
         text_combo = ui_variables.h5.render("COMBO", 1, ui_variables.real_white)
         combo_value = ui_variables.h4.render(str(combo_count), 1, ui_variables.real_white)
+        bomb_value = ui_variables.h4.render(str(num_bomb), 1, ui_variables.real_white)
+        earth_value = ui_variables.h4.render(str(num_earthquake), 1, ui_variables.real_white)
+        tnt_value = ui_variables.h4.render(str(num_tnt), 1, ui_variables.real_white)
     if textsize==True:
         text_hold = ui_variables.h3.render("HOLD", 1, ui_variables.real_white)
         text_next = ui_variables.h3.render("NEXT", 1, ui_variables.real_white)
@@ -661,6 +684,9 @@ def draw_1Pboard(next, hold, score, level, goal):
         level_value = ui_variables.h2.render(str(level), 1, ui_variables.real_white)
         text_combo = ui_variables.h3.render("COMBO", 1, ui_variables.real_white)
         combo_value = ui_variables.h2.render(str(combo_count), 1, ui_variables.real_white)
+        bomb_value = ui_variables.h4.render(str(num_bomb), 1, ui_variables.real_white)
+        earth_value = ui_variables.h4.render(str(num_earthquake), 1, ui_variables.real_white)
+        tnt_value = ui_variables.h4.render(str(num_tnt), 1, ui_variables.real_white)
     if debug:
         speed_value = ui_variables.h5.render("SPEED : "+str(framerate), 1, ui_variables.real_white) #speed를 알려주는 framerate(기본값 30. 빨라질 수록 숫자 작아짐)
         screen.blit(speed_value, (int(board_width * 0.045) + sidebar_width, int(board_height * 0.015))) #각각 전체 board 가로길이, 세로길이에 원하는 비율을 곱해줌
@@ -672,7 +698,9 @@ def draw_1Pboard(next, hold, score, level, goal):
     screen.blit(level_value, (int(board_width*0.055) + sidebar_width , int(board_height*0.7219)))
     screen.blit(text_combo, (int(board_width*0.045) + sidebar_width , int(board_height*0.8395)))
     screen.blit(combo_value, (int(board_width*0.055) + sidebar_width, int(board_height*0.8823)))
-
+    screen.blit(bomb_value, (int(board_width*0.715), int(board_height*0.62)))
+    screen.blit(earth_value, (int(board_width*0.715), int(board_height * 0.78)))
+    screen.blit(tnt_value, (int(board_width*0.715), int(board_height * 0.90)))
     # Draw board
     for x in range(width):
         for y in range(height):
@@ -726,6 +754,9 @@ def draw_2Pboard(next, hold, score, level, goal):
         level_value = ui_variables.h4.render(str(level), 1, ui_variables.real_white)
         text_combo = ui_variables.h5.render("COMBO", 1, ui_variables.real_white)
         combo_value = ui_variables.h4.render(str(combo_count), 1, ui_variables.real_white)
+        bomb_value = ui_variables.h4.render(str(num_bomb), 1, ui_variables.real_white)
+        earth_value = ui_variables.h4.render(str(num_earthquake), 1, ui_variables.real_white)
+        tnt_value = ui_variables.h4.render(str(num_tnt), 1, ui_variables.real_white)
     if textsize==True:
         text_hold = ui_variables.h4.render("HOLD", 1, ui_variables.real_white)
         text_next = ui_variables.h4.render("NEXT", 1, ui_variables.real_white)
@@ -735,6 +766,9 @@ def draw_2Pboard(next, hold, score, level, goal):
         level_value = ui_variables.h3.render(str(level), 1, ui_variables.real_white)
         text_combo = ui_variables.h4.render("COMBO", 1, ui_variables.real_white)
         combo_value = ui_variables.h3.render(str(combo_count), 1, ui_variables.real_white)
+        bomb_value = ui_variables.h4.render(str(num_bomb), 1, ui_variables.real_white)
+        earth_value = ui_variables.h4.render(str(num_earthquake), 1, ui_variables.real_white)
+        tnt_value = ui_variables.h4.render(str(num_tnt), 1, ui_variables.real_white)
     if debug:
         speed_value = ui_variables.h5.render("SPEED : "+str(framerate_2P), 1, ui_variables.real_white) #speed를 알려주는 framerate(기본값 30. 빨라질 수록 숫자 작아짐)
         screen.blit(speed_value, (int(board_width * 0.045) + sidebar_width, int(board_height * 0.015))) #각각 전체 board의 가로길이, 세로길이에 대해 원하는 비율을 곱해줌
@@ -746,6 +780,9 @@ def draw_2Pboard(next, hold, score, level, goal):
     screen.blit(level_value, (int(board_width*0.055) + sidebar_width , int(board_height*0.7219)))
     screen.blit(text_combo, (int(board_width*0.045) + sidebar_width , int(board_height*0.8395)))
     screen.blit(combo_value, (int(board_width*0.055) + sidebar_width, int(board_height*0.8823)))
+    screen.blit(bomb_value, (int(board_width*0.715), int(board_height*0.62)))
+    screen.blit(earth_value, (int(board_width*0.715), int(board_height * 0.78)))
+    screen.blit(tnt_value, (int(board_width*0.715), int(board_height * 0.90)))
 
     # Draw board
     for x in range(width):
@@ -943,7 +980,7 @@ def set_music_playing_speed(CHANNELS, swidth, Change_RATE):
     pygame.mixer.music.play(-1) #위 노래를 반복재생하기 위해 play(-1)로 설정
 
 def set_initial_values():
-    global combo_count, combo_count_2P, score, level, goal, score_2P, level_2P, goal_2P, bottom_count, bottom_count_2P, hard_drop, hard_drop_2P, attack_point, attack_point_2P, dx, dy, dx_2P, dy_2P, rotation, rotation_2P, mino, mino_2P, next_mino1, next_mino2, next_mino1_2P, hold, hold_2P, hold_mino, hold_mino_2P, framerate, framerate_2P, matrix, matrix_2P, Change_RATE, blink, start, pause, done, game_over, leader_board, setting, volume_setting, screen_setting, pvp, help, gravity_mode, debug, d, e, b, u, g, time_attack, start_ticks, textsize, CHANNELS, swidth, name_location, name, previous_time, current_time, pause_time, lines, leaders, volume, game_status, framerate_blockmove, framerate_2P_blockmove, game_speed, game_speed_2P
+    global combo_count, combo_count_2P, score, level, goal, score_2P, level_2P, goal_2P, bottom_count, bottom_count_2P, hard_drop, hard_drop_2P, attack_point, attack_point_2P, dx, dy, dx_2P, dy_2P, rotation, rotation_2P, mino, mino_2P, next_mino1, next_mino2, next_mino1_2P, hold, hold_2P, hold_mino, hold_mino_2P, framerate, framerate_2P, matrix, matrix_2P, Change_RATE, blink, start, pause, done, game_over, leader_board, setting, volume_setting, screen_setting, pvp, help, gravity_mode, debug, d, e, b, u, g, time_attack, start_ticks, textsize, CHANNELS, swidth, name_location, name, previous_time, current_time, pause_time, lines, leaders, volume, game_status, framerate_blockmove, framerate_2P_blockmove, game_speed, game_speed_2P, bomb, earthquake, tnt, num_bomb, num_earthquake, num_tnt, gold, s_gold, item, item_mino, bomb_mino, earthquake_mino, tnt_mino
     framerate = 30 # Bigger -> Slower  기본 블록 하강 속도, 2도 할만 함, 0 또는 음수 이상이어야 함
     framerate_blockmove = framerate * 3 # 블록 이동 시 속도
     game_speed = framerate * 20 # 게임 기본 속도
@@ -1008,6 +1045,20 @@ def set_initial_values():
     hold_mino = -1  # Holded mino #현재 hold하는 것 없는 상태
     hold_mino_2P = -1
     textsize = False
+
+    # 아이템 관련 변수
+    s_gold = 0
+    num_bomb = 1
+    num_earthquake = 1
+    num_tnt = 1
+    #bomb = num_bomb
+    #earthquake = num_earthquake
+    #tnt = num_tnt
+    item = False
+    bomb_mino = 8 # 폭탄블럭
+    earth_mino = 9 # 지진블럭
+    tnt_mino = 10 # tnt블럭
+    item_mino = -2 #아이템을 사용 안한 상태
 
     name_location = 0
     name = [65, 65, 65]
@@ -1982,6 +2033,40 @@ while not done:
                     if event.key == K_7:
                         ui_variables.click_sound.play()
                         mino = 7 #빨
+                # item click
+                # bomb item use
+                elif event.key == K_z :
+                    if num_bomb>0 :
+                        mino = bomb_mino
+                        num_bomb = num_bomb-1
+                    
+                    draw_mino(dx, dy, mino, rotation, matrix)
+                    screen.fill(ui_variables.real_white)
+                    draw_image(screen, gamebackground_image , board_width * 0.5, board_height * 0.5, board_width, board_height) #(window, 이미지주소, x좌표, y좌표, 너비, 높이)
+                    draw_board(next_mino1, next_mino2, hold_mino, score, level, goal)
+                    
+                # earthquake item use
+                elif event.key == K_x :
+                    if num_earthquake>0 :
+                        mino = earth_mino
+                        num_earthquake = num_earthquake-1
+                    
+                    draw_mino(dx, dy, mino, rotation, matrix)
+                    screen.fill(ui_variables.real_white)
+                    draw_image(screen, gamebackground_image , board_width * 0.5, board_height * 0.5, board_width, board_height) #(window, 이미지주소, x좌표, y좌표, 너비, 높이)
+                    draw_board(next_mino1, next_mino2, hold_mino, score, level, goal)
+                # tnt use
+                elif event.key == K_c :
+                    if num_tnt>0 :
+                        mino = tnt_mino
+                        num_tnt = num_tnt-1
+                    
+                    draw_mino(dx, dy, mino, rotation, matrix)
+                    screen.fill(ui_variables.real_white)
+                    draw_image(screen, gamebackground_image , board_width * 0.5, board_height * 0.5, board_width, board_height) #(window, 이미지주소, x좌표, y좌표, 너비, 높이)
+                    draw_board(next_mino1, next_mino2, hold_mino, score, level, goal)
+
+
 
             elif event.type == VIDEORESIZE:
                 board_width = event.w
