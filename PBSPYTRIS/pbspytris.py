@@ -50,7 +50,7 @@ pygame.init()
 
 clock = pygame.time.Clock() #창, 화면을 초당 몇번 출력하는가(FPS) clock.tick 높을수록 cpu많이 사용
 screen = pygame.display.set_mode((board_width, board_height), pygame.RESIZABLE) #GUI창 설정하는 변수
-pygame.display.set_caption("PBS PYTRIS") #GUI 창의 이름
+pygame.display.set_caption("PBSPYTRIS") #GUI 창의 이름
 
 class ui_variables:
     font_path = "./assets/fonts/OpenSans-Light.ttf"
@@ -135,6 +135,7 @@ class ui_variables:
     ghost_image = 'assets/block_images/ghost.png'
     table_image = 'assets/block_images/background.png'
     linessent_image = 'assets/block_images/linessent.png'
+    # item_image 3개 넣기
     t_block = [table_image, cyan_image, blue_image, orange_image, yellow_image, green_image, pink_image, red_image,
                ghost_image, linessent_image]
 
@@ -980,7 +981,7 @@ def set_music_playing_speed(CHANNELS, swidth, Change_RATE):
     pygame.mixer.music.play(-1) #위 노래를 반복재생하기 위해 play(-1)로 설정
 
 def set_initial_values():
-    global combo_count, combo_count_2P, score, level, goal, score_2P, level_2P, goal_2P, bottom_count, bottom_count_2P, hard_drop, hard_drop_2P, attack_point, attack_point_2P, dx, dy, dx_2P, dy_2P, rotation, rotation_2P, mino, mino_2P, next_mino1, next_mino2, next_mino1_2P, hold, hold_2P, hold_mino, hold_mino_2P, framerate, framerate_2P, matrix, matrix_2P, Change_RATE, blink, start, pause, done, game_over, leader_board, setting, volume_setting, screen_setting, pvp, help, gravity_mode, debug, d, e, b, u, g, time_attack, start_ticks, textsize, CHANNELS, swidth, name_location, name, previous_time, current_time, pause_time, lines, leaders, volume, game_status, framerate_blockmove, framerate_2P_blockmove, game_speed, game_speed_2P, bomb, earthquake, tnt, num_bomb, num_earthquake, num_tnt, gold, s_gold, item, item_mino, bomb_mino, earthquake_mino, tnt_mino
+    global combo_status, combo_count, combo_count_2P, score, level, goal, score_2P, level_2P, goal_2P, bottom_count, bottom_count_2P, hard_drop, hard_drop_2P, attack_point, attack_point_2P, dx, dy, dx_2P, dy_2P, rotation, rotation_2P, mino, mino_2P, next_mino1, next_mino2, next_mino1_2P, hold, hold_2P, hold_mino, hold_mino_2P, framerate, framerate_2P, matrix, matrix_2P, Change_RATE, blink, start, pause, done, game_over, leader_board, setting, volume_setting, screen_setting, pvp, help, gravity_mode, debug, d, e, b, u, g, time_attack, start_ticks, textsize, attack_mode, attack_mode_time, attack_board_y, CHANNELS, swidth, name_location, name, previous_time, current_time, pause_time, lines, leaders, volume, game_status, framerate_blockmove, framerate_2P_blockmove, game_speed, game_speed_2P, bomb, earthquake, tnt, num_bomb, num_earthquake, num_tnt, gold, s_gold, item, item_mino, bomb_mino, earth_mino, tnt_mino
     framerate = 30 # Bigger -> Slower  기본 블록 하강 속도, 2도 할만 함, 0 또는 음수 이상이어야 함
     framerate_blockmove = framerate * 3 # 블록 이동 시 속도
     game_speed = framerate * 20 # 게임 기본 속도
@@ -1055,9 +1056,9 @@ def set_initial_values():
     #earthquake = num_earthquake
     #tnt = num_tnt
     item = False
-    bomb_mino = 8 # 폭탄블럭
-    earth_mino = 9 # 지진블럭
-    tnt_mino = 10 # tnt블럭
+    bomb_mino = 8 # 폭탄블럭 10
+    earth_mino = 9 # 지진블럭 11
+    tnt_mino = 10 # tnt블럭 12
     item_mino = -2 #아이템을 사용 안한 상태
 
     name_location = 0
