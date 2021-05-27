@@ -88,10 +88,13 @@ class ui_variables:
     combos = []
     large_combos = []
     combo_ring = pygame.image.load("assets/Combo/4combo ring.png")  # 4블록 동시제거 그래픽
-    combo_4ring = pygame.transform.smoothscale(combo_ring, (200, 100)) #이미지를 특정 크기로 불러옴, 200=가로크기, 100=세로크기#
+    combo_4ring = pygame.transform.smoothscale(combo_ring,
+                     (int(board_width*0.25), int(board_height*0.222)))
+    #이미지를 특정 크기로 불러옴, 200=가로크기, 100=세로크기
     for i in range(1, 11): #10가지의 콤보 이미지 존재. 각 숫자에 해당하는 이미지 불러옴
         combos.append(pygame.image.load("assets/Combo/" + str(i) + "combo.png"))
-        large_combos.append(pygame.transform.smoothscale(combos[i - 1], (150, 200))) #콤보이미지를 특정 크기로 불러옴, 150=가로크기, 200=세로크기#
+        large_combos.append(pygame.transform.smoothscale(combos[i - 1],
+         (int(board_width*0.1875), int(board_height*0.4444)))) #콤보이미지를 특정 크기로 불러옴, 150=가로크기, 200=세로크기#
 
     combos_sound = []
     for i in range(1, 10): #1-9까지 콤보사운드 존재. 각 숫자에 해당하는 음악 불러옴
@@ -390,8 +393,7 @@ music_minus_vector = button(board_width, board_height,
  0.54, 0.38, 0.04, 0.0711, vector_minus)
 music_on_button = button(board_width, board_height,
  0.62, 0.38, 0.0625, 0.1111, vector_sound_on)
-music_off_button = button(board_width, board_height,
- 0.62, 0.38, 0.0625, 0.1111, vector_sound_off)
+
 
 # effect_number_board 0.46, 0.52, 0.04, 0.53
 effect_plus_vector = button(board_width, board_height,
@@ -400,8 +402,7 @@ effect_minus_vector = button(board_width, board_height,
  0.54, 0.52, 0.04, 0.0711, vector_minus)
 effect_on_button = button(board_width, board_height,
  0.62, 0.52, 0.0625, 0.1111, vector_sound_on)
-effect_off_button = button(board_width, board_height,
- 0.62, 0.52, 0.0625, 0.1111, vector_sound_off)
+
 
 # main page 9) screen board
 smallsize_button = button(board_width, board_height, 0.5, 0.24, 0.2, 0.08, size_s)
@@ -430,9 +431,9 @@ quit_game_button = button(board_width, board_height, 0.5, 0.87, 0.16, 0.084, but
 # 위와 동일
 
 # game page 5) game over oard
-menu_button = button(board_width, board_height, 0.5, 0.33, 0.04, 0.53, button_menu)
+menu_button = button(board_width, board_height, 0.5, 0.33, 0.16, 0.084, button_menu)
 # restart
-ok_button = button(board_width, board_height, 0.5, 0.6, 0.04, 0.53, button_ok)
+ok_button = button(board_width, board_height, 0.5, 0.87, 0.16, 0.084, button_ok)
 
 # about debug
 
@@ -451,8 +452,8 @@ button_list = [
     difficulty_button, back_button, attack_button, gravity_button,
     back_right_button, start_left_button, level_minus_vector, level_plus_vector,
     easy_button, normal_button, hard_button, volume_vector, screen_vector, 
-    allmute_button, music_plus_vector, music_minus_vector, music_on_button, music_off_button,
-    effect_plus_vector, effect_minus_vector, effect_on_button, effect_off_button,
+    allmute_button, music_plus_vector, music_minus_vector, music_on_button,
+    effect_plus_vector, effect_minus_vector, effect_on_button,
     smallsize_button, midiumsize_button, bigsize_button, light_buy_button,
     tnt_buy_button, earth_buy_button, gold_buy_button, resume_button,
     restart_button, setting_button, quit_game_button, menu_button, ok_button,
@@ -1145,8 +1146,10 @@ while not done:
                      int(board_width*0.8), int(board_height*0.8))
         draw_image(screen, board_number, board_width * 0.46, board_height * 0.38,
                     int(board_width * 0.0625), int(board_height * 0.1111))
+        # music board
         draw_image(screen, board_number, board_width * 0.46, board_height * 0.52,
                     int(board_width * 0.0625), int(board_height * 0.1111))
+        # effect board
         allmute_button.draw(screen, (0, 0, 0))
         effect_plus_vector.draw(screen, (0, 0, 0))
         effect_minus_vector.draw(screen, (0, 0, 0))
@@ -1160,18 +1163,18 @@ while not done:
         #render("텍스트이름", 안티에일리어싱 적용, 색깔), 즉 아래의 코드에서 숫자 1=안티에일리어싱 적용에 관한 코드
         music_volume_text = ui_variables.h5.render('Music Volume', 1, ui_variables.grey_1)
         effect_volume_text = ui_variables.h5.render('Effect Volume', 1, ui_variables.grey_1)
-        screen.blit(music_volume_text, (board_width * 0.4, board_height * 0.4)) #위치 비율 고정
-        screen.blit(effect_volume_text, (board_width * 0.4, board_height * 0.6)) #위치 비율 고정
+        screen.blit(music_volume_text, (board_width * 0.4, board_height * 0.43)) #위치 비율 고정
+        screen.blit(effect_volume_text, (board_width * 0.4, board_height * 0.57)) #위치 비율 고정
 
         music_volume_text = ui_variables.h5.render('Music On/Off', 1, ui_variables.grey_1)
         effect_volume_text = ui_variables.h5.render('Effect On/Off', 1, ui_variables.grey_1)
-        screen.blit(music_volume_text, (board_width * 0.6, board_height * 0.4)) #위치 비율 고정
-        screen.blit(effect_volume_text, (board_width * 0.6, board_height * 0.6)) #위치 비율 고정
+        screen.blit(music_volume_text, (board_width * 0.57, board_height * 0.43)) #위치 비율 고정
+        screen.blit(effect_volume_text, (board_width * 0.57, board_height * 0.57)) #위치 비율 고정
 
         music_volume_size_text = ui_variables.h4.render(str(music_volume), 1, ui_variables.grey_1)
         effect_volume_size_text = ui_variables.h4.render(str(effect_volume), 1, ui_variables.grey_1)
-        screen.blit(music_volume_size_text, (board_width * 0.46, board_height * 0.38)) #위치 비율 고정
-        screen.blit(effect_volume_size_text, (board_width * 0.46, board_height * 0.52)) #위치 비율 고정
+        screen.blit(music_volume_size_text, (board_width * 0.454, board_height * 0.34)) #위치 비율 고정
+        screen.blit(effect_volume_size_text, (board_width * 0.454, board_height * 0.48)) #위치 비율 고정
 
         for event in pygame.event.get():
             pos = pygame.mouse.get_pos()
@@ -1688,7 +1691,9 @@ while not done:
         draw_image(screen, board_number, board_width * 0.7875, board_height * 0.43,
         int(board_width*0.0625), int(board_height*0.1111))
         level_minus_vector.draw(screen,(0,0,0))
-        level_plus_vector.draw(screen,(0,0,0)) 
+        level_plus_vector.draw(screen,(0,0,0))
+        level_size_text = ui_variables.h4.render(str(level),1,ui_variables.grey_1)
+        screen.blit(level_size_text, (board_width * 0.78, board_height * 0.4))
 
 
         for event in pygame.event.get():
@@ -1715,12 +1720,18 @@ while not done:
                 if attack_button.isOver_2(pos):
                     attack_button.image = button_attack_clicked
                 else:
-                    attack_button.image = button_attack
+                    if attack_mode:
+                        attack_button.image = button_attack_on
+                    else:
+                        attack_button.image = button_attack
 
                 if gravity_button.isOver_2(pos):
                     gravity_button.image = button_gravity_clicked
                 else:
-                    gravity_button.image = button_gravity
+                    if gravity_mode:
+                        gravity_button.image = button_gravity_on
+                    else:
+                        gravity_button.image = button_gravity
 
                 if level_minus_button.isOver(pos):
                     level_minus_button.image = vector_minus_clicked
@@ -2136,7 +2147,8 @@ while not done:
                         ui_variables.tetris_sound.play()
                         score += 1000 * level * erase_count + 4 * combo_count
                         combo_count += 4
-                        screen.blit(ui_variables.combo_4ring, (250, 160)) #blit(이미지, 위치)
+                        screen.blit(ui_variables.combo_4ring,
+                         (int(board_width*0.3125), int(board_height*0.3556))) #blit(이미지, 위치)
                     total_time += 5 # 콤보 시 시간 5초 연장
 
                     for i in range(1, 11):
@@ -2666,7 +2678,8 @@ while not done:
                         ui_variables.tetris_sound.play()
                         score += 1000 * level * erase_count + 4 * combo_count
 
-                        screen.blit(ui_variables.combo_4ring, (250, 160)) #blit(이미지, 위치)
+                        screen.blit(ui_variables.combo_4ring, 
+                        (int(board_width*0.3125), int(board_height*0.3556))) #blit(이미지, 위치)
 
 
                     for i in range(1, 11):
@@ -2718,7 +2731,8 @@ while not done:
                         ui_variables.tetris_sound.play()
                         score_2P += 1000 * level_2P * erase_count_2P + 4 * combo_count_2P
 
-                        screen.blit(ui_variables.combo_4ring, (250, 160)) #blit(이미지, 위치)
+                        screen.blit(ui_variables.combo_4ring,
+                         (int(board_width*0.3125), int(board_height*0.3556))) #blit(이미지, 위치)
 
                     for i in range(1, 11):
                         if combo_count_2P == i:  # 1 ~ 10 콤보 이미지
