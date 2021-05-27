@@ -526,7 +526,7 @@ def draw_board(next1, next2, hold, score, level, goal):
     dy3_3 = int(board_height*0.844)
     i_size_x = int(board_width*0.05)
     i_size_y = int(board_height*0.089)
-    draw_image(screen, item_bomb, dx3, dy3_1, i_size_x, i_size_y)
+    draw_image(screen, item_light, dx3, dy3_1, i_size_x, i_size_y)
     draw_image(screen, item_tnt, dx3, dy3_2, i_size_x, i_size_y)
     draw_image(screen, item_earth, dx3, dy3_3, i_size_x, i_size_y)
 
@@ -1645,6 +1645,7 @@ while not done:
                     game = False
                 if single_button.isOver_2(pos):
                     ui_variables.click_sound.play()
+                    game = False
                     single = True
                     start = True
                     previous_time = pygame.time.get_ticks()
@@ -1739,7 +1740,13 @@ while not done:
                                 
                 if start_left_button.isOver_2(pos):
                     ui_variables.click_sound.play()
+                    game = False
+                    sandbox = False
                     start = True
+                    previous_time = pygame.time.get_ticks()
+                    initalize = True
+                    pygame.mixer.music.play(-1) #play(-1) = 노래 반복재생
+                    ui_variables.intro_sound.stop()
 
                 if attack_button.isOver_2(pos):
                     if attack_mode:
@@ -1763,9 +1770,21 @@ while not done:
                                   
                 if level_minus_button.isOver(pos):
                     ui_variables.click_sound.play()
-                                  
+                    if level >1:
+                        level -= 1
+                        goal -= level * 5
+                        framerate = int(framerate + speed_change)
+                        Change_RATE = level + 1
+                        set_music_playing_speed(CHANNELS, swidth, Change_RATE)
+
                 if level_plus_button.isOver(pos):
                     ui_variables.click_sound.play()
+                    if level < 15:
+                        level += 1
+                        goal += level * 5
+                        framerate = int(framerate - speed_change)
+                        Change_RATE = level - 1
+                        set_music_playing_speed(CHANNELS, swidth, Change_RATE)
 
     elif difficulty: # diff board little complete
         draw_image(screen, board_difficulty, board_width * 0.5, board_height * 0.4,
