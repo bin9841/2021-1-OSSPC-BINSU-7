@@ -1766,10 +1766,14 @@ while not done:
                     start = True
                 if easy_button.isOver_2(pos):
                     ui_variables.click_sound.play()
+                    gravity = True
                 if normal_button.isOver_2(pos):
                     ui_variables.click_sound.play()
+                    gravity = True
+                    attack_mode = True
                 if hard_button.isOver_2(pos):
                     ui_variables.click_sound.play()
+                    attack_mode = True
                                    
     elif leader_board: # complete        
 
@@ -1839,9 +1843,9 @@ while not done:
         board_width, board_height)
         draw_image(screen, board_shop, board_width * 0.5, board_height * 0.4, 
             int(board_width * 0.8), int(board_height * 0.8))
-
-
         back_button.draw(screen, (0, 0, 0))
+        light_buy_button.draw(screen, (0, 0, 0))
+        tnt_buy_button.draw(screen, (0, 0, 0))
 
         for event in pygame.event.get():
             pos = pygame.mouse.get_pos()
