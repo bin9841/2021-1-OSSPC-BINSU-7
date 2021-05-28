@@ -508,7 +508,7 @@ def draw_block_image(x, y, image):
 
 
 # grid[i][j] = 0 / matrix[tx + j][ty + i] = 0에서
-# 0은 빈 칸 / 1-7은 테트리스 블록 종류 / 8은 ghost / 9은 장애물(벽돌)/ 11은 light item, 12는 tnt item 에 해당함 = t_block 참고
+# 0은 빈 칸 / 1-7은 테트리스 블록 종류 / 8은 ghost / 9은 장애물(벽돌)/ 10은 light item, 11는 tnt item 에 해당함 = t_block 참고
 
 # Draw game screen
 def draw_board(next1, next2, hold, score, level, goal):
@@ -1114,8 +1114,8 @@ def set_initial_values():
     #earthquake = num_earthquake
     #tnt = num_tnt
     item = False
-    light_mino = 10 # 번개 블럭 11
-    tnt_mino = 11 # tnt 블럭 12
+    light_mino = 10 # 번개 블럭 10
+    tnt_mino = 11 # tnt 블럭 11
     item_mino = -2 #아이템을 사용 안한 상태
 
     name_location = 0
