@@ -25,7 +25,7 @@ block_size = int(board_height * 0.045)
 mino_matrix_x = 4 #mino는 4*4 배열이어서 이를 for문에 사용
 mino_matrix_y = 4 #mino는 4*4 배열이어서 이를 for문에 사용
 
-speed_change = 2 # 레벨별 블록 하강 속도 상승 정도
+speed_change = 40 # 레벨별 블록 하강 속도 상승 정도
 
 gold = 0
 framerate = 30  # Bigger -> Slower
@@ -1735,15 +1735,17 @@ while not done:
                     else:
                         gravity_button.image = button_gravity
 
-                if level_minus_button.isOver(pos):
-                    level_minus_button.image = vector_minus_clicked
+                if level_minus_vector.isOver(pos):
+                    level_minus_vector.image = vector_minus_clicked
                 else:
-                    level_minus_button.image = vector_minus
+                    level_minus_vector.image = vector_minus
 
-                if level_plus_button.isOver(pos):
-                    level_plus_button.image = vector_plus_clicked
+                if level_plus_vector.isOver(pos):
+                    level_plus_vector.image = vector_plus_clicked
                 else:
-                    level_plus_button.image = vector_plus
+                    level_plus_vector.image = vector_plus
+
+                pygame.display.update()
 
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 if back_right_button.isOver_2(pos):
@@ -1782,23 +1784,25 @@ while not done:
                         gravity_mode = True
                         gravity_button.image = button_gravity_on
                                   
-                if level_minus_button.isOver(pos):
+                if level_minus_vector.isOver(pos):
                     ui_variables.click_sound.play()
                     if level >1:
                         level -= 1
                         goal -= level * 5
-                        framerate = int(framerate + speed_change)
+                        game_speed = int(game_speed + speed_change)
+                        pygame.time.set_timer(pygame.USEREVENT, game_speed)
                         Change_RATE = level + 1
-                        set_music_playing_speed(CHANNELS, swidth, Change_RATE)
+                        
 
-                if level_plus_button.isOver(pos):
+                if level_plus_vector.isOver(pos):
                     ui_variables.click_sound.play()
                     if level < 15:
                         level += 1
                         goal += level * 5
-                        framerate = int(framerate - speed_change)
+                        game_speed = int(game_speed - speed_change)
+                        pygame.time.set_timer(pygame.USEREVENT, game_speed)
                         Change_RATE = level - 1
-                        set_music_playing_speed(CHANNELS, swidth, Change_RATE)
+                        
 
     elif difficulty: # diff board little complete
         draw_image(screen, board_difficulty, board_width * 0.5, board_height * 0.4,
@@ -1845,21 +1849,34 @@ while not done:
                     hard_button.image = button_hard
 
             elif event.type == pygame.MOUSEBUTTONDOWN:
+
                 if back_right_button.isOver_2(pos):
                     ui_variables.click_sound.play()
                     difficulty = False
+                    game = True
+                                
                 if start_left_button.isOver_2(pos):
                     ui_variables.click_sound.play()
+                    game = False
+                    difficulty = False
+                    #sandbox_mode = True
                     start = True
+                    previous_time = pygame.time.get_ticks()
+                    initalize = True
+                    pygame.mixer.music.play(-1) #play(-1) = 노래 반복재생
+                    ui_variables.intro_sound.stop()
+
                 if easy_button.isOver_2(pos):
                     ui_variables.click_sound.play()
-                    gravity = True
+                    gravity_mode = False
+                    attack_mode = True
                 if normal_button.isOver_2(pos):
                     ui_variables.click_sound.play()
-                    gravity = True
-                    attack_mode = True
+                    gravity_mode = True
+                    attack_mode = False
                 if hard_button.isOver_2(pos):
                     ui_variables.click_sound.play()
+                    gravity_mode = True
                     attack_mode = True
                                    
     elif leader_board: # complete        
@@ -2181,7 +2198,8 @@ while not done:
                     level += 1
                     ui_variables.LevelUp_sound.play()
                     goal += level * 5
-                    framerate = int(framerate-speed_change)
+                    game_speed = int(game_speed - speed_change)
+                    pygame.time.set_timer(pygame.USEREVENT, game_speed)
                     Change_RATE += 1
                     set_music_playing_speed(CHANNELS, swidth, Change_RATE)
 
