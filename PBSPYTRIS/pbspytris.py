@@ -132,9 +132,11 @@ class ui_variables:
     ghost_image = 'assets/block_images/ghost.png'
     table_image = 'assets/block_images/background.png'
     linessent_image = 'assets/block_images/linessent.png'
-    # item_image 3개 넣기
+    light_image = 'assets/block_images/lightblock.png' # lightblock image
+    tnt_image = 'assets/block_images/tntblock.png' # tntblock image
+    # item_image 2개 넣기
     t_block = [table_image, cyan_image, blue_image, orange_image, yellow_image, green_image, pink_image, red_image,
-               ghost_image, linessent_image]
+               ghost_image, linessent_image, light_image, tnt_image]
 
 #각 이미지 주소
 # background
@@ -506,7 +508,7 @@ def draw_block_image(x, y, image):
 
 
 # grid[i][j] = 0 / matrix[tx + j][ty + i] = 0에서
-# 0은 빈 칸 / 1-7은 테트리스 블록 종류 / 8은 ghost / 9은 장애물(벽돌) 에 해당함 = t_block 참고
+# 0은 빈 칸 / 1-7은 테트리스 블록 종류 / 8은 ghost / 9은 장애물(벽돌)/ 11은 light item, 12는 tnt item 에 해당함 = t_block 참고
 
 # Draw game screen
 def draw_board(next1, next2, hold, score, level, goal):
@@ -574,7 +576,7 @@ def draw_board(next1, next2, hold, score, level, goal):
         level_value = ui_variables.h4.render(str(level), 1, ui_variables.real_white)
         text_combo = ui_variables.h5.render("COMBO", 1, ui_variables.real_white)
         combo_value = ui_variables.h4.render(str(combo_count), 1, ui_variables.real_white)
-        bomb_value = ui_variables.h4.render(str(num_bomb), 1, ui_variables.real_white)
+        light_value = ui_variables.h4.render(str(num_light), 1, ui_variables.real_white)
         earth_value = ui_variables.h4.render(str(num_earthquake), 1, ui_variables.real_white)
         tnt_value = ui_variables.h4.render(str(num_tnt), 1, ui_variables.real_white)
         if debug:
@@ -597,7 +599,7 @@ def draw_board(next1, next2, hold, score, level, goal):
         level_value = ui_variables.h2.render(str(level), 1, ui_variables.real_white)
         text_combo = ui_variables.h3.render("COMBO", 1, ui_variables.real_white)
         combo_value = ui_variables.h2.render(str(combo_count), 1, ui_variables.real_white)
-        bomb_value = ui_variables.h4.render(str(num_bomb), 1, ui_variables.real_white)
+        light_value = ui_variables.h4.render(str(num_light), 1, ui_variables.real_white)
         earth_value = ui_variables.h4.render(str(num_earthquake), 1, ui_variables.real_white)
         tnt_value = ui_variables.h4.render(str(num_tnt), 1, ui_variables.real_white)
         if debug:
@@ -624,9 +626,9 @@ def draw_board(next1, next2, hold, score, level, goal):
     screen.blit(level_value, (int(board_width * 0.055) + sidebar_width, int(board_height * 0.7219)))
     screen.blit(text_combo, (int(board_width * 0.045) + sidebar_width, int(board_height * 0.8395)))
     screen.blit(combo_value, (int(board_width * 0.055) + sidebar_width, int(board_height * 0.8823)))
-    screen.blit(bomb_value, (int(board_width*0.715), int(board_height*0.62)))
-    screen.blit(earth_value, (int(board_width*0.715), int(board_height * 0.78)))
-    screen.blit(tnt_value, (int(board_width*0.715), int(board_height * 0.90)))
+    screen.blit(light_value, (int(board_width*0.715), int(board_height*0.62)))
+    screen.blit(tnt_value, (int(board_width*0.715), int(board_height * 0.78)))
+    screen.blit(earth_value, (int(board_width*0.715), int(board_height * 0.90)))
     if debug:
         screen.blit(speed_value, (int(board_width * 0.065), int(board_height * 0.1)))
 
@@ -684,7 +686,7 @@ def draw_1Pboard(next, hold, score, level, goal):
         level_value = ui_variables.h4.render(str(level), 1, ui_variables.real_white)
         text_combo = ui_variables.h5.render("COMBO", 1, ui_variables.real_white)
         combo_value = ui_variables.h4.render(str(combo_count), 1, ui_variables.real_white)
-        bomb_value = ui_variables.h4.render(str(num_bomb), 1, ui_variables.real_white)
+        light_value = ui_variables.h4.render(str(num_light), 1, ui_variables.real_white)
         earth_value = ui_variables.h4.render(str(num_earthquake), 1, ui_variables.real_white)
         tnt_value = ui_variables.h4.render(str(num_tnt), 1, ui_variables.real_white)
     if textsize==True:
@@ -696,7 +698,7 @@ def draw_1Pboard(next, hold, score, level, goal):
         level_value = ui_variables.h2.render(str(level), 1, ui_variables.real_white)
         text_combo = ui_variables.h3.render("COMBO", 1, ui_variables.real_white)
         combo_value = ui_variables.h2.render(str(combo_count), 1, ui_variables.real_white)
-        bomb_value = ui_variables.h4.render(str(num_bomb), 1, ui_variables.real_white)
+        light_value = ui_variables.h4.render(str(num_light), 1, ui_variables.real_white)
         earth_value = ui_variables.h4.render(str(num_earthquake), 1, ui_variables.real_white)
         tnt_value = ui_variables.h4.render(str(num_tnt), 1, ui_variables.real_white)
     if debug:
@@ -710,9 +712,9 @@ def draw_1Pboard(next, hold, score, level, goal):
     screen.blit(level_value, (int(board_width*0.055) + sidebar_width , int(board_height*0.7219)))
     screen.blit(text_combo, (int(board_width*0.045) + sidebar_width , int(board_height*0.8395)))
     screen.blit(combo_value, (int(board_width*0.055) + sidebar_width, int(board_height*0.8823)))
-    screen.blit(bomb_value, (int(board_width*0.715), int(board_height*0.62)))
-    screen.blit(earth_value, (int(board_width*0.715), int(board_height * 0.78)))
-    screen.blit(tnt_value, (int(board_width*0.715), int(board_height * 0.90)))
+    screen.blit(light_value, (int(board_width*0.715), int(board_height*0.62)))
+    screen.blit(tnt_value, (int(board_width*0.715), int(board_height * 0.78)))
+    screen.blit(earth_value, (int(board_width*0.715), int(board_height * 0.90)))
     # Draw board
     for x in range(width):
         for y in range(height):
@@ -766,7 +768,7 @@ def draw_2Pboard(next, hold, score, level, goal):
         level_value = ui_variables.h4.render(str(level), 1, ui_variables.real_white)
         text_combo = ui_variables.h5.render("COMBO", 1, ui_variables.real_white)
         combo_value = ui_variables.h4.render(str(combo_count), 1, ui_variables.real_white)
-        bomb_value = ui_variables.h4.render(str(num_bomb), 1, ui_variables.real_white)
+        light_value = ui_variables.h4.render(str(num_light), 1, ui_variables.real_white)
         earth_value = ui_variables.h4.render(str(num_earthquake), 1, ui_variables.real_white)
         tnt_value = ui_variables.h4.render(str(num_tnt), 1, ui_variables.real_white)
     if textsize==True:
@@ -778,7 +780,7 @@ def draw_2Pboard(next, hold, score, level, goal):
         level_value = ui_variables.h3.render(str(level), 1, ui_variables.real_white)
         text_combo = ui_variables.h4.render("COMBO", 1, ui_variables.real_white)
         combo_value = ui_variables.h3.render(str(combo_count), 1, ui_variables.real_white)
-        bomb_value = ui_variables.h4.render(str(num_bomb), 1, ui_variables.real_white)
+        light_value = ui_variables.h4.render(str(num_light), 1, ui_variables.real_white)
         earth_value = ui_variables.h4.render(str(num_earthquake), 1, ui_variables.real_white)
         tnt_value = ui_variables.h4.render(str(num_tnt), 1, ui_variables.real_white)
     if debug:
@@ -792,9 +794,9 @@ def draw_2Pboard(next, hold, score, level, goal):
     screen.blit(level_value, (int(board_width*0.055) + sidebar_width , int(board_height*0.7219)))
     screen.blit(text_combo, (int(board_width*0.045) + sidebar_width , int(board_height*0.8395)))
     screen.blit(combo_value, (int(board_width*0.055) + sidebar_width, int(board_height*0.8823)))
-    screen.blit(bomb_value, (int(board_width*0.715), int(board_height*0.62)))
-    screen.blit(earth_value, (int(board_width*0.715), int(board_height * 0.78)))
-    screen.blit(tnt_value, (int(board_width*0.715), int(board_height * 0.90)))
+    screen.blit(light_value, (int(board_width*0.715), int(board_height*0.62)))
+    screen.blit(tnt_value, (int(board_width*0.715), int(board_height * 0.78)))
+    screen.blit(earth_value, (int(board_width*0.715), int(board_height * 0.90)))
 
     # Draw board
     for x in range(width):
@@ -840,6 +842,27 @@ def erase_mino(x, y, mino, r, matrix):
             if grid[i][j] != 0:  #테트리스 블록에서 해당 행렬위치에 블록 존재하면
                 matrix[x + j][y + i] = 0 #해당 위치에 블록 없애서 빈 곳으로 만들기
 
+    # light item
+    for j in range(board_y+1):
+        for i in range(board_x):
+            if matrix[i][j] == light_mino: #테트리스 블록에서 해당 행렬위치에 lightning 블록 존재하면
+                m = i-1
+                n = j-1
+                for k in range(3):
+                    for q in range(3):
+                        matrix[m+k][n+q] = 0
+                 
+
+    # tnt item
+    for j in range(board_y+1):
+        for i in range(board_x):
+            if matrix[i][j] == tnt_mino: #테트리스 블록에서 해당 행렬위치에 lightning 블록 존재하면
+                m = i-2
+                n = j-2
+                for k in range(5):
+                    for q in range(5):
+                        matrix[m+k][n+q] = 0
+
 # Returns true if mino is at bottom
 def is_bottom(x, y, mino, r, matrix):
     grid = tetrimino.mino_map[mino - 1][r] #grid : 출력할 테트리스
@@ -854,6 +877,12 @@ def is_bottom(x, y, mino, r, matrix):
 
     return False
 
+def earthquake(y,matrix):
+    
+    for i in range(board_x): # 가로줄 전체에 대해서
+        matrix[i][y] = 0
+    
+        
 def gravity(x, y, mino, r, matrix):
     grid = tetrimino.mino_map[mino - 1][r] #grid : 출력할 테트리스
 
@@ -996,7 +1025,7 @@ def set_music_playing_speed(CHANNELS, swidth, Change_RATE):
 
 def set_initial_values():
 
-    global combo_status, combo_count, combo_count_2P, score, level, goal, score_2P, level_2P, goal_2P, bottom_count, bottom_count_2P, hard_drop, hard_drop_2P, attack_point, attack_point_2P, dx, dy, dx_2P, dy_2P, rotation, rotation_2P, mino, mino_2P, next_mino1, next_mino2, next_mino1_2P, hold, hold_2P, hold_mino, hold_mino_2P, framerate, framerate_2P, matrix, matrix_2P, Change_RATE, blink, start, pause, done, game_over, leader_board, setting, volume_setting, screen_setting, pvp, help, gravity_mode, debug, d, e, b, u, g, time_attack, start_ticks, textsize, attack_mode, attack_mode_time, attack_board_y, CHANNELS, swidth, name_location, name, previous_time, current_time, pause_time, lines, leaders, volume, game_status, framerate_blockmove, framerate_2P_blockmove, game_speed, game_speed_2P, sandbox, difficulty, shop, challenge, single, game, bomb, earthquake, tnt, num_bomb, num_earthquake, num_tnt, gold, s_gold, item, item_mino, bomb_mino, earth_mino, tnt_mino
+    global combo_status, combo_count, combo_count_2P, score, level, goal, score_2P, level_2P, goal_2P, bottom_count, bottom_count_2P, hard_drop, hard_drop_2P, attack_point, attack_point_2P, dx, dy, dx_2P, dy_2P, rotation, rotation_2P, mino, mino_2P, next_mino1, next_mino2, next_mino1_2P, hold, hold_2P, hold_mino, hold_mino_2P, framerate, framerate_2P, matrix, matrix_2P, Change_RATE, blink, start, pause, done, game_over, leader_board, setting, volume_setting, screen_setting, pvp, help, gravity_mode, debug, d, e, b, u, g, time_attack, start_ticks, textsize, attack_mode, attack_mode_time, attack_board_y, CHANNELS, swidth, name_location, name, previous_time, current_time, pause_time, lines, leaders, volume, game_status, framerate_blockmove, framerate_2P_blockmove, game_speed, game_speed_2P, sandbox, difficulty, shop, challenge, single, game, ligth, earthquake, tnt, num_light, num_earthquake, num_tnt, gold, s_gold, item, item_mino, light_mino, earth_mino, tnt_mino
 
     framerate = 30 # Bigger -> Slower  기본 블록 하강 속도, 2도 할만 함, 0 또는 음수 이상이어야 함
     framerate_blockmove = framerate * 3 # 블록 이동 시 속도
@@ -1078,16 +1107,15 @@ def set_initial_values():
 
     # 아이템 관련 변수
     s_gold = 0
-    num_bomb = 1
+    num_light = 1
     num_earthquake = 1
     num_tnt = 1
-    #bomb = num_bomb
+    #light = num_light
     #earthquake = num_earthquake
     #tnt = num_tnt
     item = False
-    bomb_mino = 8 # 폭탄블럭 10
-    earth_mino = 9 # 지진블럭 11
-    tnt_mino = 10 # tnt블럭 12
+    light_mino = 10 # 번개 블럭 11
+    tnt_mino = 11 # tnt 블럭 12
     item_mino = -2 #아이템을 사용 안한 상태
 
     name_location = 0
@@ -2335,32 +2363,39 @@ while not done:
                         ui_variables.click_sound.play()
                         mino = 7 #빨
                 # item click
-                # bomb item use
+                # light item use
                 elif event.key == K_z :
-                    if num_bomb>0 :
-                        mino = bomb_mino
-                        num_bomb = num_bomb-1
+                    if num_light>0 :
+                        mino = light_mino
+                        num_light -= 1
+                        erase_mino(dx, dy, mino, rotation, matrix)
                     
                     draw_mino(dx, dy, mino, rotation, matrix)
                     screen.fill(ui_variables.real_white)
                     draw_image(screen, gamebackground_image , board_width * 0.5, board_height * 0.5, board_width, board_height) #(window, 이미지주소, x좌표, y좌표, 너비, 높이)
                     draw_board(next_mino1, next_mino2, hold_mino, score, level, goal)
                     
-                # earthquake item use
+                # tnt item use
                 elif event.key == K_x :
-                    if num_earthquake>0 :
-                        mino = earth_mino
-                        num_earthquake = num_earthquake-1
-                    
-                    draw_mino(dx, dy, mino, rotation, matrix)
-                    screen.fill(ui_variables.real_white)
-                    draw_image(screen, gamebackground_image , board_width * 0.5, board_height * 0.5, board_width, board_height) #(window, 이미지주소, x좌표, y좌표, 너비, 높이)
-                    draw_board(next_mino1, next_mino2, hold_mino, score, level, goal)
-                # tnt use
-                elif event.key == K_c :
                     if num_tnt>0 :
                         mino = tnt_mino
-                        num_tnt = num_tnt-1
+                        num_tnt -= 1
+                        erase_mino(dx, dy, mino, rotation, matrix)
+                    
+                    draw_mino(dx, dy, mino, rotation, matrix)
+                    screen.fill(ui_variables.real_white)
+                    draw_image(screen, gamebackground_image , board_width * 0.5, board_height * 0.5, board_width, board_height) #(window, 이미지주소, x좌표, y좌표, 너비, 높이)
+                    draw_board(next_mino1, next_mino2, hold_mino, score, level, goal)
+                # earthquake use
+                elif event.key == K_c :
+                    if num_earthquake>0 :
+                        earthquake(board_y, matrix)
+                        num_earthquake -= 1
+                        k=20
+                        while k > 0:
+                            for i in range(board_x):
+                                matrix[i][k] = matrix[i][k - 1]  # 남아있는 블록 한 줄씩 내리기(덮어쓰기)
+                            k -= 1
                     
                     draw_mino(dx, dy, mino, rotation, matrix)
                     screen.fill(ui_variables.real_white)
