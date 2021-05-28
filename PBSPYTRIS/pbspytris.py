@@ -1195,7 +1195,10 @@ while not done:
                 if allmute_button.isOver_2(pos):
                     allmute_button.image = button_allmute_clicked
                 else:
-                    allmute_button.image = button_allmute
+                    if (effect_volume == 0) and (music_volume ==0):
+                        allmute_button.image = button_allmute_on
+                    else:
+                        allmute_button.image = button_allmute
 
                 if effect_plus_vector.isOver(pos):
                     effect_plus_vector.image = vector_plus_clicked
@@ -1269,7 +1272,6 @@ while not done:
                         music_on_button.image=vector_sound_on
                     else:
                         music_volume = 0
-                        music_off_button.draw(screen,(0,0,0)) #rgb(0,0,0) = 검정색
                         music_on_button.image=vector_sound_off
                 if effect_on_button.isOver(pos):
                     ui_variables.click_sound.play()
@@ -1278,7 +1280,6 @@ while not done:
                         effect_on_button.image=vector_sound_on
                     else:
                         effect_volume = 0
-                        effect_off_button.draw(screen,(0,0,0))
                         effect_on_button.image=vector_sound_off
                 if allmute_button.isOver_2(pos):
                     ui_variables.click_sound.play()
@@ -1289,7 +1290,7 @@ while not done:
                     else:
                         music_volume = 0 #최소 음량으로
                         effect_volume = 0 #최소 음량으로
-                        allmute_button.image=button_default
+                        allmute_button.image=button_allmute_on
 
                 set_volume()
 
@@ -1517,6 +1518,7 @@ while not done:
 
                     pause = False
                     start = False
+                    start = True
 
                     if pvp:
                         pvp = False
@@ -1753,6 +1755,7 @@ while not done:
                     ui_variables.click_sound.play()
                     game = False
                     sandbox = False
+                    sandbox_mode = True
                     start = True
                     previous_time = pygame.time.get_ticks()
                     initalize = True
