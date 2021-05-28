@@ -25,7 +25,7 @@ block_size = int(board_height * 0.045)
 mino_matrix_x = 4 #mino는 4*4 배열이어서 이를 for문에 사용
 mino_matrix_y = 4 #mino는 4*4 배열이어서 이를 for문에 사용
 
-speed_change = 2 # 레벨별 블록 하강 속도 상승 정도
+speed_change = 40 # 레벨별 블록 하강 속도 상승 정도
 
 gold = 0
 framerate = 30  # Bigger -> Slower
@@ -527,9 +527,13 @@ def draw_board(next1, next2, hold, score, level, goal):
     dy3_3 = int(board_height*0.844)
     i_size_x = int(board_width*0.05)
     i_size_y = int(board_height*0.089)
-    draw_image(screen, item_light, dx3, dy3_1, i_size_x, i_size_y)
-    draw_image(screen, item_tnt, dx3, dy3_2, i_size_x, i_size_y)
-    draw_image(screen, item_earth, dx3, dy3_3, i_size_x, i_size_y)
+    if difficulty_mode:
+        draw_image(screen, item_light, dx3, dy3_1, i_size_x, i_size_y)
+        draw_image(screen, item_tnt, dx3, dy3_2, i_size_x, i_size_y)
+        draw_image(screen, item_earth, dx3, dy3_3, i_size_x, i_size_y)
+    
+        
+
 
     # Draw next mino 다음 블록
     grid_n1 = tetrimino.mino_map[next1 - 1][0] #(배열이라-1) 다음 블록의 원래 모양
@@ -625,9 +629,10 @@ def draw_board(next1, next2, hold, score, level, goal):
     screen.blit(level_value, (int(board_width * 0.055) + sidebar_width, int(board_height * 0.7219)))
     screen.blit(text_combo, (int(board_width * 0.045) + sidebar_width, int(board_height * 0.8395)))
     screen.blit(combo_value, (int(board_width * 0.055) + sidebar_width, int(board_height * 0.8823)))
-    screen.blit(bomb_value, (int(board_width*0.715), int(board_height*0.62)))
-    screen.blit(earth_value, (int(board_width*0.715), int(board_height * 0.78)))
-    screen.blit(tnt_value, (int(board_width*0.715), int(board_height * 0.90)))
+    if difficulty_mode:
+        screen.blit(bomb_value, (int(board_width*0.715), int(board_height*0.62)))
+        screen.blit(earth_value, (int(board_width*0.715), int(board_height * 0.78)))
+        screen.blit(tnt_value, (int(board_width*0.715), int(board_height * 0.90)))
     if debug:
         screen.blit(speed_value, (int(board_width * 0.065), int(board_height * 0.1)))
 
@@ -997,7 +1002,7 @@ def set_music_playing_speed(CHANNELS, swidth, Change_RATE):
 
 def set_initial_values():
 
-    global combo_status, combo_count, combo_count_2P, score, level, goal, score_2P, level_2P, goal_2P, bottom_count, bottom_count_2P, hard_drop, hard_drop_2P, attack_point, attack_point_2P, dx, dy, dx_2P, dy_2P, rotation, rotation_2P, mino, mino_2P, next_mino1, next_mino2, next_mino1_2P, hold, hold_2P, hold_mino, hold_mino_2P, framerate, framerate_2P, matrix, matrix_2P, Change_RATE, blink, start, pause, done, game_over, leader_board, setting, volume_setting, screen_setting, pvp, help, gravity_mode, debug, d, e, b, u, g, time_attack, start_ticks, textsize, attack_mode, attack_mode_time, attack_board_y, CHANNELS, swidth, name_location, name, previous_time, current_time, pause_time, lines, leaders, volume, game_status, framerate_blockmove, framerate_2P_blockmove, game_speed, game_speed_2P, sandbox, difficulty, shop, challenge, single, game, bomb, earthquake, tnt, num_bomb, num_earthquake, num_tnt, gold, s_gold, item, item_mino, bomb_mino, earth_mino, tnt_mino
+    global combo_status, combo_count, combo_count_2P, score, level, goal, score_2P, level_2P, goal_2P, bottom_count, bottom_count_2P, hard_drop, hard_drop_2P, attack_point, attack_point_2P, dx, dy, dx_2P, dy_2P, rotation, rotation_2P, mino, mino_2P, next_mino1, next_mino2, next_mino1_2P, hold, hold_2P, hold_mino, hold_mino_2P, framerate, framerate_2P, matrix, matrix_2P, Change_RATE, blink, start, pause, done, game_over, leader_board, setting, volume_setting, screen_setting, pvp, help, gravity_mode, debug, d, e, b, u, g, time_attack, start_ticks, textsize, attack_mode, attack_mode_time, attack_board_y, CHANNELS, swidth, name_location, name, previous_time, current_time, pause_time, lines, leaders, volume, game_status, framerate_blockmove, framerate_2P_blockmove, game_speed, game_speed_2P, sandbox, difficulty,difficulty_mode, shop, challenge, single, game, bomb, earthquake, tnt, num_bomb, num_earthquake, num_tnt, gold, s_gold, item, item_mino, bomb_mino, earth_mino, tnt_mino
 
     framerate = 30 # Bigger -> Slower  기본 블록 하강 속도, 2도 할만 함, 0 또는 음수 이상이어야 함
     framerate_blockmove = framerate * 3 # 블록 이동 시 속도
@@ -1012,6 +1017,7 @@ def set_initial_values():
     start = False
     sandbox = False
     difficulty = False
+    difficulty_mode = False
     shop = False
     challenge = False
     pause = False
@@ -1735,15 +1741,17 @@ while not done:
                     else:
                         gravity_button.image = button_gravity
 
-                if level_minus_button.isOver(pos):
-                    level_minus_button.image = vector_minus_clicked
+                if level_minus_vector.isOver(pos):
+                    level_minus_vector.image = vector_minus_clicked
                 else:
-                    level_minus_button.image = vector_minus
+                    level_minus_vector.image = vector_minus
 
-                if level_plus_button.isOver(pos):
-                    level_plus_button.image = vector_plus_clicked
+                if level_plus_vector.isOver(pos):
+                    level_plus_vector.image = vector_plus_clicked
                 else:
-                    level_plus_button.image = vector_plus
+                    level_plus_vector.image = vector_plus
+
+                pygame.display.update()
 
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 if back_right_button.isOver_2(pos):
@@ -1782,23 +1790,25 @@ while not done:
                         gravity_mode = True
                         gravity_button.image = button_gravity_on
                                   
-                if level_minus_button.isOver(pos):
+                if level_minus_vector.isOver(pos):
                     ui_variables.click_sound.play()
                     if level >1:
                         level -= 1
                         goal -= level * 5
-                        framerate = int(framerate + speed_change)
+                        game_speed = int(game_speed + speed_change)
+                        pygame.time.set_timer(pygame.USEREVENT, game_speed)
                         Change_RATE = level + 1
-                        set_music_playing_speed(CHANNELS, swidth, Change_RATE)
+                        
 
-                if level_plus_button.isOver(pos):
+                if level_plus_vector.isOver(pos):
                     ui_variables.click_sound.play()
                     if level < 15:
                         level += 1
                         goal += level * 5
-                        framerate = int(framerate - speed_change)
+                        game_speed = int(game_speed - speed_change)
+                        pygame.time.set_timer(pygame.USEREVENT, game_speed)
                         Change_RATE = level - 1
-                        set_music_playing_speed(CHANNELS, swidth, Change_RATE)
+                        
 
     elif difficulty: # diff board little complete
         draw_image(screen, board_difficulty, board_width * 0.5, board_height * 0.4,
@@ -1845,21 +1855,34 @@ while not done:
                     hard_button.image = button_hard
 
             elif event.type == pygame.MOUSEBUTTONDOWN:
+
                 if back_right_button.isOver_2(pos):
                     ui_variables.click_sound.play()
                     difficulty = False
+                    game = True
+                                
                 if start_left_button.isOver_2(pos):
                     ui_variables.click_sound.play()
+                    game = False
+                    difficulty = False
+                    difficulty_mode = True
                     start = True
+                    previous_time = pygame.time.get_ticks()
+                    initalize = True
+                    pygame.mixer.music.play(-1) #play(-1) = 노래 반복재생
+                    ui_variables.intro_sound.stop()
+
                 if easy_button.isOver_2(pos):
                     ui_variables.click_sound.play()
-                    gravity = True
+                    gravity_mode = False
+                    attack_mode = True
                 if normal_button.isOver_2(pos):
                     ui_variables.click_sound.play()
-                    gravity = True
-                    attack_mode = True
+                    gravity_mode = True
+                    attack_mode = False
                 if hard_button.isOver_2(pos):
                     ui_variables.click_sound.play()
+                    gravity_mode = True
                     attack_mode = True
                                    
     elif leader_board: # complete        
@@ -2181,7 +2204,8 @@ while not done:
                     level += 1
                     ui_variables.LevelUp_sound.play()
                     goal += level * 5
-                    framerate = int(framerate-speed_change)
+                    game_speed = int(game_speed - speed_change)
+                    pygame.time.set_timer(pygame.USEREVENT, game_speed)
                     Change_RATE += 1
                     set_music_playing_speed(CHANNELS, swidth, Change_RATE)
 
