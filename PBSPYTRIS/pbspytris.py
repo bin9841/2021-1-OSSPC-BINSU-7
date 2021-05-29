@@ -435,10 +435,8 @@ menu_button = button(board_width, board_height, 0.5, 0.33, 0.16, 0.084, button_m
 ok_button = button(board_width, board_height, 0.5, 0.87, 0.16, 0.084, button_ok)
 
 # sandbox
-
 level_plus_button = button(board_width, board_height, 0.63, 0.7719, 0.0375, 0.0666, vector_plus)
 level_minus_button = button(board_width, board_height, 0.56, 0.7719, 0.0375, 0.0666, vector_minus)
-
 
 
 #게임 중 버튼 생성하기위한 버튼객체 리스트 (버튼 전체)
@@ -994,6 +992,7 @@ def set_music_playing(CHANNELS, swidth):
 
 def set_initial_values():
     global combo_status, combo_count, combo_count_2P, score, level, goal, score_2P, level_2P, goal_2P, bottom_count, bottom_count_2P, hard_drop, hard_drop_2P, attack_point, attack_point_2P, dx, dy, dx_2P, dy_2P, rotation, rotation_2P, mino, mino_2P, next_mino1, next_mino2, next_mino1_2P, hold, hold_2P, hold_mino, hold_mino_2P, framerate, framerate_2P, matrix, matrix_2P, Change_RATE, blink, start, pause, done, game_over, leader_board, setting, volume_setting, screen_setting, pvp, help, gravity_mode, time_attack, start_ticks, textsize, attack_mode, attack_mode_time, attack_board_y, CHANNELS, swidth, name_location, name, previous_time, current_time, pause_time, lines, leaders, volume, game_status, framerate_blockmove, framerate_2P_blockmove, game_speed, game_speed_2P, sandbox,sandbox_mode, difficulty, difficulty_mode, shop, challenge, single, game, ligth, earthquake, tnt, num_light, num_earthquake, num_tnt, gold, s_gold, item, item_mino, light_mino, earth_mino, tnt_mino
+
 
     framerate = 30 # Bigger -> Slower  기본 블록 하강 속도, 2도 할만 함, 0 또는 음수 이상이어야 함
     framerate_blockmove = framerate * 3 # 블록 이동 시 속도
