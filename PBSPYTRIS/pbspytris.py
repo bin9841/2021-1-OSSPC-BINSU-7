@@ -357,9 +357,7 @@ start_left_button = button(board_width, board_height, 0.35, 0.66, 0.16, 0.084, b
 # back and start is same
 # sandbox, difficulty board
 
-# number_board1 0.7875, 0.67, 0.0133, 0.075
-# number_board2 0.7875, 0.77
-# number_board3 0.7875, 0.87
+
 level_minus_vector = button(board_width, board_height,
          0.7275, 0.43, 0.04, 0.0711, vector_minus)
 
@@ -412,10 +410,9 @@ midiumsize_button = button(board_width, board_height, 0.5, 0.38, 0.2, 0.08, size
 bigsize_button = button(board_width, board_height, 0.5, 0.52, 0.2, 0.08, size_b)
 
 # main page 10) shop board
-tnt_buy_button = button(board_width, board_height, 0.42, 0.24, 0.0925, 0.04, button_buy)
-light_buy_button = button(board_width, board_height, 0.42, 0.372, 0.0925, 0.04, button_buy)
-earth_buy_button = button(board_width, board_height, 0.526, 0.24, 0.0925, 0.04, button_buy)
-gold_buy_button = button(board_width, board_height, 0.526, 0.372, 0.0925, 0.04, button_buy)
+tnt_buy_button = button(board_width, board_height, 0.8, 0.3, 0.0925, 0.04, button_buy)
+light_buy_button = button(board_width, board_height, 0.8, 0.45, 0.0925, 0.04, button_buy)
+earth_buy_button = button(board_width, board_height, 0.8, 0.6, 0.0925, 0.04, button_buy)
 
 # game page 1) pause board
 resume_button = button(board_width, board_height, 0.5, 0.33, 0.16, 0.084, button_resume)
@@ -432,19 +429,14 @@ quit_game_button = button(board_width, board_height, 0.5, 0.87, 0.16, 0.084, but
 # game page 4) screen board
 # 위와 동일
 
-# game page 5) game over oard
+# game page 5) game over board
 menu_button = button(board_width, board_height, 0.5, 0.33, 0.16, 0.084, button_menu)
 # restart
 ok_button = button(board_width, board_height, 0.5, 0.87, 0.16, 0.084, button_ok)
 
 # sandbox
-
 level_plus_button = button(board_width, board_height, 0.63, 0.7719, 0.0375, 0.0666, vector_plus)
 level_minus_button = button(board_width, board_height, 0.56, 0.7719, 0.0375, 0.0666, vector_minus)
-combo_plus_button = button(board_width, board_height, 0.63, 0.9419, 0.0625, 0.1111, vector_plus)
-combo_minus_button =button(board_width, board_height, 0.56, 0.9419, 0.0625, 0.1111, vector_minus)
-speed_plus_button = button(board_width, board_height, 0.18, 0.12, 0.055, 0.09, vector_plus)
-speed_minus_button =button(board_width, board_height, 0.035, 0.12, 0.055, 0.09, vector_minus)
 
 
 #게임 중 버튼 생성하기위한 버튼객체 리스트 (버튼 전체)
@@ -457,10 +449,9 @@ button_list = [
     allmute_button, music_plus_vector, music_minus_vector, music_on_button,
     effect_plus_vector, effect_minus_vector, effect_on_button,
     smallsize_button, midiumsize_button, bigsize_button, light_buy_button,
-    tnt_buy_button, earth_buy_button, gold_buy_button, resume_button,
+    tnt_buy_button, earth_buy_button, resume_button,
     restart_button, setting_button, quit_game_button, menu_button, ok_button,
-    level_plus_button, level_minus_button, combo_plus_button, combo_minus_button,
-    speed_plus_button, speed_minus_button
+    level_plus_button, level_minus_button
 ]
 
 def set_volume():
@@ -584,11 +575,6 @@ def draw_board(next1, next2, hold, score, level, goal):
         light_value = ui_variables.h4.render(str(num_light), 1, ui_variables.real_white)
         earth_value = ui_variables.h4.render(str(num_earthquake), 1, ui_variables.real_white)
         tnt_value = ui_variables.h4.render(str(num_tnt), 1, ui_variables.real_white)
-        if sandbox_mode:
-            speed_value = ui_variables.h5.render("SPEED : "+str(framerate), 1,
-             ui_variables.real_white) #speed를 알려주는 framerate(기본값 30. 빨라질 수록 숫자 작아짐)
-            screen.blit(speed_value, (int(board_width * 0.045) + sidebar_width, int(board_height * 0.015))) #각각 전체 board 가로길이, 세로길이에 원하는 비율을 곱해줌
-
         if time_attack:
             time = total_time - elapsed_time
             value = ui_variables.h5.render("TIME : "+str(int(time)), 1, ui_variables.real_white)
@@ -610,10 +596,6 @@ def draw_board(next1, next2, hold, score, level, goal):
         light_value = ui_variables.h4.render(str(num_light), 1, ui_variables.real_white)
         earth_value = ui_variables.h4.render(str(num_earthquake), 1, ui_variables.real_white)
         tnt_value = ui_variables.h4.render(str(num_tnt), 1, ui_variables.real_white)
-        if sandbox_mode:
-            speed_value = ui_variables.h5.render("SPEED : "+str(framerate), 1,
-             ui_variables.real_white) #speed를 알려주는 framerate(기본값 30. 빨라질 수록 숫자 작아짐)
-            screen.blit(speed_value, (int(board_width * 0.045) + sidebar_width, int(board_height * 0.015))) #각각 전체 board 가로길이, 세로길이에 원하는 비율을 곱해줌
         if time_attack:
             time = total_time - elapsed_time
             value = ui_variables.h2.render("TIME : "+str(int(time)), 1, ui_variables.real_white)
@@ -711,9 +693,6 @@ def draw_1Pboard(next, hold, score, level, goal):
         light_value = ui_variables.h4.render(str(num_light), 1, ui_variables.real_white)
         earth_value = ui_variables.h4.render(str(num_earthquake), 1, ui_variables.real_white)
         tnt_value = ui_variables.h4.render(str(num_tnt), 1, ui_variables.real_white)
-    if debug:
-        speed_value = ui_variables.h5.render("SPEED : "+str(framerate), 1, ui_variables.real_white) #speed를 알려주는 framerate(기본값 30. 빨라질 수록 숫자 작아짐)
-        screen.blit(speed_value, (int(board_width * 0.045) + sidebar_width, int(board_height * 0.015))) #각각 전체 board 가로길이, 세로길이에 원하는 비율을 곱해줌
     screen.blit(text_hold, (int(board_width * 0.045) + sidebar_width, int(board_height * 0.0374)))
     screen.blit(text_next, (int(board_width * 0.045) + sidebar_width, int(board_height * 0.2780)))
     screen.blit(text_score, (int(board_width * 0.045) + sidebar_width, int(board_height * 0.5187)))
@@ -793,9 +772,6 @@ def draw_2Pboard(next, hold, score, level, goal):
         light_value = ui_variables.h4.render(str(num_light), 1, ui_variables.real_white)
         earth_value = ui_variables.h4.render(str(num_earthquake), 1, ui_variables.real_white)
         tnt_value = ui_variables.h4.render(str(num_tnt), 1, ui_variables.real_white)
-    if debug:
-        speed_value = ui_variables.h5.render("SPEED : "+str(framerate_2P), 1, ui_variables.real_white) #speed를 알려주는 framerate(기본값 30. 빨라질 수록 숫자 작아짐)
-        screen.blit(speed_value, (int(board_width * 0.045) + sidebar_width, int(board_height * 0.015))) #각각 전체 board의 가로길이, 세로길이에 대해 원하는 비율을 곱해줌
     screen.blit(text_hold, (int(board_width * 0.045) + sidebar_width, int(board_height * 0.0374)))
     screen.blit(text_next, (int(board_width * 0.045) + sidebar_width, int(board_height * 0.2780)))
     screen.blit(text_score, (int(board_width * 0.045) + sidebar_width, int(board_height * 0.5187)))
@@ -1015,7 +991,8 @@ def set_music_playing(CHANNELS, swidth):
     pygame.mixer.music.play(-1) #위 노래를 반복재생하기 위해 play(-1)로 설정
 
 def set_initial_values():
-    global combo_status, combo_count, combo_count_2P, score, level, goal, score_2P, level_2P, goal_2P, bottom_count, bottom_count_2P, hard_drop, hard_drop_2P, attack_point, attack_point_2P, dx, dy, dx_2P, dy_2P, rotation, rotation_2P, mino, mino_2P, next_mino1, next_mino2, next_mino1_2P, hold, hold_2P, hold_mino, hold_mino_2P, framerate, framerate_2P, matrix, matrix_2P, Change_RATE, blink, start, pause, done, game_over, leader_board, setting, volume_setting, screen_setting, pvp, help, gravity_mode, debug, d, e, b, u, g, time_attack, start_ticks, textsize, attack_mode, attack_mode_time, attack_board_y, CHANNELS, swidth, name_location, name, previous_time, current_time, pause_time, lines, leaders, volume, game_status, framerate_blockmove, framerate_2P_blockmove, game_speed, game_speed_2P, sandbox,sandbox_mode, difficulty, difficulty_mode, shop, challenge, single, game, ligth, earthquake, tnt, num_light, num_earthquake, num_tnt, gold, s_gold, item, item_mino, light_mino, earth_mino, tnt_mino
+    global combo_status, combo_count, combo_count_2P, score, level, goal, score_2P, level_2P, goal_2P, bottom_count, bottom_count_2P, hard_drop, hard_drop_2P, attack_point, attack_point_2P, dx, dy, dx_2P, dy_2P, rotation, rotation_2P, mino, mino_2P, next_mino1, next_mino2, next_mino1_2P, hold, hold_2P, hold_mino, hold_mino_2P, framerate, framerate_2P, matrix, matrix_2P, Change_RATE, blink, start, pause, done, game_over, leader_board, setting, volume_setting, screen_setting, pvp, help, gravity_mode, time_attack, start_ticks, textsize, attack_mode, attack_mode_time, attack_board_y, CHANNELS, swidth, name_location, name, previous_time, current_time, pause_time, lines, leaders, volume, game_status, framerate_blockmove, framerate_2P_blockmove, game_speed, game_speed_2P, sandbox,sandbox_mode, difficulty, difficulty_mode, shop, challenge, single, game, ligth, earthquake, tnt, num_light, num_earthquake, num_tnt, gold, s_gold, item, item_mino, light_mino, earth_mino, tnt_mino
+
 
     framerate = 30 # Bigger -> Slower  기본 블록 하강 속도, 2도 할만 함, 0 또는 음수 이상이어야 함
     framerate_blockmove = framerate * 3 # 블록 이동 시 속도
@@ -1046,12 +1023,6 @@ def set_initial_values():
     pvp = False
     help = False
     gravity_mode = False #이 코드가 없으면 중력모드 게임을 했다가 Restart해서 일반모드로 갈때 중력모드로 게임이 진행됨#
-    debug = False
-    d = False
-    e = False
-    b = False
-    u = False
-    g = False
     time_attack = False
     start_ticks = pygame.time.get_ticks()
     textsize = False
@@ -1970,6 +1941,11 @@ while not done:
         tnt_buy_button.draw(screen, (0, 0, 0))
         earth_buy_button.draw(screen, (0, 0, 0))
 
+        draw_image(screen, item_tnt, board_width*0.2, board_height*0.3, int(board_width*0.08),int(board_height*0.1422))
+        draw_image(screen, item_light, board_width*0.2, board_height*0.45, int(board_width*0.08),int(board_height*0.1422))
+        draw_image(screen, item_earth, board_width*0.2, board_height*0.6, int(board_width*0.08),int(board_height*0.1422))
+        draw_image(screen, item_gold, board_width*0.735, board_height*0.15, int(board_width*0.025),int(board_height*0.0444))
+
         for event in pygame.event.get():
             pos = pygame.mouse.get_pos()
 
@@ -2038,11 +2014,13 @@ while not done:
         
         if time_attack:
             elapsed_time = (pygame.time.get_ticks() - start_ticks) / 1000 # 경과 시간 계산
+
         if attack_mode:
             if attack_mode_time == False:
                 current_attack_ticks = pygame.time.get_ticks() # 어택모드 진입했을 때의 시간
                 attack_mode_time = True
             elapsed_attack_time = (pygame.time.get_ticks() - current_attack_ticks) / 1000
+
         for event in pygame.event.get():
             pos = pygame.mouse.get_pos()
             if event.type == QUIT:
@@ -2377,29 +2355,6 @@ while not done:
                     matrix[7][20] = 1#하
                     matrix[8][20] = 2#파
                     mino = 6
-                # debug mode block change
-                elif debug:
-                    if event.key == K_1:
-                        ui_variables.click_sound.play()
-                        mino = 1 #빨
-                    if event.key == K_2:
-                        ui_variables.click_sound.play()
-                        mino = 2 #빨
-                    if event.key == K_3:
-                        ui_variables.click_sound.play()
-                        mino = 3 #빨
-                    if event.key == K_4:
-                        ui_variables.click_sound.play()
-                        mino = 4 #빨
-                    if event.key == K_5:
-                        ui_variables.click_sound.play()
-                        mino = 5 #빨
-                    if event.key == K_6:
-                        ui_variables.click_sound.play()
-                        mino = 6 #빨
-                    if event.key == K_7:
-                        ui_variables.click_sound.play()
-                        mino = 7 #빨
                 # item click
                 # light item use
                 elif event.key == K_z :
