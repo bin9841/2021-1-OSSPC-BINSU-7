@@ -1964,7 +1964,6 @@ while not done:
                         button_list[i].change(board_width, board_height)
 
     elif shop: # shop little complete
-
         draw_image(screen, background_image, board_width * 0.5, board_height * 0.5, board_width, board_height)
         draw_image(screen, board_shop, board_width * 0.5, board_height * 0.4, int(board_width * 0.8), int(board_height * 0.8))
 
@@ -1972,7 +1971,6 @@ while not done:
         light_buy_button.draw(screen, (0, 0, 0))
         tnt_buy_button.draw(screen, (0, 0, 0))
         earth_buy_button.draw(screen, (0, 0, 0))
-
 
         for event in pygame.event.get():
             pos = pygame.mouse.get_pos()
