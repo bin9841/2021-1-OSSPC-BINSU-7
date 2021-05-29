@@ -1945,6 +1945,7 @@ while not done:
         draw_image(screen, item_tnt, board_width*0.2, board_height*0.3, int(board_width*0.08),int(board_height*0.1422))
         draw_image(screen, item_light, board_width*0.2, board_height*0.45, int(board_width*0.08),int(board_height*0.1422))
         draw_image(screen, item_earth, board_width*0.2, board_height*0.6, int(board_width*0.08),int(board_height*0.1422))
+        draw_image(screen, item_gold, board_width*0.735, board_height*0.15, int(board_width*0.025),int(board_height*0.0444))
 
         for event in pygame.event.get():
             pos = pygame.mouse.get_pos()
