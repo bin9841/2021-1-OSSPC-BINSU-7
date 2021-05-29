@@ -25,9 +25,9 @@ block_size = int(board_height * 0.045)
 mino_matrix_x = 4 #mino는 4*4 배열이어서 이를 for문에 사용
 mino_matrix_y = 4 #mino는 4*4 배열이어서 이를 for문에 사용
 
-speed_change = 2 # 레벨별 블록 하강 속도 상승 정도
+speed_change = 40 # 레벨별 블록 하강 속도 상승 정도
 
-gold = 0
+gold = 1000
 framerate = 30  # Bigger -> Slower
 
 min_width = 400
@@ -88,10 +88,13 @@ class ui_variables:
     combos = []
     large_combos = []
     combo_ring = pygame.image.load("assets/Combo/4combo ring.png")  # 4블록 동시제거 그래픽
-    combo_4ring = pygame.transform.smoothscale(combo_ring, (200, 100)) #이미지를 특정 크기로 불러옴, 200=가로크기, 100=세로크기#
+    combo_4ring = pygame.transform.smoothscale(combo_ring,
+                     (int(board_width*0.25), int(board_height*0.222)))
+    #이미지를 특정 크기로 불러옴, 200=가로크기, 100=세로크기
     for i in range(1, 11): #10가지의 콤보 이미지 존재. 각 숫자에 해당하는 이미지 불러옴
         combos.append(pygame.image.load("assets/Combo/" + str(i) + "combo.png"))
-        large_combos.append(pygame.transform.smoothscale(combos[i - 1], (150, 200))) #콤보이미지를 특정 크기로 불러옴, 150=가로크기, 200=세로크기#
+        large_combos.append(pygame.transform.smoothscale(combos[i - 1],
+         (int(board_width*0.1875), int(board_height*0.4444)))) #콤보이미지를 특정 크기로 불러옴, 150=가로크기, 200=세로크기#
 
     combos_sound = []
     for i in range(1, 10): #1-9까지 콤보사운드 존재. 각 숫자에 해당하는 음악 불러옴
@@ -132,9 +135,11 @@ class ui_variables:
     ghost_image = 'assets/block_images/ghost.png'
     table_image = 'assets/block_images/background.png'
     linessent_image = 'assets/block_images/linessent.png'
-    # item_image 3개 넣기
+    light_image = 'assets/block_images/lightblock.png' # lightblock image
+    tnt_image = 'assets/block_images/tntblock.png' # tntblock image
+    # item_image 2개 넣기
     t_block = [table_image, cyan_image, blue_image, orange_image, yellow_image, green_image, pink_image, red_image,
-               ghost_image, linessent_image]
+               ghost_image, linessent_image, light_image, tnt_image]
 
 #각 이미지 주소
 # background
@@ -390,8 +395,7 @@ music_minus_vector = button(board_width, board_height,
  0.54, 0.38, 0.04, 0.0711, vector_minus)
 music_on_button = button(board_width, board_height,
  0.62, 0.38, 0.0625, 0.1111, vector_sound_on)
-music_off_button = button(board_width, board_height,
- 0.62, 0.38, 0.0625, 0.1111, vector_sound_off)
+
 
 # effect_number_board 0.46, 0.52, 0.04, 0.53
 effect_plus_vector = button(board_width, board_height,
@@ -400,8 +404,7 @@ effect_minus_vector = button(board_width, board_height,
  0.54, 0.52, 0.04, 0.0711, vector_minus)
 effect_on_button = button(board_width, board_height,
  0.62, 0.52, 0.0625, 0.1111, vector_sound_on)
-effect_off_button = button(board_width, board_height,
- 0.62, 0.52, 0.0625, 0.1111, vector_sound_off)
+
 
 # main page 9) screen board
 smallsize_button = button(board_width, board_height, 0.5, 0.24, 0.2, 0.08, size_s)
@@ -430,9 +433,9 @@ quit_game_button = button(board_width, board_height, 0.5, 0.87, 0.16, 0.084, but
 # 위와 동일
 
 # game page 5) game over oard
-menu_button = button(board_width, board_height, 0.5, 0.33, 0.04, 0.53, button_menu)
+menu_button = button(board_width, board_height, 0.5, 0.33, 0.16, 0.084, button_menu)
 # restart
-ok_button = button(board_width, board_height, 0.5, 0.6, 0.04, 0.53, button_ok)
+ok_button = button(board_width, board_height, 0.5, 0.87, 0.16, 0.084, button_ok)
 
 # about debug
 
@@ -451,8 +454,8 @@ button_list = [
     difficulty_button, back_button, attack_button, gravity_button,
     back_right_button, start_left_button, level_minus_vector, level_plus_vector,
     easy_button, normal_button, hard_button, volume_vector, screen_vector, 
-    allmute_button, music_plus_vector, music_minus_vector, music_on_button, music_off_button,
-    effect_plus_vector, effect_minus_vector, effect_on_button, effect_off_button,
+    allmute_button, music_plus_vector, music_minus_vector, music_on_button,
+    effect_plus_vector, effect_minus_vector, effect_on_button,
     smallsize_button, midiumsize_button, bigsize_button, light_buy_button,
     tnt_buy_button, earth_buy_button, gold_buy_button, resume_button,
     restart_button, setting_button, quit_game_button, menu_button, ok_button,
@@ -506,7 +509,7 @@ def draw_block_image(x, y, image):
 
 
 # grid[i][j] = 0 / matrix[tx + j][ty + i] = 0에서
-# 0은 빈 칸 / 1-7은 테트리스 블록 종류 / 8은 ghost / 9은 장애물(벽돌) 에 해당함 = t_block 참고
+# 0은 빈 칸 / 1-7은 테트리스 블록 종류 / 8은 ghost / 9은 장애물(벽돌)/ 10은 light item, 11는 tnt item 에 해당함 = t_block 참고
 
 # Draw game screen
 def draw_board(next1, next2, hold, score, level, goal):
@@ -526,9 +529,13 @@ def draw_board(next1, next2, hold, score, level, goal):
     dy3_3 = int(board_height*0.844)
     i_size_x = int(board_width*0.05)
     i_size_y = int(board_height*0.089)
-    draw_image(screen, item_light, dx3, dy3_1, i_size_x, i_size_y)
-    draw_image(screen, item_tnt, dx3, dy3_2, i_size_x, i_size_y)
-    draw_image(screen, item_earth, dx3, dy3_3, i_size_x, i_size_y)
+    if difficulty_mode:
+        draw_image(screen, item_light, dx3, dy3_1, i_size_x, i_size_y)
+        draw_image(screen, item_tnt, dx3, dy3_2, i_size_x, i_size_y)
+        draw_image(screen, item_earth, dx3, dy3_3, i_size_x, i_size_y)
+    
+        
+
 
     # Draw next mino 다음 블록
     grid_n1 = tetrimino.mino_map[next1 - 1][0] #(배열이라-1) 다음 블록의 원래 모양
@@ -574,7 +581,7 @@ def draw_board(next1, next2, hold, score, level, goal):
         level_value = ui_variables.h4.render(str(level), 1, ui_variables.real_white)
         text_combo = ui_variables.h5.render("COMBO", 1, ui_variables.real_white)
         combo_value = ui_variables.h4.render(str(combo_count), 1, ui_variables.real_white)
-        bomb_value = ui_variables.h4.render(str(num_bomb), 1, ui_variables.real_white)
+        light_value = ui_variables.h4.render(str(num_light), 1, ui_variables.real_white)
         earth_value = ui_variables.h4.render(str(num_earthquake), 1, ui_variables.real_white)
         tnt_value = ui_variables.h4.render(str(num_tnt), 1, ui_variables.real_white)
         if debug:
@@ -597,7 +604,7 @@ def draw_board(next1, next2, hold, score, level, goal):
         level_value = ui_variables.h2.render(str(level), 1, ui_variables.real_white)
         text_combo = ui_variables.h3.render("COMBO", 1, ui_variables.real_white)
         combo_value = ui_variables.h2.render(str(combo_count), 1, ui_variables.real_white)
-        bomb_value = ui_variables.h4.render(str(num_bomb), 1, ui_variables.real_white)
+        light_value = ui_variables.h4.render(str(num_light), 1, ui_variables.real_white)
         earth_value = ui_variables.h4.render(str(num_earthquake), 1, ui_variables.real_white)
         tnt_value = ui_variables.h4.render(str(num_tnt), 1, ui_variables.real_white)
         if debug:
@@ -624,9 +631,12 @@ def draw_board(next1, next2, hold, score, level, goal):
     screen.blit(level_value, (int(board_width * 0.055) + sidebar_width, int(board_height * 0.7219)))
     screen.blit(text_combo, (int(board_width * 0.045) + sidebar_width, int(board_height * 0.8395)))
     screen.blit(combo_value, (int(board_width * 0.055) + sidebar_width, int(board_height * 0.8823)))
-    screen.blit(bomb_value, (int(board_width*0.715), int(board_height*0.62)))
-    screen.blit(earth_value, (int(board_width*0.715), int(board_height * 0.78)))
-    screen.blit(tnt_value, (int(board_width*0.715), int(board_height * 0.90)))
+
+    if difficulty_mode:
+        screen.blit(light_value, (int(board_width*0.715), int(board_height*0.62)))
+        screen.blit(tnt_value, (int(board_width*0.715), int(board_height * 0.78)))
+        screen.blit(earth_value, (int(board_width*0.715), int(board_height * 0.90)))
+
     if debug:
         screen.blit(speed_value, (int(board_width * 0.065), int(board_height * 0.1)))
 
@@ -684,7 +694,7 @@ def draw_1Pboard(next, hold, score, level, goal):
         level_value = ui_variables.h4.render(str(level), 1, ui_variables.real_white)
         text_combo = ui_variables.h5.render("COMBO", 1, ui_variables.real_white)
         combo_value = ui_variables.h4.render(str(combo_count), 1, ui_variables.real_white)
-        bomb_value = ui_variables.h4.render(str(num_bomb), 1, ui_variables.real_white)
+        light_value = ui_variables.h4.render(str(num_light), 1, ui_variables.real_white)
         earth_value = ui_variables.h4.render(str(num_earthquake), 1, ui_variables.real_white)
         tnt_value = ui_variables.h4.render(str(num_tnt), 1, ui_variables.real_white)
     if textsize==True:
@@ -696,7 +706,7 @@ def draw_1Pboard(next, hold, score, level, goal):
         level_value = ui_variables.h2.render(str(level), 1, ui_variables.real_white)
         text_combo = ui_variables.h3.render("COMBO", 1, ui_variables.real_white)
         combo_value = ui_variables.h2.render(str(combo_count), 1, ui_variables.real_white)
-        bomb_value = ui_variables.h4.render(str(num_bomb), 1, ui_variables.real_white)
+        light_value = ui_variables.h4.render(str(num_light), 1, ui_variables.real_white)
         earth_value = ui_variables.h4.render(str(num_earthquake), 1, ui_variables.real_white)
         tnt_value = ui_variables.h4.render(str(num_tnt), 1, ui_variables.real_white)
     if debug:
@@ -710,9 +720,9 @@ def draw_1Pboard(next, hold, score, level, goal):
     screen.blit(level_value, (int(board_width*0.055) + sidebar_width , int(board_height*0.7219)))
     screen.blit(text_combo, (int(board_width*0.045) + sidebar_width , int(board_height*0.8395)))
     screen.blit(combo_value, (int(board_width*0.055) + sidebar_width, int(board_height*0.8823)))
-    screen.blit(bomb_value, (int(board_width*0.715), int(board_height*0.62)))
-    screen.blit(earth_value, (int(board_width*0.715), int(board_height * 0.78)))
-    screen.blit(tnt_value, (int(board_width*0.715), int(board_height * 0.90)))
+    screen.blit(light_value, (int(board_width*0.715), int(board_height*0.62)))
+    screen.blit(tnt_value, (int(board_width*0.715), int(board_height * 0.78)))
+    screen.blit(earth_value, (int(board_width*0.715), int(board_height * 0.90)))
     # Draw board
     for x in range(width):
         for y in range(height):
@@ -766,7 +776,7 @@ def draw_2Pboard(next, hold, score, level, goal):
         level_value = ui_variables.h4.render(str(level), 1, ui_variables.real_white)
         text_combo = ui_variables.h5.render("COMBO", 1, ui_variables.real_white)
         combo_value = ui_variables.h4.render(str(combo_count), 1, ui_variables.real_white)
-        bomb_value = ui_variables.h4.render(str(num_bomb), 1, ui_variables.real_white)
+        light_value = ui_variables.h4.render(str(num_light), 1, ui_variables.real_white)
         earth_value = ui_variables.h4.render(str(num_earthquake), 1, ui_variables.real_white)
         tnt_value = ui_variables.h4.render(str(num_tnt), 1, ui_variables.real_white)
     if textsize==True:
@@ -778,7 +788,7 @@ def draw_2Pboard(next, hold, score, level, goal):
         level_value = ui_variables.h3.render(str(level), 1, ui_variables.real_white)
         text_combo = ui_variables.h4.render("COMBO", 1, ui_variables.real_white)
         combo_value = ui_variables.h3.render(str(combo_count), 1, ui_variables.real_white)
-        bomb_value = ui_variables.h4.render(str(num_bomb), 1, ui_variables.real_white)
+        light_value = ui_variables.h4.render(str(num_light), 1, ui_variables.real_white)
         earth_value = ui_variables.h4.render(str(num_earthquake), 1, ui_variables.real_white)
         tnt_value = ui_variables.h4.render(str(num_tnt), 1, ui_variables.real_white)
     if debug:
@@ -792,9 +802,9 @@ def draw_2Pboard(next, hold, score, level, goal):
     screen.blit(level_value, (int(board_width*0.055) + sidebar_width , int(board_height*0.7219)))
     screen.blit(text_combo, (int(board_width*0.045) + sidebar_width , int(board_height*0.8395)))
     screen.blit(combo_value, (int(board_width*0.055) + sidebar_width, int(board_height*0.8823)))
-    screen.blit(bomb_value, (int(board_width*0.715), int(board_height*0.62)))
-    screen.blit(earth_value, (int(board_width*0.715), int(board_height * 0.78)))
-    screen.blit(tnt_value, (int(board_width*0.715), int(board_height * 0.90)))
+    screen.blit(light_value, (int(board_width*0.715), int(board_height*0.62)))
+    screen.blit(tnt_value, (int(board_width*0.715), int(board_height * 0.78)))
+    screen.blit(earth_value, (int(board_width*0.715), int(board_height * 0.90)))
 
     # Draw board
     for x in range(width):
@@ -840,6 +850,27 @@ def erase_mino(x, y, mino, r, matrix):
             if grid[i][j] != 0:  #테트리스 블록에서 해당 행렬위치에 블록 존재하면
                 matrix[x + j][y + i] = 0 #해당 위치에 블록 없애서 빈 곳으로 만들기
 
+    # light item
+    for j in range(board_y+1):
+        for i in range(board_x):
+            if matrix[i][j] == light_mino: #테트리스 블록에서 해당 행렬위치에 lightning 블록 존재하면
+                m = i-1
+                n = j-1
+                for k in range(3):
+                    for q in range(3):
+                        matrix[m+k][n+q] = 0
+                 
+
+    # tnt item
+    for j in range(board_y+1):
+        for i in range(board_x):
+            if matrix[i][j] == tnt_mino: #테트리스 블록에서 해당 행렬위치에 lightning 블록 존재하면
+                m = i-2
+                n = j-2
+                for k in range(5):
+                    for q in range(5):
+                        matrix[m+k][n+q] = 0
+
 # Returns true if mino is at bottom
 def is_bottom(x, y, mino, r, matrix):
     grid = tetrimino.mino_map[mino - 1][r] #grid : 출력할 테트리스
@@ -854,6 +885,12 @@ def is_bottom(x, y, mino, r, matrix):
 
     return False
 
+def earthquake(y,matrix):
+    
+    for i in range(board_x): # 가로줄 전체에 대해서
+        matrix[i][y] = 0
+    
+        
 def gravity(x, y, mino, r, matrix):
     grid = tetrimino.mino_map[mino - 1][r] #grid : 출력할 테트리스
 
@@ -996,7 +1033,9 @@ def set_music_playing_speed(CHANNELS, swidth, Change_RATE):
 
 def set_initial_values():
 
-    global combo_status, combo_count, combo_count_2P, score, level, goal, score_2P, level_2P, goal_2P, bottom_count, bottom_count_2P, hard_drop, hard_drop_2P, attack_point, attack_point_2P, dx, dy, dx_2P, dy_2P, rotation, rotation_2P, mino, mino_2P, next_mino1, next_mino2, next_mino1_2P, hold, hold_2P, hold_mino, hold_mino_2P, framerate, framerate_2P, matrix, matrix_2P, Change_RATE, blink, start, pause, done, game_over, leader_board, setting, volume_setting, screen_setting, pvp, help, gravity_mode, debug, d, e, b, u, g, time_attack, start_ticks, textsize, attack_mode, attack_mode_time, attack_board_y, CHANNELS, swidth, name_location, name, previous_time, current_time, pause_time, lines, leaders, volume, game_status, framerate_blockmove, framerate_2P_blockmove, game_speed, game_speed_2P, sandbox, difficulty, shop, challenge, single, game, bomb, earthquake, tnt, num_bomb, num_earthquake, num_tnt, gold, s_gold, item, item_mino, bomb_mino, earth_mino, tnt_mino
+
+    global combo_status, combo_count, combo_count_2P, score, level, goal, score_2P, level_2P, goal_2P, bottom_count, bottom_count_2P, hard_drop, hard_drop_2P, attack_point, attack_point_2P, dx, dy, dx_2P, dy_2P, rotation, rotation_2P, mino, mino_2P, next_mino1, next_mino2, next_mino1_2P, hold, hold_2P, hold_mino, hold_mino_2P, framerate, framerate_2P, matrix, matrix_2P, Change_RATE, blink, start, pause, done, game_over, leader_board, setting, volume_setting, screen_setting, pvp, help, gravity_mode, debug, d, e, b, u, g, time_attack, start_ticks, textsize, attack_mode, attack_mode_time, attack_board_y, CHANNELS, swidth, name_location, name, previous_time, current_time, pause_time, lines, leaders, volume, game_status, framerate_blockmove, framerate_2P_blockmove, game_speed, game_speed_2P, sandbox, difficulty, shop, challenge, single, game, ligth, earthquake, tnt, num_light, num_earthquake, num_tnt, gold, s_gold, item, item_mino, light_mino, earth_mino, tnt_mino
+
 
     framerate = 30 # Bigger -> Slower  기본 블록 하강 속도, 2도 할만 함, 0 또는 음수 이상이어야 함
     framerate_blockmove = framerate * 3 # 블록 이동 시 속도
@@ -1011,6 +1050,7 @@ def set_initial_values():
     start = False
     sandbox = False
     difficulty = False
+    difficulty_mode = False
     shop = False
     challenge = False
     pause = False
@@ -1078,16 +1118,15 @@ def set_initial_values():
 
     # 아이템 관련 변수
     s_gold = 0
-    num_bomb = 1
+    num_light = 1
     num_earthquake = 1
     num_tnt = 1
-    #bomb = num_bomb
+    #light = num_light
     #earthquake = num_earthquake
     #tnt = num_tnt
     item = False
-    bomb_mino = 8 # 폭탄블럭 10
-    earth_mino = 9 # 지진블럭 11
-    tnt_mino = 10 # tnt블럭 12
+    light_mino = 10 # 번개 블럭 10
+    tnt_mino = 11 # tnt 블럭 11
     item_mino = -2 #아이템을 사용 안한 상태
 
     name_location = 0
@@ -1145,8 +1184,10 @@ while not done:
                      int(board_width*0.8), int(board_height*0.8))
         draw_image(screen, board_number, board_width * 0.46, board_height * 0.38,
                     int(board_width * 0.0625), int(board_height * 0.1111))
+        # music board
         draw_image(screen, board_number, board_width * 0.46, board_height * 0.52,
                     int(board_width * 0.0625), int(board_height * 0.1111))
+        # effect board
         allmute_button.draw(screen, (0, 0, 0))
         effect_plus_vector.draw(screen, (0, 0, 0))
         effect_minus_vector.draw(screen, (0, 0, 0))
@@ -1160,18 +1201,18 @@ while not done:
         #render("텍스트이름", 안티에일리어싱 적용, 색깔), 즉 아래의 코드에서 숫자 1=안티에일리어싱 적용에 관한 코드
         music_volume_text = ui_variables.h5.render('Music Volume', 1, ui_variables.grey_1)
         effect_volume_text = ui_variables.h5.render('Effect Volume', 1, ui_variables.grey_1)
-        screen.blit(music_volume_text, (board_width * 0.4, board_height * 0.4)) #위치 비율 고정
-        screen.blit(effect_volume_text, (board_width * 0.4, board_height * 0.6)) #위치 비율 고정
+        screen.blit(music_volume_text, (board_width * 0.4, board_height * 0.43)) #위치 비율 고정
+        screen.blit(effect_volume_text, (board_width * 0.4, board_height * 0.57)) #위치 비율 고정
 
         music_volume_text = ui_variables.h5.render('Music On/Off', 1, ui_variables.grey_1)
         effect_volume_text = ui_variables.h5.render('Effect On/Off', 1, ui_variables.grey_1)
-        screen.blit(music_volume_text, (board_width * 0.6, board_height * 0.4)) #위치 비율 고정
-        screen.blit(effect_volume_text, (board_width * 0.6, board_height * 0.6)) #위치 비율 고정
+        screen.blit(music_volume_text, (board_width * 0.57, board_height * 0.43)) #위치 비율 고정
+        screen.blit(effect_volume_text, (board_width * 0.57, board_height * 0.57)) #위치 비율 고정
 
         music_volume_size_text = ui_variables.h4.render(str(music_volume), 1, ui_variables.grey_1)
         effect_volume_size_text = ui_variables.h4.render(str(effect_volume), 1, ui_variables.grey_1)
-        screen.blit(music_volume_size_text, (board_width * 0.46, board_height * 0.38)) #위치 비율 고정
-        screen.blit(effect_volume_size_text, (board_width * 0.46, board_height * 0.52)) #위치 비율 고정
+        screen.blit(music_volume_size_text, (board_width * 0.454, board_height * 0.34)) #위치 비율 고정
+        screen.blit(effect_volume_size_text, (board_width * 0.454, board_height * 0.48)) #위치 비율 고정
 
         for event in pygame.event.get():
             pos = pygame.mouse.get_pos()
@@ -1192,7 +1233,10 @@ while not done:
                 if allmute_button.isOver_2(pos):
                     allmute_button.image = button_allmute_clicked
                 else:
-                    allmute_button.image = button_allmute
+                    if (effect_volume == 0) and (music_volume ==0):
+                        allmute_button.image = button_allmute_on
+                    else:
+                        allmute_button.image = button_allmute
 
                 if effect_plus_vector.isOver(pos):
                     effect_plus_vector.image = vector_plus_clicked
@@ -1266,7 +1310,6 @@ while not done:
                         music_on_button.image=vector_sound_on
                     else:
                         music_volume = 0
-                        music_off_button.draw(screen,(0,0,0)) #rgb(0,0,0) = 검정색
                         music_on_button.image=vector_sound_off
                 if effect_on_button.isOver(pos):
                     ui_variables.click_sound.play()
@@ -1275,7 +1318,6 @@ while not done:
                         effect_on_button.image=vector_sound_on
                     else:
                         effect_volume = 0
-                        effect_off_button.draw(screen,(0,0,0))
                         effect_on_button.image=vector_sound_off
                 if allmute_button.isOver_2(pos):
                     ui_variables.click_sound.play()
@@ -1286,7 +1328,7 @@ while not done:
                     else:
                         music_volume = 0 #최소 음량으로
                         effect_volume = 0 #최소 음량으로
-                        allmute_button.image=button_default
+                        allmute_button.image=button_allmute_on
 
                 set_volume()
 
@@ -1514,6 +1556,7 @@ while not done:
 
                     pause = False
                     start = False
+                    start = True
 
                     if pvp:
                         pvp = False
@@ -1688,7 +1731,9 @@ while not done:
         draw_image(screen, board_number, board_width * 0.7875, board_height * 0.43,
         int(board_width*0.0625), int(board_height*0.1111))
         level_minus_vector.draw(screen,(0,0,0))
-        level_plus_vector.draw(screen,(0,0,0)) 
+        level_plus_vector.draw(screen,(0,0,0))
+        level_size_text = ui_variables.h4.render(str(level),1,ui_variables.grey_1)
+        screen.blit(level_size_text, (board_width * 0.78, board_height * 0.4))
 
 
         for event in pygame.event.get():
@@ -1715,22 +1760,30 @@ while not done:
                 if attack_button.isOver_2(pos):
                     attack_button.image = button_attack_clicked
                 else:
-                    attack_button.image = button_attack
+                    if attack_mode:
+                        attack_button.image = button_attack_on
+                    else:
+                        attack_button.image = button_attack
 
                 if gravity_button.isOver_2(pos):
                     gravity_button.image = button_gravity_clicked
                 else:
-                    gravity_button.image = button_gravity
+                    if gravity_mode:
+                        gravity_button.image = button_gravity_on
+                    else:
+                        gravity_button.image = button_gravity
 
-                if level_minus_button.isOver(pos):
-                    level_minus_button.image = vector_minus_clicked
+                if level_minus_vector.isOver(pos):
+                    level_minus_vector.image = vector_minus_clicked
                 else:
-                    level_minus_button.image = vector_minus
+                    level_minus_vector.image = vector_minus
 
-                if level_plus_button.isOver(pos):
-                    level_plus_button.image = vector_plus_clicked
+                if level_plus_vector.isOver(pos):
+                    level_plus_vector.image = vector_plus_clicked
                 else:
-                    level_plus_button.image = vector_plus
+                    level_plus_vector.image = vector_plus
+
+                pygame.display.update()
 
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 if back_right_button.isOver_2(pos):
@@ -1742,6 +1795,7 @@ while not done:
                     ui_variables.click_sound.play()
                     game = False
                     sandbox = False
+                    sandbox_mode = True
                     start = True
                     previous_time = pygame.time.get_ticks()
                     initalize = True
@@ -1768,23 +1822,25 @@ while not done:
                         gravity_mode = True
                         gravity_button.image = button_gravity_on
                                   
-                if level_minus_button.isOver(pos):
+                if level_minus_vector.isOver(pos):
                     ui_variables.click_sound.play()
                     if level >1:
                         level -= 1
                         goal -= level * 5
-                        framerate = int(framerate + speed_change)
+                        game_speed = int(game_speed + speed_change)
+                        pygame.time.set_timer(pygame.USEREVENT, game_speed)
                         Change_RATE = level + 1
-                        set_music_playing_speed(CHANNELS, swidth, Change_RATE)
+                        
 
-                if level_plus_button.isOver(pos):
+                if level_plus_vector.isOver(pos):
                     ui_variables.click_sound.play()
                     if level < 15:
                         level += 1
                         goal += level * 5
-                        framerate = int(framerate - speed_change)
+                        game_speed = int(game_speed - speed_change)
+                        pygame.time.set_timer(pygame.USEREVENT, game_speed)
                         Change_RATE = level - 1
-                        set_music_playing_speed(CHANNELS, swidth, Change_RATE)
+                        
 
     elif difficulty: # diff board little complete
         draw_image(screen, board_difficulty, board_width * 0.5, board_height * 0.4,
@@ -1831,18 +1887,35 @@ while not done:
                     hard_button.image = button_hard
 
             elif event.type == pygame.MOUSEBUTTONDOWN:
+
                 if back_right_button.isOver_2(pos):
                     ui_variables.click_sound.play()
                     difficulty = False
+                    game = True
+                                
                 if start_left_button.isOver_2(pos):
                     ui_variables.click_sound.play()
+                    game = False
+                    difficulty = False
+                    difficulty_mode = True
                     start = True
+                    previous_time = pygame.time.get_ticks()
+                    initalize = True
+                    pygame.mixer.music.play(-1) #play(-1) = 노래 반복재생
+                    ui_variables.intro_sound.stop()
+
                 if easy_button.isOver_2(pos):
                     ui_variables.click_sound.play()
+                    gravity_mode = False
+                    attack_mode = True
                 if normal_button.isOver_2(pos):
                     ui_variables.click_sound.play()
+                    gravity_mode = True
+                    attack_mode = False
                 if hard_button.isOver_2(pos):
                     ui_variables.click_sound.play()
+                    gravity_mode = True
+                    attack_mode = True
                                    
     elif leader_board: # complete        
 
@@ -1908,19 +1981,24 @@ while not done:
                         button_list[i].change(board_width, board_height)
 
     elif shop: # shop little complete
-        draw_image(screen, background_image, board_width * 0.5, board_height * 0.5,
-        board_width, board_height)
-        draw_image(screen, board_shop, board_width * 0.5, board_height * 0.4, 
-            int(board_width * 0.8), int(board_height * 0.8))
 
+        draw_image(screen, background_image, board_width * 0.5, board_height * 0.5, board_width, board_height)
+        draw_image(screen, board_shop, board_width * 0.5, board_height * 0.4, int(board_width * 0.8), int(board_height * 0.8))
 
         back_button.draw(screen, (0, 0, 0))
+        light_buy_button.draw(screen, (0, 0, 0))
+        tnt_buy_button.draw(screen, (0, 0, 0))
+        earth_buy_button.draw(screen, (0, 0, 0))
+
 
         for event in pygame.event.get():
             pos = pygame.mouse.get_pos()
 
             if event.type == QUIT:
                 done = True
+            elif event.type == USEREVENT:
+                pygame.time.set_timer(pygame.USEREVENT, 300)
+                pygame.display.update()
 
             elif event.type == pygame.MOUSEMOTION:
                 if back_button.isOver_2(pos):
@@ -1928,42 +2006,46 @@ while not done:
                 else:
                     back_button.image=button_back
 
-                if light_buy_button.isOver(pos):
+                if light_buy_button.isOver_2(pos):
                     light_buy_button.image=button_buy_clicked
                 else:
                     light_buy_button.image=button_buy
 
-                if tnt_buy_button.isOver(pos):
+                if tnt_buy_button.isOver_2(pos):
                     tnt_buy_button.image=button_buy_clicked
                 else:
                     tnt_buy_button.image=button_buy
 
-                if earth_buy_button.isOver(pos):
+                if earth_buy_button.isOver_2(pos):
                     earth_buy_button.image=button_buy_clicked
                 else:
                     earth_buy_button.image=button_buy
 
-                if gold_buy_button.isOver(pos):
-                    gold_buy_button.image=button_buy_clicked
-                else:
-                    gold_buy_button.image=button_buy
+                pygame.display.update()
+
+
 
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 if back_button.isOver_2(pos):
                     ui_variables.click_sound.play()
                     shop = False
 
-                if light_buy_button.isOver(pos):
+                if light_buy_button.isOver_2(pos):
                     ui_variables.click_sound.play()
+                    gold -= 100
+                    num_light += 1
 
-                if tnt_buy_button.isOver(pos):
+                if tnt_buy_button.isOver_2(pos):
                     ui_variables.click_sound.play()
+                    gold -= 100
+                    num_tnt += 1
 
-                if earth_buy_button.isOver(pos):
+                if earth_buy_button.isOver_2(pos):
                     ui_variables.click_sound.play()
+                    gold -= 100
+                    num_tnt += 1
 
-                if gold_buy_button.isOver(pos):
-                    ui_variables.click_sound.play()
+
 
     elif challenge: # challenge little complete
         draw_image(screen, background_image, board_width * 0.5, board_height * 0.5,
@@ -2132,7 +2214,8 @@ while not done:
                         ui_variables.tetris_sound.play()
                         score += 1000 * level * erase_count + 4 * combo_count
                         combo_count += 4
-                        screen.blit(ui_variables.combo_4ring, (250, 160)) #blit(이미지, 위치)
+                        screen.blit(ui_variables.combo_4ring,
+                         (int(board_width*0.3125), int(board_height*0.3556))) #blit(이미지, 위치)
                     total_time += 5 # 콤보 시 시간 5초 연장
 
                     for i in range(1, 11):
@@ -2162,7 +2245,8 @@ while not done:
                     level += 1
                     ui_variables.LevelUp_sound.play()
                     goal += level * 5
-                    framerate = int(framerate-speed_change)
+                    game_speed = int(game_speed - speed_change)
+                    pygame.time.set_timer(pygame.USEREVENT, game_speed)
                     Change_RATE += 1
                     set_music_playing_speed(CHANNELS, swidth, Change_RATE)
 
@@ -2335,32 +2419,39 @@ while not done:
                         ui_variables.click_sound.play()
                         mino = 7 #빨
                 # item click
-                # bomb item use
+                # light item use
                 elif event.key == K_z :
-                    if num_bomb>0 :
-                        mino = bomb_mino
-                        num_bomb = num_bomb-1
+                    if num_light>0 :
+                        mino = light_mino
+                        num_light -= 1
+                        erase_mino(dx, dy, mino, rotation, matrix)
                     
                     draw_mino(dx, dy, mino, rotation, matrix)
                     screen.fill(ui_variables.real_white)
                     draw_image(screen, gamebackground_image , board_width * 0.5, board_height * 0.5, board_width, board_height) #(window, 이미지주소, x좌표, y좌표, 너비, 높이)
                     draw_board(next_mino1, next_mino2, hold_mino, score, level, goal)
                     
-                # earthquake item use
+                # tnt item use
                 elif event.key == K_x :
-                    if num_earthquake>0 :
-                        mino = earth_mino
-                        num_earthquake = num_earthquake-1
-                    
-                    draw_mino(dx, dy, mino, rotation, matrix)
-                    screen.fill(ui_variables.real_white)
-                    draw_image(screen, gamebackground_image , board_width * 0.5, board_height * 0.5, board_width, board_height) #(window, 이미지주소, x좌표, y좌표, 너비, 높이)
-                    draw_board(next_mino1, next_mino2, hold_mino, score, level, goal)
-                # tnt use
-                elif event.key == K_c :
                     if num_tnt>0 :
                         mino = tnt_mino
-                        num_tnt = num_tnt-1
+                        num_tnt -= 1
+                        erase_mino(dx, dy, mino, rotation, matrix)
+                    
+                    draw_mino(dx, dy, mino, rotation, matrix)
+                    screen.fill(ui_variables.real_white)
+                    draw_image(screen, gamebackground_image , board_width * 0.5, board_height * 0.5, board_width, board_height) #(window, 이미지주소, x좌표, y좌표, 너비, 높이)
+                    draw_board(next_mino1, next_mino2, hold_mino, score, level, goal)
+                # earthquake use
+                elif event.key == K_c :
+                    if num_earthquake>0 :
+                        earthquake(board_y, matrix)
+                        num_earthquake -= 1
+                        k=20
+                        while k > 0:
+                            for i in range(board_x):
+                                matrix[i][k] = matrix[i][k - 1]  # 남아있는 블록 한 줄씩 내리기(덮어쓰기)
+                            k -= 1
                     
                     draw_mino(dx, dy, mino, rotation, matrix)
                     screen.fill(ui_variables.real_white)
@@ -2662,7 +2753,8 @@ while not done:
                         ui_variables.tetris_sound.play()
                         score += 1000 * level * erase_count + 4 * combo_count
 
-                        screen.blit(ui_variables.combo_4ring, (250, 160)) #blit(이미지, 위치)
+                        screen.blit(ui_variables.combo_4ring, 
+                        (int(board_width*0.3125), int(board_height*0.3556))) #blit(이미지, 위치)
 
 
                     for i in range(1, 11):
@@ -2714,7 +2806,8 @@ while not done:
                         ui_variables.tetris_sound.play()
                         score_2P += 1000 * level_2P * erase_count_2P + 4 * combo_count_2P
 
-                        screen.blit(ui_variables.combo_4ring, (250, 160)) #blit(이미지, 위치)
+                        screen.blit(ui_variables.combo_4ring,
+                         (int(board_width*0.3125), int(board_height*0.3556))) #blit(이미지, 위치)
 
                     for i in range(1, 11):
                         if combo_count_2P == i:  # 1 ~ 10 콤보 이미지
@@ -3111,6 +3204,8 @@ while not done:
                     outfile.write(chr(name[0]) + chr(name[1]) + chr(name[2]) + ' ' + str(score) + '\n')
                     outfile.close()
                     game_over = False
+                    s_gold = int(score*0.1) # score*0.1 만큼 판골드 획득
+                    gold = gold + s_gold # 기존 골드에 판골드 더하기
                     pygame.time.set_timer(pygame.USEREVENT, 1)
 
                 if menu_button.isOver(pos):
