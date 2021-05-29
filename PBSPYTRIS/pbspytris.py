@@ -994,7 +994,8 @@ def set_vol(val):
     print(volume)
     ui_variables.click_sound.set_volume(volume)
 
-def set_music_playing_speed(CHANNELS, swidth, Change_RATE):
+
+def set_music_playing(CHANNELS, swidth):
     spf = wave.open('assets/sounds/SFX_BattleMusic.wav', 'rb')
     RATE = spf.getframerate()
     signal = spf.readframes(-1)
@@ -1005,36 +1006,16 @@ def set_music_playing_speed(CHANNELS, swidth, Change_RATE):
     wf = wave.open('assets/sounds/SFX_BattleMusic_Changed.wav', 'wb')
     wf.setnchannels(CHANNELS)
     wf.setsampwidth(swidth)
-    wf.setframerate(RATE * Change_RATE)
+    wf.setframerate(RATE * (level+1))
     wf.writeframes(signal)
     wf.close()
-
-    pygame.mixer.music.load('assets/sounds/SFX_BattleMusic_Changed.wav')
-    pygame.mixer.music.play(-1) #위 노래를 반복재생하기 위해 play(-1)로 설정
-
-
-def set_music_playing_speed(CHANNELS, swidth, Change_RATE):
-    spf = wave.open('assets/sounds/SFX_BattleMusic.wav', 'rb')
-    RATE = spf.getframerate()
-    signal = spf.readframes(-1)
-    if os.path.isfile('assets/sounds/SFX_BattleMusic_Changed.wav'):
-        pygame.mixer.quit()
-        os.remove('assets/sounds/SFX_BattleMusic_Changed.wav')
-        pygame.mixer.init()
-    wf = wave.open('assets/sounds/SFX_BattleMusic_Changed.wav', 'wb')
-    wf.setnchannels(CHANNELS)
-    wf.setsampwidth(swidth)
-    wf.setframerate(RATE * Change_RATE)
-    wf.writeframes(signal)
-    wf.close()
-
     pygame.mixer.music.load('assets/sounds/SFX_BattleMusic_Changed.wav')
     pygame.mixer.music.play(-1) #위 노래를 반복재생하기 위해 play(-1)로 설정
 
 def set_initial_values():
 
 
-    global combo_status, combo_count, combo_count_2P, score, level, goal, score_2P, level_2P, goal_2P, bottom_count, bottom_count_2P, hard_drop, hard_drop_2P, attack_point, attack_point_2P, dx, dy, dx_2P, dy_2P, rotation, rotation_2P, mino, mino_2P, next_mino1, next_mino2, next_mino1_2P, hold, hold_2P, hold_mino, hold_mino_2P, framerate, framerate_2P, matrix, matrix_2P, Change_RATE, blink, start, pause, done, game_over, leader_board, setting, volume_setting, screen_setting, pvp, help, gravity_mode, debug, d, e, b, u, g, time_attack, start_ticks, textsize, attack_mode, attack_mode_time, attack_board_y, CHANNELS, swidth, name_location, name, previous_time, current_time, pause_time, lines, leaders, volume, game_status, framerate_blockmove, framerate_2P_blockmove, game_speed, game_speed_2P, sandbox, difficulty, shop, challenge, single, game, ligth, earthquake, tnt, num_light, num_earthquake, num_tnt, gold, s_gold, item, item_mino, light_mino, earth_mino, tnt_mino
+    global combo_status, combo_count, combo_count_2P, score, level, goal, score_2P, level_2P, goal_2P, bottom_count, bottom_count_2P, hard_drop, hard_drop_2P, attack_point, attack_point_2P, dx, dy, dx_2P, dy_2P, rotation, rotation_2P, mino, mino_2P, next_mino1, next_mino2, next_mino1_2P, hold, hold_2P, hold_mino, hold_mino_2P, framerate, framerate_2P, matrix, matrix_2P, Change_RATE, blink, start, pause, done, game_over, leader_board, setting, volume_setting, screen_setting, pvp, help, gravity_mode, debug, d, e, b, u, g, time_attack, start_ticks, textsize, attack_mode, attack_mode_time, attack_board_y, CHANNELS, swidth, name_location, name, previous_time, current_time, pause_time, lines, leaders, volume, game_status, framerate_blockmove, framerate_2P_blockmove, game_speed, game_speed_2P, sandbox,sandbox_mode, difficulty, difficulty_mode, shop, challenge, single, game, ligth, earthquake, tnt, num_light, num_earthquake, num_tnt, gold, s_gold, item, item_mino, light_mino, earth_mino, tnt_mino
 
 
     framerate = 30 # Bigger -> Slower  기본 블록 하강 속도, 2도 할만 함, 0 또는 음수 이상이어야 함
@@ -1049,6 +1030,7 @@ def set_initial_values():
     blink = False
     start = False
     sandbox = False
+    sandbox_mode = False
     difficulty = False
     difficulty_mode = False
     shop = False
@@ -1155,7 +1137,7 @@ def set_initial_values():
     ui_variables.break_sound.set_volume(effect_volume / 10) # 소리 설정 부분도 set_volume 함수에 넣으면 됨
     ui_variables.intro_sound.play()
     game_status = ''
-    pygame.mixer.music.load("assets/sounds/SFX_BattleMusic.wav")
+    
 
 set_initial_values()
 pygame.time.set_timer(pygame.USEREVENT, 10)
@@ -1693,7 +1675,7 @@ while not done:
                     start = True
                     previous_time = pygame.time.get_ticks()
                     initalize = True
-                    pygame.mixer.music.play(-1) #play(-1) = 노래 반복재생
+                    set_music_playing(CHANNELS, swidth)
                     ui_variables.intro_sound.stop()
                 if pvp_button.isOver_2(pos):
                     ui_variables.click_sound.play()
@@ -1701,7 +1683,7 @@ while not done:
                     game = False
                     previous_time = pygame.time.get_ticks()
                     initalize = True
-                    pygame.mixer.music.play(-1) #play(-1) = 노래 반복재생
+                    set_music_playing(CHANNELS, swidth)
                     ui_variables.intro_sound.stop()
                 if difficulty_button.isOver_2(pos):
                     ui_variables.click_sound.play()
@@ -1799,7 +1781,7 @@ while not done:
                     start = True
                     previous_time = pygame.time.get_ticks()
                     initalize = True
-                    pygame.mixer.music.play(-1) #play(-1) = 노래 반복재생
+                    set_music_playing(CHANNELS, swidth)
                     ui_variables.intro_sound.stop()
 
                 if attack_button.isOver_2(pos):
@@ -1829,7 +1811,7 @@ while not done:
                         goal -= level * 5
                         game_speed = int(game_speed + speed_change)
                         pygame.time.set_timer(pygame.USEREVENT, game_speed)
-                        Change_RATE = level + 1
+                        Change_RATE += 1
                         
 
                 if level_plus_vector.isOver(pos):
@@ -1839,7 +1821,8 @@ while not done:
                         goal += level * 5
                         game_speed = int(game_speed - speed_change)
                         pygame.time.set_timer(pygame.USEREVENT, game_speed)
-                        Change_RATE = level - 1
+                        
+                        Change_RATE -= 1
                         
 
     elif difficulty: # diff board little complete
@@ -1901,7 +1884,7 @@ while not done:
                     start = True
                     previous_time = pygame.time.get_ticks()
                     initalize = True
-                    pygame.mixer.music.play(-1) #play(-1) = 노래 반복재생
+                    set_music_playing(CHANNELS, swidth)
                     ui_variables.intro_sound.stop()
 
                 if easy_button.isOver_2(pos):
@@ -2248,7 +2231,8 @@ while not done:
                     game_speed = int(game_speed - speed_change)
                     pygame.time.set_timer(pygame.USEREVENT, game_speed)
                     Change_RATE += 1
-                    set_music_playing_speed(CHANNELS, swidth, Change_RATE)
+                    #set_music_playing_speed(CHANNELS, swidth, Change_RATE)
+                    set_music_playing(CHANNELS, swidth)
 
             elif event.type == KEYDOWN:
                 erase_mino(dx, dy, mino, rotation, matrix)
@@ -2517,14 +2501,16 @@ while not done:
                             level += 1
                             goal += level * 5
                             Change_RATE = level + 1
-                            set_music_playing_speed(CHANNELS, swidth, Change_RATE)
+                            #set_music_playing_speed(CHANNELS, swidth, Change_RATE)
+                            set_music_playing(CHANNELS, swidth)
                     if level_minus_button.isOver(pos):
                         ui_variables.click_sound.play()
                         if level > 1:
                             level -= 1
                             goal += level * 5
                             Change_RATE = level + 1
-                            set_music_playing_speed(CHANNELS, swidth, Change_RATE)
+                            #set_music_playing_speed(CHANNELS, swidth, Change_RATE)
+                            set_music_playing(CHANNELS, swidth)
                     if combo_plus_button.isOver(pos):
                         ui_variables.click_sound.play()
                         combo_count += 1
@@ -2776,7 +2762,7 @@ while not done:
                     framerate = int(framerate - speed_change)
                 if level > level_2P and Change_RATE < level + 1:
                     Change_RATE += 1
-                    set_music_playing_speed(CHANNELS, swidth, Change_RATE)
+                    set_music_playing(CHANNELS, swidth)
                 #2P
                 if erase_count_2P >= 1:
                     combo_count_2P += 1
@@ -2828,7 +2814,7 @@ while not done:
                     framerate_2P = int(framerate_2P - speed_change)
                 if level < level_2P and Change_RATE < level_2P + 1:
                     Change_RATE += 1
-                    set_music_playing_speed(CHANNELS, swidth, Change_RATE)
+                    set_music_playing(CHANNELS, swidth)
 
             elif event.type == KEYDOWN:
                 erase_mino(dx, dy, mino, rotation, matrix)
