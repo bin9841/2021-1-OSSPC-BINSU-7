@@ -27,7 +27,7 @@ mino_matrix_y = 4 #mino는 4*4 배열이어서 이를 for문에 사용
 
 speed_change = 2 # 레벨별 블록 하강 속도 상승 정도
 
-gold = 0
+gold = 1000
 framerate = 30  # Bigger -> Slower
 
 min_width = 400
@@ -1936,19 +1936,22 @@ while not done:
                         button_list[i].change(board_width, board_height)
 
     elif shop: # shop little complete
-        draw_image(screen, background_image, board_width * 0.5, board_height * 0.5,
-        board_width, board_height)
-        draw_image(screen, board_shop, board_width * 0.5, board_height * 0.4, 
-            int(board_width * 0.8), int(board_height * 0.8))
-
+        draw_image(screen, background_image, board_width * 0.5, board_height * 0.5, board_width, board_height)
+        draw_image(screen, board_shop, board_width * 0.5, board_height * 0.4, int(board_width * 0.8), int(board_height * 0.8))
 
         back_button.draw(screen, (0, 0, 0))
+        light_buy_button.draw(screen, (0, 0, 0))
+        tnt_buy_button.draw(screen, (0, 0, 0))
+        earth_buy_button.draw(screen, (0, 0, 0))
 
         for event in pygame.event.get():
             pos = pygame.mouse.get_pos()
 
             if event.type == QUIT:
                 done = True
+            elif event.type == USEREVENT:
+                pygame.time.set_timer(pygame.USEREVENT, 300)
+                pygame.display.update()
 
             elif event.type == pygame.MOUSEMOTION:
                 if back_button.isOver_2(pos):
@@ -1956,42 +1959,46 @@ while not done:
                 else:
                     back_button.image=button_back
 
-                if light_buy_button.isOver(pos):
+                if light_buy_button.isOver_2(pos):
                     light_buy_button.image=button_buy_clicked
                 else:
                     light_buy_button.image=button_buy
 
-                if tnt_buy_button.isOver(pos):
+                if tnt_buy_button.isOver_2(pos):
                     tnt_buy_button.image=button_buy_clicked
                 else:
                     tnt_buy_button.image=button_buy
 
-                if earth_buy_button.isOver(pos):
+                if earth_buy_button.isOver_2(pos):
                     earth_buy_button.image=button_buy_clicked
                 else:
                     earth_buy_button.image=button_buy
 
-                if gold_buy_button.isOver(pos):
-                    gold_buy_button.image=button_buy_clicked
-                else:
-                    gold_buy_button.image=button_buy
+                pygame.display.update()
+
+
 
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 if back_button.isOver_2(pos):
                     ui_variables.click_sound.play()
                     shop = False
 
-                if light_buy_button.isOver(pos):
+                if light_buy_button.isOver_2(pos):
                     ui_variables.click_sound.play()
+                    gold -= 100
+                    num_light += 1
 
-                if tnt_buy_button.isOver(pos):
+                if tnt_buy_button.isOver_2(pos):
                     ui_variables.click_sound.play()
+                    gold -= 100
+                    num_tnt += 1
 
-                if earth_buy_button.isOver(pos):
+                if earth_buy_button.isOver_2(pos):
                     ui_variables.click_sound.play()
+                    gold -= 100
+                    num_tnt += 1
 
-                if gold_buy_button.isOver(pos):
-                    ui_variables.click_sound.play()
+
 
     elif challenge: # challenge little complete
         draw_image(screen, background_image, board_width * 0.5, board_height * 0.5,
@@ -3146,6 +3153,8 @@ while not done:
                     outfile.write(chr(name[0]) + chr(name[1]) + chr(name[2]) + ' ' + str(score) + '\n')
                     outfile.close()
                     game_over = False
+                    s_gold = int(score*0.1) # score*0.1 만큼 판골드 획득
+                    gold = gold + s_gold # 기존 골드에 판골드 더하기
                     pygame.time.set_timer(pygame.USEREVENT, 1)
 
                 if menu_button.isOver(pos):
