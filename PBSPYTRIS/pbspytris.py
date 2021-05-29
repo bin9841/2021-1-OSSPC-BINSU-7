@@ -2229,7 +2229,7 @@ while not done:
                     game_speed = int(game_speed - speed_change)
                     pygame.time.set_timer(pygame.USEREVENT, game_speed)
                     Change_RATE += 1
-                    #set_music_playing_speed(CHANNELS, swidth, Change_RATE)
+                    #set_music_playing(CHANNELS, swidth)
                     set_music_playing(CHANNELS, swidth)
 
             elif event.type == KEYDOWN:
@@ -2481,7 +2481,7 @@ while not done:
                             level += 1
                             goal += level * 5
                             Change_RATE = level + 1
-                            #set_music_playing_speed(CHANNELS, swidth, Change_RATE)
+                            #set_music_playing(CHANNELS, swidth)
                             set_music_playing(CHANNELS, swidth)
                     if level_minus_button.isOver(pos):
                         ui_variables.click_sound.play()
@@ -2489,7 +2489,7 @@ while not done:
                             level -= 1
                             goal += level * 5
                             Change_RATE = level + 1
-                            set_music_playing_speed(CHANNELS, swidth, Change_RATE)
+                            set_music_playing(CHANNELS, swidth)
                     pygame.display.update()
 
         if time_attack and total_time - elapsed_time < 0: #타임어택 모드이면서, 60초가 지났으면
