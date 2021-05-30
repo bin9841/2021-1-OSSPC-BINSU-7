@@ -214,6 +214,9 @@ button_single_clicked = 'assets/vector/button_single_clicked.png'
 button_start = 'assets/vector/button_start.png'
 button_start_clicked = 'assets/vector/button_start_clicked.png'
 
+button_timeattack = 'assets/vector/button_timeattack.png'
+button_timeattack_clicked = 'assets/vector/button_timeattack_clicked.png'
+
 button_attack = 'assets/vector/button_attack.png'
 button_attack_clicked = 'assets/vector/button_attack_clicked.png'
 button_attack_on = 'assets/vector/button_attack_on.png'
@@ -232,6 +235,9 @@ button_hard_clicked = 'assets/vector/button_hard_clicked.png'
 
 button_buy = 'assets/vector/button_buy.png'
 button_buy_clicked = 'assets/vector/button_buy_clicked.png'
+
+button_game = 'assets/vector/button_game.png'
+button_game_clicked = 'assets/vector/button_game_clicked.png'
 
 
 # check 이 친구는 후에 사용하지 않으면 삭제
@@ -252,6 +258,9 @@ item_earth = 'assets/vector/item_earth.png'
 item_gold = 'assets/vector/item_gold.png'
 item_tnt = 'assets/vector/item_tnt.png'
 item_light = 'assets/vector/item_lightning.png'
+item_tnt_info = 'assets/vector/tnt_info.PNG'
+item_light_info='assets/vector/light_info.PNG'
+item_earth_info='assets/vector/earth_info.PNG'
 
 # pvp
 pvp_win_image = 'assets/vector/pvp_win.png'
@@ -331,7 +340,7 @@ class button(): #버튼객체
 # (800, 450, 800*x좌표, 450*y좌표, 너비 비율, 높이 비율)
 
 # main page 1) nothing
-start_button = button(board_width, board_height, 0.375, 0.8, 0.16, 0.084, button_start)
+game_button = button(board_width, board_height, 0.375, 0.8, 0.16, 0.084, button_game)
 help_button = button(board_width, board_height, 0.375, 0.9, 0.16, 0.084, button_help)
 shop_button = button(board_width, board_height, 0.625, 0.8, 0.16, 0.084, button_shop)
 quit_button = button(board_width, board_height, 0.625, 0.9, 0.16, 0.084, button_quit)
@@ -342,7 +351,7 @@ setting_vector = button(board_width, board_height, 0.95, 0.9,0.0625, 0.1111, vec
 
 # main page 2) start board
 single_button = button(board_width, board_height, 0.3, 0.38, 0.16, 0.084, button_single)
-pvp_button = button(board_width, board_height, 0.3, 0.58, 0.16, 0.084, button_pvp)
+timeattack_button = button(board_width, board_height, 0.3, 0.58, 0.16, 0.084, button_timeattack)
 sandbox_button = button(board_width, board_height, 0.7, 0.58, 0.16, 0.084, button_sandbox)
 difficulty_button = button(board_width, board_height, 0.7, 0.38, 0.16, 0.084, button_difficulty)
 back_button = button(board_width, board_height, 0.5, 0.725, 0.16, 0.084, button_back)
@@ -410,9 +419,9 @@ midiumsize_button = button(board_width, board_height, 0.5, 0.38, 0.2, 0.08, size
 bigsize_button = button(board_width, board_height, 0.5, 0.52, 0.2, 0.08, size_b)
 
 # main page 10) shop board
-tnt_buy_button = button(board_width, board_height, 0.8, 0.3, 0.0925, 0.04, button_buy)
-light_buy_button = button(board_width, board_height, 0.8, 0.45, 0.0925, 0.04, button_buy)
-earth_buy_button = button(board_width, board_height, 0.8, 0.6, 0.0925, 0.04, button_buy)
+tnt_buy_button = button(board_width, board_height, 0.72, 0.3, 0.0925, 0.04, button_buy)
+light_buy_button = button(board_width, board_height, 0.72, 0.45, 0.0925, 0.04, button_buy)
+earth_buy_button = button(board_width, board_height, 0.72, 0.6, 0.0925, 0.04, button_buy)
 
 # game page 1) pause board
 resume_button = button(board_width, board_height, 0.5, 0.33, 0.16, 0.084, button_resume)
@@ -441,8 +450,8 @@ level_minus_button = button(board_width, board_height, 0.56, 0.7719, 0.0375, 0.0
 
 #게임 중 버튼 생성하기위한 버튼객체 리스트 (버튼 전체)
 button_list = [
-    start_button, help_button, shop_button, quit_button, challenge_vector,
-    leader_vector, setting_vector, single_button, pvp_button, sandbox_button,
+    game_button, help_button, shop_button, quit_button, challenge_vector,
+    leader_vector, setting_vector, single_button, timeattack_button, sandbox_button,
     difficulty_button, back_button, attack_button, gravity_button,
     back_right_button, start_left_button, level_minus_vector, level_plus_vector,
     easy_button, normal_button, hard_button, volume_vector, screen_vector, 
@@ -1592,7 +1601,7 @@ while not done:
         draw_image(screen, background_image, board_width * 0.5, board_height * 0.5, board_width, board_height) #(window, 이미지주소, x좌표, y좌표, 너비, 높이)
         draw_image(screen, board_start, board_width * 0.5, board_height * 0.4,  int(board_width*0.8), int(board_height*0.8)) 
         single_button.draw(screen, (0, 0, 0))
-        pvp_button.draw(screen, (0, 0, 0))
+        timeattack_button.draw(screen, (0, 0, 0))
         sandbox_button.draw(screen, (0, 0, 0))
         difficulty_button.draw(screen, (0, 0, 0))
         back_button.draw(screen, (0, 0, 0))
@@ -1619,10 +1628,10 @@ while not done:
                 else:
                     single_button.image = button_single
 
-                if pvp_button.isOver_2(pos):
-                    pvp_button.image = button_pvp_clicked
+                if timeattack_button.isOver_2(pos):
+                    timeattack_button.image = button_timeattack_clicked
                 else:
-                    pvp_button.image = button_pvp
+                    timeattack_button.image = button_timeattack
 
                 if sandbox_button.isOver_2(pos):
                     sandbox_button.image = button_sandbox_clicked
@@ -1647,10 +1656,11 @@ while not done:
                     initalize = True
                     set_music_playing(CHANNELS, swidth)
                     ui_variables.intro_sound.stop()
-                if pvp_button.isOver_2(pos):
+                if timeattack_button.isOver_2(pos):
                     ui_variables.click_sound.play()
-                    pvp = True
+                    time_attack = True
                     game = False
+                    start = True
                     previous_time = pygame.time.get_ticks()
                     initalize = True
                     set_music_playing(CHANNELS, swidth)
@@ -1797,8 +1807,7 @@ while not done:
     elif difficulty: # diff board little complete
         draw_image(screen, board_difficulty, board_width * 0.5, board_height * 0.4,
          int(board_width * 0.8), int(board_height * 0.8))
-        back_right_button.draw(screen, (0, 0, 0))
-        start_left_button.draw(screen, (0, 0, 0))
+        back_button.draw(screen, (0, 0, 0))
         easy_button.draw(screen, (0, 0, 0))
         normal_button.draw(screen, (0, 0, 0))
         hard_button.draw(screen, (0,0,0))
@@ -1813,15 +1822,10 @@ while not done:
                 pygame.display.update()
 
             elif event.type == pygame.MOUSEMOTION:
-                if back_right_button.isOver_2(pos):
-                    back_right_button.image = button_back_clicked
+                if back_button.isOver_2(pos):
+                    back_button.image = button_back_clicked
                 else:
-                    back_right_button.image = button_back
-
-                if start_left_button.isOver_2(pos):
-                    start_left_button.image = button_start_clicked
-                else:
-                    start_left_button.image = button_start
+                    back_button.image = button_back
 
                 if easy_button.isOver_2(pos):
                     easy_button.image = button_easy_clicked
@@ -1840,34 +1844,41 @@ while not done:
 
             elif event.type == pygame.MOUSEBUTTONDOWN:
 
-                if back_right_button.isOver_2(pos):
+                if back_button.isOver_2(pos):
                     ui_variables.click_sound.play()
                     difficulty = False
                     game = True
-                                
-                if start_left_button.isOver_2(pos):
+
+                if easy_button.isOver_2(pos):
                     ui_variables.click_sound.play()
-                    game = False
                     difficulty = False
                     difficulty_mode = True
+                    attack_mode = True
                     start = True
                     previous_time = pygame.time.get_ticks()
                     initalize = True
                     set_music_playing(CHANNELS, swidth)
-                    ui_variables.intro_sound.stop()
 
-                if easy_button.isOver_2(pos):
-                    ui_variables.click_sound.play()
-                    gravity_mode = False
-                    attack_mode = True
                 if normal_button.isOver_2(pos):
                     ui_variables.click_sound.play()
+                    difficulty = False
+                    difficulty_mode = True
                     gravity_mode = True
-                    attack_mode = False
+                    start = True
+                    previous_time = pygame.time.get_ticks()
+                    initalize = True
+                    set_music_playing(CHANNELS, swidth)
+
                 if hard_button.isOver_2(pos):
                     ui_variables.click_sound.play()
+                    difficulty = False
+                    difficulty_mode = True
                     gravity_mode = True
                     attack_mode = True
+                    start = True
+                    previous_time = pygame.time.get_ticks()
+                    initalize = True
+                    set_music_playing(CHANNELS, swidth)
                                    
     elif leader_board: # complete        
 
@@ -1941,11 +1952,14 @@ while not done:
         tnt_buy_button.draw(screen, (0, 0, 0))
         earth_buy_button.draw(screen, (0, 0, 0))
 
-        draw_image(screen, item_tnt, board_width*0.2, board_height*0.3, int(board_width*0.08),int(board_height*0.1422))
-        draw_image(screen, item_light, board_width*0.2, board_height*0.45, int(board_width*0.08),int(board_height*0.1422))
-        draw_image(screen, item_earth, board_width*0.2, board_height*0.6, int(board_width*0.08),int(board_height*0.1422))
+        draw_image(screen, item_tnt, board_width*0.28, board_height*0.3, int(board_width*0.08),int(board_height*0.1422))
+        draw_image(screen, item_light, board_width*0.28, board_height*0.45, int(board_width*0.08),int(board_height*0.1422))
+        draw_image(screen, item_earth, board_width*0.28, board_height*0.6, int(board_width*0.08),int(board_height*0.1422))
         draw_image(screen, item_gold, board_width*0.735, board_height*0.15, int(board_width*0.025),int(board_height*0.0444))
-
+        draw_image(screen, item_tnt_info, board_width*0.5, board_height*0.3, int(board_width*0.315),int(board_height*0.1267))
+        draw_image(screen, item_light_info, board_width*0.5, board_height*0.45, int(board_width*0.315),int(board_height*0.1267))
+        draw_image(screen, item_earth_info, board_width*0.5, board_height*0.6, int(board_width*0.315),int(board_height*0.1267))
+        
         for event in pygame.event.get():
             pos = pygame.mouse.get_pos()
 
@@ -3174,10 +3188,10 @@ while not done:
                 pygame.time.set_timer(pygame.USEREVENT, 300) #0.3초
 
             elif event.type == pygame.MOUSEMOTION:
-                if start_button.isOver_2(pos):
-                    start_button.image = button_start_clicked
+                if game_button.isOver_2(pos):
+                    game_button.image = button_game_clicked
                 else:
-                    start_button.image = button_start
+                    game_button.image = button_game
 
                 if shop_button.isOver_2(pos):
                     shop_button.image = button_shop_clicked
@@ -3210,7 +3224,7 @@ while not done:
                     challenge_vector.image = vector_challenge
 
             elif event.type == pygame.MOUSEBUTTONDOWN:
-                if start_button.isOver_2(pos):
+                if game_button.isOver_2(pos):
                     ui_variables.click_sound.play()
                     game = True
                 if shop_button.isOver_2(pos):
@@ -3256,7 +3270,7 @@ while not done:
         draw_image(screen, background_image, board_width * 0.5, board_height * 0.5,
          board_width, board_height)
 
-        start_button.draw(screen, (0, 0, 0)) #rgb(0,0,0) = 검정색
+        game_button.draw(screen, (0, 0, 0)) #rgb(0,0,0) = 검정색
         shop_button.draw(screen, (0, 0, 0))
         help_button.draw(screen, (0, 0, 0))
         quit_button.draw(screen, (0, 0, 0))
