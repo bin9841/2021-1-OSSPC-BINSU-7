@@ -1000,7 +1000,7 @@ def set_music_playing(CHANNELS, swidth):
     pygame.mixer.music.play(-1) #위 노래를 반복재생하기 위해 play(-1)로 설정
 
 def set_initial_values():
-    global combo_status, combo_count, combo_count_2P, score, level, goal, score_2P, level_2P, goal_2P, bottom_count, bottom_count_2P, hard_drop, hard_drop_2P, attack_point, attack_point_2P, dx, dy, dx_2P, dy_2P, rotation, rotation_2P, mino, mino_2P, next_mino1, next_mino2, next_mino1_2P, hold, hold_2P, hold_mino, hold_mino_2P, framerate, framerate_2P, matrix, matrix_2P, Change_RATE, blink, start, pause, done, game_over, leader_board, setting, volume_setting, screen_setting, pvp, help, gravity_mode, time_attack, start_ticks, textsize, attack_mode, attack_mode_time, attack_board_y, CHANNELS, swidth, name_location, name, previous_time, current_time, pause_time, lines, leaders, volume, game_status, framerate_blockmove, framerate_2P_blockmove, game_speed, game_speed_2P, sandbox,sandbox_mode, difficulty, difficulty_mode, shop, challenge, single, game, ligth, earthquake, tnt, num_light, num_earthquake, num_tnt, gold, s_gold, item, item_mino, light_mino, earth_mino, tnt_mino
+    global combo_status, combo_count, combo_count_2P, score, level, goal, score_2P, level_2P, goal_2P, bottom_count, bottom_count_2P, hard_drop, hard_drop_2P, attack_point, attack_point_2P, dx, dy, dx_2P, dy_2P, rotation, rotation_2P, mino, mino_2P, next_mino1, next_mino2, next_mino1_2P, hold, hold_2P, hold_mino, hold_mino_2P, framerate, framerate_2P, matrix, matrix_2P, blink, start, pause, done, game_over, leader_board, setting, volume_setting, screen_setting, pvp, help, gravity_mode, time_attack, time_attack_time, start_ticks, textsize, attack_mode, attack_mode_time, attack_board_y, CHANNELS, swidth, name_location, name, previous_time, current_time, pause_time, lines, leaders, volume, game_status, framerate_blockmove, framerate_2P_blockmove, game_speed, game_speed_2P, sandbox,sandbox_mode, difficulty, difficulty_mode, shop, challenge, single, game, ligth, earthquake, tnt, num_light, num_earthquake, num_tnt, gold, s_gold, item, item_mino, light_mino, earth_mino, tnt_mino
 
 
     framerate = 30 # Bigger -> Slower  기본 블록 하강 속도, 2도 할만 함, 0 또는 음수 이상이어야 함
@@ -1033,6 +1033,7 @@ def set_initial_values():
     help = False
     gravity_mode = False #이 코드가 없으면 중력모드 게임을 했다가 Restart해서 일반모드로 갈때 중력모드로 게임이 진행됨#
     time_attack = False
+    time_attack_time = False
     start_ticks = pygame.time.get_ticks()
     textsize = False
 
@@ -1044,7 +1045,7 @@ def set_initial_values():
     # 게임 음악 속도 조절 관련 변수
     CHANNELS = 1
     swidth = 2
-    Change_RATE = 2
+    
 
     combo_status = False
     combo_count = 0
@@ -1791,7 +1792,7 @@ while not done:
                         goal -= level * 5
                         game_speed = int(game_speed + speed_change)
                         pygame.time.set_timer(pygame.USEREVENT, game_speed)
-                        Change_RATE += 1
+                        #Change_RATE += 1
                         
 
                 if level_plus_vector.isOver(pos):
@@ -1802,7 +1803,7 @@ while not done:
                         game_speed = int(game_speed - speed_change)
                         pygame.time.set_timer(pygame.USEREVENT, game_speed)
                         
-                        Change_RATE -= 1
+                        #Change_RATE -= 1
                         
     elif difficulty: # diff board little complete
         draw_image(screen, board_difficulty, board_width * 0.5, board_height * 0.4,
@@ -2027,13 +2028,16 @@ while not done:
             level_minus_button.draw(screen, (0,0, 0))
         
         if time_attack:
+            if time_attack_time == False:
+                start_ticks = pygame.time.get_ticks() # 현재시간을 타임어택모드 진입했을 때 시간으로 설정
+                time_attack_time = True
             elapsed_time = (pygame.time.get_ticks() - start_ticks) / 1000 # 경과 시간 계산
 
         if attack_mode:
             if attack_mode_time == False:
-                current_attack_ticks = pygame.time.get_ticks() # 어택모드 진입했을 때의 시간
+                current_attack_ticks = pygame.time.get_ticks() # 현재시간을 어택모드 진입했을 때 시간으로 설정
                 attack_mode_time = True
-            elapsed_attack_time = (pygame.time.get_ticks() - current_attack_ticks) / 1000
+            elapsed_attack_time = (pygame.time.get_ticks() - current_attack_ticks) / 1000 # 경과 시간 계산
 
         for event in pygame.event.get():
             pos = pygame.mouse.get_pos()
@@ -2137,6 +2141,8 @@ while not done:
                         k = j
                         combo_value += 1
                         combo_status = True
+                        combo_count += 1 
+                        total_time += 5 # 콤보 시 시간 5초 연장
 
                         #rainbow보너스 점수
                         rainbow = [1,2,3,4,5,6,7] #각 mino에 해당하는 숫자
@@ -2165,20 +2171,20 @@ while not done:
                         ui_variables.break_sound.play()
                         ui_variables.single_sound.play()
                         score += 50 * level * erase_count + combo_count
-                        combo_count += 1
+                        
                     elif erase_count == 2:
                         ui_variables.break_sound.play()
                         ui_variables.double_sound.play()
                         ui_variables.double_sound.play()
                         score += 150 * level * erase_count + 2 * combo_count
-                        combo_count += 2
+                        
                     elif erase_count == 3:
                         ui_variables.break_sound.play()
                         ui_variables.triple_sound.play()
                         ui_variables.triple_sound.play()
                         ui_variables.triple_sound.play()
                         score += 350 * level * erase_count + 3 * combo_count
-                        combo_count += 3
+                        
                     elif erase_count == 4:
                         ui_variables.break_sound.play()
                         ui_variables.tetris_sound.play()
@@ -2186,10 +2192,10 @@ while not done:
                         ui_variables.tetris_sound.play()
                         ui_variables.tetris_sound.play()
                         score += 1000 * level * erase_count + 4 * combo_count
-                        combo_count += 4
+                        
                         screen.blit(ui_variables.combo_4ring,
                          (int(board_width*0.3125), int(board_height*0.3556))) #blit(이미지, 위치)
-                    total_time += 5 # 콤보 시 시간 5초 연장
+                    
 
                     for i in range(1, 11):
                         if combo_count == i:  # 1 ~ 10 콤보 이미지
@@ -2220,7 +2226,7 @@ while not done:
                     goal += level * 5
                     game_speed = int(game_speed - speed_change)
                     pygame.time.set_timer(pygame.USEREVENT, game_speed)
-                    Change_RATE += 1
+                    #Change_RATE += 1
                     #set_music_playing(CHANNELS, swidth)
                     set_music_playing(CHANNELS, swidth)
 
@@ -2449,7 +2455,7 @@ while not done:
                         if level < 15:
                             level += 1
                             goal += level * 5
-                            Change_RATE = level + 1
+                            #Change_RATE = level + 1
                             #set_music_playing(CHANNELS, swidth)
                             set_music_playing(CHANNELS, swidth)
                     if level_minus_button.isOver(pos):
@@ -2457,7 +2463,7 @@ while not done:
                         if level > 1:
                             level -= 1
                             goal += level * 5
-                            Change_RATE = level + 1
+                            #Change_RATE = level + 1
                             set_music_playing(CHANNELS, swidth)
                     pygame.display.update()
 
