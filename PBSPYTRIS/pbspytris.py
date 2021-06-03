@@ -641,8 +641,6 @@ def draw_board(next1, next2, hold, score, level, goal):
             draw_block_image(dx, dy, ui_variables.t_block[matrix[x][y + 1]])
 
 
-def draw_1Pboard(next, hold, score, level, goal):
-    sidebar_width = int(board_width * 0.31) #위치비율 고정, board 가로길이에 원하는 비율을 곱해줌#
 
     # Draw sidebar
     pygame.draw.rect(
@@ -720,9 +718,6 @@ def draw_1Pboard(next, hold, score, level, goal):
             dy = int(board_height * 0.055) + block_size * y #위치 비율 고정, board의 세로길이에 원하는 비율을 곱해줌
             draw_block_image(dx, dy, ui_variables.t_block[matrix[x][y + 1]])
 
-
-def draw_2Pboard(next, hold, score, level, goal):
-    sidebar_width = int(board_width * 0.82) #위치 비율 고정, , board의 가로길이에 원하는 비율을 곱해줌
 
     # Draw sidebar
     pygame.draw.rect(
@@ -971,11 +966,6 @@ def is_stackable(mino, matrix):
     return True
 
 
-def draw_multiboard(next_1P, hold_1P, next_2P, hold_2P, score1P, score2P, level1P, level2P, goal1P, goal2P):
-    screen.fill(ui_variables.real_white)
-    draw_image(screen, gamebackground_image , board_width * 0.5, board_height * 0.5, board_width, board_height) #(window, 이미지주소, x좌표, y좌표, 너비, 높이)
-    draw_1Pboard(next_1P, hold_1P, score1P, level1P, goal1P)
-    draw_2Pboard(next_2P, hold_2P, score2P, level2P, goal2P)
 
 
 def set_vol(val):
@@ -1002,16 +992,15 @@ def set_music_playing(CHANNELS, swidth):
     pygame.mixer.music.play(-1) #위 노래를 반복재생하기 위해 play(-1)로 설정
 
 def set_initial_values():
-    global combo_status, combo_count, combo_count_2P, score, level, goal, score_2P, level_2P, goal_2P, bottom_count, bottom_count_2P, hard_drop, hard_drop_2P, attack_point, attack_point_2P, dx, dy, dx_2P, dy_2P, rotation, rotation_2P, mino, mino_2P, next_mino1, next_mino2, next_mino1_2P, hold, hold_2P, hold_mino, hold_mino_2P, framerate, framerate_2P, matrix, matrix_2P, blink, start, pause, done, game_over, leader_board, setting, volume_setting, screen_setting, pvp, help, gravity_mode, time_attack, time_attack_time, start_ticks, textsize, attack_mode, attack_mode_time, attack_board_y, CHANNELS, swidth, name_location, name, previous_time, current_time, pause_time, lines, leaders, volume, game_status, framerate_blockmove, framerate_2P_blockmove, game_speed, game_speed_2P, sandbox,sandbox_mode, difficulty, difficulty_mode, shop, challenge, single, game, ligth, earthquake, tnt, num_light, num_earthquake, num_tnt, gold, s_gold, item, item_mino, light_mino, earth_mino, tnt_mino
+    global combo_status, combo_count, score, level, goal, bottom_count, hard_drop, attack_point, dx, dy, rotation, mino, next_mino1, next_mino2, hold, hold_mino, framerate, matrix, blink, start, pause, done, game_over, leader_board, setting, volume_setting, screen_setting, help, gravity_mode, time_attack, time_attack_time, start_ticks, textsize, attack_mode, attack_mode_time, attack_board_y, CHANNELS, swidth, name_location, name, previous_time, current_time, pause_time, lines, leaders, volume, game_status, framerate_blockmove, game_speed, sandbox,sandbox_mode, difficulty, difficulty_mode, shop, challenge, single, game, ligth, earthquake, tnt, num_light, num_earthquake, num_tnt, gold, s_gold, item, item_mino, light_mino, earth_mino, tnt_mino
+
 
 
 
     framerate = 30 # Bigger -> Slower  기본 블록 하강 속도, 2도 할만 함, 0 또는 음수 이상이어야 함
     framerate_blockmove = framerate * 3 # 블록 이동 시 속도
     game_speed = framerate * 20 # 게임 기본 속도
-    framerate_2P = 30 # 2P
-    framerate_2P_blockmove = framerate_2P * 3 # 블록 이동 시 속도
-    game_speed_2P = framerate_2P * 20 # 2P 게임 기본 속도
+ 
 
 
     # Initial values
@@ -1032,7 +1021,6 @@ def set_initial_values():
     screen_setting = False
     single = False
     game = False
-    pvp = False
     help = False
     gravity_mode = False #이 코드가 없으면 중력모드 게임을 했다가 Restart해서 일반모드로 갈때 중력모드로 게임이 진행됨#
     time_attack = False
@@ -1052,33 +1040,20 @@ def set_initial_values():
 
     combo_status = False
     combo_count = 0
-    combo_count_2P = 0
     score = 0
     level = 1
     goal = level * 5
-    score_2P = 0
-    level_2P = 1
-    goal_2P = level_2P * 5
     bottom_count = 0
-    bottom_count_2P = 0
     hard_drop = False
-    hard_drop_2P = False
     attack_point = 0
-    attack_point_2P = 0
 
     dx, dy = 3, 0  # Minos location status
-    dx_2P, dy_2P = 3, 0
     rotation = 0  # Minos rotation status
-    rotation_2P = 0
     mino = randint(1, 7)  # Current mino #테트리스 블록 7가지 중 하나
-    mino_2P = randint(1, 7)
     next_mino1 = randint(1, 7)  # Next mino1 # 다음 테트리스 블록 7가지 중 하나
     next_mino2 = randint(1, 7)  # Next mino2 # 다음 테트리스 블록 7가지 중 하나
-    next_mino1_2P = randint(1, 7)
     hold = False  # Hold status
-    hold_2P = False
     hold_mino = -1  # Holded mino #현재 hold하는 것 없는 상태
-    hold_mino_2P = -1
     textsize = False
 
     # 아이템 관련 변수
@@ -1111,7 +1086,6 @@ def set_initial_values():
     leaders = sorted(leaders.items(), key=operator.itemgetter(1), reverse=True)
 
     matrix = [[0 for y in range(height + 1)] for x in range(width)]  # Board matrix
-    matrix_2P = [[0 for y in range(height + 1)] for x in range(width)]  # Board matrix
 
     volume = 1.0 # 필요 없는 코드, effect_volume으로 대체 가능
     ui_variables.click_sound.set_volume(volume) # 필요 없는 코드, 전체 코드에서 click_sound를 effect_volume로 설정하는 코드 하나만 있으면 됨
