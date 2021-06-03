@@ -108,7 +108,7 @@ class ui_variables:
     black_pause = (0, 0, 0, 127)
     white = (0, 153, 153)  # rgb(255, 255, 255) # 청록색으로 변경
     real_white = (255, 255, 255)  # rgb(255, 255, 255)
-    pinkpurple = (250, 165, 255) #rgb(250, 165, 255) 핑크+보라#
+    skyblue = (173,211,210) #rgb(250, 165, 255) 핑크+보라#
 
     grey_1 = (70, 130, 180)  # rgb(26, 26, 26) 테두리 파랑색
     grey_2 = (221, 221, 221)  # rgb(35, 35, 35)
@@ -239,15 +239,6 @@ button_buy_clicked = 'assets/vector/button_buy_clicked.png'
 button_game = 'assets/vector/button_game.png'
 button_game_clicked = 'assets/vector/button_game_clicked.png'
 
-
-# check 이 친구는 후에 사용하지 않으면 삭제
-check = 'assets/vector/check.png'
-checkbox = 'assets/vector/check_box.png'
-checkbox_clicked = 'assets/vector/check_clicked_box.png'
-
-# help : keyboard
-# help_image = 'assets/vector/help_imgage.png'
-
 # icon : 버튼이 아닌 아이콘, 이벤트 없음
 icon_combo = 'assets/vector/icon_combo.png'
 icon_level = 'assets/vector/icon_level.png'
@@ -292,7 +283,10 @@ vector_sound_on = 'assets/vector/vector_sound_on.png'
 vector_volume = 'assets/vector/vector_volume.png'
 vector_volume_clicked = 'assets/vector/vector_volume_clicked.png'
 
-
+tetris3 = pygame.image.load("assets/Combo/tetris4.png")
+tetris4 = pygame.transform.smoothscale(tetris3,
+                    (int(board_width*0.225),int(board_height*0.1266)))
+                    
 class button(): #버튼객체
     def __init__(self, board_width, board_height, x_rate, y_rate, width_rate, height_rate, img=''): #버튼생성
         self.x = board_width * x_rate #버튼 x좌표
@@ -509,12 +503,13 @@ def draw_block_image(x, y, image):
 
 # Draw game screen
 def draw_board(next1, next2, hold, score, level, goal):
-    sidebar_width = int(board_width * 0.5312) #크기 비율 고정, 전체 board 가로길이에서 원하는 비율을 곱해줌#
+    sidebar_width = int(board_width * 0.5312)
+    #크기 비율 고정, 전체 board 가로길이에서 원하는 비율을 곱해줌#
 
     # Draw sidebar
     pygame.draw.rect(
         screen,
-        ui_variables.pinkpurple,
+        ui_variables.skyblue,
         Rect(sidebar_width, 0, int(board_width * 0.2375), board_height) #크기 비율 고정
     )
 
@@ -2102,7 +2097,8 @@ while not done:
                     if rainbow_count >= 1:
                         score += 500 * rainbow_count #임의로 rainbow는 한 줄당 500점으로 잡음
                         rainbow_count = 0 #다시 초기화
-                        screen.blit(ui_variables.rainbow_vector, (board_width * 0.28, board_height * 0.1)) #blit(이미지, 위치)
+                        screen.blit(ui_variables.rainbow_vector,
+                         (board_width * 0.3, board_height * 0.25)) #blit(이미지, 위치)
                         pygame.display.update()
                         pygame.time.delay(400) #0.4초
 
@@ -2141,10 +2137,14 @@ while not done:
 
                     for i in range(1, 11):
                         if combo_count == i:  # 1 ~ 10 콤보 이미지
-                            screen.blit(ui_variables.large_combos[i - 1], (board_width * 0.27, board_height * 0.35)) #각 콤보 이미지에 대해 blit(이미지, 위치)
+                            screen.blit(ui_variables.large_combos[i - 1],
+                            (board_width * 0.27, board_height * 0.35))
+                            #각 콤보 이미지에 대해 blit(이미지, 위치)
                             pygame.display.update()
                             pygame.time.delay(500)
                         elif combo_count > 10:  # 11 이상 콤보 이미지
+                            screen.blit(tetris4,
+                            (board_width*0.27, board_height * 0.35))
                             pygame.display.update()
                             pygame.time.delay(300)
 
@@ -2448,13 +2448,13 @@ while not done:
                 ok_button.draw(screen, (0, 0, 0))
 
                 #render("텍스트이름", 안티에일리어싱 적용, 색깔), 즉 아래의 코드에서 숫자 1=안티에일리어싱 적용에 관한 코드
-                name_1 = ui_variables.h1_b.render(chr(name[0]), 1, ui_variables.pinkpurple)
-                name_2 = ui_variables.h1_b.render(chr(name[1]), 1, ui_variables.pinkpurple)
-                name_3 = ui_variables.h1_b.render(chr(name[2]), 1, ui_variables.pinkpurple)
+                name_1 = ui_variables.h1_b.render(chr(name[0]), 1, ui_variables.skyblue)
+                name_2 = ui_variables.h1_b.render(chr(name[1]), 1, ui_variables.skyblue)
+                name_3 = ui_variables.h1_b.render(chr(name[2]), 1, ui_variables.skyblue)
 
-                underbar_1 = ui_variables.h1_b.render("_", 1, ui_variables.pinkpurple)
-                underbar_2 = ui_variables.h1_b.render("_", 1, ui_variables.pinkpurple)
-                underbar_3 = ui_variables.h1_b.render("_", 1, ui_variables.pinkpurple)
+                underbar_1 = ui_variables.h1_b.render("_", 1, ui_variables.skyblue)
+                underbar_2 = ui_variables.h1_b.render("_", 1, ui_variables.skyblue)
+                underbar_3 = ui_variables.h1_b.render("_", 1, ui_variables.skyblue)
 
                 screen.blit(name_1, (int(board_width * 0.434), int(board_height * 0.55))) #blit(요소, 위치), 각각 전체 board의 가로길이, 세로길이에다가 원하는 비율을 곱해줌
                 screen.blit(name_2, (int(board_width * 0.494), int(board_height * 0.55))) #blit(요소, 위치)
