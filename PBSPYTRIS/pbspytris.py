@@ -1971,9 +1971,11 @@ while not done:
     elif challenge: # challenge little complete
         draw_image(screen, background_image, board_width * 0.5, board_height * 0.5, board_width, board_height) #(window, 이미지주소, x좌표, y좌표, 너비, 높이)
         draw_image(screen, board_challenge, board_width * 0.5, board_height * 0.4, int(board_width * 0.8), int(board_height * 0.8)) #(window, 이미지주소, x좌표, y좌표, 너비, 높이)
+
         draw_image(screen, challenge_info1, board_width*0.4, board_height*0.28, int(board_width *45/80), int(board_height * 75/450))
         draw_image(screen, challenge_info2, board_width*0.4, board_height*0.44, int(board_width * 45/80), int(board_height * 75/450))
         draw_image(screen, challenge_info3, board_width*0.4, board_height*0.6, int(board_width * 45/80), int(board_height * 75/450))
+
         back_button.draw(screen,(0, 0, 0))
         off1_button.draw(screen,(0,0,0))
         off2_button.draw(screen,(0,0,0))
@@ -2031,6 +2033,27 @@ while not done:
                     #   off3_button.image = off
                     off3_button.image = off
                 
+
+            elif event.type == pygame.MOUSEBUTTONDOWN:
+                if back_button.isOver_2(pos):
+                    ui_variables.click_sound.play()
+                    challenge = False
+
+        for event in pygame.event.get():
+            pos = pygame.mouse.get_pos()
+
+            if event.type == QUIT:
+                done = True
+            elif event.type == USEREVENT:
+                pygame.time.set_timer(pygame.USEREVENT, 300)
+                pygame.display.update()
+
+            elif event.type == pygame.MOUSEMOTION:
+                if back_button.isOver_2(pos):
+                    back_button.image = button_back_clicked
+                else:
+                    back_button.image = button_back
+                pygame.display.update()
 
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 if back_button.isOver_2(pos):
