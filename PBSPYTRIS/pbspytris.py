@@ -466,7 +466,7 @@ button_list = [
     smallsize_button, midiumsize_button, bigsize_button, light_buy_button,
     tnt_buy_button, earth_buy_button, resume_button,
     restart_button, setting_button, quit_game_button, menu_button, ok_button,
-    level_plus_button, level_minus_button, on1_button, on2_button, on3_button
+    level_plus_button, level_minus_button, off1_button, off2_button, off3_button
 ]
 
 def set_volume():
@@ -2033,13 +2033,11 @@ while not done:
                     # else:
                     #   off3_button.image = off
                     off3_button.image = off
-                pygame.display.update()
 
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 if back_button.isOver_2(pos):
                     ui_variables.click_sound.play()
                     challenge = False
-                pygame.display.update()
 
 
 
