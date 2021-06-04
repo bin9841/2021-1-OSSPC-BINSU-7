@@ -291,6 +291,11 @@ challenge_info1 = 'assets/vector/challenge_info1.PNG'
 challenge_info2 = 'assets/vector/challenge_info2.PNG'
 challenge_info3 = 'assets/vector/challenge_info3.PNG'
 
+on = 'assets/vector/button_on.png'
+on_clicked = 'assets/vector/button_on_clicked.png'
+off = 'assets/vector/button_off.png'
+off_clicked = 'assets/vector/button_off_clicked.png'
+
 
 class button(): #버튼객체
     def __init__(self, board_width, board_height, x_rate, y_rate, width_rate, height_rate, img=''): #버튼생성
@@ -418,6 +423,12 @@ tnt_buy_button = button(board_width, board_height, 0.72, 0.3, 0.0925, 0.04, butt
 light_buy_button = button(board_width, board_height, 0.72, 0.45, 0.0925, 0.04, button_buy)
 earth_buy_button = button(board_width, board_height, 0.72, 0.6, 0.0925, 0.04, button_buy)
 
+# main page 11) challenge board
+off1_button = button(board_width, board_height, 0.8, 0.28, 105/800, 40/450, off)
+off2_button = button(board_width, board_height, 0.8, 0.44, 105/800, 40/450, off)
+off3_button = button(board_width, board_height, 0.8, 0.60, 105/800, 40/450, off)
+
+
 # game page 1) pause board
 resume_button = button(board_width, board_height, 0.5, 0.33, 0.16, 0.084, button_resume)
 restart_button = button(board_width, board_height, 0.5, 0.51, 0.16, 0.084, button_restart)
@@ -455,7 +466,7 @@ button_list = [
     smallsize_button, midiumsize_button, bigsize_button, light_buy_button,
     tnt_buy_button, earth_buy_button, resume_button,
     restart_button, setting_button, quit_game_button, menu_button, ok_button,
-    level_plus_button, level_minus_button
+    level_plus_button, level_minus_button, on1_button, on2_button, on3_button
 ]
 
 def set_volume():
@@ -1960,10 +1971,73 @@ while not done:
     elif challenge: # challenge little complete
         draw_image(screen, background_image, board_width * 0.5, board_height * 0.5, board_width, board_height) #(window, 이미지주소, x좌표, y좌표, 너비, 높이)
         draw_image(screen, board_challenge, board_width * 0.5, board_height * 0.4, int(board_width * 0.8), int(board_height * 0.8)) #(window, 이미지주소, x좌표, y좌표, 너비, 높이)
-        draw_image(screen, challenge_info1, board_width*0.5, board_height*0.28, int(board_width *45/80), int(board_height * 75/450))
-        draw_image(screen, challenge_info2, board_width*0.5, board_height*0.44, int(board_width * 45/80), int(board_height * 75/450))
-        draw_image(screen, challenge_info3, board_width*0.5, board_height*0.6, int(board_width * 45/80), int(board_height * 75/450))
+
+        draw_image(screen, challenge_info1, board_width*0.4, board_height*0.28, int(board_width *45/80), int(board_height * 75/450))
+        draw_image(screen, challenge_info2, board_width*0.4, board_height*0.44, int(board_width * 45/80), int(board_height * 75/450))
+        draw_image(screen, challenge_info3, board_width*0.4, board_height*0.6, int(board_width * 45/80), int(board_height * 75/450))
+
         back_button.draw(screen,(0, 0, 0))
+        off1_button.draw(screen,(0,0,0))
+        off2_button.draw(screen,(0,0,0))
+        off3_button.draw(screen,(0,0,0))
+
+        for event in pygame.event.get():
+            pos = pygame.mouse.get_pos()
+
+            if event.type == QUIT:
+                done = True
+            elif event.type == USEREVENT:
+                pygame.time.set_timer(pygame.USEREVENT, 300)
+                pygame.display.update()
+
+            elif event.type == pygame.MOUSEMOTION:
+                if back_button.isOver_2(pos):
+                    back_button.image = button_back_clicked
+                else:
+                    back_button.image = button_back
+                pygame.display.update()
+                if off1_button.isOver_2(pos):
+                    #if ch1:
+                    #   off1_button.image = on_clicked
+                    #else:
+                    #   off1_button.image = off_clicked
+                    off1_button.image = off_clicked
+                else:
+                    # if ch1:
+                    #   off1_button.image = on
+                    # else:
+                    #   off1_button.image = off
+                    off1_button.image = off
+                if off2_button.isOver_2(pos):
+                    #if ch1:
+                    #   off2_button.image = on_clicked
+                    #else:
+                    #   off2_button.image = off_clicked
+                    off2_button.image = off_clicked
+                else:
+                    # if ch1:
+                    #   off2_button.image = on
+                    # else:
+                    #   off2_button.image = off
+                    off2_button.image = off
+                if off3_button.isOver_2(pos):
+                    #if ch1:
+                    #   off3_button.image = on_clicked
+                    #else:
+                    #   off3_button.image = off_clicked
+                    off3_button.image = off_clicked
+                else:
+                    # if ch1:
+                    #   off3_button.image = on
+                    # else:
+                    #   off3_button.image = off
+                    off3_button.image = off
+                
+
+            elif event.type == pygame.MOUSEBUTTONDOWN:
+                if back_button.isOver_2(pos):
+                    ui_variables.click_sound.play()
+                    challenge = False
 
         for event in pygame.event.get():
             pos = pygame.mouse.get_pos()
