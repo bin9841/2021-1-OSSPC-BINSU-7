@@ -286,7 +286,12 @@ vector_volume_clicked = 'assets/vector/vector_volume_clicked.png'
 tetris3 = pygame.image.load("assets/Combo/tetris4.png")
 tetris4 = pygame.transform.smoothscale(tetris3,
                     (int(board_width*0.225),int(board_height*0.1266)))
-                    
+
+challenge_info1 = 'assets/vector/challenge_info1.PNG'
+challenge_info2 = 'assets/vector/challenge_info2.PNG'
+challenge_info3 = 'assets/vector/challenge_info3.PNG'
+
+
 class button(): #버튼객체
     def __init__(self, board_width, board_height, x_rate, y_rate, width_rate, height_rate, img=''): #버튼생성
         self.x = board_width * x_rate #버튼 x좌표
@@ -1953,11 +1958,33 @@ while not done:
                         button_list[i].change(board_width, board_height)
 
     elif challenge: # challenge little complete
-        draw_image(screen, background_image, board_width * 0.5, board_height * 0.5,
-            board_width, board_height) #(window, 이미지주소, x좌표, y좌표, 너비, 높이)
-        draw_image(screen, board_challenge, board_width * 0.5, board_height * 0.4, 
-            int(board_width * 0.8), int(board_height * 0.8)) #(window, 이미지주소, x좌표, y좌표, 너비, 높이)
+        draw_image(screen, background_image, board_width * 0.5, board_height * 0.5, board_width, board_height) #(window, 이미지주소, x좌표, y좌표, 너비, 높이)
+        draw_image(screen, board_challenge, board_width * 0.5, board_height * 0.4, int(board_width * 0.8), int(board_height * 0.8)) #(window, 이미지주소, x좌표, y좌표, 너비, 높이)
+        draw_image(screen, challenge_info1, board_width*0.5, board_height*0.28, int(board_width *45/80), int(board_height * 75/450))
+        draw_image(screen, challenge_info2, board_width*0.5, board_height*0.44, int(board_width * 45/80), int(board_height * 75/450))
+        draw_image(screen, challenge_info3, board_width*0.5, board_height*0.6, int(board_width * 45/80), int(board_height * 75/450))
         back_button.draw(screen,(0, 0, 0))
+
+        for event in pygame.event.get():
+            pos = pygame.mouse.get_pos()
+
+            if event.type == QUIT:
+                done = True
+            elif event.type == USEREVENT:
+                pygame.time.set_timer(pygame.USEREVENT, 300)
+                pygame.display.update()
+
+            elif event.type == pygame.MOUSEMOTION:
+                if back_button.isOver_2(pos):
+                    back_button.image = button_back_clicked
+                else:
+                    back_button.image = button_back
+                pygame.display.update()
+
+            elif event.type == pygame.MOUSEBUTTONDOWN:
+                if back_button.isOver_2(pos):
+                    ui_variables.click_sound.play()
+                    challenge = False
 
     elif start:
         if sandbox_mode:
@@ -2636,7 +2663,7 @@ while not done:
                 if setting_vector.isOver(pos):
                     setting_vector.image = vector_setting_clicked
                 else:
-                    setting_vector.image = vector_setting_clicked
+                    setting_vector.image = vector_setting
 
                 if leader_vector.isOver(pos):
                     leader_vector.image = vector_leader_clicked
@@ -2647,6 +2674,7 @@ while not done:
                     challenge_vector.image = vector_challenge_clicked
                 else:
                     challenge_vector.image = vector_challenge
+                pygame.display.update()
 
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 if game_button.isOver_2(pos):
@@ -2670,6 +2698,7 @@ while not done:
                 if challenge_vector.isOver(pos):
                     ui_variables.click_sound.play()
                     challenge = True
+                pygame.display.update()
 
 
             elif event.type == VIDEORESIZE:
