@@ -1994,9 +1994,7 @@ while not done:
                 if back_button.isOver_2(pos):
                     back_button.image = button_back_clicked
                 else:
-                    back_button.image = button_back
-                pygame.display.update()
-                
+                    back_button.image = button_back                
                 if off1_button.isOver_2(pos):
                     #if ch1:
                     #   off1_button.image = on_clicked
@@ -2035,33 +2033,15 @@ while not done:
                     # else:
                     #   off3_button.image = off
                     off3_button.image = off
-                
-
-            elif event.type == pygame.MOUSEBUTTONDOWN:
-                if back_button.isOver_2(pos):
-                    ui_variables.click_sound.play()
-                    challenge = False
-
-        for event in pygame.event.get():
-            pos = pygame.mouse.get_pos()
-
-            if event.type == QUIT:
-                done = True
-            elif event.type == USEREVENT:
-                pygame.time.set_timer(pygame.USEREVENT, 300)
-                pygame.display.update()
-
-            elif event.type == pygame.MOUSEMOTION:
-                if back_button.isOver_2(pos):
-                    back_button.image = button_back_clicked
-                else:
-                    back_button.image = button_back
                 pygame.display.update()
 
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 if back_button.isOver_2(pos):
                     ui_variables.click_sound.play()
                     challenge = False
+                pygame.display.update()
+
+
 
     elif start:
         if sandbox_mode:
