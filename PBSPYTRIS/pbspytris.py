@@ -27,7 +27,6 @@ mino_matrix_y = 4 #mino는 4*4 배열이어서 이를 for문에 사용
 
 speed_change = 40 # 레벨별 블록 하강 속도 상승 정도
 
-gold = 1000
 framerate = 30  # Bigger -> Slower
 
 min_width = 400
@@ -681,7 +680,7 @@ def erase_mino(x, y, mino, r, matrix):
                 n = j-1
                 for k in range(3):
                     for q in range(3):
-                        if m+k>=0 and n+q >=0 :
+                        if m+k >= 0 and n+q >= 0 :
                             matrix[m+k][n+q] = 0
                  
 
@@ -693,7 +692,7 @@ def erase_mino(x, y, mino, r, matrix):
                 n = j-2
                 for k in range(5):
                     for q in range(5):
-                        if m+k>=0 and n+q >=0 :
+                        if m+k >= 0 and n+q >= 0 :
                             matrix[m+k][n+q] = 0
 
 # Returns true if mino is at bottom
@@ -833,7 +832,7 @@ def set_music_playing(CHANNELS, swidth):
     pygame.mixer.music.play(-1) #위 노래를 반복재생하기 위해 play(-1)로 설정
 
 def set_initial_values():
-    global combo_status, combo_count, score, level, goal, bottom_count, hard_drop, attack_point, dx, dy, rotation, mino, next_mino1, next_mino2, hold, hold_mino, framerate, matrix, blink, start, pause, done, game_over, leader_board, setting, volume_setting, screen_setting, help, gravity_mode, time_attack, time_attack_time, start_ticks, textsize, attack_mode, attack_mode_time, attack_board_y, CHANNELS, swidth, name_location, name, previous_time, current_time, pause_time, lines, leaders, volume, game_status, framerate_blockmove, game_speed, sandbox,sandbox_mode, difficulty, difficulty_mode, shop, challenge, single, game, ligth, earthquake, tnt, num_light, num_earthquake, num_tnt, gold, s_gold, item, item_mino, light_mino, earth_mino, tnt_mino
+    global combo_status, combo_count, score, level, goal, bottom_count, hard_drop, attack_point, dx, dy, rotation, mino, next_mino1, next_mino2, hold, hold_mino, framerate, matrix, blink, start, pause, done, game_over, leader_board, setting, volume_setting, screen_setting, help, gravity_mode, time_attack, time_attack_time, start_ticks, textsize, attack_mode, attack_mode_time, attack_board_y, CHANNELS, swidth, name_location, name, previous_time, current_time, pause_time, lines, leaders, volume, game_status, framerate_blockmove, game_speed, sandbox,sandbox_mode, difficulty, difficulty_mode, shop, challenge, single, game, gold, s_gold, item, item_mino, light_mino, earth_mino, tnt_mino, ch_1, ch_2, ch_3
 
 
 
@@ -868,6 +867,9 @@ def set_initial_values():
     time_attack_time = False
     start_ticks = pygame.time.get_ticks()
     textsize = False
+    ch_1 = False
+    ch_2 = False
+    ch_3 = False
 
     attack_mode = False # 어택모드
     attack_mode_time = False # 어택모드 30초마다 시간 초기화하도록
@@ -897,15 +899,11 @@ def set_initial_values():
     hold_mino = -1  # Holded mino #현재 hold하는 것 없는 상태
     textsize = False
 
-    # 아이템 관련 변수
+    # 게임 시 생기는 돈
     s_gold = 0
-    num_light = 1
-    num_earthquake = 1
-    num_tnt = 1
-    #light = num_light
-    #earthquake = num_earthquake
-    #tnt = num_tnt
-    item = False
+
+    # 아이템 관련 블럭
+    item = True
     light_mino = 10 # 번개 블럭 10
     tnt_mino = 11 # tnt 블럭 11
     item_mino = -2 #아이템을 사용 안한 상태
@@ -935,9 +933,27 @@ def set_initial_values():
     ui_variables.break_sound.set_volume(effect_volume / 10) # 소리 설정 부분도 set_volume 함수에 넣으면 됨
     ui_variables.intro_sound.play()
     game_status = ''
-    
+
+def set_initial_items():
+    global gold, num_light, num_earthquake, num_tnt
+
+    # 아이템 관련 변수
+    gold = 1000
+    num_light = 1
+    num_earthquake = 1
+    num_tnt = 1
+
+# item 사용 금지
+def item_off():
+    item = False
+    if item == False:
+        num_light = 0
+        num_earthquake =0
+        num_tnt = 0
+
 
 set_initial_values()
+set_initial_items()
 pygame.time.set_timer(pygame.USEREVENT, 10)
 
 ###########################################################
@@ -1515,6 +1531,7 @@ while not done:
                     game = False
                 if single_button.isOver_2(pos):
                     ui_variables.click_sound.play()
+                    item_off()
                     game = False
                     single = True
                     start = True
@@ -1524,6 +1541,7 @@ while not done:
                     ui_variables.intro_sound.stop()
                 if timeattack_button.isOver_2(pos):
                     ui_variables.click_sound.play()
+                    item_off()
                     time_attack = True
                     game = False
                     start = True
@@ -1536,6 +1554,7 @@ while not done:
                     game = False
                     difficulty = True
                 if sandbox_button.isOver_2(pos):
+                    item_off()
                     ui_variables.click_sound.play()
                     game = False
                     sandbox = True
@@ -1716,6 +1735,7 @@ while not done:
         normal_button.draw(screen, (0, 0, 0))
         hard_button.draw(screen, (0,0,0))
 
+
         for event in pygame.event.get():
             pos=pygame.mouse.get_pos()
 
@@ -1754,6 +1774,9 @@ while not done:
                     game = True
 
                 if easy_button.isOver_2(pos):
+                    # 도전과제 3 도전시
+                    if ch_3 :
+                        item_off()
                     ui_variables.click_sound.play()
                     difficulty = False
                     difficulty_mode = True
@@ -1764,6 +1787,9 @@ while not done:
                     set_music_playing(CHANNELS, swidth)
 
                 if normal_button.isOver_2(pos):
+                    # 도전과제 3 도전시
+                    if ch_3 :
+                        item_off()
                     ui_variables.click_sound.play()
                     difficulty = False
                     difficulty_mode = True
@@ -1774,6 +1800,9 @@ while not done:
                     set_music_playing(CHANNELS, swidth)
 
                 if hard_button.isOver_2(pos):
+                    # 도전과제 3 도전시
+                    if ch_3 :
+                        item_off()
                     ui_variables.click_sound.play()
                     difficulty = False
                     difficulty_mode = True
@@ -1882,7 +1911,8 @@ while not done:
         draw_image(screen, item_tnt_info, board_width*0.5, board_height*0.3, int(board_width*0.315),int(board_height*0.1267))
         draw_image(screen, item_light_info, board_width*0.5, board_height*0.45, int(board_width*0.315),int(board_height*0.1267))
         draw_image(screen, item_earth_info, board_width*0.5, board_height*0.6, int(board_width*0.315),int(board_height*0.1267))
-        
+        text_gold = ui_variables.h2.render(str(gold), 1, ui_variables.real_white)
+        screen.blit(text_gold, (int(board_width*0.770), int(board_height * 0.1)))
 
         for event in pygame.event.get():
             pos = pygame.mouse.get_pos()
@@ -1936,7 +1966,7 @@ while not done:
                 if earth_buy_button.isOver_2(pos):
                     ui_variables.click_sound.play()
                     gold -= 100
-                    num_tnt += 1
+                    num_earthquake += 1
             elif event.type == VIDEORESIZE:
                 board_width = event.w
                 board_height = event.h
@@ -2161,6 +2191,10 @@ while not done:
                         screen.blit(ui_variables.combo_4ring,
                          (int(board_width*0.3125), int(board_height*0.3556))) #blit(이미지, 위치)
                     
+                    # 도전과제 2 달성시 골드 777 추가
+                    if combo_count == 7 :
+                        if ch_2 :
+                            gold += 777
 
                     for i in range(1, 11):
                         if combo_count == i:  # 1 ~ 10 콤보 이미지
@@ -2560,13 +2594,32 @@ while not done:
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 if ok_button.isOver(pos):
                     ui_variables.click_sound.play()
+                    
+                    # 도전과제 1 활성화시
+                    if ch_1 :
+                        # 3만점 달성시
+                        if score >= 30000 :
+                            # 모든 아이템 1개 증가
+                            num_light += 1
+                            num_earthquake += 1
+                            num_tnt += 1
+
+                    # 도전과제 3 활성화시
+                    if ch_3 :
+                        # 5만점 달성시
+                        if score >= 50000 :
+                            # 1000골드 증가
+                            gold += 1000
+
+                    #gold 획득
+                    s_gold = int(score*0.01) # score*0.01 만큼 판골드 획득
+                    gold += s_gold # 기존 골드에 판골드 더하기
+
                     #현재 1p점수만 저장함
                     outfile = open('leaderboard.txt', 'a')
                     outfile.write(chr(name[0]) + chr(name[1]) + chr(name[2]) + ' ' + str(score) + '\n')
                     outfile.close()
                     game_over = False
-                    s_gold = int(score*0.1) # score*0.1 만큼 판골드 획득
-                    gold = gold + s_gold # 기존 골드에 판골드 더하기
                     pygame.time.set_timer(pygame.USEREVENT, 1)
 
                 if menu_button.isOver(pos):
@@ -2597,6 +2650,7 @@ while not done:
                     combo_count = 0
                     hard_drop = False
                     goal = level *5
+                    s_gold = 0
                     bottom_count = 0
                     name_location = 0
                     name = [65, 65, 65]
