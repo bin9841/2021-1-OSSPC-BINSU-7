@@ -1996,6 +1996,7 @@ while not done:
                 else:
                     back_button.image = button_back
                 pygame.display.update()
+                
                 if off1_button.isOver_2(pos):
                     #if ch1:
                     #   off1_button.image = on_clicked
@@ -2008,6 +2009,7 @@ while not done:
                     # else:
                     #   off1_button.image = off
                     off1_button.image = off
+                
                 if off2_button.isOver_2(pos):
                     #if ch1:
                     #   off2_button.image = on_clicked
@@ -2020,6 +2022,7 @@ while not done:
                     # else:
                     #   off2_button.image = off
                     off2_button.image = off
+                
                 if off3_button.isOver_2(pos):
                     #if ch1:
                     #   off3_button.image = on_clicked
