@@ -259,7 +259,7 @@ size_b = 'assets/vector/screensize3.png'
 
 # vector : 이벤트 존재하는 아이콘
 vector_challenge = 'assets/vector/vector_challenge.png'
-vector_challenge_clicked = 'assets/vector/vector_clicked_challenge.png'
+vector_challenge_clicked = 'assets/vector/vector_challenge_clicked.png'
 
 vector_leader = 'assets/vector/vector_leaderboard.png'
 vector_leader_clicked = 'assets/vector/vector_leader_clicked.png'
@@ -290,6 +290,22 @@ challenge_info1 = 'assets/vector/challenge_info1.PNG'
 challenge_info2 = 'assets/vector/challenge_info2.PNG'
 challenge_info3 = 'assets/vector/challenge_info3.PNG'
 
+on = 'assets/vector/button_on.png'
+on_clicked = 'assets/vector/button_on_clicked.png'
+off = 'assets/vector/button_off.png'
+off_clicked = 'assets/vector/button_off_clicked.png'
+
+signup_board = 'assets/vector/signup.png'
+signin_board = 'assets/vector/signin.png'
+login_bg = 'assets/vector/Background_login.png'
+log_board = 'assets/vector/log_or_sign_board.png'
+
+button_log_back = 'assets/vector/button_l_back.png'
+button_log_back_clicked = 'assets/vector/button_l_back_clicked.png'
+button_sign_up = 'assets/vector/button_sign_up.png'
+button_sign_up_clicked = 'assets/vector/button_sign_up_clicked.png'
+button_sign_in = 'assets/vector/button_sign_in.png'
+button_sign_in_clicked = 'assets/vector/button_sign_in_clicked.png'
 
 class button(): #버튼객체
     def __init__(self, board_width, board_height, x_rate, y_rate, width_rate, height_rate, img=''): #버튼생성
@@ -332,6 +348,15 @@ class button(): #버튼객체
 #(현재 보드너비, 현재보드높이, 버튼의 x좌표 위치비율, 버튼의 y좌표 위치비율, 버튼의 너비 길이비율, 버튼의 높이 길이비율)
 #  - 전체화면 크기에 대한 비율
 # (800, 450, 800*x좌표, 450*y좌표, 너비 비율, 높이 비율)
+
+# login page 1) main
+sign_up_button1 = button(board_width, board_height, 0.415, 0.5, 12/80, 4/45, button_sign_up)
+sign_in_button1 = button(board_width, board_height, 0.585, 0.5, 12/80, 4/45, button_sign_in)
+log_quit = button(board_width, board_height, 0.5, 0.9, 0.16, 0.084, button_quit)
+# login page 2) sign up / sign in
+sign_up_button2 = button(board_width, board_height, 0.415, 0.7, 12/80, 4/45, button_sign_up)
+sign_in_button2 = button(board_width, board_height, 0.415, 0.7, 12/80, 4/45, button_sign_in)
+log_back = button(board_width, board_height, 0.585, 0.7, 12/80, 4/45, button_log_back)
 
 # main page 1) nothing
 game_button = button(board_width, board_height, 0.375, 0.8, 0.16, 0.084, button_game)
@@ -417,6 +442,12 @@ tnt_buy_button = button(board_width, board_height, 0.72, 0.3, 0.0925, 0.04, butt
 light_buy_button = button(board_width, board_height, 0.72, 0.45, 0.0925, 0.04, button_buy)
 earth_buy_button = button(board_width, board_height, 0.72, 0.6, 0.0925, 0.04, button_buy)
 
+# main page 11) challenge board
+off1_button = button(board_width, board_height, 0.8, 0.28, 105/800, 40/450, off)
+off2_button = button(board_width, board_height, 0.8, 0.44, 105/800, 40/450, off)
+off3_button = button(board_width, board_height, 0.8, 0.60, 105/800, 40/450, off)
+
+
 # game page 1) pause board
 resume_button = button(board_width, board_height, 0.5, 0.33, 0.16, 0.084, button_resume)
 restart_button = button(board_width, board_height, 0.5, 0.51, 0.16, 0.084, button_restart)
@@ -454,7 +485,9 @@ button_list = [
     smallsize_button, midiumsize_button, bigsize_button, light_buy_button,
     tnt_buy_button, earth_buy_button, resume_button,
     restart_button, setting_button, quit_game_button, menu_button, ok_button,
-    level_plus_button, level_minus_button
+    level_plus_button, level_minus_button, off1_button, off2_button, off3_button,
+    sign_up_button1, sign_up_button2, sign_in_button1, sign_in_button2,
+    log_back, log_quit
 ]
 
 def set_volume():
@@ -835,8 +868,6 @@ def set_initial_values():
     global combo_status, combo_count, score, level, goal, bottom_count, hard_drop, attack_point, dx, dy, rotation, mino, next_mino1, next_mino2, hold, hold_mino, framerate, matrix, blink, start, pause, done, game_over, leader_board, setting, volume_setting, screen_setting, help, gravity_mode, time_attack, time_attack_time, start_ticks, textsize, attack_mode, attack_mode_time, attack_board_y, CHANNELS, swidth, name_location, name, previous_time, current_time, pause_time, lines, leaders, volume, game_status, framerate_blockmove, game_speed, sandbox,sandbox_mode, difficulty, difficulty_mode, shop, challenge, single, game, gold, s_gold, item, item_mino, light_mino, earth_mino, tnt_mino, ch_1, ch_2, ch_3
 
 
-
-
     framerate = 30 # Bigger -> Slower  기본 블록 하강 속도, 2도 할만 함, 0 또는 음수 이상이어야 함
     framerate_blockmove = framerate * 3 # 블록 이동 시 속도
     game_speed = framerate * 20 # 게임 기본 속도
@@ -870,6 +901,10 @@ def set_initial_values():
     ch_1 = False
     ch_2 = False
     ch_3 = False
+    login = False
+    signin = False
+    signup = False
+
 
     attack_mode = False # 어택모드
     attack_mode_time = False # 어택모드 30초마다 시간 초기화하도록
@@ -1537,6 +1572,7 @@ while not done:
                     start = True
                     previous_time = pygame.time.get_ticks()
                     initalize = True
+                    game_status == 'start'
                     set_music_playing(CHANNELS, swidth)
                     ui_variables.intro_sound.stop()
                 if timeattack_button.isOver_2(pos):
@@ -1547,6 +1583,7 @@ while not done:
                     start = True
                     previous_time = pygame.time.get_ticks()
                     initalize = True
+                    game_status == 'time_attack'
                     set_music_playing(CHANNELS, swidth)
                     ui_variables.intro_sound.stop()
                 if difficulty_button.isOver_2(pos):
@@ -1990,10 +2027,15 @@ while not done:
     elif challenge: # challenge little complete
         draw_image(screen, background_image, board_width * 0.5, board_height * 0.5, board_width, board_height) #(window, 이미지주소, x좌표, y좌표, 너비, 높이)
         draw_image(screen, board_challenge, board_width * 0.5, board_height * 0.4, int(board_width * 0.8), int(board_height * 0.8)) #(window, 이미지주소, x좌표, y좌표, 너비, 높이)
-        draw_image(screen, challenge_info1, board_width*0.5, board_height*0.28, int(board_width *45/80), int(board_height * 75/450))
-        draw_image(screen, challenge_info2, board_width*0.5, board_height*0.44, int(board_width * 45/80), int(board_height * 75/450))
-        draw_image(screen, challenge_info3, board_width*0.5, board_height*0.6, int(board_width * 45/80), int(board_height * 75/450))
+
+        draw_image(screen, challenge_info1, board_width*0.4, board_height*0.28, int(board_width *45/80), int(board_height * 75/450))
+        draw_image(screen, challenge_info2, board_width*0.4, board_height*0.44, int(board_width * 45/80), int(board_height * 75/450))
+        draw_image(screen, challenge_info3, board_width*0.4, board_height*0.6, int(board_width * 45/80), int(board_height * 75/450))
+
         back_button.draw(screen,(0, 0, 0))
+        off1_button.draw(screen,(0,0,0))
+        off2_button.draw(screen,(0,0,0))
+        off3_button.draw(screen,(0,0,0))
 
         for event in pygame.event.get():
             pos = pygame.mouse.get_pos()
@@ -2008,13 +2050,70 @@ while not done:
                 if back_button.isOver_2(pos):
                     back_button.image = button_back_clicked
                 else:
-                    back_button.image = button_back
-                pygame.display.update()
+                    back_button.image = button_back                
+                if off1_button.isOver_2(pos):
+                    #if ch1:
+                    #   off1_button.image = on_clicked
+                    #else:
+                    #   off1_button.image = off_clicked
+                    off1_button.image = off_clicked
+                else:
+                    # if ch1:
+                    #   off1_button.image = on
+                    # else:
+                    #   off1_button.image = off
+                    off1_button.image = off
+                
+                if off2_button.isOver_2(pos):
+                    #if ch1:
+                    #   off2_button.image = on_clicked
+                    #else:
+                    #   off2_button.image = off_clicked
+                    off2_button.image = off_clicked
+                else:
+                    # if ch1:
+                    #   off2_button.image = on
+                    # else:
+                    #   off2_button.image = off
+                    off2_button.image = off
+                
+                if off3_button.isOver_2(pos):
+                    #if ch1:
+                    #   off3_button.image = on_clicked
+                    #else:
+                    #   off3_button.image = off_clicked
+                    off3_button.image = off_clicked
+                else:
+                    # if ch1:
+                    #   off3_button.image = on
+                    # else:
+                    #   off3_button.image = off
+                    off3_button.image = off
 
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 if back_button.isOver_2(pos):
                     ui_variables.click_sound.play()
                     challenge = False
+            elif event.type == VIDEORESIZE:
+                board_width = event.w
+                board_height = event.h
+                if board_width < min_width or board_height < min_height: #최소 너비 또는 높이를 설정하려는 경우
+                    board_width = min_width
+                    board_height = min_height
+                if not ((board_rate-0.1) < (board_height/board_width) < (board_rate+0.05)): #높이 또는 너비가 비율의 일정수준 이상을 넘어서게 되면
+                    board_width = int(board_height / board_rate) #너비를 적정 비율로 바꿔줌
+                    board_height = int(board_width*board_rate) #높이를 적정 비율로 바꿔줌
+                if board_width>= mid_width: #화면 사이즈가 큰 경우
+                    textsize=True #큰 글자크기 사용
+                if board_width < mid_width: #화면 사이즈가 작은 경우
+                    textsize=False #작은 글자크기 사용
+
+                block_size = int(board_height * 0.045) #블록 크기비율 고정
+                screen = pygame.display.set_mode((board_width, board_height), pygame.RESIZABLE)
+
+                for i in range(len(button_list)):
+                        button_list[i].change(board_width, board_height)
+
 
     elif start:
         if sandbox_mode:
@@ -2155,7 +2254,7 @@ while not done:
                         score += 500 * rainbow_count #임의로 rainbow는 한 줄당 500점으로 잡음
                         rainbow_count = 0 #다시 초기화
                         screen.blit(ui_variables.rainbow_vector,
-                         (board_width * 0.3, board_height * 0.25)) #blit(이미지, 위치)
+                         (board_width * 0.3175, board_height * 0.25)) #blit(이미지, 위치)
                         pygame.display.update()
                         pygame.time.delay(400) #0.4초
 
@@ -2189,7 +2288,7 @@ while not done:
                         score += 1000 * level * erase_count + 4 * combo_count
                         
                         screen.blit(ui_variables.combo_4ring,
-                         (int(board_width*0.3125), int(board_height*0.3556))) #blit(이미지, 위치)
+                         (int(board_width*0.24), int(board_height*0.2))) #blit(이미지, 위치)
                     
                     # 도전과제 2 달성시 골드 777 추가
                     if combo_count == 7 :
@@ -2452,8 +2551,6 @@ while not done:
                     else:
                         level_minus_button.image = vector_minus
 
-                    pygame.display.update()
-
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 if sandbox_mode:
                     if level_plus_button.isOver(pos):
@@ -2471,7 +2568,6 @@ while not done:
                             goal += level * 5
                             #Change_RATE = level + 1
                             set_music_playing(CHANNELS, swidth)
-                    pygame.display.update()
 
         if time_attack and total_time - elapsed_time < 0: #타임어택 모드이면서, 60초가 지났으면
             ui_variables.GameOver_sound.play()
@@ -2491,6 +2587,116 @@ while not done:
 
         pygame.display.update()
 
+    elif login:
+        draw_image(screen, login_bg, board_width*0.5, board_height*0.5,
+        board_width, board_height)
+        draw_image(screen, log_board, board_width*0.5, board_height*0.5,
+        int(board_width*3/8), int(board_height*2/9))
+        sign_up_button1.draw(screen,(0,0,0))
+        sign_in_button1.draw(screen,(0,0,0))
+        log_quit.draw(screen,(0,0,0))
+        for event in pygame.event.get():
+            pos = pygame.mouse.get_pos()
+            if event.type == QUIT:
+                done = True
+            elif event.type == USEREVENT:
+                pygame.time.set_timer(pygame.USEREVENT, 300)
+                pygame.display.update()
+            elif event.type == pygame.MOUSEMOTION:
+                if sign_up_button1.isOver_2(pos):
+                    sign_up_button1.image = button_sign_up_clicked
+                else:
+                    sign_up_button1.image = button_sign_up
+                if sign_in_button1.isOver_2(pos):
+                    sign_in_button1.image = button_sign_in_clicked
+                else:
+                    sign_in_button1.image = button_sign_in
+                if log_quit.isOver_2(pos):
+                    log_quit.image = button_quit_clicked
+                else:
+                    log_quit.image = button_quit
+
+            elif event.type == pygame.MOUSEBUTTONDOWN:
+                if sign_up_button1.isOver_2(pos):
+                    ui_variables.click_sound.play()
+                    signup = True
+                    login = False
+                if sign_in_button1.isOver_2(pos):
+                    ui_variables.click_sound.play()
+                    signin = True
+                    login = False
+                if log_quit.isOver_2(pos):
+                    ui_variables.click_sound.play()
+                    done = True
+
+
+    elif signup:
+        draw_image(screen, login_bg, board_width*0.5, board_height*0.5,
+        board_width, board_height)
+        draw_image(screen, signup_board, board_width*0.5, board_height*0.55,
+        int(board_width*3/8),int(board_height*24/45))
+        sign_up_button2.draw(screen,(0,0,0))
+        log_back.draw(screen,(0,0,0))
+        for event in pygame.event.get():
+            pos = pygame.mouse.get_pos()
+            if event.type == QUIT:
+                done = True
+            elif event.type == USEREVENT:
+                pygame.time.set_timer(pygame.USEREVENT, 300)
+                pygame.display.update()
+            elif event.type == pygame.MOUSEMOTION:
+                if sign_up_button2.isOver_2(pos):
+                    sign_up_button2.image = button_sign_up_clicked
+                else:
+                    sign_up_button2.image = button_sign_up
+                if log_back.isOver_2(pos):
+                    log_back.image = button_log_back_clicked
+                else:
+                    log_back.image = button_log_back
+
+            elif event.type == pygame.MOUSEBUTTONDOWN:
+                if sign_up_button2.isOver_2(pos):
+                    ui_variables.click_sound.play()
+                    signup = False
+                    login = True
+                if log_back.isOver_2(pos):
+                    ui_variables.click_sound.play()
+                    signup = False
+                    login = True
+
+    elif signin:
+        draw_image(screen, login_bg, board_width*0.5, board_height*0.5,
+        board_width, board_height)
+        draw_image(screen, signin_board, board_width*0.5, board_height*0.55,
+        int(board_width*3/8),int(board_height*24/45))
+        sign_in_button2.draw(screen,(0,0,0))
+        log_back.draw(screen,(0,0,0))
+        for event in pygame.event.get():
+            pos = pygame.mouse.get_pos()
+            if event.type == QUIT:
+                done = True
+            elif event.type == USEREVENT:
+                pygame.time.set_timer(pygame.USEREVENT, 300)
+                pygame.display.update()
+            elif event.type == pygame.MOUSEMOTION:
+                if sign_in_button2.isOver_2(pos):
+                    sign_in_button2.image = button_sign_in_clicked
+                else:
+                    sign_in_button2.image = button_sign_in
+                if log_back.isOver_2(pos):
+                    log_back.image = button_log_back_clicked
+                else:
+                    log_back.image = button_log_back
+
+            elif event.type == pygame.MOUSEBUTTONDOWN:
+                if sign_in_button2.isOver_2(pos):
+                    ui_variables.click_sound.play()
+                    signin= False
+                    login = True
+                if log_back.isOver_2(pos):
+                    ui_variables.click_sound.play()
+                    signin = False
+                    login = True
 
     # Game over screen
     elif game_over:
@@ -2590,7 +2796,6 @@ while not done:
                 else:
                     ok_button.image = button_ok
 
-                pygame.display.update()
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 if ok_button.isOver(pos):
                     ui_variables.click_sound.play()
@@ -2655,6 +2860,7 @@ while not done:
                     name_location = 0
                     name = [65, 65, 65]
                     matrix = [[0 for y in range(height + 1)] for x in range(width)]
+
 
                     game_over = False
                     pause = False
@@ -2774,6 +2980,11 @@ while not done:
 
                 for i in range(len(button_list)):
                         button_list[i].change(board_width, board_height)
+
+            # login page 예시
+            elif event.type == KEYDOWN:
+                if event.key == K_F1:
+                    login = True
 
         draw_image(screen, background_image, board_width * 0.5, board_height * 0.5,
          board_width, board_height)
