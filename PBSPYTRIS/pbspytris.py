@@ -865,7 +865,7 @@ def set_music_playing(CHANNELS, swidth):
     pygame.mixer.music.play(-1) #위 노래를 반복재생하기 위해 play(-1)로 설정
 
 def set_initial_values():
-    global combo_status, combo_count, score, level, goal, bottom_count, hard_drop, attack_point, dx, dy, rotation, mino, next_mino1, next_mino2, hold, hold_mino, framerate, matrix, blink, start, pause, done, game_over, leader_board, setting, volume_setting, screen_setting, help, gravity_mode, time_attack, time_attack_time, start_ticks, textsize, attack_mode, attack_mode_time, attack_board_y, CHANNELS, swidth, name_location, name, previous_time, current_time, pause_time, lines, leaders, volume, game_status, framerate_blockmove, game_speed, sandbox,sandbox_mode, difficulty, difficulty_mode, shop, challenge, single, game, gold, s_gold, item, item_mino, light_mino, earth_mino, tnt_mino, ch_1, ch_2, ch_3
+    global login, signin, signup, combo_status, combo_count, score, level, goal, bottom_count, hard_drop, attack_point, dx, dy, rotation, mino, next_mino1, next_mino2, hold, hold_mino, framerate, matrix, blink, start, pause, done, game_over, leader_board, setting, volume_setting, screen_setting, help, gravity_mode, time_attack, time_attack_time, start_ticks, textsize, attack_mode, attack_mode_time, attack_board_y, CHANNELS, swidth, name_location, name, previous_time, current_time, pause_time, lines, leaders, volume, game_status, framerate_blockmove, game_speed, sandbox,sandbox_mode, difficulty, difficulty_mode, shop, challenge, single, game, gold, s_gold, item, item_mino, light_mino, earth_mino, tnt_mino, ch_1, ch_2, ch_3
 
 
     framerate = 30 # Bigger -> Slower  기본 블록 하강 속도, 2도 할만 함, 0 또는 음수 이상이어야 함
@@ -2052,48 +2052,77 @@ while not done:
                 else:
                     back_button.image = button_back                
                 if off1_button.isOver_2(pos):
-                    #if ch1:
-                    #   off1_button.image = on_clicked
-                    #else:
-                    #   off1_button.image = off_clicked
-                    off1_button.image = off_clicked
+                    if ch_1:
+                       off1_button.image = on_clicked
+                    else:
+                       off1_button.image = off_clicked
+                    
                 else:
-                    # if ch1:
-                    #   off1_button.image = on
-                    # else:
-                    #   off1_button.image = off
-                    off1_button.image = off
+                    if ch_1:
+                        off1_button.image = on
+                    else:
+                        off1_button.image = off
+                    
                 
                 if off2_button.isOver_2(pos):
-                    #if ch1:
-                    #   off2_button.image = on_clicked
-                    #else:
-                    #   off2_button.image = off_clicked
-                    off2_button.image = off_clicked
+                    if ch_2:
+                       off2_button.image = on_clicked
+                    else:
+                       off2_button.image = off_clicked
+                    
                 else:
-                    # if ch1:
-                    #   off2_button.image = on
-                    # else:
-                    #   off2_button.image = off
-                    off2_button.image = off
+                     if ch_2:
+                       off2_button.image = on
+                     else:
+                       off2_button.image = off
+                    
                 
                 if off3_button.isOver_2(pos):
-                    #if ch1:
-                    #   off3_button.image = on_clicked
-                    #else:
-                    #   off3_button.image = off_clicked
-                    off3_button.image = off_clicked
+                    if ch_3:
+                       off3_button.image = on_clicked
+                    else:
+                       off3_button.image = off_clicked
+                    
                 else:
-                    # if ch1:
-                    #   off3_button.image = on
-                    # else:
-                    #   off3_button.image = off
-                    off3_button.image = off
+                     if ch_3:
+                       off3_button.image = on
+                     else:
+                       off3_button.image = off
+                    
 
             elif event.type == pygame.MOUSEBUTTONDOWN:
+
                 if back_button.isOver_2(pos):
                     ui_variables.click_sound.play()
                     challenge = False
+
+                if off1_button.isOver_2(pos):
+                    ui_variables.click_sound.play()
+                    if ch_1 == False :
+                        ch_1 = True
+                        gold -= 200
+                    else :
+                        ch_1 = False
+                        gold += 200
+
+                if off2_button.isOver_2(pos):
+                    ui_variables.click_sound.play()
+                    if ch_2 == False :
+                        ch_2 = True
+                        gold -= 200
+                    else :
+                        ch_2 = False
+                        gold += 200
+
+                if off3_button.isOver_2(pos):
+                    ui_variables.click_sound.play()
+                    if ch_3 == False :
+                        ch_3 = True
+                        gold -= 200
+                    else :
+                        ch_3 = False
+                        gold += 200
+
             elif event.type == VIDEORESIZE:
                 board_width = event.w
                 board_height = event.h
@@ -2640,9 +2669,9 @@ while not done:
         for event in pygame.event.get():
             pos = pygame.mouse.get_pos()
             if event.type == QUIT:
-                done = True
+                done = True   
             elif event.type == USEREVENT:
-                pygame.time.set_timer(pygame.USEREVENT, 300)
+                pygame.time.set_timer(pygame.USEREVENT, 300)  
                 pygame.display.update()
             elif event.type == pygame.MOUSEMOTION:
                 if sign_up_button2.isOver_2(pos):
