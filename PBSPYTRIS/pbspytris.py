@@ -2320,27 +2320,33 @@ while not done:
                     if ch_1 == False :
                         ch_1 = True
                         gold -= 200
+                        update_gold_data(gold,user_id)
                     else :
                         ch_1 = False
                         gold += 200
+                        update_gold_data(gold,user_id)
 
                 if off2_button.isOver_2(pos):
                     ui_variables.click_sound.play()
                     if ch_2 == False :
                         ch_2 = True
                         gold -= 200
+                        update_gold_data(gold,user_id)
                     else :
                         ch_2 = False
                         gold += 200
+                        update_gold_data(gold,user_id)
 
                 if off3_button.isOver_2(pos):
                     ui_variables.click_sound.play()
                     if ch_3 == False :
                         ch_3 = True
                         gold -= 200
+                        update_gold_data(gold,user_id)
                     else :
                         ch_3 = False
                         gold += 200
+                        update_gold_data(gold,user_id)
 
             elif event.type == VIDEORESIZE:
                 board_width = event.w
@@ -2542,6 +2548,7 @@ while not done:
                     if combo_count == 7 :
                         if ch_2 :
                             gold += 777
+                            update_gold_data(gold,user_id)
 
                     for i in range(1, 11):
                         if combo_count == i:  # 1 ~ 10 콤보 이미지
@@ -3104,7 +3111,7 @@ while not done:
                     if difficulty_mode:  # 난이도모드였을 때
                         # 점수에 따라서 골드 획득량 달라지게
                         if game_status == 'easy':  # easy모드일때
-                            s_gold = int(score * 0.1)  # score*0.1 만큼 판골드 획득
+                            s_gold = int(score * 0.2)  # score*0.1 만큼 판골드 획득
                             gold += s_gold  # 기존 골드에 판골드 더하기
                             update_gold_data(gold, id_text)
                         elif game_status == 'normal':  # normal모드일때
@@ -3112,7 +3119,7 @@ while not done:
                             gold += s_gold  # 기존 골드에 판골드 더하기
                             update_gold_data(gold, id_text)
                         elif game_status == 'hard':  # hard모드일때
-                            s_gold = int(score * 0.5)  # score*0.5 만큼 판골드 획득
+                            s_gold = int(score * 0.4)  # score*0.5 만큼 판골드 획득
                             gold += s_gold  # 기존 골드에 판골드 더하기
                             update_gold_data(gold, id_text)
  
