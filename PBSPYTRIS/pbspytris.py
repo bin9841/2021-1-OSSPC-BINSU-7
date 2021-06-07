@@ -99,12 +99,12 @@ class InputBox:
 
 # input box 설정
 #signup할때 box
-input_box1 = InputBox(int(board_width*430.5/800), int(board_height*212.5/450), 140, 32)
-input_box2 = InputBox(int(board_width*430.5/800), int(board_height*259.5/450), 140, 32)
+input_box1 = InputBox(int(board_width*322/800), int(board_height*195.5/450), 156, 32)
+input_box2 = InputBox(int(board_width*322/800), int(board_height*242.5/450), 156, 32)
 input_boxes_signup = [input_box1, input_box2]
 #signin할때 box
-input_box3 = InputBox(int(board_width*430.5/800), int(board_height*212.5/450), 140, 32)
-input_box4 = InputBox(int(board_width*430.5/800), int(board_height*259.5/450), 140, 32)
+input_box3 = InputBox(int(board_width*322/800), int(board_height*195.5/450), 156, 32)
+input_box4 = InputBox(int(board_width*322/800), int(board_height*242.5/450), 156, 32)
 input_boxes_signin = [input_box3, input_box4]
 
 class ui_variables:
@@ -1079,7 +1079,7 @@ def load_rank_data(self, game_status):                                          
     return data
 
 def set_initial_values():
-    global login, signin, signup, combo_status, combo_count, score, level, goal, bottom_count, hard_drop, attack_point, dx, dy, rotation, mino, next_mino1, next_mino2, hold, hold_mino, framerate, matrix, blink, start, pause, done, game_over, leader_board, setting, volume_setting, screen_setting, help, gravity_mode, time_attack, time_attack_time, start_ticks, textsize, attack_mode, attack_mode_time, attack_board_y, CHANNELS, swidth, name_location, name, previous_time, current_time, pause_time, lines, leaders, volume, game_status, framerate_blockmove, game_speed, sandbox,sandbox_mode, difficulty, difficulty_mode, shop, challenge, single, game, gold, s_gold, item, item_mino, light_mino, earth_mino, tnt_mino, ch_1, ch_2, ch_3, num_light, num_earthquake, num_tnt
+    global main, signin, signup, combo_status, combo_count, score, level, goal, bottom_count, hard_drop, attack_point, dx, dy, rotation, mino, next_mino1, next_mino2, hold, hold_mino, framerate, matrix, blink, start, pause, done, game_over, leader_board, setting, volume_setting, screen_setting, help, gravity_mode, time_attack, time_attack_time, start_ticks, textsize, attack_mode, attack_mode_time, attack_board_y, CHANNELS, swidth, name_location, name, previous_time, current_time, pause_time, lines, leaders, volume, game_status, framerate_blockmove, game_speed, sandbox,sandbox_mode, difficulty, difficulty_mode, shop, challenge, single, game, gold, s_gold, item, item_mino, light_mino, earth_mino, tnt_mino, ch_1, ch_2, ch_3, num_light, num_earthquake, num_tnt
 
 
     framerate = 30 # Bigger -> Slower  기본 블록 하강 속도, 2도 할만 함, 0 또는 음수 이상이어야 함
@@ -1115,9 +1115,9 @@ def set_initial_values():
     ch_1 = False
     ch_2 = False
     ch_3 = False
-    login = False
     signin = False
     signup = False
+    main = False
 
     attack_mode = False # 어택모드
     attack_mode_time = False # 어택모드 30초마다 시간 초기화하도록
@@ -2811,50 +2811,6 @@ while not done:
 
         pygame.display.update()
 
-    elif login:
-        draw_image(screen, login_bg, board_width*0.5, board_height*0.5,
-        board_width, board_height)
-        draw_image(screen, log_board, board_width*0.5, board_height*0.5,
-        int(board_width*3/8), int(board_height*2/9))
-        sign_up_button1.draw(screen,(0,0,0))
-        sign_in_button1.draw(screen,(0,0,0))
-        log_quit.draw(screen,(0,0,0))
-
-        for event in pygame.event.get():
-            pos = pygame.mouse.get_pos()
-            if event.type == QUIT:
-                done = True
-            elif event.type == USEREVENT:
-                pygame.time.set_timer(pygame.USEREVENT, 300)
-                pygame.display.update()
-            elif event.type == pygame.MOUSEMOTION:
-                if sign_up_button1.isOver_2(pos):
-                    sign_up_button1.image = button_sign_up_clicked
-                else:
-                    sign_up_button1.image = button_sign_up
-                if sign_in_button1.isOver_2(pos):
-                    sign_in_button1.image = button_sign_in_clicked
-                else:
-                    sign_in_button1.image = button_sign_in
-                if log_quit.isOver_2(pos):
-                    log_quit.image = button_quit_clicked
-                else:
-                    log_quit.image = button_quit
-
-            elif event.type == pygame.MOUSEBUTTONDOWN:
-                if sign_up_button1.isOver_2(pos):
-                    ui_variables.click_sound.play()
-                    signup = True
-                    login = False
-                if sign_in_button1.isOver_2(pos):
-                    ui_variables.click_sound.play()
-                    signin = True
-                    login = False
-                if log_quit.isOver_2(pos):
-                    ui_variables.click_sound.play()
-                    done = True
-
-
     elif signup:
         draw_image(screen, login_bg, board_width*0.5, board_height*0.5,
         board_width, board_height)
@@ -2893,13 +2849,9 @@ while not done:
                     add_id(id_text)
                     add_pw(id_text, pw_text)
                     signup = False
-                    login = True
                 if log_back.isOver_2(pos):
                     ui_variables.click_sound.play()
                     signup = False
-                    login = True
-
-
 
 
     elif signin:
@@ -2940,8 +2892,7 @@ while not done:
                     pw_text = input_box4.text
                     if check_info(id_text, pw_text):
                         signin= False
-                        game = True #첫화면 어떻게 해야될지 모르겠어서 일단 game 으로 뒀습니다
-
+                        main = True
                         num_earthquake = load_earthquake_data(id_text)
                         num_light = load_light_data(id_text)
                         num_tnt = load_tnt_data(id_text)
@@ -2952,7 +2903,6 @@ while not done:
                     ui_variables.click_sound.play()
                     signin = False
                     login = True
-
 
     # Game over screen
     elif game_over:
@@ -3174,11 +3124,12 @@ while not done:
                         button_list[i].change(board_width, board_height)
 
     # Start screen
-    else:
+    elif main:
         # 변수 선언 및 초기화
         if initalize:
             set_initial_values()
         initalize = False
+        main = True
 
         for event in pygame.event.get():
             pos = pygame.mouse.get_pos()
@@ -3285,5 +3236,48 @@ while not done:
 
         if not game:
             pygame.display.update()
+
+    else:
+        draw_image(screen, login_bg, board_width*0.5, board_height*0.5,
+        board_width, board_height)
+        draw_image(screen, log_board, board_width*0.5, board_height*0.5,
+        int(board_width*3/8), int(board_height*2/9))
+        sign_up_button1.draw(screen,(0,0,0))
+        sign_in_button1.draw(screen,(0,0,0))
+        log_quit.draw(screen,(0,0,0))
+
+        for event in pygame.event.get():
+            pos = pygame.mouse.get_pos()
+            if event.type == QUIT:
+                done = True
+            elif event.type == USEREVENT:
+                pygame.time.set_timer(pygame.USEREVENT, 300)
+                pygame.display.update()
+            elif event.type == pygame.MOUSEMOTION:
+                if sign_up_button1.isOver_2(pos):
+                    sign_up_button1.image = button_sign_up_clicked
+                else:
+                    sign_up_button1.image = button_sign_up
+                if sign_in_button1.isOver_2(pos):
+                    sign_in_button1.image = button_sign_in_clicked
+                else:
+                    sign_in_button1.image = button_sign_in
+                if log_quit.isOver_2(pos):
+                    log_quit.image = button_quit_clicked
+                else:
+                    log_quit.image = button_quit
+
+            elif event.type == pygame.MOUSEBUTTONDOWN:
+                if sign_up_button1.isOver_2(pos):
+                    ui_variables.click_sound.play()
+                    signup = True
+                if sign_in_button1.isOver_2(pos):
+                    ui_variables.click_sound.play()
+                    signin = True
+                if log_quit.isOver_2(pos):
+                    ui_variables.click_sound.play()
+                    done = True
+
+
 
 pygame.quit()
