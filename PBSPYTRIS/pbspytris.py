@@ -1,6 +1,8 @@
 # -*-coding:utf-8-*-
 # PYTRIS Copyright (c) 2017 Jason Kim All Rights Reserved.
 
+import pymysql
+import bcrypt
 import pygame
 import operator
 import wave
@@ -44,9 +46,66 @@ initalize = True
 
 pygame.init()
 
+# Inputbox 초기 설정
+COLOR_INACTIVE = pygame.Color('lightskyblue3')
+COLOR_ACTIVE = pygame.Color('dodgerblue2')
+FONT = pygame.font.Font(None, 32)
+
 clock = pygame.time.Clock() #창, 화면을 초당 몇번 출력하는가(FPS) clock.tick 높을수록 cpu많이 사용
 screen = pygame.display.set_mode((board_width, board_height), pygame.RESIZABLE) #GUI창 설정하는 변수
 pygame.display.set_caption("PBSPYTRIS") #GUI 창의 이름
+
+class InputBox:
+
+    def __init__(self, x, y, w, h, text=''):
+        self.rect = pygame.Rect(x, y, w, h)
+        self.color = COLOR_INACTIVE
+        self.text = text
+        self.txt_surface = FONT.render(text, True, self.color)
+        self.active = False
+
+    def handle_event(self, event):
+        if event.type == pygame.MOUSEBUTTONDOWN:
+            # If the user clicked on the input_box rect.
+            if self.rect.collidepoint(event.pos):
+                # Toggle the active variable.
+                self.active = not self.active
+            else:
+                self.active = False
+            # Change the current color of the input box.
+            self.color = COLOR_ACTIVE if self.active else COLOR_INACTIVE
+        if event.type == pygame.KEYDOWN:
+            if self.active:
+                if event.key == pygame.K_RETURN:
+                    print(self.text)
+                    self.text = ''
+                elif event.key == pygame.K_BACKSPACE:
+                    self.text = self.text[:-1]
+                else:
+                    self.text += event.unicode
+                # Re-render the text.
+                self.txt_surface = FONT.render(self.text, True, self.color)
+
+    def update(self):
+        # Resize the box if the text is too long.
+        width = max(200, self.txt_surface.get_width()+10)
+        self.rect.w = width
+
+    def draw(self, screen):
+        # Blit the text.
+        screen.blit(self.txt_surface, (self.rect.x+5, self.rect.y+5))
+        # Blit the rect.
+        pygame.draw.rect(screen, self.color, self.rect, 2)
+
+# input box 설정
+#signup할때 box
+input_box1 = InputBox(int(board_width*430.5/800), int(board_height*212.5/450), 140, 32)
+input_box2 = InputBox(int(board_width*430.5/800), int(board_height*259.5/450), 140, 32)
+input_boxes_signup = [input_box1, input_box2]
+#signin할때 box
+input_box3 = InputBox(int(board_width*430.5/800), int(board_height*212.5/450), 140, 32)
+input_box4 = InputBox(int(board_width*430.5/800), int(board_height*259.5/450), 140, 32)
+input_boxes_signin = [input_box3, input_box4]
 
 class ui_variables:
     font_path = "./assets/fonts/OpenSans-Light.ttf"
@@ -485,7 +544,7 @@ button_list = [
     leader_vector, setting_vector, single_button, timeattack_button, sandbox_button,
     difficulty_button, back_button, attack_button, gravity_button,
     back_right_button, start_left_button, level_minus_vector, level_plus_vector,
-    easy_button, normal_button, hard_button, volume_vector, screen_vector, 
+    easy_button, normal_button, hard_button, volume_vector, screen_vector,
     allmute_button, music_plus_vector, music_minus_vector, music_on_button,
     effect_plus_vector, effect_minus_vector, effect_on_button,
     smallsize_button, midiumsize_button, bigsize_button, light_buy_button,
@@ -870,8 +929,157 @@ def set_music_playing(CHANNELS, swidth):
     pygame.mixer.music.load('assets/sounds/SFX_BattleMusic_Changed.wav')
     pygame.mixer.music.play(-1) #위 노래를 반복재생하기 위해 play(-1)로 설정
 
+
+database = pymysql.connect(
+    user='admin',
+    password='qwqw7113',
+    host='database-1.caujngehv3l9.ap-northeast-2.rds.amazonaws.com',
+    db='users',
+    charset='utf8'
+)
+
+def add_id(id_text):
+    curs = database.cursor()
+    sql = "INSERT INTO users (user_id) VALUES (%s)"
+    curs.execute(sql, id_text)
+    database.commit()  #서버로 추가 사항 보내기
+    curs.close()
+
+def add_pw(id_text, pw_text):
+    #회원가입시 초기 아이템 수는 0으로 설정
+    #추가하기
+    initial_earthquake = 0
+    initial_light  = 0
+    initial_tnt = 0
+    initial_gold = 0
+    hashed_pw = bcrypt.hashpw(pw_text.encode('utf-8'), bcrypt.gensalt())#비밀번호를 encoding해서 type를 byte로 바꿔서 hashpw함수에 넣기
+    decode_hash_pw = hashed_pw.decode('utf-8') #비밀번호 확인할 때는 str값으로 받아 매칭해서 비번을 데베에 저장할 때 decoding 해야함
+    curs = database.cursor()
+    sql = "UPDATE users SET user_pw= %s WHERE user_id=%s"
+    curs.execute(sql,(decode_hash_pw,id_text))
+    database.commit()
+    print(hashed_pw)
+    print(decode_hash_pw)
+    curs = database.cursor()
+    sql = "UPDATE users SET user_earthquake= %s, user_light= %s, user_tnt= %s, user_gold= %s WHERE user_id=%s"
+    curs.execute(sql, (initial_earthquake,initial_light, initial_tnt, initial_gold, id_text))
+    database.commit()
+    curs.close()
+
+# 입력받은 아이디가 데이터베이스에 있는지 확인, 아이디와 비밀번호가 일치하는지 확인
+def check_info(id_text, pw_text):
+    input_pw = pw_text.encode('utf-8')
+    curs = database.cursor(pymysql.cursors.DictCursor)
+    sql = "SELECT * FROM users WHERE user_id=%s"
+    curs.execute(sql ,id_text)
+    data = curs.fetchone()  # 리스트 안에 딕셔너리가 있는 형태
+    curs.close()
+    check_password=bcrypt.checkpw(input_pw,data['user_pw'].encode('utf-8'))
+    return check_password
+
+def id_info(id_text):
+    global user_id
+    user_id = id_text
+    return user_id
+
+def load_earthquake_data(user_id):
+    curs = database.cursor(pymysql.cursors.DictCursor)
+    sql = "SELECT * FROM users WHERE user_id=%s"
+    curs.execute(sql, user_id)
+    data = curs.fetchone()
+    curs.close()
+    return data['user_earthquake']
+
+def load_light_data(user_id):
+    curs = database.cursor(pymysql.cursors.DictCursor)
+    sql = "SELECT * FROM users WHERE user_id=%s"
+    curs.execute(sql, user_id)
+    data = curs.fetchone()
+    curs.close()
+    return data['user_light']
+
+def load_tnt_data(user_id):
+    curs = database.cursor(pymysql.cursors.DictCursor)
+    sql = "SELECT * FROM users WHERE user_id=%s"
+    curs.execute(sql, user_id)
+    data = curs.fetchone()
+    curs.close()
+    return data['user_tnt']
+
+def load_gold_data(user_id):
+    curs = database.cursor(pymysql.cursors.DictCursor)
+    sql = "SELECT * FROM users WHERE user_id=%s"
+    curs.execute(sql, user_id)
+    data = curs.fetchone()
+    curs.close()
+    return data['user_gold']
+
+# gameover쪽에 있음
+def update_gold_data(user_gold,user_id):
+    curs = database.cursor()
+    sql = "UPDATE users SET user_gold= %s WHERE user_id=%s"
+    curs.execute(sql, (user_gold, user_id))
+    database.commit()
+    curs.close()
+# 상점이랑 아이템 사용했을 때
+def update_earthquake_data(user_earthquake,user_id):
+    curs = database.cursor()
+    sql = "UPDATE users SET user_earthquake= %s WHERE user_id=%s"
+    curs.execute(sql, (user_earthquake, user_id))
+    database.commit()
+    curs.close()
+def update_light_data(user_light,user_id):
+    curs = database.cursor()
+    sql = "UPDATE users SET user_light= %s WHERE user_id=%s"
+    curs.execute(sql, (user_light, user_id))
+    database.commit()
+    curs.close()
+def update_tnt_data(user_tnt,user_id):
+    curs = database.cursor()
+    sql = "UPDATE users SET user_tnt= %s WHERE user_id=%s"
+    curs.execute(sql, (user_tnt, user_id))
+    database.commit()
+    curs.close()
+
+'''이거는 game status 확인하고 고치기'''
+def add_score(game_status,  ID, score): #랭크 점수 기록
+    #추가하기
+    curs = database.cursor()
+    if game_status == 'single':
+        sql = "INSERT INTO single_rank (user_id, score) VALUES (%s, %s)"
+    elif game_status == 'easy':
+        sql = "INSERT INTO easy_mode_rank (user_id, easy_mode_score) VALUES (%s, %s)"
+    elif game_status == 'normal':
+        sql = "INSERT INTO normal_mode_rank (user_id, normal_mode_score) VALUES (%s, %s)"
+    elif game_status == 'hard':
+        sql = "INSERT INTO hard_mode_rank (user_id, hard_mode_score) VALUES (%s, %s)"
+    elif game_status == 'time_attack':
+        sql = "INSERT INTO timeattack_rank (user_id, timeattack_score) VALUES (%s, %s)"
+    curs.execute(sql, (ID, score))
+    database.commit()  #서버로 추가 사항 보내기
+    curs.close()
+
+
+def load_rank_data(self, game_status):                                             #데이터 베이스에서 데이터 불러오기
+    pass #?? 왜 pass? 
+    curs = database.cursor(pymysql.cursors.DictCursor)
+    if game_status == 'single':
+        sql = "select * from single_rank order by score desc "
+    elif game_status == 'easy':
+        sql = "select * from easy_mode_rank order by score desc"
+    elif game_status == 'normal':
+        sql = "select * from normal_mode_rank order by score desc"
+    elif game_status == 'hard':
+        sql = "select * from hard_mode_rank order by score desc"
+    elif game_status == 'time_attack':
+        sql = "select * from timeattack_rank order by score desc"
+    curs.execute(sql)
+    data = curs.fetchall()
+    curs.close()
+    return data
+
 def set_initial_values():
-    global login, signin, signup, combo_status, combo_count, score, level, goal, bottom_count, hard_drop, attack_point, dx, dy, rotation, mino, next_mino1, next_mino2, hold, hold_mino, framerate, matrix, blink, start, pause, done, game_over, leader_board, setting, volume_setting, screen_setting, help, gravity_mode, time_attack, time_attack_time, start_ticks, attack_mode, attack_mode_time, attack_board_y, CHANNELS, swidth, name_location, name, previous_time, current_time, pause_time, lines, leaders, volume, game_status, framerate_blockmove, game_speed, sandbox,sandbox_mode, difficulty, difficulty_mode, shop, challenge, single, game, gold, s_gold, item, item_mino, light_mino, earth_mino, tnt_mino, ch_1, ch_2, ch_3
+    global login, signin, signup, combo_status, combo_count, score, level, goal, bottom_count, hard_drop, attack_point, dx, dy, rotation, mino, next_mino1, next_mino2, hold, hold_mino, framerate, matrix, blink, start, pause, done, game_over, leader_board, setting, volume_setting, screen_setting, help, gravity_mode, time_attack, time_attack_time, start_ticks, textsize, attack_mode, attack_mode_time, attack_board_y, CHANNELS, swidth, name_location, name, previous_time, current_time, pause_time, lines, leaders, volume, game_status, framerate_blockmove, game_speed, sandbox,sandbox_mode, difficulty, difficulty_mode, shop, challenge, single, game, gold, s_gold, item, item_mino, light_mino, earth_mino, tnt_mino, ch_1, ch_2, ch_3, num_light, num_earthquake, num_tnt
 
 
     framerate = 30 # Bigger -> Slower  기본 블록 하강 속도, 2도 할만 함, 0 또는 음수 이상이어야 함
@@ -903,13 +1111,13 @@ def set_initial_values():
     time_attack = False
     time_attack_time = False
     start_ticks = pygame.time.get_ticks()
+    textsize = False
     ch_1 = False
     ch_2 = False
     ch_3 = False
     login = False
     signin = False
     signup = False
-
 
     attack_mode = False # 어택모드
     attack_mode_time = False # 어택모드 30초마다 시간 초기화하도록
@@ -972,16 +1180,7 @@ def set_initial_values():
     ui_variables.break_sound.set_volume(effect_volume / 10) # 소리 설정 부분도 set_volume 함수에 넣으면 됨
     ui_variables.intro_sound.play()
     game_status = ''
-
-def set_initial_items():
-    global gold, num_light, num_earthquake, num_tnt
-
-    # 아이템 관련 변수
-    gold = 1000
-    num_light = 1
-    num_earthquake = 1
-    num_tnt = 1
-
+    
 # item 사용 금지
 def item_off():
     item = False
@@ -992,7 +1191,6 @@ def item_off():
 
 
 set_initial_values()
-set_initial_items()
 pygame.time.set_timer(pygame.USEREVENT, 10)
 
 ###########################################################
@@ -1401,15 +1599,25 @@ while not done:
                     ui_variables.click_sound.play()
                     setting = True
                 if restart_button.isOver_2(pos):
-                    if game_status == 'start':
+                    if game_status == 'single':
                         start = True
                         pygame.mixer.music.play(-1) #play(-1) = 노래 반복재생
-                    if game_status == 'gravity_mode':
-                        gravity_mode = True
-                        pygame.mixer.music.play(-1)
                     if game_status == 'time_attack':
                         time_attack = True
                         pygame.mixer.music.play(-1)
+                    if game_status == 'easy':
+                        attack_mode = True
+                        gravity_mode = False
+                        pygame.mixer.music.play(-1)
+                    if game_status == 'normal':
+                        attack_mode = False
+                        gravity_mode = True
+                        pygame.mixer.music.play(-1)
+                    if game_status == 'hard':
+                        attack_mode = True
+                        gravity_mode = True
+                        pygame.mixer.music.play(-1)
+
 
                     hold = False
                     dx, dy = 3, 0
@@ -1558,7 +1766,7 @@ while not done:
                     start = True
                     previous_time = pygame.time.get_ticks()
                     initalize = True
-                    game_status == 'start'
+                    game_status == 'single'
                     set_music_playing(CHANNELS, swidth)
                     ui_variables.intro_sound.stop()
                 if timeattack_button.isOver_2(pos):
@@ -1801,6 +2009,7 @@ while not done:
                     start = True
                     previous_time = pygame.time.get_ticks()
                     initalize = True
+                    game_status == 'easy'
                     set_music_playing(CHANNELS, swidth)
 
                 if normal_button.isOver_2(pos):
@@ -1814,6 +2023,7 @@ while not done:
                     start = True
                     previous_time = pygame.time.get_ticks()
                     initalize = True
+                    game_status == 'normal'
                     set_music_playing(CHANNELS, swidth)
 
                 if hard_button.isOver_2(pos):
@@ -1828,6 +2038,7 @@ while not done:
                     start = True
                     previous_time = pygame.time.get_ticks()
                     initalize = True
+                    game_status == 'hard'
                     set_music_playing(CHANNELS, swidth)
             elif event.type == VIDEORESIZE:
                 board_width = event.w
@@ -1973,16 +2184,23 @@ while not done:
                     ui_variables.click_sound.play()
                     gold -= 100
                     num_light += 1
+                    update_light_data(num_light,user_id)
+                    update_gold_data(gold,user_id)
 
                 if tnt_buy_button.isOver_2(pos):
                     ui_variables.click_sound.play()
-                    gold -= 100
+                    gold -= 200
                     num_tnt += 1
+                    update_tnt_data(num_tnt,user_id)
+                    update_gold_data(gold,user_id)
 
                 if earth_buy_button.isOver_2(pos):
                     ui_variables.click_sound.play()
                     gold -= 100
-                    num_earthquake += 1
+                    num_tnt += 1
+                    update_earthquake_data(num_earthquake,user_id)
+                    update_gold_data(gold,user_id)
+
             elif event.type == VIDEORESIZE:
                 board_width = event.w
                 board_height = event.h
@@ -2026,45 +2244,45 @@ while not done:
                 if back_button.isOver_2(pos):
                     back_button.image = button_back_clicked
                 else:
-                    back_button.image = button_back                
+                    back_button.image = button_back
                 if off1_button.isOver_2(pos):
                     if ch_1:
                        off1_button.image = on_clicked
                     else:
                        off1_button.image = off_clicked
-                    
+
                 else:
                     if ch_1:
                         off1_button.image = on
                     else:
                         off1_button.image = off
-                    
-                
+
+
                 if off2_button.isOver_2(pos):
                     if ch_2:
                        off2_button.image = on_clicked
                     else:
                        off2_button.image = off_clicked
-                    
+
                 else:
                      if ch_2:
                        off2_button.image = on
                      else:
                        off2_button.image = off
-                    
-                
+
+
                 if off3_button.isOver_2(pos):
                     if ch_3:
                        off3_button.image = on_clicked
                     else:
                        off3_button.image = off_clicked
-                    
+
                 else:
                      if ch_3:
                        off3_button.image = on
                      else:
                        off3_button.image = off
-                    
+               
 
             elif event.type == pygame.MOUSEBUTTONDOWN:
 
@@ -2077,27 +2295,33 @@ while not done:
                     if ch_1 == False :
                         ch_1 = True
                         gold -= 200
+                        update_gold_data(gold,user_id)
                     else :
                         ch_1 = False
                         gold += 200
+                        update_gold_data(gold,user_id)
 
                 if off2_button.isOver_2(pos):
                     ui_variables.click_sound.play()
                     if ch_2 == False :
                         ch_2 = True
                         gold -= 200
+                        update_gold_data(gold,user_id)
                     else :
                         ch_2 = False
                         gold += 200
+                        update_gold_data(gold,user_id)
 
                 if off3_button.isOver_2(pos):
                     ui_variables.click_sound.play()
                     if ch_3 == False :
                         ch_3 = True
                         gold -= 200
+                        update_gold_data(gold,user_id)
                     else :
                         ch_3 = False
                         gold += 200
+                        update_gold_data(gold,user_id)
 
             elif event.type == VIDEORESIZE:
                 board_width = event.w
@@ -2186,7 +2410,7 @@ while not done:
                         else:
                             ui_variables.GameOver_sound.play()
                             start = False
-                            game_status = 'start'
+                            game_status = 'normal'
                             game_over = True
                             gravity_mode = False
                             pygame.time.set_timer(pygame.USEREVENT, 1) #0.001초
@@ -2214,7 +2438,7 @@ while not done:
                         else:
                             ui_variables.GameOver_sound.play()
                             start = False
-                            game_status = 'start'
+                            game_status = 'single'
                             game_over = True
                             pygame.time.set_timer(pygame.USEREVENT, 1) #0.001초
                     else:
@@ -2296,6 +2520,7 @@ while not done:
                     if combo_count == 7 :
                         if ch_2 :
                             gold += 777
+                            update_gold_data(gold,user_id)
 
                     for i in range(1, 11):
                         if combo_count == i:  # 1 ~ 10 콤보 이미지
@@ -2571,7 +2796,7 @@ while not done:
         if time_attack and total_time - elapsed_time < 0: #타임어택 모드이면서, 60초가 지났으면
             ui_variables.GameOver_sound.play()
             start = False
-            game_status = 'start'
+            game_status = 'time_attack'
             game_over = True
             time_attack = False
             pygame.time.set_timer(pygame.USEREVENT, 1)
@@ -2594,6 +2819,7 @@ while not done:
         sign_up_button1.draw(screen,(0,0,0))
         sign_in_button1.draw(screen,(0,0,0))
         log_quit.draw(screen,(0,0,0))
+
         for event in pygame.event.get():
             pos = pygame.mouse.get_pos()
             if event.type == QUIT:
@@ -2639,10 +2865,17 @@ while not done:
         for event in pygame.event.get():
             pos = pygame.mouse.get_pos()
             if event.type == QUIT:
-                done = True   
-            elif event.type == USEREVENT:
-                pygame.time.set_timer(pygame.USEREVENT, 300)  
-                pygame.display.update()
+                done = True
+            for box in input_boxes_signup:
+                box.handle_event(event)
+            for box in input_boxes_signup:
+                box.update()
+            for box in input_boxes_signup:
+                box.draw(screen)
+            pygame.display.update()
+
+            if event.type == USEREVENT:
+                pygame.time.set_timer(pygame.USEREVENT, 300)
             elif event.type == pygame.MOUSEMOTION:
                 if sign_up_button2.isOver_2(pos):
                     sign_up_button2.image = button_sign_up_clicked
@@ -2652,16 +2885,22 @@ while not done:
                     log_back.image = button_log_back_clicked
                 else:
                     log_back.image = button_log_back
-
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 if sign_up_button2.isOver_2(pos):
                     ui_variables.click_sound.play()
+                    id_text = input_box1.text
+                    pw_text = input_box2.text
+                    add_id(id_text)
+                    add_pw(id_text, pw_text)
                     signup = False
                     login = True
                 if log_back.isOver_2(pos):
                     ui_variables.click_sound.play()
                     signup = False
                     login = True
+
+
+
 
     elif signin:
         draw_image(screen, login_bg, board_width*0.5, board_height*0.5,
@@ -2674,7 +2913,14 @@ while not done:
             pos = pygame.mouse.get_pos()
             if event.type == QUIT:
                 done = True
-            elif event.type == USEREVENT:
+            for box in input_boxes_signin:
+                box.handle_event(event)
+            for box in input_boxes_signin:
+                box.update()
+            for box in input_boxes_signin:
+                box.draw(screen)
+            pygame.display.update()
+            if event.type == USEREVENT:
                 pygame.time.set_timer(pygame.USEREVENT, 300)
                 pygame.display.update()
             elif event.type == pygame.MOUSEMOTION:
@@ -2690,15 +2936,27 @@ while not done:
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 if sign_in_button2.isOver_2(pos):
                     ui_variables.click_sound.play()
-                    signin= False
-                    login = True
+                    id_text = input_box3.text
+                    pw_text = input_box4.text
+                    if check_info(id_text, pw_text):
+                        signin= False
+                        game = True #첫화면 어떻게 해야될지 모르겠어서 일단 game 으로 뒀습니다
+
+                        num_earthquake = load_earthquake_data(id_text)
+                        num_light = load_light_data(id_text)
+                        num_tnt = load_tnt_data(id_text)
+                        gold = load_gold_data(id_text)
+                        user_id = id_info(id_text)
+
                 if log_back.isOver_2(pos):
                     ui_variables.click_sound.play()
                     signin = False
                     login = True
 
+
     # Game over screen
     elif game_over:
+
         for event in pygame.event.get():
             pos = pygame.mouse.get_pos()
 
@@ -2798,7 +3056,7 @@ while not done:
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 if ok_button.isOver(pos):
                     ui_variables.click_sound.play()
-                    
+
                     # 도전과제 1 활성화시
                     if ch_1 :
                         # 3만점 달성시
@@ -2807,6 +3065,9 @@ while not done:
                             num_light += 1
                             num_earthquake += 1
                             num_tnt += 1
+                            update_light_data(num_light,user_id)
+                            update_earthquake_data(num_earthquake,user_id)
+                            update_tnt_data(num_tnt,user_id)
 
                     # 도전과제 3 활성화시
                     if ch_3 :
@@ -2814,11 +3075,23 @@ while not done:
                         if score >= 50000 :
                             # 1000골드 증가
                             gold += 1000
+                            update_gold_data(gold,user_id)
 
-                    #gold 획득
-                    s_gold = int(score*0.01) # score*0.01 만큼 판골드 획득
-                    gold += s_gold # 기존 골드에 판골드 더하기
-
+                    if difficulty_mode:  # 난이도모드였을 때
+                        # 점수에 따라서 골드 획득량 달라지게
+                        if game_status == 'easy':  # easy모드일때
+                            s_gold = int(score * 0.2)  # score*0.1 만큼 판골드 획득
+                            gold += s_gold  # 기존 골드에 판골드 더하기
+                            update_gold_data(gold, id_text)
+                        elif game_status == 'normal':  # normal모드일때
+                            s_gold = int(score * 0.3)  # score*0.2 만큼 판골드 획득
+                            gold += s_gold  # 기존 골드에 판골드 더하기
+                            update_gold_data(gold, id_text)
+                        elif game_status == 'hard':  # hard모드일때
+                            s_gold = int(score * 0.4)  # score*0.5 만큼 판골드 획득
+                            gold += s_gold  # 기존 골드에 판골드 더하기
+                            update_gold_data(gold, id_text)
+ 
                     #현재 1p점수만 저장함
                     outfile = open('leaderboard.txt', 'a')
                     outfile.write(chr(name[0]) + chr(name[1]) + chr(name[2]) + ' ' + str(score) + '\n')
@@ -2826,19 +3099,39 @@ while not done:
                     game_over = False
                     pygame.time.set_timer(pygame.USEREVENT, 1)
 
+                    if game_status == 'single':
+                        add_score(game_status,  user_id, score)
+                    if game_status == 'time_attack':
+                        add_score(game_status,  user_id, score)
+                    if game_status == 'easy':
+                        add_score(game_status,  user_id, score)
+                    if game_status == 'normal':
+                        add_score(game_status,  user_id, score)
+                    if game_status == 'hard':
+                        add_score(game_status,  user_id, score)
+        
                 if menu_button.isOver(pos):
                     ui_variables.click_sound.play()
                     game_over = False
 
                 if restart_button.isOver_2(pos):
-                    if game_status == 'start':
+                    if game_status == 'single':
                         start = True
                         pygame.mixer.music.play(-1) #play(-1) = 노래 반복재생
-                    if game_status == 'gravity_mode':
-                        gravity_mode = True
-                        pygame.mixer.music.play(-1)
                     if game_status == 'time_attack':
                         time_attack = True
+                        pygame.mixer.music.play(-1)
+                    if game_status == 'easy':
+                        attack_mode = True
+                        gravity_mode = False
+                        pygame.mixer.music.play(-1)
+                    if game_status == 'normal':
+                        attack_mode = False
+                        gravity_mode = True
+                        pygame.mixer.music.play(-1)
+                    if game_status == 'hard':
+                        attack_mode = True
+                        gravity_mode = True
                         pygame.mixer.music.play(-1)
                     ui_variables.click_sound.play()
                     hold = False
@@ -2859,7 +3152,6 @@ while not done:
                     name_location = 0
                     name = [65, 65, 65]
                     matrix = [[0 for y in range(height + 1)] for x in range(width)]
-
 
                     game_over = False
                     pause = False
