@@ -8,7 +8,7 @@ import os
 from mino import *
 from random import *
 from pygame.locals import *
-
+import bcrypt
 
 # Unchanged values Define 변하지 않는 변수 선언
 
@@ -406,6 +406,12 @@ hard_button     = button(board_width, board_height, 0.7, 0.37, 0.16, 0.084, butt
 # help image
 
 # main page 6) leader board
+rank_single = button(board_width, board_height, 0.2, 0.3, 0.1, 0.0527, button_single)
+rank_easy = button(board_width, board_height, 0.35, 0.3, 0.1, 0.0527, button_easy)
+rank_normal = button(board_width, board_height, 0.5, 0.3, 0.1, 0.0527, button_normal)
+rank_hard = button(board_width, board_height, 0.65, 0.3, 0.1, 0.0527, button_hard)
+rank_ta = button(board_width, board_height, 0.8, 0.3, 0.1, 0.0527, button_timeattack)
+
 
 # main page 7) setting board
 volume_vector = button(board_width, board_height, 0.4, 0.4, 0.125, 0.2222, vector_volume)
@@ -487,7 +493,7 @@ button_list = [
     restart_button, setting_button, quit_game_button, menu_button, ok_button,
     level_plus_button, level_minus_button, off1_button, off2_button, off3_button,
     sign_up_button1, sign_up_button2, sign_in_button1, sign_in_button2,
-    log_back, log_quit
+    log_back, log_quit, rank_single, rank_easy, rank_normal, rank_hard, rank_ta
 ]
 
 def set_volume():
@@ -865,7 +871,7 @@ def set_music_playing(CHANNELS, swidth):
     pygame.mixer.music.play(-1) #위 노래를 반복재생하기 위해 play(-1)로 설정
 
 def set_initial_values():
-    global login, signin, signup, combo_status, combo_count, score, level, goal, bottom_count, hard_drop, attack_point, dx, dy, rotation, mino, next_mino1, next_mino2, hold, hold_mino, framerate, matrix, blink, start, pause, done, game_over, leader_board, setting, volume_setting, screen_setting, help, gravity_mode, time_attack, time_attack_time, start_ticks, textsize, attack_mode, attack_mode_time, attack_board_y, CHANNELS, swidth, name_location, name, previous_time, current_time, pause_time, lines, leaders, volume, game_status, framerate_blockmove, game_speed, sandbox,sandbox_mode, difficulty, difficulty_mode, shop, challenge, single, game, gold, s_gold, item, item_mino, light_mino, earth_mino, tnt_mino, ch_1, ch_2, ch_3
+    global login, signin, signup, combo_status, combo_count, score, level, goal, bottom_count, hard_drop, attack_point, dx, dy, rotation, mino, next_mino1, next_mino2, hold, hold_mino, framerate, matrix, blink, start, pause, done, game_over, leader_board, setting, volume_setting, screen_setting, help, gravity_mode, time_attack, time_attack_time, start_ticks, attack_mode, attack_mode_time, attack_board_y, CHANNELS, swidth, name_location, name, previous_time, current_time, pause_time, lines, leaders, volume, game_status, framerate_blockmove, game_speed, sandbox,sandbox_mode, difficulty, difficulty_mode, shop, challenge, single, game, gold, s_gold, item, item_mino, light_mino, earth_mino, tnt_mino, ch_1, ch_2, ch_3
 
 
     framerate = 30 # Bigger -> Slower  기본 블록 하강 속도, 2도 할만 함, 0 또는 음수 이상이어야 함
@@ -897,7 +903,6 @@ def set_initial_values():
     time_attack = False
     time_attack_time = False
     start_ticks = pygame.time.get_ticks()
-    textsize = False
     ch_1 = False
     ch_2 = False
     ch_3 = False
@@ -932,7 +937,6 @@ def set_initial_values():
     next_mino2 = randint(1, 7)  # Next mino2 # 다음 테트리스 블록 7가지 중 하나
     hold = False  # Hold status
     hold_mino = -1  # Holded mino #현재 hold하는 것 없는 상태
-    textsize = False
 
     # 게임 시 생기는 돈
     s_gold = 0
@@ -1168,10 +1172,7 @@ while not done:
                 if not ((board_rate-0.1) < (board_height/board_width) < (board_rate+0.05)): #높이 또는 너비가 비율의 일정수준 이상을 넘어서게 되면
                     board_width = int(board_height / board_rate) #너비를 적정 비율로 바꿔줌
                     board_height = int(board_width*board_rate) #높이를 적정 비율로 바꿔줌
-                if board_width>= mid_width: #화면 사이즈가 큰 경우
-                    textsize=True #큰 글자크기 사용
-                if board_width < mid_width: #화면 사이즈가 작은 경우
-                    textsize=False #작은 글자크기 사용
+
 
                 block_size = int(board_height * 0.045) #블록 크기비율 고정
                 screen = pygame.display.set_mode((board_width, board_height), pygame.RESIZABLE)
@@ -1223,7 +1224,6 @@ while not done:
                     board_height = 450
                     block_size = int(board_height * 0.045) #블록 크기 비율 고정
                     screen = pygame.display.set_mode((board_width, board_height), pygame.RESIZABLE)
-                    textsize=False
 
                     for i in range(len(button_list)):
                         button_list[i].change(board_width, board_height)
@@ -1235,7 +1235,6 @@ while not done:
                     board_height = 675
                     block_size = int(board_height * 0.045) #블록 크기 비율 고정
                     screen = pygame.display.set_mode((board_width, board_height), pygame.RESIZABLE)
-                    textsize=True
 
                     for i in range(len(button_list)):
                         button_list[i].change(board_width, board_height)
@@ -1248,7 +1247,6 @@ while not done:
                     board_height = 900
                     block_size = int(board_height * 0.045) #블록 크기 비율 고정
                     screen = pygame.display.set_mode((board_width, board_height), pygame.RESIZABLE)
-                    textsize=True
 
                     for i in range(len(button_list)):
                         button_list[i].change(board_width, board_height)
@@ -1262,10 +1260,7 @@ while not done:
                 if not ((board_rate-0.1) < (board_height/board_width) < (board_rate+0.05)): #높이 또는 너비가 비율의 일정수준 이상을 넘어서게 되면
                     board_width = int(board_height / board_rate) #너비를 적정 비율로 바꿔줌
                     board_height = int(board_width*board_rate) #높이를 적정 비율로 바꿔줌
-                if board_width>= mid_width: #화면 사이즈가 큰 경우
-                    textsize=True #큰 글자크기 사용
-                if board_width < mid_width: #화면 사이즈가 작은 경우
-                    textsize=False #작은 글자크기 사용
+
 
                 block_size = int(board_height * 0.045) #블록 크기비율 고정
                 screen = pygame.display.set_mode((board_width, board_height), pygame.RESIZABLE)
@@ -1340,10 +1335,7 @@ while not done:
                 if not ((board_rate-0.1) < (board_height/board_width) < (board_rate+0.05)): #높이 또는 너비가 비율의 일정수준 이상을 넘어서게 되면
                     board_width = int(board_height / board_rate) #너비를 적정 비율로 바꿔줌
                     board_height = int(board_width*board_rate) #높이를 적정 비율로 바꿔줌
-                if board_width>= mid_width: #화면 사이즈가 큰 경우
-                    textsize=True #큰 글자크기 사용
-                if board_width < mid_width: #화면 사이즈가 작은 경우
-                    textsize=False #작은 글자크기 사용
+
 
                 block_size = int(board_height * 0.045) #블록 크기 고정
                 screen = pygame.display.set_mode((board_width, board_height), pygame.RESIZABLE)
@@ -1454,10 +1446,7 @@ while not done:
                 if not ((board_rate-0.1) < (board_height/board_width) < (board_rate+0.05)): #높이 또는 너비가 비율의 일정수준 이상을 넘어서게 되면
                     board_width = int(board_height / board_rate) #너비를 적정 비율로 바꿔줌
                     board_height = int(board_width*board_rate) #높이를 적정 비율로 바꿔줌
-                if board_width>= mid_width: #화면 사이즈가 큰 경우
-                    textsize=True #큰 글자크기 사용
-                if board_width < mid_width: #화면 사이즈가 작은 경우
-                    textsize=False #작은 글자크기 사용
+
 
                 block_size = int(board_height * 0.045)
                 screen = pygame.display.set_mode((board_width, board_height), pygame.RESIZABLE)
@@ -1503,10 +1492,7 @@ while not done:
                 if not ((board_rate-0.1) < (board_height/board_width) < (board_rate+0.05)): #높이 또는 너비가 비율의 일정수준 이상을 넘어서게 되면
                     board_width = int(board_height / board_rate) #너비를 적정 비율로 바꿔줌
                     board_height = int(board_width*board_rate) #높이를 적정 비율로 바꿔줌
-                if board_width>= mid_width: #화면 사이즈가 큰 경우
-                    textsize=True #큰 글자크기 사용
-                if board_width < mid_width: #화면 사이즈가 작은 경우
-                    textsize=False #작은 글자크기 사용
+
 
                 block_size = int(board_height * 0.045) #board 세로길이에 원하는 비율을 곱해줌
                 screen = pygame.display.set_mode((board_width, board_height), pygame.RESIZABLE)
@@ -1607,10 +1593,7 @@ while not done:
                 if not ((board_rate-0.1) < (board_height/board_width) < (board_rate+0.05)): #높이 또는 너비가 비율의 일정수준 이상을 넘어서게 되면
                     board_width = int(board_height / board_rate) #너비를 적정 비율로 바꿔줌
                     board_height = int(board_width*board_rate) #높이를 적정 비율로 바꿔줌
-                if board_width>= mid_width: #화면 사이즈가 큰 경우
-                    textsize=True #큰 글자크기 사용
-                if board_width < mid_width: #화면 사이즈가 작은 경우
-                    textsize=False #작은 글자크기 사용
+
 
                 block_size = int(board_height * 0.045) #블록 크기비율 고정
                 screen = pygame.display.set_mode((board_width, board_height), pygame.RESIZABLE)
@@ -1753,10 +1736,7 @@ while not done:
                 if not ((board_rate-0.1) < (board_height/board_width) < (board_rate+0.05)): #높이 또는 너비가 비율의 일정수준 이상을 넘어서게 되면
                     board_width = int(board_height / board_rate) #너비를 적정 비율로 바꿔줌
                     board_height = int(board_width*board_rate) #높이를 적정 비율로 바꿔줌
-                if board_width>= mid_width: #화면 사이즈가 큰 경우
-                    textsize=True #큰 글자크기 사용
-                if board_width < mid_width: #화면 사이즈가 작은 경우
-                    textsize=False #작은 글자크기 사용
+
 
                 block_size = int(board_height * 0.045) #블록 크기비율 고정
                 screen = pygame.display.set_mode((board_width, board_height), pygame.RESIZABLE)
@@ -1858,10 +1838,7 @@ while not done:
                 if not ((board_rate-0.1) < (board_height/board_width) < (board_rate+0.05)): #높이 또는 너비가 비율의 일정수준 이상을 넘어서게 되면
                     board_width = int(board_height / board_rate) #너비를 적정 비율로 바꿔줌
                     board_height = int(board_width*board_rate) #높이를 적정 비율로 바꿔줌
-                if board_width>= mid_width: #화면 사이즈가 큰 경우
-                    textsize=True #큰 글자크기 사용
-                if board_width < mid_width: #화면 사이즈가 작은 경우
-                    textsize=False #작은 글자크기 사용
+
 
                 block_size = int(board_height * 0.045) #블록 크기비율 고정
                 screen = pygame.display.set_mode((board_width, board_height), pygame.RESIZABLE)
@@ -1877,6 +1854,11 @@ while not done:
             int(board_width * 0.8),int(board_height*0.8))
 
         back_button.draw(screen, (0, 0, 0))
+        rank_single.draw(screen,(0,0,0))
+        rank_easy.draw(screen,(0,0,0))
+        rank_normal.draw(screen,(0,0,0))
+        rank_hard.draw(screen,(0,0,0))
+        rank_ta.draw(screen,(0,0,0))
 
         #render("텍스트이름", 안티에일리어싱 적용, 색깔), 즉 아래의 코드에서 숫자 1=안티에일리어싱 적용에 관한 코드
         leader_1 = ui_variables.h1_b.render('1st ' + leaders[0][0] + ' ' + str(leaders[0][1]), 1, ui_variables.grey_1)
@@ -1921,10 +1903,7 @@ while not done:
                 if not ((board_rate-0.1) < (board_height/board_width) < (board_rate+0.05)): #높이 또는 너비가 비율의 일정수준 이상을 넘어서게 되면
                     board_width = int(board_height / board_rate) #너비를 적정 비율로 바꿔줌
                     board_height = int(board_width*board_rate) #높이를 적정 비율로 바꿔줌
-                if board_width>= mid_width: #화면 사이즈가 큰 경우
-                    textsize=True #큰 글자크기 사용
-                if board_width < mid_width: #화면 사이즈가 작은 경우
-                    textsize=False #작은 글자크기 사용
+
 
                 block_size = int(board_height * 0.045)
                 screen = pygame.display.set_mode((board_width, board_height), pygame.RESIZABLE)
@@ -2013,10 +1992,7 @@ while not done:
                 if not ((board_rate-0.1) < (board_height/board_width) < (board_rate+0.05)): #높이 또는 너비가 비율의 일정수준 이상을 넘어서게 되면
                     board_width = int(board_height / board_rate) #너비를 적정 비율로 바꿔줌
                     board_height = int(board_width*board_rate) #높이를 적정 비율로 바꿔줌
-                if board_width>= mid_width: #화면 사이즈가 큰 경우
-                    textsize=True #큰 글자크기 사용
-                if board_width < mid_width: #화면 사이즈가 작은 경우
-                    textsize=False #작은 글자크기 사용
+
 
                 block_size = int(board_height * 0.045) #블록 크기비율 고정
                 screen = pygame.display.set_mode((board_width, board_height), pygame.RESIZABLE)
@@ -2132,10 +2108,7 @@ while not done:
                 if not ((board_rate-0.1) < (board_height/board_width) < (board_rate+0.05)): #높이 또는 너비가 비율의 일정수준 이상을 넘어서게 되면
                     board_width = int(board_height / board_rate) #너비를 적정 비율로 바꿔줌
                     board_height = int(board_width*board_rate) #높이를 적정 비율로 바꿔줌
-                if board_width>= mid_width: #화면 사이즈가 큰 경우
-                    textsize=True #큰 글자크기 사용
-                if board_width < mid_width: #화면 사이즈가 작은 경우
-                    textsize=False #작은 글자크기 사용
+
 
                 block_size = int(board_height * 0.045) #블록 크기비율 고정
                 screen = pygame.display.set_mode((board_width, board_height), pygame.RESIZABLE)
@@ -2558,10 +2531,7 @@ while not done:
                 if not ((board_rate-0.1) < (board_height/board_width) < (board_rate+0.05)): #높이 또는 너비가 비율의 일정수준 이상을 넘어서게 되면
                     board_width = int(board_height / board_rate) #너비를 적정 비율로 바꿔줌
                     board_height = int(board_width*board_rate) #높이를 적정 비율로 바꿔줌
-                if board_width>= mid_width: #화면 사이즈가 큰 경우
-                    textsize=True #큰 글자크기 사용
-                if board_width < mid_width: #화면 사이즈가 작은 경우
-                    textsize=False #작은 글자크기 사용
+
 
                 block_size = int(board_height * 0.045)
                 screen = pygame.display.set_mode((board_width, board_height), pygame.RESIZABLE)
@@ -2903,10 +2873,7 @@ while not done:
                 if not ((board_rate-0.1) < (board_height/board_width) < (board_rate+0.05)): #높이 또는 너비가 비율의 일정수준 이상을 넘어서게 되면
                     board_width = int(board_height / board_rate) #너비를 적정 비율로 바꿔줌
                     board_height = int(board_width*board_rate) #높이를 적정 비율로 바꿔줌
-                if board_width>= mid_width: #화면 사이즈가 큰 경우
-                    textsize=True #큰 글자크기 사용
-                if board_width < mid_width: #화면 사이즈가 작은 경우
-                    textsize=False #작은 글자크기 사용
+
 
                 block_size = int(board_height * 0.045) #블록 크기비율 고정
                 screen = pygame.display.set_mode((board_width, board_height), pygame.RESIZABLE)
@@ -2999,10 +2966,7 @@ while not done:
                 if not ((board_rate-0.1) < (board_height/board_width) < (board_rate+0.05)): #높이 또는 너비가 비율의 일정수준 이상을 넘어서게 되면
                     board_width = int(board_height / board_rate) #너비를 적정 비율로 바꿔줌
                     board_height = int(board_width*board_rate) #높이를 적정 비율로 바꿔줌
-                if board_width>= mid_width: #화면 사이즈가 큰 경우
-                    textsize=True #큰 글자크기 사용
-                if board_width < mid_width: #화면 사이즈가 작은 경우
-                    textsize=False #작은 글자크기 사용
+
 
                 block_size = int(board_height * 0.045) #board 세로길이에 대해 원하는 비율로 곱해줌
                 screen = pygame.display.set_mode((board_width, board_height), pygame.RESIZABLE)
