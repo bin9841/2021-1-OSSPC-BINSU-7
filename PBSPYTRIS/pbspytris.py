@@ -100,12 +100,12 @@ class InputBox:
 
 # input box 설정
 #signup할때 box
-input_box1 = InputBox(int(board_width*430.5/800), int(board_height*212.5/450), 140, 32)
-input_box2 = InputBox(int(board_width*430.5/800), int(board_height*259.5/450), 140, 32)
+input_box1 = InputBox(int(board_width*322/800), int(board_height*195.5/450), 156, 32)
+input_box2 = InputBox(int(board_width*322/800), int(board_height*242.5/450), 156, 32)
 input_boxes_signup = [input_box1, input_box2]
 #signin할때 box
-input_box3 = InputBox(int(board_width*430.5/800), int(board_height*212.5/450), 140, 32)
-input_box4 = InputBox(int(board_width*430.5/800), int(board_height*259.5/450), 140, 32)
+input_box3 = InputBox(int(board_width*322/800), int(board_height*195.5/450), 156, 32)
+input_box4 = InputBox(int(board_width*322/800), int(board_height*242.5/450), 156, 32)
 input_boxes_signin = [input_box3, input_box4]
 
 class ui_variables:
@@ -121,7 +121,7 @@ class ui_variables:
     h5 = pygame.font.Font(font_path_b, 13)
     h6 = pygame.font.Font(font_path_b, 10)
 
-    h1_b = pygame.font.Font(font_path_b, 50)
+    h1_b = pygame.font.Font(font_path_b, 30)
     h2_b = pygame.font.Font(font_path_b, 30)
 
     h2_i = pygame.font.Font(font_path_i, 30)
@@ -763,9 +763,8 @@ def set_music_playing(CHANNELS, swidth):
     pygame.mixer.music.load('assets/sounds/SFX_BattleMusic_Changed.wav')
     pygame.mixer.music.play(minus) #위 노래를 반복재생하기 위해 play(-1)로 설정
 
-
-def set_initial_values():
-    global login, signin, signup, combo_status, combo_count, score, level, goal, bottom_count, hard_drop, attack_point, dx, dy, rotation, mino, next_mino1, next_mino2, hold, hold_mino, framerate, matrix, blink, start, pause, done, game_over, leader_board, setting, volume_setting, screen_setting, help, gravity_mode, time_attack, time_attack_time, start_ticks, textsize, attack_mode, attack_mode_time, attack_board_y, CHANNELS, swidth, name_location, name, previous_time, current_time, pause_time, lines, leaders, volume, game_status, framerate_blockmove, game_speed, sandbox,sandbox_mode, difficulty, difficulty_mode, shop, challenge, single, game, gold, s_gold, item, item_mino, light_mino, earth_mino, tnt_mino, ch_1, ch_2, ch_3
+set_initial_values():
+    global r_n,r_s,rank, main, signin, signup, combo_status, combo_count, score, level, goal, bottom_count, hard_drop, attack_point, dx, dy, rotation, mino, next_mino1, next_mino2, hold, hold_mino, framerate, matrix, blink, start, pause, done, game_over, leader_board, setting, volume_setting, screen_setting, help, gravity_mode, time_attack, time_attack_time, start_ticks, textsize, attack_mode, attack_mode_time, attack_board_y, CHANNELS, swidth, name_location, name, previous_time, current_time, pause_time, lines, leaders, volume, game_status, framerate_blockmove, game_speed, sandbox,sandbox_mode, difficulty, difficulty_mode, shop, challenge, single, game, gold, s_gold, item, item_mino, light_mino, earth_mino, tnt_mino, ch_1, ch_2, ch_3, num_light, num_earthquake, num_tnt
 
 
     framerate = 30 # Bigger -> Slower  기본 블록 하강 속도, 2도 할만 함, 0 또는 음수 이상이어야 함
@@ -801,9 +800,10 @@ def set_initial_values():
     ch_1 = False
     ch_2 = False
     ch_3 = False
-    login = False
     signin = False
     signup = False
+    main = False
+    rank = [0,1,2]
 
     attack_mode = False # 어택모드
     attack_mode_time = False # 어택모드 30초마다 시간 초기화하도록
@@ -848,14 +848,9 @@ def set_initial_values():
     current_time = pygame.time.get_ticks()
     pause_time = pygame.time.get_ticks()
 
-    with open('leaderboard.txt') as f:
-        lines = f.readlines()
-    lines = [line.rstrip('\n') for line in open('leaderboard.txt')]  #leaderboard.txt 한줄씩 읽어옴
-
-    leaders = {'AAA': 0, 'BBB': 0, 'CCC': 0}
-    for i in lines:
-        leaders[i.split(' ')[0]] = int(i.split(' ')[1])
-    leaders = sorted(leaders.items(), key=operator.itemgetter(1), reverse=True)
+    leaders = ['1st','2nd','3rd']
+    r_n = ['n1','n2','n3']
+    r_s = ['0','0','0']
 
     matrix = [[0 for y in range(height + 1)] for x in range(width)]  # Board matrix
 
@@ -1767,14 +1762,18 @@ while not done:
         rank_normal.draw(screen,(0,0,0))
         rank_hard.draw(screen,(0,0,0))
         rank_ta.draw(screen,(0,0,0))
-
-        #render("텍스트이름", 안티에일리어싱 적용, 색깔), 즉 아래의 코드에서 숫자 1=안티에일리어싱 적용에 관한 코드
-        leader_1 = ui_variables.h1_b.render('1st ' + leaders[0][0] + ' ' + str(leaders[0][1]), 1, ui_variables.grey_1)
-        leader_2 = ui_variables.h1_b.render('2nd ' + leaders[1][0] + ' ' + str(leaders[1][1]), 1, ui_variables.grey_1)
-        leader_3 = ui_variables.h1_b.render('3rd ' + leaders[2][0] + ' ' + str(leaders[2][1]), 1, ui_variables.grey_1)
-        screen.blit(leader_1, (board_width * 0.3, board_height * 0.15)) #위치 비율 고정
-        screen.blit(leader_2, (board_width * 0.3, board_height * 0.35)) #위치 비율 고정
-        screen.blit(leader_3, (board_width * 0.3, board_height * 0.55)) #위치 비율 고정
+        cb = ui_variables.h1_b.render("Click any button",1,ui_variables.skyblue)
+        l1 = ui_variables.h1_b.render(leaders[0]+" "+r_n[0]+" "+r_s[0],1,ui_variables.skyblue)
+        l2 = ui_variables.h1_b.render(leaders[1]+" "+r_n[1]+" "+r_s[1],1,ui_variables.skyblue)
+        l3 = ui_variables.h1_b.render(leaders[2]+" "+r_n[2]+" "+r_s[2],1,ui_variables.skyblue)
+        no = ui_variables.h1_b.render("No rank",1,ui_variables.skyblue)
+        if game_status == "":
+            screen.blit(cb, (int(board_width*0.35),int(board_height*0.45)))
+        else:
+            screen.blit(l1, (int(board_width*0.4),int(board_height*(0.35))))
+            screen.blit(l2, (int(board_width*0.4),int(board_height*(0.45))))
+            screen.blit(l3, (int(board_width*0.4),int(board_height*(0.55))))
+            
 
         for event in pygame.event.get():
             pos = pygame.mouse.get_pos()
@@ -1796,11 +1795,103 @@ while not done:
                     back_button.image = button_back_clicked
                 else:
                     back_button.image = button_back
-                pygame.display.update()
+                if rank_single.isOver_2(pos):
+                    rank_single.image = button_single_clicked
+                else:
+                    rank_single.image = button_single
+                if rank_easy.isOver_2(pos):
+                    rank_easy.image = button_easy_clicked
+                else:
+                    rank_easy.image = button_easy
+                if rank_normal.isOver_2(pos):
+                    rank_normal.image = button_normal_clicked
+                else:
+                    rank_normal.image = button_normal
+                if rank_hard.isOver_2(pos):
+                    rank_hard.image = button_hard_clicked
+                else:
+                    rank_hard.image = button_hard
+                if rank_ta.isOver_2(pos):
+                    rank_ta.image = button_timeattack_clicked
+                else:
+                    rank_ta.image = button_timeattack
+                
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 if back_button.isOver_2(pos):
                     ui_variables.click_sound.play()
+                    game_status = ''
                     leader_board = False
+                if rank_single.isOver_2(pos):
+                    ui_variables.click_sound.play()
+                    game_status = 'single'
+                    single_data = load_rank_data(game_status)
+                    if len(single_data)>len(rank):
+                        for i in rank:
+                            r_n[i] = str(list(single_data)[i]["user_id"])
+                            r_s[i] = str(list(single_data)[i]["score"])
+                    elif len(single_data) == 0:
+                        screen.blit(no, (int(board_width*0.4),int(board_height*0.45)))
+                    else:
+                        for i in range(len(single_data)):
+                            r_n[i] = str(list(single_data)[i]["user_id"])
+                            r_s[i] = str(list(single_data)[i]["score"])
+                if rank_easy.isOver_2(pos):
+                    ui_variables.click_sound.play()
+                    game_status = 'easy'
+                    easy_data = load_rank_data(game_status)
+                    if len(easy_data)>len(rank):
+                        for i in rank:
+                            r_n[i] = str(list(easy_data)[i]["user_id"])
+                            r_s[i] = str(list(easy_data)[i]["easy_mode_score"])
+                    elif len(easy_data) == 0:
+                        screen.blit(no, (int(board_width*0.4),int(board_height*0.45)))
+                    else:
+                        for i in range(len(easy_data)):
+                            r_n[i] = str(list(easy_data)[i]["user_id"])
+                            r_s[i] = str(list(easy_data)[i]["easy_mode_score"])
+                if rank_normal.isOver_2(pos):
+                    ui_variables.click_sound.play()
+                    game_status = 'normal'
+                    normal_data = load_rank_data(game_status)
+                    if len(normal_data)>len(rank):
+                        for i in rank:
+                            r_n[i] = str(list(normal_data)[i]["user_id"])
+                            r_s[i] = str(list(normal_data)[i]["normal_mode_score"])
+                    elif len(normal_data) == 0:
+                        screen.blit(no, (int(board_width*0.4),int(board_height*0.45)))
+                    else:
+                        for i in range(len(normal_data)):
+                            r_n[i] = str(list(normal_data)[i]["user_id"])
+                            r_s[i] = str(list(normal_data)[i]["normal_mode_score"])
+                if rank_hard.isOver_2(pos):
+                    ui_variables.click_sound.play()
+                    game_status = 'hard'
+                    hard_data = load_rank_data(game_status)
+                    if len(hard_data)>len(rank):
+                        for i in rank:
+                            r_n[i] = str(list(hard_data)[i]["user_id"])
+                            r_s[i] = str(list(hard_data)[i]["hard_mode_score"])
+                    elif len(hard_data) == 0:
+                        screen.blit(no, (int(board_width*0.4),int(board_height*0.45)))
+                    else:
+                        for i in range(len(hard_data)):
+                            r_n[i] = str(list(hard_data)[i]["user_id"])
+                            r_s[i] = str(list(hard_data)[i]["hard_mode_score"])
+                if rank_ta.isOver_2(pos):
+                    ui_variables.click_sound.play()
+                    game_status = 'time_attack'
+                    ta_data = load_rank_data(game_status)
+                    if len(ta_data)>len(rank):
+                        for i in rank:
+                            r_n[i] = str(list(ta_data)[i]["user_id"])
+                            r_s[i] = str(list(ta_data)[i]["timeattack_score"])
+                    elif len(ta_data) == 0:
+                        screen.blit(no, (int(board_width*0.4),int(board_height*0.45)))
+                    else:
+                        for i in range(len(ta_data)):
+                            r_n[i] = str(list(ta_data)[i]["user_id"])
+                            r_s[i] = str(list(ta_data)[i]["timeattack_score"])
+                    
 
             elif event.type == VIDEORESIZE:
                 board_width = event.w
@@ -2042,7 +2133,6 @@ while not done:
 
                 for i in range(len(button_list)):
                         button_list[i].change(board_width, board_height)
-
 
     elif start:
         if sandbox_mode:
@@ -2516,7 +2606,6 @@ while not done:
                 attack_mode_time = False #elapsed_attack_time 초기화
 
         pygame.display.update()
-
     elif login:
         draw_image(screen, login_bg, board_width*0.5, board_height*0.5,
         board_width, board_height)
@@ -2559,8 +2648,6 @@ while not done:
                 if log_quit.isOver_2(pos):
                     ui_variables.click_sound.play()
                     done = True
-
-
     elif signup:
         draw_image(screen, login_bg, board_width*0.5, board_height*0.5,
         board_width, board_height)
@@ -2599,14 +2686,9 @@ while not done:
                     add_id(id_text)
                     add_pw(id_text, pw_text)
                     signup = False
-                    login = True
                 if log_back.isOver_2(pos):
                     ui_variables.click_sound.play()
                     signup = False
-                    login = True
-
-
-
 
     elif signin:
         draw_image(screen, login_bg, board_width*0.5, board_height*0.5,
@@ -2646,8 +2728,7 @@ while not done:
                     pw_text = input_box4.text
                     if check_info(id_text, pw_text):
                         signin= False
-                        game = True #첫화면 어떻게 해야될지 모르겠어서 일단 game 으로 뒀습니다
-
+                        main = True
                         num_earthquake = load_earthquake_data(id_text)
                         num_light = load_light_data(id_text)
                         num_tnt = load_tnt_data(id_text)
@@ -2657,8 +2738,6 @@ while not done:
                 if log_back.isOver_2(pos):
                     ui_variables.click_sound.play()
                     signin = False
-                    login = True
-
 
     # Game over screen
     elif game_over:
@@ -2677,71 +2756,13 @@ while not done:
                 restart_button.draw(screen, (0, 0, 0))
                 ok_button.draw(screen, (0, 0, 0))
 
-                #render("텍스트이름", 안티에일리어싱 적용, 색깔), 즉 아래의 코드에서 숫자 1=안티에일리어싱 적용에 관한 코드
-                name_1 = ui_variables.h1_b.render(chr(name[loc_0]), 1, ui_variables.skyblue)
-                name_2 = ui_variables.h1_b.render(chr(name[loc_1]), 1, ui_variables.skyblue)
-                name_3 = ui_variables.h1_b.render(chr(name[loc_2]), 1, ui_variables.skyblue)
 
-                underbar_1 = ui_variables.h1_b.render("_", 1, ui_variables.skyblue)
-                underbar_2 = ui_variables.h1_b.render("_", 1, ui_variables.skyblue)
-                underbar_3 = ui_variables.h1_b.render("_", 1, ui_variables.skyblue)
-
-                screen.blit(name_1, (int(board_width * 0.434), int(board_height * 0.55))) #blit(요소, 위치), 각각 전체 board의 가로길이, 세로길이에다가 원하는 비율을 곱해줌
-                screen.blit(name_2, (int(board_width * 0.494), int(board_height * 0.55))) #blit(요소, 위치)
-                screen.blit(name_3, (int(board_width * 0.545), int(board_height * 0.55))) #blit(요소, 위치)
-
-                if blink:
-                    blink = False
-                else:
-                    if name_location == loc_0:
-                        screen.blit(underbar_1, ((int(board_width * 0.437), int(board_height * 0.56)))) #위치 비율 고정
-                    elif name_location == loc_1:
-                        screen.blit(underbar_2, ((int(board_width * 0.497), int(board_height * 0.56)))) #위치 비율 고정
-                    elif name_location == loc_2:
-                        screen.blit(underbar_3, ((int(board_width * 0.557), int(board_height * 0.56)))) #위치 비율 고정
-                    blink = True
-
-                pygame.display.update()
 
             elif event.type == KEYDOWN:
                 if event.key == K_RETURN:
                     ui_variables.click_sound.play()
-
-                    #1p점수만 저장함
-                    outfile = open('leaderboard.txt', 'a')
-                    outfile.write(chr(name[loc_0]) + chr(name[loc_1]) + chr(name[loc_2]) + ' ' + str(score) + '\n')
-                    outfile.close()
-
                     game_over = False
                     pygame.time.set_timer(pygame.USEREVENT, set_1) #0.001초
-
-                #name은 3글자로 name_locationd은 0~2, name[name_location]은 영어 아스키코드로 65~90.
-                elif event.key == K_RIGHT:
-                    if name_location != loc_2:
-                        name_location += loc_1
-                    else:
-                        name_location = loc_0
-                    pygame.time.set_timer(pygame.USEREVENT, set_1) #0.001초
-                elif event.key == K_LEFT:
-                    if name_location != loc_0:
-                        name_location -= loc_1
-                    else:
-                        name_location = loc_2
-                    pygame.time.set_timer(pygame.USEREVENT, set_1)
-                elif event.key == K_UP:
-                    ui_variables.click_sound.play()
-                    if name[name_location] != asc_2:
-                        name[name_location] += loc_1
-                    else:
-                        name[name_location] = asc_1
-                    pygame.time.set_timer(pygame.USEREVENT, set_1)
-                elif event.key == K_DOWN:
-                    ui_variables.click_sound.play()
-                    if name[name_location] != asc_1:
-                        name[name_location] -= loc_1
-                    else:
-                        name[name_location] = asc_2
-                    pygame.time.set_timer(pygame.USEREVENT, set_1)
 
             elif event.type == pygame.MOUSEMOTION:
                 if resume_button.isOver_2(pos):
@@ -2798,13 +2819,6 @@ while not done:
                             gold += s_gold  # 기존 골드에 판골드 더하기
                             update_gold_data(gold, id_text)
  
-                    #현재 1p점수만 저장함
-                    outfile = open('leaderboard.txt', 'a')
-                    outfile.write(chr(name[loc_0]) + chr(name[loc_1]) + chr(name[loc_2]) + ' ' + str(score) + '\n')
-                    outfile.close()
-                    game_over = False
-                    pygame.time.set_timer(pygame.USEREVENT, set_1)
-
                     if game_status == 'single':
                         add_score(game_status,  user_id, score)
                     if game_status == 'time_attack':
@@ -2863,11 +2877,12 @@ while not done:
                         button_list[i].change(board_width, board_height)
 
     # Start screen
-    else:
+    elif main:
         # 변수 선언 및 초기화
         if initalize:
             set_initial_values()
         initalize = False
+        main = True
 
         for event in pygame.event.get():
             pos = pygame.mouse.get_pos()
@@ -2974,5 +2989,48 @@ while not done:
 
         if not game:
             pygame.display.update()
+
+    else:
+        draw_image(screen, login_bg, board_width*0.5, board_height*0.5,
+        board_width, board_height)
+        draw_image(screen, log_board, board_width*0.5, board_height*0.5,
+        int(board_width*3/8), int(board_height*2/9))
+        sign_up_button1.draw(screen,(0,0,0))
+        sign_in_button1.draw(screen,(0,0,0))
+        log_quit.draw(screen,(0,0,0))
+
+        for event in pygame.event.get():
+            pos = pygame.mouse.get_pos()
+            if event.type == QUIT:
+                done = True
+            elif event.type == USEREVENT:
+                pygame.time.set_timer(pygame.USEREVENT, 300)
+                pygame.display.update()
+            elif event.type == pygame.MOUSEMOTION:
+                if sign_up_button1.isOver_2(pos):
+                    sign_up_button1.image = button_sign_up_clicked
+                else:
+                    sign_up_button1.image = button_sign_up
+                if sign_in_button1.isOver_2(pos):
+                    sign_in_button1.image = button_sign_in_clicked
+                else:
+                    sign_in_button1.image = button_sign_in
+                if log_quit.isOver_2(pos):
+                    log_quit.image = button_quit_clicked
+                else:
+                    log_quit.image = button_quit
+
+            elif event.type == pygame.MOUSEBUTTONDOWN:
+                if sign_up_button1.isOver_2(pos):
+                    ui_variables.click_sound.play()
+                    signup = True
+                if sign_in_button1.isOver_2(pos):
+                    ui_variables.click_sound.play()
+                    signin = True
+                if log_quit.isOver_2(pos):
+                    ui_variables.click_sound.play()
+                    done = True
+
+
 
 pygame.quit()
