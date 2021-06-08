@@ -612,8 +612,7 @@ def earthquake(y,matrix):
     
     for i in range(board_x): # 가로줄 전체에 대해서
         matrix[i][y] = mino_zero
-    
-        
+      
 def gravity(x, y, mino, r, matrix):
     grid = tetrimino.mino_map[mino - mino_x][r] #grid : 출력할 테트리스
 
@@ -704,14 +703,10 @@ def is_stackable(mino, matrix):
 
     return True
 
-
-
-
 def set_vol(val):
     volume = int(val) / vol_range #set_volume argenment로 넣기 위해서(소수점을 만들어주기 위해서) 100으로 나눠줌
     print(volume)
     ui_variables.click_sound.set_volume(volume)
-
 
 def set_music_playing(CHANNELS, swidth):
     spf = wave.open('assets/sounds/SFX_BattleMusic.wav', 'rb')
@@ -849,8 +844,6 @@ def set_initial_values2():
     matrix = [[0 for y in range(height + 1)] for x in range(width)]
     ui_variables.click_sound.play()
     
-
-
 def set_initial_items():
     global num_light, num_earthquake, num_tnt
     num_light = no_item
@@ -864,7 +857,6 @@ def item_off():
         num_light = no_item
         num_earthquake = no_item
         num_tnt = no_item
-
 
 set_initial_values()
 pygame.time.set_timer(pygame.USEREVENT, 10)
@@ -2880,7 +2872,6 @@ while not done:
                     ui_variables.click_sound.play()
                     challenge = True
                 pygame.display.update()
-
 
             elif event.type == VIDEORESIZE:
                 board_width = event.w
