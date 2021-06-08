@@ -11,40 +11,7 @@ from pygame.locals import *
 from var import *
 from DB import *
 
-# Unchanged values Define 변하지 않는 변수 선언
-
-block_size = 17  # Height, width of single block
-width = 10
-height = 20
-
-board_x = 10
-board_y = 20
-board_width = 800 # Board width
-board_height = 450 # Board height
-board_rate = 0.5625 #가로세로비율
-block_size = int(board_height * 0.045)
-mino_matrix_x = 4 #mino는 4*4 배열이어서 이를 for문에 사용
-mino_matrix_y = 4 #mino는 4*4 배열이어서 이를 for문에 사용
-
-speed_change = 40 # 레벨별 블록 하강 속도 상승 정도
-
-framerate = 30  # Bigger -> Slower
-
-min_width = 400
-min_height = 225
-mid_width = 1200
-
-total_time = 60 # 타임 어택 시간
-attack_time = 30 # 어택모드 제한시간
-
-# 기본 볼륨
-music_volume = 5
-effect_volume = 5
-
-initalize = True
-
 pygame.init()
-
 
 # Class 설정
 # Inputbox 초기 설정
