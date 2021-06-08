@@ -136,19 +136,19 @@ def add_score(game_status,  ID, score): #랭크 점수 기록
     curs.close()
 
 
-def load_rank_data(self, game_status):                                             #데이터 베이스에서 데이터 불러오기
-    pass #?? 왜 pass? 
+def load_rank_data(game_status):                                             #데이터 베이스에서 데이터 불러오기
+    
     curs = database.cursor(pymysql.cursors.DictCursor)
     if game_status == 'single':
         sql = "select * from single_rank order by score desc "
     elif game_status == 'easy':
-        sql = "select * from easy_mode_rank order by score desc"
+        sql = "select * from easy_mode_rank order by easy_mode_score desc"
     elif game_status == 'normal':
-        sql = "select * from normal_mode_rank order by score desc"
+        sql = "select * from normal_mode_rank order by normal_mode_score desc"
     elif game_status == 'hard':
-        sql = "select * from hard_mode_rank order by score desc"
+        sql = "select * from hard_mode_rank order by hard_mode_score desc"
     elif game_status == 'time_attack':
-        sql = "select * from timeattack_rank order by score desc"
+        sql = "select * from timeattack_rank order by timeattack_score desc"
     curs.execute(sql)
     data = curs.fetchall()
     curs.close()
