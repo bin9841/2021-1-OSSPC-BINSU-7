@@ -330,9 +330,9 @@ quit_game_button = button(board_width, board_height, 0.5, 0.87, 0.16, 0.084, but
 # 위와 동일
 
 # game page 5) game over board
-menu_button = button(board_width, board_height, 0.5, 0.33, 0.16, 0.084, button_menu)
-# restart
-ok_button = button(board_width, board_height, 0.5, 0.87, 0.16, 0.084, button_ok)
+menu_button = button(board_width, board_height, 0.5, 0.42, 0.16, 0.084, button_menu)
+restart_over_button = button(board_width, board_height, 0.5, 0.6, 0.16, 0.084, button_restart)
+ok_button = button(board_width, board_height, 0.5, 0.78, 0.16, 0.084, button_ok)
 
 # sandbox
 level_plus_button = button(board_width, board_height, 0.63, 0.7719, 0.0375, 0.0666, vector_plus)
@@ -353,7 +353,7 @@ button_list = [
     restart_button, setting_button, quit_game_button, menu_button, ok_button,
     level_plus_button, level_minus_button, off1_button, off2_button, off3_button,
     sign_up_button1, sign_up_button2, sign_in_button1, sign_in_button2,
-    log_back, log_quit, rank_single, rank_easy, rank_normal, rank_hard, rank_ta
+    log_back, log_quit, rank_single, rank_easy, rank_normal, rank_hard, rank_ta, restart_over_button
 ]
 
 def set_volume():
@@ -2679,8 +2679,10 @@ while not done:
 
                 draw_image(screen, board_gameover, board_width * 0.5, board_height * 0.5, int(board_height * 0.7428), board_height) #(window, 이미지주소, x좌표, y좌표, 너비, 높이)
                 menu_button.draw(screen, (0, 0, 0)) #rgb(0,0,0) = 검정색
-                restart_button.draw(screen, (0, 0, 0))
+                restart_over_button.draw(screen, (0, 0, 0))
                 ok_button.draw(screen, (0, 0, 0))
+
+                pygame.display.update()
 
 
 
@@ -2691,7 +2693,7 @@ while not done:
                     pygame.time.set_timer(pygame.USEREVENT, set_1) #0.001초
 
             elif event.type == pygame.MOUSEMOTION:
-                if resume_button.isOver_2(pos):
+                if menu_button.isOver_2(pos):
                     menu_button.image = button_menu_clicked
                 else:
                     menu_button.image = button_menu
@@ -2759,8 +2761,9 @@ while not done:
                 if menu_button.isOver(pos):
                     ui_variables.click_sound.play()
                     game_over = False
+                    main = True
 
-                if restart_button.isOver_2(pos):
+                if restart_over_button.isOver_2(pos):
                     if game_status == 'single':
                         start = True
                         pygame.mixer.music.play(minus) #play(-1) = 노래 반복재생
