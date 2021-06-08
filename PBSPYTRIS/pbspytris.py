@@ -763,7 +763,7 @@ def set_music_playing(CHANNELS, swidth):
     pygame.mixer.music.load('assets/sounds/SFX_BattleMusic_Changed.wav')
     pygame.mixer.music.play(minus) #위 노래를 반복재생하기 위해 play(-1)로 설정
 
-set_initial_values():
+def set_initial_values():
     global r_n,r_s,rank, main, signin, signup, combo_status, combo_count, score, level, goal, bottom_count, hard_drop, attack_point, dx, dy, rotation, mino, next_mino1, next_mino2, hold, hold_mino, framerate, matrix, blink, start, pause, done, game_over, leader_board, setting, volume_setting, screen_setting, help, gravity_mode, time_attack, time_attack_time, start_ticks, textsize, attack_mode, attack_mode_time, attack_board_y, CHANNELS, swidth, name_location, name, previous_time, current_time, pause_time, lines, leaders, volume, game_status, framerate_blockmove, game_speed, sandbox,sandbox_mode, difficulty, difficulty_mode, shop, challenge, single, game, gold, s_gold, item, item_mino, light_mino, earth_mino, tnt_mino, ch_1, ch_2, ch_3, num_light, num_earthquake, num_tnt
 
 
@@ -2606,48 +2606,7 @@ while not done:
                 attack_mode_time = False #elapsed_attack_time 초기화
 
         pygame.display.update()
-    elif login:
-        draw_image(screen, login_bg, board_width*0.5, board_height*0.5,
-        board_width, board_height)
-        draw_image(screen, log_board, board_width*0.5, board_height*0.5,
-        int(board_width*3/8), int(board_height*2/9))
-        sign_up_button1.draw(screen,(0,0,0))
-        sign_in_button1.draw(screen,(0,0,0))
-        log_quit.draw(screen,(0,0,0))
-
-        for event in pygame.event.get():
-            pos = pygame.mouse.get_pos()
-            if event.type == QUIT:
-                done = True
-            elif event.type == USEREVENT:
-                pygame.time.set_timer(pygame.USEREVENT, set_300)
-                pygame.display.update()
-            elif event.type == pygame.MOUSEMOTION:
-                if sign_up_button1.isOver_2(pos):
-                    sign_up_button1.image = button_sign_up_clicked
-                else:
-                    sign_up_button1.image = button_sign_up
-                if sign_in_button1.isOver_2(pos):
-                    sign_in_button1.image = button_sign_in_clicked
-                else:
-                    sign_in_button1.image = button_sign_in
-                if log_quit.isOver_2(pos):
-                    log_quit.image = button_quit_clicked
-                else:
-                    log_quit.image = button_quit
-
-            elif event.type == pygame.MOUSEBUTTONDOWN:
-                if sign_up_button1.isOver_2(pos):
-                    ui_variables.click_sound.play()
-                    signup = True
-                    login = False
-                if sign_in_button1.isOver_2(pos):
-                    ui_variables.click_sound.play()
-                    signin = True
-                    login = False
-                if log_quit.isOver_2(pos):
-                    ui_variables.click_sound.play()
-                    done = True
+       
     elif signup:
         draw_image(screen, login_bg, board_width*0.5, board_height*0.5,
         board_width, board_height)
@@ -2969,12 +2928,8 @@ while not done:
 
                 for i in range(len(button_list)):
                         button_list[i].change(board_width, board_height)
-
-            # login page 예시
-            elif event.type == KEYDOWN:
-                if event.key == K_F1:
-                    login = True
-
+           
+                
         draw_image(screen, background_image, board_width * 0.5, board_height * 0.5,
          board_width, board_height)
 
