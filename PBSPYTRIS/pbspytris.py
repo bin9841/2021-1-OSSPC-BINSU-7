@@ -1,8 +1,6 @@
 # -*-coding:utf-8-*-
 # PYTRIS Copyright (c) 2017 Jason Kim All Rights Reserved.
 
-import pymysql
-import bcrypt
 import pygame
 import operator
 import wave
@@ -10,7 +8,8 @@ import os
 from mino import *
 from random import *
 from pygame.locals import *
-import bcrypt
+from var import *
+from DB import *
 
 # Unchanged values Define 변하지 않는 변수 선언
 
@@ -46,6 +45,8 @@ initalize = True
 
 pygame.init()
 
+
+# Class 설정
 # Inputbox 초기 설정
 COLOR_INACTIVE = pygame.Color('lightskyblue3')
 COLOR_ACTIVE = pygame.Color('dodgerblue2')
@@ -198,173 +199,6 @@ class ui_variables:
     # item_image 2개 넣기
     t_block = [table_image, cyan_image, blue_image, orange_image, yellow_image, green_image, pink_image, red_image,
                ghost_image, linessent_image, light_image, tnt_image]
-
-#각 이미지 주소
-# background
-background_image = 'assets/vector/Background.png' #홈 배경화면
-gamebackground_image = 'assets/vector/Background_game.png' #게임 배경화면
-
-# board
-board_challenge = 'assets/vector/board_challenge.png'
-board_gameover = 'assets/vector/board_gameover.png'
-board_help = 'assets/vector/board_help.png'
-board_leader = 'assets/vector/board_leader.png'
-board_number = 'assets/vector/board_number.png'
-board_pause = 'assets/vector/board_pause.png'
-board_setting = 'assets/vector/board_setting.png'
-board_shop = 'assets/vector/board_shop.png'
-board_start = 'assets/vector/board_start.png'
-board_sandbox = 'assets/vector/board_sandbox.png'
-board_difficulty = 'assets/vector/board_difficulty.png'
-board_volume = 'assets/vector/board_volume.png'
-board_screen = 'assets/vector/board_screen.png'
-
-#button
-button_allmute = 'assets/vector/button_allmute.png'
-button_allmute_clicked = 'assets/vector/button_allmute_clicked.png'
-button_allmute_on = 'assets/vector/button_allmute_on.png'
-
-button_back = 'assets/vector/button_back.png'
-button_back_clicked = 'assets/vector/button_back_clicked.png'
-
-button_default = 'assets/vector/button_default.png'
-button_default_clicked = 'assets/vector/button_default_clicked.png'
-button_default_on = 'assets/vector/button_default_on.png'
-
-button_gravity = 'assets/vector/button_gravity.png'
-button_gravity_clicked = 'assets/vector/button_gravity_clicked.png'
-button_gravity_on = 'assets/vector/button_gravity_on.png'
-
-button_help = 'assets/vector/button_help.png'
-button_help_clicked = 'assets/vector/button_help_clicked.png'
-
-button_menu = 'assets/vector/button_menu.png'
-button_menu_clicked = 'assets/vector/button_menu_clicked.png'
-
-button_ok = 'assets/vector/button_ok.png'
-button_ok_clicked = 'assets/vector/button_ok_clicked.png'
-
-button_pvp = 'assets/vector/button_pvp.png'
-button_pvp_clicked = 'assets/vector/button_pvp_clicked.png'
-
-button_quit = 'assets/vector/button_quit.png'
-button_quit_clicked = 'assets/vector/button_quit_clicked.png'
-
-button_restart = 'assets/vector/button_restart.png'
-button_restart_clicked = 'assets/vector/button_restart_clicked.png'
-
-button_resume = 'assets/vector/button_resume.png'
-button_resume_clicked = 'assets/vector/button_resume_clicked.png'
-
-button_sandbox = 'assets/vector/button_sandbox.png'
-button_sandbox_clicked = 'assets/vector/button_sandbox_clicked.png'
-button_sandbox_on = 'assets/vector/button_sandbox_on.png'
-
-button_setting = 'assets/vector/button_setting.png'
-button_setting_clicked = 'assets/vector/button_setting_clicked.png'
-
-button_shop = 'assets/vector/button_shop.png'
-button_shop_clicked = 'assets/vector/button_shop_clicked.png'
-
-button_single = 'assets/vector/button_single.png'
-button_single_clicked = 'assets/vector/button_single_clicked.png'
-
-button_start = 'assets/vector/button_start.png'
-button_start_clicked = 'assets/vector/button_start_clicked.png'
-
-button_timeattack = 'assets/vector/button_timeattack.png'
-button_timeattack_clicked = 'assets/vector/button_timeattack_clicked.png'
-
-button_attack = 'assets/vector/button_attack.png'
-button_attack_clicked = 'assets/vector/button_attack_clicked.png'
-button_attack_on = 'assets/vector/button_attack_on.png'
-
-button_difficulty = 'assets/vector/button_difficulty.png'
-button_difficulty_clicked = 'assets/vector/button_difficulty_clicked.png'
-
-button_easy = 'assets/vector/button_easy.png'
-button_easy_clicked = 'assets/vector/button_easy_clicked.png'
-
-button_normal = 'assets/vector/button_normal.png'
-button_normal_clicked = 'assets/vector/button_normal_clicked.png'
-
-button_hard = 'assets/vector/button_hard.png'
-button_hard_clicked = 'assets/vector/button_hard_clicked.png'
-
-button_buy = 'assets/vector/button_buy.png'
-button_buy_clicked = 'assets/vector/button_buy_clicked.png'
-
-button_game = 'assets/vector/button_game.png'
-button_game_clicked = 'assets/vector/button_game_clicked.png'
-
-# icon : 버튼이 아닌 아이콘, 이벤트 없음
-icon_combo = 'assets/vector/icon_combo.png'
-icon_level = 'assets/vector/icon_level.png'
-icon_speed = 'assets/vector/icon_speed.png'
-
-# item
-item_earth = 'assets/vector/item_earth.png'
-item_gold = 'assets/vector/item_gold.png'
-item_tnt = 'assets/vector/item_tnt.png'
-item_light = 'assets/vector/item_lightning.png'
-item_tnt_info = 'assets/vector/tnt_info.PNG'
-item_light_info='assets/vector/light_info.PNG'
-item_earth_info='assets/vector/earth_info.PNG'
-
-# screensize
-size_s = 'assets/vector/screensize1.png'
-size_m = 'assets/vector/screensize2.png'
-size_b = 'assets/vector/screensize3.png'
-
-# vector : 이벤트 존재하는 아이콘
-vector_challenge = 'assets/vector/vector_challenge.png'
-vector_challenge_clicked = 'assets/vector/vector_challenge_clicked.png'
-
-vector_leader = 'assets/vector/vector_leaderboard.png'
-vector_leader_clicked = 'assets/vector/vector_leader_clicked.png'
-
-vector_minus = 'assets/vector/vector_minus.png'
-vector_minus_clicked = 'assets/vector/vector_minus_clicked.png'
-
-vector_plus = 'assets/vector/vector_plus.png'
-vector_plus_clicked = 'assets/vector/vector_plus_clicked.png'
-
-vector_screen = 'assets/vector/vector_screen.png'
-vector_screen_clicked = 'assets/vector/vector_screen_clicked.png'
-
-vector_setting = 'assets/vector/vector_setting.png'
-vector_setting_clicked = 'assets/vector/vector_setting_clicked.png'
-
-vector_sound_off = 'assets/vector/vector_sound_off.png'
-vector_sound_on = 'assets/vector/vector_sound_on.png'
-
-vector_volume = 'assets/vector/vector_volume.png'
-vector_volume_clicked = 'assets/vector/vector_volume_clicked.png'
-
-tetris3 = pygame.image.load("assets/Combo/tetris4.png")
-tetris4 = pygame.transform.smoothscale(tetris3,
-                    (int(board_width*0.225),int(board_height*0.1266)))
-
-challenge_info1 = 'assets/vector/challenge_info1.PNG'
-challenge_info2 = 'assets/vector/challenge_info2.PNG'
-challenge_info3 = 'assets/vector/challenge_info3.PNG'
-
-on = 'assets/vector/button_on.png'
-on_clicked = 'assets/vector/button_on_clicked.png'
-off = 'assets/vector/button_off.png'
-off_clicked = 'assets/vector/button_off_clicked.png'
-
-signup_board = 'assets/vector/signup.png'
-signin_board = 'assets/vector/signin.png'
-login_bg = 'assets/vector/Background_login.png'
-log_board = 'assets/vector/log_or_sign_board.png'
-
-button_log_back = 'assets/vector/button_l_back.png'
-button_log_back_clicked = 'assets/vector/button_l_back_clicked.png'
-button_sign_up = 'assets/vector/button_sign_up.png'
-button_sign_up_clicked = 'assets/vector/button_sign_up_clicked.png'
-button_sign_in = 'assets/vector/button_sign_in.png'
-button_sign_in_clicked = 'assets/vector/button_sign_in_clicked.png'
 
 class button(): #버튼객체
     def __init__(self, board_width, board_height, x_rate, y_rate, width_rate, height_rate, img=''): #버튼생성
@@ -631,37 +465,37 @@ def draw_board(next1, next2, hold, score, level, goal):
 
 
     # Draw next mino 다음 블록
-    grid_n1 = tetrimino.mino_map[next1 - 1][0] #(배열이라-1) 다음 블록의 원래 모양
-    grid_n2 = tetrimino.mino_map[next2 - 1][0] #(배열이라-1) 다음 블록의 원래 모양
+    grid_n1 = tetrimino.mino_map[next1 - mino_x][mino_y] #(배열이라-1) 다음 블록의 원래 모양
+    grid_n2 = tetrimino.mino_map[next2 - mino_x][mino_y] #(배열이라-1) 다음 블록의 원래 모양
 
     for i in range(mino_matrix_y): #다음 블록
         for j in range(mino_matrix_x):
             dx1 = int(board_width * 0.025) + sidebar_width + block_size * j #위치 비율 고정, 전체 board 가로길이에서 원하는 비율을 곱해줌#
             dy1 = int(board_height * 0.3743) + block_size * i #위치 비율 고정, 전체 board 세로길이에서 원하는 비율을 곱해줌#
-            if grid_n1[i][j] != 0: #해당 부분에 블록 존재하면
+            if grid_n1[i][j] != mino_zero: #해당 부분에 블록 존재하면
                 draw_block_image(dx1, dy1, ui_variables.t_block[grid_n1[i][j]]) #블록 이미지 출력
 
     for i in range(mino_matrix_y): #다다음블록
         for j in range(mino_matrix_x):
             dx2 = int(board_width * 0.145) + sidebar_width + block_size * j #위치 비율 고정, 전체 board 가로길이에서 원하는 비율을 곱해줌#
             dy2 = int(board_height * 0.3743) + block_size * i #위치 비율 고정, 전체 board 세로길이에서 원하는 비율을 곱해줌#
-            if grid_n2[i][j] != 0: #해당 부분에 블록 존재하면
+            if grid_n2[i][j] != mino_zero: #해당 부분에 블록 존재하면
                 draw_block_image(dx2, dy2, ui_variables.t_block[grid_n2[i][j]]) #블록 이미지 출력
 
     # Draw hold mino
-    grid_h = tetrimino.mino_map[hold - 1][0]  #(배열이라-1) 기본 모양
+    grid_h = tetrimino.mino_map[hold - mino_x][mino_y]  #(배열이라-1) 기본 모양
 
-    if hold_mino != -1: #hold 존재X
+    if hold_mino != h_mino: #hold 존재X
         for i in range(mino_matrix_y):
             for j in range(mino_matrix_x):
                 dx = int(board_width * 0.045) + sidebar_width + block_size * j #위치 비율 고정
                 dy = int(board_height * 0.1336) + block_size * i #위치 비율 고정
-                if grid_h[i][j] != 0: #해당 부분에 블록이 존재하면
+                if grid_h[i][j] != mino_zero: #해당 부분에 블록이 존재하면
                     draw_block_image(dx, dy, ui_variables.t_block[grid_h[i][j]]) #hold 블록 출력
 
     # Set max score
-    if score > 999999:
-        score = 999999 #최대 점수가 999999를 넘기지 못하도록 설정#
+    if score > max_score:
+        score = max_score #최대 점수가 999999를 넘기지 못하도록 설정#
 
     # Draw texts
     #render("텍스트이름", 안티에일리어싱 적용, 색깔), 즉 아래의 코드에서 숫자 1=안티에일리어싱 적용에 관한 코드
@@ -731,44 +565,44 @@ def draw_board(next1, next2, hold, score, level, goal):
         for y in range(height):
             dx = int(board_width * 0.25) + block_size * x  #위치비율 고정, board 가로길이에 원하는 비율을 곱해줌#
             dy = int(board_height * 0.055) + block_size * y #위치비율 고정, board 세로길이에 원하는 비율을 곱해줌#
-            draw_block_image(dx, dy, ui_variables.t_block[matrix[x][y + 1]])
+            draw_block_image(dx, dy, ui_variables.t_block[matrix[x][y + mino_x]])
 
 
 # Draw a tetrimino
 def draw_mino(x, y, mino, r, matrix): #mino는 모양, r은 회전된 모양 중 하나
-    grid = tetrimino.mino_map[mino - 1][r] #grid : 출력할 테트리스
+    grid = tetrimino.mino_map[mino - mino_x][r] #grid : 출력할 테트리스
 
     tx, ty = x, y
     while not is_bottom(tx, ty, mino, r, matrix): #테트리스가 바닥에 존재하면 true -> not이니까 바닥에 없는 상태
-        ty += 1 #한칸 밑으로 하강
+        ty += mino_x #한칸 밑으로 하강
 
     # Draw ghost
     for i in range(mino_matrix_y):
         for j in range(mino_matrix_x):
-            if grid[i][j] != 0: #테트리스 블록에서 해당 행렬위치에 블록 존재하면
-                matrix[tx + j][ty + i] = 8 #테트리스가 쌓일 위치에 8 이라는 ghost 만듦
+            if grid[i][j] != mino_zero: #테트리스 블록에서 해당 행렬위치에 블록 존재하면
+                matrix[tx + j][ty + i] = g_mino #테트리스가 쌓일 위치에 8 이라는 ghost 만듦
 
     # Draw mino
     for i in range(mino_matrix_y):
         for j in range(mino_matrix_x):
-            if grid[i][j] != 0:  #테트리스 블록에서 해당 행렬위치에 블록 존재하면
+            if grid[i][j] != mino_zero:  #테트리스 블록에서 해당 행렬위치에 블록 존재하면
                 matrix[x + j][y + i] = grid[i][j] #해당 위치에 블록 만듦
 
 # Erase a tetrimino
 def erase_mino(x, y, mino, r, matrix):
-    grid = tetrimino.mino_map[mino - 1][r]
+    grid = tetrimino.mino_map[mino - mino_x][r]
 
     # Erase ghost
     for j in range(board_y+1):
         for i in range(board_x):
-            if matrix[i][j] == 8: #테트리스 블록에서 해당 행렬위치에 ghost블록 존재하면
-                matrix[i][j] = 0  #없애서 빈 곳으로 만들기
+            if matrix[i][j] == g_mino: #테트리스 블록에서 해당 행렬위치에 ghost블록 존재하면
+                matrix[i][j] = mino_zero  #없애서 빈 곳으로 만들기
 
     # Erase mino
     for i in range(mino_matrix_y):
         for j in range(mino_matrix_x):
-            if grid[i][j] != 0:  #테트리스 블록에서 해당 행렬위치에 블록 존재하면
-                matrix[x + j][y + i] = 0 #해당 위치에 블록 없애서 빈 곳으로 만들기
+            if grid[i][j] != mino_zero:  #테트리스 블록에서 해당 행렬위치에 블록 존재하면
+                matrix[x + j][y + i] = mino_zero #해당 위치에 블록 없애서 빈 곳으로 만들기
 
     # light item
     for j in range(board_y+1):
@@ -776,10 +610,10 @@ def erase_mino(x, y, mino, r, matrix):
             if matrix[i][j] == light_mino: #테트리스 블록에서 해당 행렬위치에 lightning 블록 존재하면
                 m = i-1
                 n = j-1
-                for k in range(3):
-                    for q in range(3):
-                        if m+k >= 0 and n+q >= 0 :
-                            matrix[m+k][n+q] = 0
+                for k in range(l_range):
+                    for q in range(l_range):
+                        if m+k >= mino_zero and n+q >= mino_zero :
+                            matrix[m+k][n+q] = mino_zero
                  
 
     # tnt item
@@ -788,21 +622,21 @@ def erase_mino(x, y, mino, r, matrix):
             if matrix[i][j] == tnt_mino: #테트리스 블록에서 해당 행렬위치에 TNT 블록 존재하면
                 m = i-2
                 n = j-2
-                for k in range(5):
-                    for q in range(5):
-                        if m+k >= 0 and n+q >= 0 :
-                            matrix[m+k][n+q] = 0
+                for k in range(t_range):
+                    for q in range(t_range):
+                        if m+k >= mino_zero and n+q >= mino_zero :
+                            matrix[m+k][n+q] = mino_zero
 
 # Returns true if mino is at bottom
 def is_bottom(x, y, mino, r, matrix):
-    grid = tetrimino.mino_map[mino - 1][r] #grid : 출력할 테트리스
+    grid = tetrimino.mino_map[mino - mino_x][r] #grid : 출력할 테트리스
 
     for i in range(mino_matrix_y):
         for j in range(mino_matrix_x):
-            if grid[i][j] != 0: #테트리스 블록에서 해당 행렬위치에 블록 존재하면
-                if (y + i + 1) > board_y :   #바닥의 y좌표에 있음(바닥에 닿음)
+            if grid[i][j] != mino_zero: #테트리스 블록에서 해당 행렬위치에 블록 존재하면
+                if (y + i + mino_x) > board_y :   #바닥의 y좌표에 있음(바닥에 닿음)
                     return True
-                elif matrix[x + j][y + i + 1] != 0 and matrix[x + j][y + i + 1] != 8: #그 블록위치에 0, 8 아님(즉 블록 존재 함)
+                elif matrix[x + j][y + i + mino_x] != mino_zero and matrix[x + j][y + i + mino_x] != g_mino: #그 블록위치에 0, 8 아님(즉 블록 존재 함)
                     return True
 
     return False
@@ -810,95 +644,95 @@ def is_bottom(x, y, mino, r, matrix):
 def earthquake(y,matrix):
     
     for i in range(board_x): # 가로줄 전체에 대해서
-        matrix[i][y] = 0
+        matrix[i][y] = mino_zero
     
         
 def gravity(x, y, mino, r, matrix):
-    grid = tetrimino.mino_map[mino - 1][r] #grid : 출력할 테트리스
+    grid = tetrimino.mino_map[mino - mino_x][r] #grid : 출력할 테트리스
 
-    for j in range(mino_matrix_x-1, -1, -1): #mino_matrix 4*4 배열이므로 -1 해서 3, 2, 1, 0 index로 for문을 돎
-        for i in range(mino_matrix_y-1, -1, -1):  #mino_matrix 4*4 배열이므로 -1 해서 3, 2, 1, 0 index로 for문을 돎
-            if grid[i][j] != 0: #테트리스 블록에서 해당 행렬위치에 블록 존재하면
+    for j in range(mino_matrix_x-mino_r, -mino_r, -mino_r): #mino_matrix 4*4 배열이므로 -1 해서 3, 2, 1, 0 index로 for문을 돎
+        for i in range(mino_matrix_y-mino_r, -mino_r, -mino_r):  #mino_matrix 4*4 배열이므로 -1 해서 3, 2, 1, 0 index로 for문을 돎
+            if grid[i][j] != mino_zero: #테트리스 블록에서 해당 행렬위치에 블록 존재하면
                 dy = y
-                if ((dy + i) == board_y or (matrix[x + j][dy + i+1] != 0)) : #바닥에 닿았거나, 해당 위치 아랫칸에 블록이 이미 존재하는 경우
+                if ((dy + i) == board_y or (matrix[x + j][dy + i+mino_r] != mino_zero)) : #바닥에 닿았거나, 해당 위치 아랫칸에 블록이 이미 존재하는 경우
                     matrix[x+j][dy+i] = grid[i][j] #그 위치에 그대로 테트리스 블록을 둠
                 else :
-                    while((dy + 1 + i) <= board_y and (matrix[x + j][dy + i + 1] == 0)): #바닥에 닿지 않았으며, 해당 위치 아랫칸에 블록이 없는 경우 (= 공중에 떠있는 경우)
+                    while((dy + mino_r + i) <= board_y and (matrix[x + j][dy + i + mino_r] == 0)): #바닥에 닿지 않았으며, 해당 위치 아랫칸에 블록이 없는 경우 (= 공중에 떠있는 경우)
                         dy+=1 #이 조건에서 벗어날 때까지 계속해서 한 칸씩 밑으로 떨어뜨림
-                        matrix[x+j][dy+i] = 9  #떨어지는 블록은 장애물 블록으로 표현
-                        matrix[x+j][dy+i-1] = 0  #블록이 한칸 떨어졌으니, 그 위의 기존블록 또는 만들어두었던 장애물 블록은 빈칸으로 처리함(없앰)
+                        matrix[x+j][dy+i] = f_mino  #떨어지는 블록은 장애물 블록으로 표현
+                        matrix[x+j][dy+i-mino_r] = mino_zero  #블록이 한칸 떨어졌으니, 그 위의 기존블록 또는 만들어두었던 장애물 블록은 빈칸으로 처리함(없앰)
 
 def attack(y,matrix):
     for i in range(board_x): # 가로줄 전체에 대해서
-        matrix[i][y] = 9 # 맨 밑줄부터 장애물 블록으로 채워짐
+        matrix[i][y] = f_mino # 맨 밑줄부터 장애물 블록으로 채워짐
 
 # Returns true if mino is at the left edge
 def is_leftedge(x, y, mino, r, matrix):
-    grid = tetrimino.mino_map[mino - 1][r] #grid : 출력할 테트리스
+    grid = tetrimino.mino_map[mino - mino_r][r] #grid : 출력할 테트리스
 
     for i in range(mino_matrix_y):
         for j in range(mino_matrix_x):
-            if grid[i][j] != 0: #테트리스 블록에서 해당 행렬위치에 블록 존재하면
-                if (x + j - 1) < 0:  #맨 왼쪽에 위치함
+            if grid[i][j] != mino_zero: #테트리스 블록에서 해당 행렬위치에 블록 존재하면
+                if (x + j - mino_r) < mino_zero:  #맨 왼쪽에 위치함
                     return True
-                elif matrix[x + j - 1][y + i] != 0:  #그 위치의 왼쪽에 이미 무엇인가 존재함
+                elif matrix[x + j - mino_r][y + i] != mino_zero:  #그 위치의 왼쪽에 이미 무엇인가 존재함
                     return True
 
     return False
 
 # Returns true if mino is at the right edge
 def is_rightedge(x, y, mino, r, matrix):
-    grid = tetrimino.mino_map[mino - 1][r] #grid : 출력할 테트리스
+    grid = tetrimino.mino_map[mino - mino_r][r] #grid : 출력할 테트리스
 
     for i in range(mino_matrix_y):
         for j in range(mino_matrix_x):
-            if grid[i][j] != 0: #테트리스 블록에서 해당 행렬위치에 블록 존재하면
-                if (x + j + 1) >= board_x :  #맨 오른쪽에 위치
+            if grid[i][j] != mino_zero: #테트리스 블록에서 해당 행렬위치에 블록 존재하면
+                if (x + j + mino_r) >= board_x :  #맨 오른쪽에 위치
                     return True
-                elif matrix[x + j + 1][y + i] != 0:   #그 위치의 오른쪽에 이미 무엇인가 존재함
+                elif matrix[x + j + mino_r][y + i] != mino_zero:   #그 위치의 오른쪽에 이미 무엇인가 존재함
                     return True
 
     return False
 
 def is_turnable_r(x, y, mino, r, matrix):
     if r != 3:  #회전모양 총 0, 1, 2, 3번째 총 4가지 있음
-        grid = tetrimino.mino_map[mino - 1][r + 1] #3이 아니면 그 다음 모양
+        grid = tetrimino.mino_map[mino - mino_x][r + mino_r] #3이 아니면 그 다음 모양
     else:
-        grid = tetrimino.mino_map[mino - 1][0] #3이면 0번째 모양으로
+        grid = tetrimino.mino_map[mino - mino_x][mino_y] #3이면 0번째 모양으로
 
     for i in range(mino_matrix_y):
         for j in range(mino_matrix_x):
-            if grid[i][j] != 0:  #테트리스 블록에서 해당 행렬위치에 블록 존재하면
-                if (x + j) < 0 or (x + j) >= board_x or (y + i) < 0 or (y + i) > board_y :  #테트리스 matrix크기 벗어나면 못돌림
+            if grid[i][j] != mino_zero:  #테트리스 블록에서 해당 행렬위치에 블록 존재하면
+                if (x + j) < mino_zero or (x + j) >= board_x or (y + i) < mino_zero or (y + i) > board_y :  #테트리스 matrix크기 벗어나면 못돌림
                     return False
-                elif matrix[x + j][y + i] != 0:  #해당 자리에 이미 블록이 있으면 못돌림
+                elif matrix[x + j][y + i] != mino_zero:  #해당 자리에 이미 블록이 있으면 못돌림
                     return False
     return True
 
 # Returns true if turning left is possible
 def is_turnable_l(x, y, mino, r, matrix):
-    if r != 0:  #회전모양 총 0, 1, 2, 3번째 총 4가지 있음
-        grid = tetrimino.mino_map[mino - 1][r - 1]  #0이 아니면 그 다음 모양
+    if r != mino_zero:  #회전모양 총 0, 1, 2, 3번째 총 4가지 있음
+        grid = tetrimino.mino_map[mino - mino_r][r - mino_r]  #0이 아니면 그 다음 모양
     else:
-        grid = tetrimino.mino_map[mino - 1][3] #0이면 3번째 모양으로
+        grid = tetrimino.mino_map[mino - mino_r][mino_3] #0이면 3번째 모양으로
 
     for i in range(mino_matrix_y):
         for j in range(mino_matrix_x):
-            if grid[i][j] != 0:  #테트리스 블록에서 해당 행렬위치에 블록 존재하면
-                if (x + j) < 0 or (x + j) >= board_x or (y + i) < 0 or (y + i) > board_y:  #테트리스 matrix크기 벗어나면 못돌림
+            if grid[i][j] != mino_zero:  #테트리스 블록에서 해당 행렬위치에 블록 존재하면
+                if (x + j) < mino_zero or (x + j) >= board_x or (y + i) < mino_zero or (y + i) > board_y:  #테트리스 matrix크기 벗어나면 못돌림
                     return False
-                elif matrix[x + j][y + i] != 0: #해당 자리에 이미 블록이 있으면 못돌림
+                elif matrix[x + j][y + i] != mino_zero: #해당 자리에 이미 블록이 있으면 못돌림
                     return False
 
     return True
 
 # Returns true if new block is drawable
 def is_stackable(mino, matrix):
-    grid = tetrimino.mino_map[mino - 1][0] #grid : 출력할 테트리스
+    grid = tetrimino.mino_map[mino - mino_x][mino_zero] #grid : 출력할 테트리스
 
     for i in range(mino_matrix_y):
         for j in range(mino_matrix_x):
-            if grid[i][j] != 0 and matrix[3 + j][i] != 0: ###
+            if grid[i][j] != mino_zero and matrix[mino_3 + j][i] != mino_zero: ###
                 return False
 
     return True
@@ -907,7 +741,7 @@ def is_stackable(mino, matrix):
 
 
 def set_vol(val):
-    volume = int(val) / 100 #set_volume argenment로 넣기 위해서(소수점을 만들어주기 위해서) 100으로 나눠줌
+    volume = int(val) / vol_range #set_volume argenment로 넣기 위해서(소수점을 만들어주기 위해서) 100으로 나눠줌
     print(volume)
     ui_variables.click_sound.set_volume(volume)
 
@@ -915,7 +749,7 @@ def set_vol(val):
 def set_music_playing(CHANNELS, swidth):
     spf = wave.open('assets/sounds/SFX_BattleMusic.wav', 'rb')
     RATE = spf.getframerate()
-    signal = spf.readframes(-1)
+    signal = spf.readframes(minus)
     if os.path.isfile('assets/sounds/SFX_BattleMusic_Changed.wav'):
         pygame.mixer.quit()
         os.remove('assets/sounds/SFX_BattleMusic_Changed.wav')
@@ -923,163 +757,15 @@ def set_music_playing(CHANNELS, swidth):
     wf = wave.open('assets/sounds/SFX_BattleMusic_Changed.wav', 'wb')
     wf.setnchannels(CHANNELS)
     wf.setsampwidth(swidth)
-    wf.setframerate(RATE * (level+1))
+    wf.setframerate(RATE * (level+plus))
     wf.writeframes(signal)
     wf.close()
     pygame.mixer.music.load('assets/sounds/SFX_BattleMusic_Changed.wav')
-    pygame.mixer.music.play(-1) #위 노래를 반복재생하기 위해 play(-1)로 설정
+    pygame.mixer.music.play(minus) #위 노래를 반복재생하기 위해 play(-1)로 설정
 
-
-database = pymysql.connect(
-    user='admin',
-    password='qwqw7113',
-    host='database-1.caujngehv3l9.ap-northeast-2.rds.amazonaws.com',
-    db='users',
-    charset='utf8'
-)
-
-def add_id(id_text):
-    curs = database.cursor()
-    sql = "INSERT INTO users (user_id) VALUES (%s)"
-    curs.execute(sql, id_text)
-    database.commit()  #서버로 추가 사항 보내기
-    curs.close()
-
-def add_pw(id_text, pw_text):
-    #회원가입시 초기 아이템 수는 0으로 설정
-    #추가하기
-    initial_earthquake = 0
-    initial_light  = 0
-    initial_tnt = 0
-    initial_gold = 0
-    hashed_pw = bcrypt.hashpw(pw_text.encode('utf-8'), bcrypt.gensalt())#비밀번호를 encoding해서 type를 byte로 바꿔서 hashpw함수에 넣기
-    decode_hash_pw = hashed_pw.decode('utf-8') #비밀번호 확인할 때는 str값으로 받아 매칭해서 비번을 데베에 저장할 때 decoding 해야함
-    curs = database.cursor()
-    sql = "UPDATE users SET user_pw= %s WHERE user_id=%s"
-    curs.execute(sql,(decode_hash_pw,id_text))
-    database.commit()
-    print(hashed_pw)
-    print(decode_hash_pw)
-    curs = database.cursor()
-    sql = "UPDATE users SET user_earthquake= %s, user_light= %s, user_tnt= %s, user_gold= %s WHERE user_id=%s"
-    curs.execute(sql, (initial_earthquake,initial_light, initial_tnt, initial_gold, id_text))
-    database.commit()
-    curs.close()
-
-# 입력받은 아이디가 데이터베이스에 있는지 확인, 아이디와 비밀번호가 일치하는지 확인
-def check_info(id_text, pw_text):
-    input_pw = pw_text.encode('utf-8')
-    curs = database.cursor(pymysql.cursors.DictCursor)
-    sql = "SELECT * FROM users WHERE user_id=%s"
-    curs.execute(sql ,id_text)
-    data = curs.fetchone()  # 리스트 안에 딕셔너리가 있는 형태
-    curs.close()
-    check_password=bcrypt.checkpw(input_pw,data['user_pw'].encode('utf-8'))
-    return check_password
-
-def id_info(id_text):
-    global user_id
-    user_id = id_text
-    return user_id
-
-def load_earthquake_data(user_id):
-    curs = database.cursor(pymysql.cursors.DictCursor)
-    sql = "SELECT * FROM users WHERE user_id=%s"
-    curs.execute(sql, user_id)
-    data = curs.fetchone()
-    curs.close()
-    return data['user_earthquake']
-
-def load_light_data(user_id):
-    curs = database.cursor(pymysql.cursors.DictCursor)
-    sql = "SELECT * FROM users WHERE user_id=%s"
-    curs.execute(sql, user_id)
-    data = curs.fetchone()
-    curs.close()
-    return data['user_light']
-
-def load_tnt_data(user_id):
-    curs = database.cursor(pymysql.cursors.DictCursor)
-    sql = "SELECT * FROM users WHERE user_id=%s"
-    curs.execute(sql, user_id)
-    data = curs.fetchone()
-    curs.close()
-    return data['user_tnt']
-
-def load_gold_data(user_id):
-    curs = database.cursor(pymysql.cursors.DictCursor)
-    sql = "SELECT * FROM users WHERE user_id=%s"
-    curs.execute(sql, user_id)
-    data = curs.fetchone()
-    curs.close()
-    return data['user_gold']
-
-# gameover쪽에 있음
-def update_gold_data(user_gold,user_id):
-    curs = database.cursor()
-    sql = "UPDATE users SET user_gold= %s WHERE user_id=%s"
-    curs.execute(sql, (user_gold, user_id))
-    database.commit()
-    curs.close()
-# 상점이랑 아이템 사용했을 때
-def update_earthquake_data(user_earthquake,user_id):
-    curs = database.cursor()
-    sql = "UPDATE users SET user_earthquake= %s WHERE user_id=%s"
-    curs.execute(sql, (user_earthquake, user_id))
-    database.commit()
-    curs.close()
-def update_light_data(user_light,user_id):
-    curs = database.cursor()
-    sql = "UPDATE users SET user_light= %s WHERE user_id=%s"
-    curs.execute(sql, (user_light, user_id))
-    database.commit()
-    curs.close()
-def update_tnt_data(user_tnt,user_id):
-    curs = database.cursor()
-    sql = "UPDATE users SET user_tnt= %s WHERE user_id=%s"
-    curs.execute(sql, (user_tnt, user_id))
-    database.commit()
-    curs.close()
-
-'''이거는 game status 확인하고 고치기'''
-def add_score(game_status,  ID, score): #랭크 점수 기록
-    #추가하기
-    curs = database.cursor()
-    if game_status == 'single':
-        sql = "INSERT INTO single_rank (user_id, score) VALUES (%s, %s)"
-    elif game_status == 'easy':
-        sql = "INSERT INTO easy_mode_rank (user_id, easy_mode_score) VALUES (%s, %s)"
-    elif game_status == 'normal':
-        sql = "INSERT INTO normal_mode_rank (user_id, normal_mode_score) VALUES (%s, %s)"
-    elif game_status == 'hard':
-        sql = "INSERT INTO hard_mode_rank (user_id, hard_mode_score) VALUES (%s, %s)"
-    elif game_status == 'time_attack':
-        sql = "INSERT INTO timeattack_rank (user_id, timeattack_score) VALUES (%s, %s)"
-    curs.execute(sql, (ID, score))
-    database.commit()  #서버로 추가 사항 보내기
-    curs.close()
-
-
-def load_rank_data(self, game_status):                                             #데이터 베이스에서 데이터 불러오기
-    pass #?? 왜 pass? 
-    curs = database.cursor(pymysql.cursors.DictCursor)
-    if game_status == 'single':
-        sql = "select * from single_rank order by score desc "
-    elif game_status == 'easy':
-        sql = "select * from easy_mode_rank order by score desc"
-    elif game_status == 'normal':
-        sql = "select * from normal_mode_rank order by score desc"
-    elif game_status == 'hard':
-        sql = "select * from hard_mode_rank order by score desc"
-    elif game_status == 'time_attack':
-        sql = "select * from timeattack_rank order by score desc"
-    curs.execute(sql)
-    data = curs.fetchall()
-    curs.close()
-    return data
 
 def set_initial_values():
-    global login, signin, signup, combo_status, combo_count, score, level, goal, bottom_count, hard_drop, attack_point, dx, dy, rotation, mino, next_mino1, next_mino2, hold, hold_mino, framerate, matrix, blink, start, pause, done, game_over, leader_board, setting, volume_setting, screen_setting, help, gravity_mode, time_attack, time_attack_time, start_ticks, textsize, attack_mode, attack_mode_time, attack_board_y, CHANNELS, swidth, name_location, name, previous_time, current_time, pause_time, lines, leaders, volume, game_status, framerate_blockmove, game_speed, sandbox,sandbox_mode, difficulty, difficulty_mode, shop, challenge, single, game, gold, s_gold, item, item_mino, light_mino, earth_mino, tnt_mino, ch_1, ch_2, ch_3, num_light, num_earthquake, num_tnt
+    global login, signin, signup, combo_status, combo_count, score, level, goal, bottom_count, hard_drop, attack_point, dx, dy, rotation, mino, next_mino1, next_mino2, hold, hold_mino, framerate, matrix, blink, start, pause, done, game_over, leader_board, setting, volume_setting, screen_setting, help, gravity_mode, time_attack, time_attack_time, start_ticks, textsize, attack_mode, attack_mode_time, attack_board_y, CHANNELS, swidth, name_location, name, previous_time, current_time, pause_time, lines, leaders, volume, game_status, framerate_blockmove, game_speed, sandbox,sandbox_mode, difficulty, difficulty_mode, shop, challenge, single, game, gold, s_gold, item, item_mino, light_mino, earth_mino, tnt_mino, ch_1, ch_2, ch_3
 
 
     framerate = 30 # Bigger -> Slower  기본 블록 하강 속도, 2도 할만 함, 0 또는 음수 이상이어야 함
@@ -1180,14 +866,42 @@ def set_initial_values():
     ui_variables.break_sound.set_volume(effect_volume / 10) # 소리 설정 부분도 set_volume 함수에 넣으면 됨
     ui_variables.intro_sound.play()
     game_status = ''
+
+def set_initial_values2():
+    hold = False
+    dx, dy = 3, 0
+    rotation = 0
+    mino = randint(1,7)
+    next_mino1=randint(1,7)
+    next_mino2=randint(1,7)
+    hold_mino = -1
+    framerate = 30
+    score = 0
+    level = 1
+    combo_count = 0
+    hard_drop = False
+    goal = level *5
+    bottom_count = 0
+    name_location = 0
+    name = [65, 65, 65]
+    matrix = [[0 for y in range(height + 1)] for x in range(width)]
+    ui_variables.click_sound.play()
     
+
+
+def set_initial_items():
+    global num_light, num_earthquake, num_tnt
+    num_light = no_item
+    num_earthquake = no_item
+    num_tnt = no_item
+
 # item 사용 금지
 def item_off():
     item = False
     if item == False:
-        num_light = 0
-        num_earthquake =0
-        num_tnt = 0
+        num_light = no_item
+        num_earthquake = no_item
+        num_tnt = no_item
 
 
 set_initial_values()
@@ -1250,7 +964,7 @@ while not done:
             if event.type == QUIT:
                 done = True
             elif event.type == USEREVENT:
-                pygame.time.set_timer(pygame.USEREVENT, 300) #0.3초로 설정
+                pygame.time.set_timer(pygame.USEREVENT, set_300) #0.3초로 설정
 
                 pygame.display.update()
 
@@ -1263,7 +977,7 @@ while not done:
                 if allmute_button.isOver_2(pos):
                     allmute_button.image = button_allmute_clicked
                 else:
-                    if (effect_volume == 0) and (music_volume ==0):
+                    if (effect_volume == volume_z) and (music_volume ==volume_z):
                         allmute_button.image = button_allmute_on
                     else:
                         allmute_button.image = button_allmute
@@ -1296,68 +1010,68 @@ while not done:
                     setting = True
                 if music_plus_vector.isOver(pos):
                     ui_variables.click_sound.play()
-                    if music_volume >= 10: #음량 최대크기
-                        music_volume = 10
+                    if music_volume >= volume_f: #음량 최대크기
+                        music_volume = volume_f
                     else:
                         music_on_button.image = vector_sound_on
-                        music_volume += 1
+                        music_volume += plus
                 if music_minus_vector.isOver(pos):
                     ui_variables.click_sound.play()
-                    if music_volume <= 0: #음량 최소크기
-                        music_volume = 0
+                    if music_volume <= volume_z: #음량 최소크기
+                        music_volume = volume_z
                         music_on_button.image=vector_sound_off
                     else:
-                        if music_volume == 1:
+                        if music_volume == plus:
                             music_on_button.image=vector_sound_off
-                            music_volume -= 1
+                            music_volume -= plus
                         else:
                             music_on_button.image=vector_sound_on
-                            music_volume -= 1
+                            music_volume -= plus
                 if effect_plus_vector.isOver(pos):
                     ui_variables.click_sound.play()
-                    if effect_volume >= 10: #음량 최대크기
-                        effect_volume = 10
+                    if effect_volume >= volume_f: #음량 최대크기
+                        effect_volume = volume_f
                     else:
                         effect_on_button.image=vector_sound_on
-                        effect_volume += 1
+                        effect_volume += plus
                 if effect_minus_vector.isOver(pos):
                     ui_variables.click_sound.play()
-                    if effect_volume <= 0: #음량 최소크기
-                        effect_volume = 0
+                    if effect_volume <= volume_z: #음량 최소크기
+                        effect_volume = volume_z
                         effect_on_button.image=vector_sound_off
                     else:
-                        if effect_volume == 1:
+                        if effect_volume == plus:
                             effect_on_button.image=vector_sound_off
-                            effect_volume -= 1
+                            effect_volume -= plus
                         else:
                             effect_on_button.image=vector_sound_on
-                            effect_volume -= 1
+                            effect_volume -= plus
                 #음소거 추가#
                 if music_on_button.isOver(pos):
                     ui_variables.click_sound.play()
-                    if music_volume == 0 :
-                        music_volume = 5 #중간 음량으로
+                    if music_volume == volume_z :
+                        music_volume = volume_m #중간 음량으로
                         music_on_button.image=vector_sound_on
                     else:
-                        music_volume = 0
+                        music_volume = volume_z
                         music_on_button.image=vector_sound_off
                 if effect_on_button.isOver(pos):
                     ui_variables.click_sound.play()
-                    if effect_volume == 0 :
-                        effect_volume = 5  #중간 음량으로
+                    if effect_volume == volume_z :
+                        effect_volume = volume_m  #중간 음량으로
                         effect_on_button.image=vector_sound_on
                     else:
-                        effect_volume = 0
+                        effect_volume = volume_z
                         effect_on_button.image=vector_sound_off
                 if allmute_button.isOver_2(pos):
                     ui_variables.click_sound.play()
-                    if (effect_volume == 0) and (music_volume == 0):
-                        music_volume = 5  #중간 음량으로
-                        effect_volume = 5  #중간 음량으로
+                    if (effect_volume == volume_z) and (music_volume == volume_z):
+                        music_volume = volume_m  #중간 음량으로
+                        effect_volume = volume_m  #중간 음량으로
                         allmute_button.image=button_allmute
                     else:
-                        music_volume = 0 #최소 음량으로
-                        effect_volume = 0 #최소 음량으로
+                        music_volume = volume_z #최소 음량으로
+                        effect_volume = volume_z #최소 음량으로
                         allmute_button.image=button_allmute_on
 
                 set_volume()
@@ -1400,7 +1114,7 @@ while not done:
             if event.type == QUIT:
                 done = True
             elif event.type == USEREVENT:
-                pygame.time.set_timer(pygame.USEREVENT, 300) #0.3초로 설정
+                pygame.time.set_timer(pygame.USEREVENT, set_300) #0.3초로 설정
                 pygame.display.update()
 
             elif event.type == pygame.MOUSEMOTION:
@@ -1418,8 +1132,8 @@ while not done:
                     setting = True
                 if smallsize_button.isOver_2(pos):
                     ui_variables.click_sound.play()
-                    board_width = 800
-                    board_height = 450
+                    board_width = s_w
+                    board_height = s_h
                     block_size = int(board_height * 0.045) #블록 크기 비율 고정
                     screen = pygame.display.set_mode((board_width, board_height), pygame.RESIZABLE)
 
@@ -1429,8 +1143,8 @@ while not done:
 
                 if midiumsize_button.isOver_2(pos):
                     ui_variables.click_sound.play()
-                    board_width = 1200
-                    board_height = 675
+                    board_width = m_w
+                    board_height = m_h
                     block_size = int(board_height * 0.045) #블록 크기 비율 고정
                     screen = pygame.display.set_mode((board_width, board_height), pygame.RESIZABLE)
 
@@ -1441,8 +1155,8 @@ while not done:
 
                 if bigsize_button.isOver_2(pos):
                     ui_variables.click_sound.play()
-                    board_width = 1600
-                    board_height = 900
+                    board_width = b_w
+                    board_height = b_h
                     block_size = int(board_height * 0.045) #블록 크기 비율 고정
                     screen = pygame.display.set_mode((board_width, board_height), pygame.RESIZABLE)
 
@@ -1601,49 +1315,32 @@ while not done:
                 if restart_button.isOver_2(pos):
                     if game_status == 'single':
                         start = True
-                        pygame.mixer.music.play(-1) #play(-1) = 노래 반복재생
+                        pygame.mixer.music.play(minus) #play(-1) = 노래 반복재생
                     if game_status == 'time_attack':
                         time_attack = True
-                        pygame.mixer.music.play(-1)
+                        pygame.mixer.music.play(minus)
                     if game_status == 'easy':
                         attack_mode = True
                         gravity_mode = False
-                        pygame.mixer.music.play(-1)
+                        pygame.mixer.music.play(minus)
                     if game_status == 'normal':
                         attack_mode = False
                         gravity_mode = True
-                        pygame.mixer.music.play(-1)
+                        pygame.mixer.music.play(minus)
                     if game_status == 'hard':
                         attack_mode = True
                         gravity_mode = True
-                        pygame.mixer.music.play(-1)
+                        pygame.mixer.music.play(minus)
 
 
-                    hold = False
-                    dx, dy = 3, 0
-                    rotation = 0
-                    mino = randint(1,7)
-                    next_mino1=randint(1,7)
-                    next_mino2=randint(1,7)
-                    hold_mino = -1
-                    framerate = 30
-                    score = 0
-                    level = 1
-                    combo_count = 0
-                    hard_drop = False
-                    goal = level *5
-                    bottom_count = 0
-                    name_location = 0
-                    name = [65, 65, 65]
-                    matrix = [[0 for y in range(height + 1)] for x in range(width)]
-                    ui_variables.click_sound.play()
+                    set_initial_values2()
                     pause = False
 
                 if resume_button.isOver(pos):
                     pygame.mixer.music.unpause()
                     pause = False
                     ui_variables.click_sound.play()
-                    pygame.time.set_timer(pygame.USEREVENT, 1) #0.001초
+                    pygame.time.set_timer(pygame.USEREVENT, set_1) #0.001초
 
             elif event.type == VIDEORESIZE:
                 board_width = event.w
@@ -1677,7 +1374,7 @@ while not done:
             if event.type == QUIT:
                 done = True
             elif event.type == USEREVENT:
-                pygame.time.set_timer(pygame.USEREVENT, 300) #0.3초
+                pygame.time.set_timer(pygame.USEREVENT, set_300) #0.3초
                 pygame.display.update()
 
             elif event.type == pygame.MOUSEMOTION:
@@ -1725,7 +1422,7 @@ while not done:
                 done = True
             
             elif event.type == USEREVENT:
-                pygame.time.set_timer(pygame.USEREVENT, 300) #0.3초로 설정
+                pygame.time.set_timer(pygame.USEREVENT, set_300) #0.3초로 설정
                 pygame.display.update()
 
             elif event.type == pygame.MOUSEMOTION:
@@ -1837,7 +1534,7 @@ while not done:
                 done = True
             
             elif event.type == USEREVENT:
-                pygame.time.set_timer(pygame.USEREVENT, 300) #0.3초로 설정
+                pygame.time.set_timer(pygame.USEREVENT, set_300) #0.3초로 설정
                 pygame.display.update()
 
             elif event.type == pygame.MOUSEMOTION:
@@ -1918,8 +1615,8 @@ while not done:
                                   
                 if level_minus_vector.isOver(pos):
                     ui_variables.click_sound.play()
-                    if level >1:
-                        level -= 1
+                    if level >level_1:
+                        level -= level_1
                         goal -= level * 5
                         game_speed = int(game_speed + speed_change)
                         pygame.time.set_timer(pygame.USEREVENT, game_speed)
@@ -1928,9 +1625,9 @@ while not done:
 
                 if level_plus_vector.isOver(pos):
                     ui_variables.click_sound.play()
-                    if level < 15:
-                        level += 1
-                        goal += level * 5
+                    if level < level_15:
+                        level += level_1
+                        goal += level * level_5
                         game_speed = int(game_speed - speed_change)
                         pygame.time.set_timer(pygame.USEREVENT, game_speed)
                         
@@ -1967,7 +1664,7 @@ while not done:
             if event.type == QUIT:
                 done = True
             elif event.type == USEREVENT:
-                pygame.time.set_timer(pygame.USEREVENT, 300)
+                pygame.time.set_timer(pygame.USEREVENT, set_300)
                 pygame.display.update()
 
             elif event.type == pygame.MOUSEMOTION:
@@ -2085,14 +1782,14 @@ while not done:
             if event.type == QUIT:
                 done = True
             elif event.type == USEREVENT:
-                pygame.time.set_timer(pygame.USEREVENT, 300) #0.3초
+                pygame.time.set_timer(pygame.USEREVENT, set_300) #0.3초
                 pygame.display.update()
             elif event.type == KEYDOWN:
                 erase_mino(dx, dy, mino, rotation, matrix)
                 if event.key == K_ESCAPE:
                     pause = False
                     ui_variables.click_sound.play()
-                    pygame.time.set_timer(pygame.USEREVENT, 1) #0.001초
+                    pygame.time.set_timer(pygame.USEREVENT, set_1) #0.001초
 
             elif event.type == pygame.MOUSEMOTION:
                 if back_button.isOver_2(pos):
@@ -2147,7 +1844,7 @@ while not done:
             if event.type == QUIT:
                 done = True
             elif event.type == USEREVENT:
-                pygame.time.set_timer(pygame.USEREVENT, 300)
+                pygame.time.set_timer(pygame.USEREVENT, set_300)
                 pygame.display.update()
 
             elif event.type == pygame.MOUSEMOTION:
@@ -2182,24 +1879,27 @@ while not done:
 
                 if light_buy_button.isOver_2(pos):
                     ui_variables.click_sound.play()
-                    gold -= 100
-                    num_light += 1
-                    update_light_data(num_light,user_id)
-                    update_gold_data(gold,user_id)
+                    if gold > gold_0 :
+                        gold -= gold_100
+                        num_light += item_r
+                        update_light_data(num_light,user_id)
+                        update_gold_data(gold,user_id)
 
                 if tnt_buy_button.isOver_2(pos):
                     ui_variables.click_sound.play()
-                    gold -= 200
-                    num_tnt += 1
-                    update_tnt_data(num_tnt,user_id)
-                    update_gold_data(gold,user_id)
+                    if gold > gold_100 :
+                        gold -= gold_200
+                        num_tnt += item_r
+                        update_tnt_data(num_tnt,user_id)
+                        update_gold_data(gold,user_id)
 
                 if earth_buy_button.isOver_2(pos):
                     ui_variables.click_sound.play()
-                    gold -= 100
-                    num_tnt += 1
-                    update_earthquake_data(num_earthquake,user_id)
-                    update_gold_data(gold,user_id)
+                    if gold > gold_0 :
+                        gold -= gold_100
+                        num_tnt += item_r
+                        update_earthquake_data(num_earthquake,user_id)
+                        update_gold_data(gold,user_id)
 
             elif event.type == VIDEORESIZE:
                 board_width = event.w
@@ -2237,7 +1937,7 @@ while not done:
             if event.type == QUIT:
                 done = True
             elif event.type == USEREVENT:
-                pygame.time.set_timer(pygame.USEREVENT, 300)
+                pygame.time.set_timer(pygame.USEREVENT, set_300)
                 pygame.display.update()
 
             elif event.type == pygame.MOUSEMOTION:
@@ -2294,33 +1994,36 @@ while not done:
                     ui_variables.click_sound.play()
                     if ch_1 == False :
                         ch_1 = True
-                        gold -= 200
-                        update_gold_data(gold,user_id)
+                        if gold > gold_100 :
+                            gold -= gold_200
+                            update_gold_data(gold,user_id)
                     else :
-                        ch_1 = False
-                        gold += 200
+                        ch_1 = False 
+                        gold += gold_200
                         update_gold_data(gold,user_id)
 
                 if off2_button.isOver_2(pos):
                     ui_variables.click_sound.play()
                     if ch_2 == False :
                         ch_2 = True
-                        gold -= 200
-                        update_gold_data(gold,user_id)
+                        if gold > gold_100 :
+                            gold -= gold_200
+                            update_gold_data(gold,user_id)
                     else :
                         ch_2 = False
-                        gold += 200
+                        gold += gold_200
                         update_gold_data(gold,user_id)
 
                 if off3_button.isOver_2(pos):
                     ui_variables.click_sound.play()
                     if ch_3 == False :
                         ch_3 = True
-                        gold -= 200
-                        update_gold_data(gold,user_id)
+                        if gold > gold_100 :
+                            gold -= gold_200
+                            update_gold_data(gold,user_id)
                     else :
                         ch_3 = False
-                        gold += 200
+                        gold += gold_200
                         update_gold_data(gold,user_id)
 
             elif event.type == VIDEORESIZE:
@@ -2356,7 +2059,7 @@ while not done:
             if attack_mode_time == False:
                 current_attack_ticks = pygame.time.get_ticks() # 현재시간을 어택모드 진입했을 때 시간으로 설정
                 attack_mode_time = True
-            elapsed_attack_time = (pygame.time.get_ticks() - current_attack_ticks) / 1000 # 경과 시간 계산
+            elapsed_attack_time = (pygame.time.get_ticks() - current_attack_ticks) / set_1000 # 경과 시간 계산
 
         for event in pygame.event.get():
             pos = pygame.mouse.get_pos()
@@ -2390,12 +2093,12 @@ while not done:
 
                 # Create new mino: 중력 모드
                 elif gravity_mode:
-                    if hard_drop or bottom_count == 6:
+                    if hard_drop or bottom_count == bc:
                         if gravity(dx, dy, mino, rotation, matrix):
                             erase_mino(dx, dy, mino, rotation, matrix)
                         hard_drop = False
-                        bottom_count = 0
-                        score += 10 * level
+                        bottom_count = mino_zero
+                        score += score_r * level
                         screen.fill(ui_variables.real_white)
                         draw_image(screen, gamebackground_image , board_width * 0.5, board_height * 0.5, board_width, board_height) #(window, 이미지주소, x좌표, y좌표, 너비, 높이)
                         draw_board(next_mino1, next_mino2, hold_mino, score, level, goal)
@@ -2413,16 +2116,16 @@ while not done:
                             game_status = 'normal'
                             game_over = True
                             gravity_mode = False
-                            pygame.time.set_timer(pygame.USEREVENT, 1) #0.001초
+                            pygame.time.set_timer(pygame.USEREVENT, set_1) #0.001초
                     else:
-                        bottom_count += 1
+                        bottom_count += plus
 
                 # Create new mino: 일반 모드
                 else:
-                    if hard_drop or bottom_count == 6:
+                    if hard_drop or bottom_count == bc:
                         hard_drop = False
-                        bottom_count = 0
-                        score += 10 * level
+                        bottom_count = mino_zero
+                        score += score_r * level
                         draw_mino(dx, dy, mino, rotation, matrix)
                         screen.fill(ui_variables.real_white)
                         draw_image(screen, gamebackground_image , board_width * 0.5, board_height * 0.5, board_width, board_height) #(window, 이미지주소, x좌표, y좌표, 너비, 높이)
@@ -2442,26 +2145,26 @@ while not done:
                             game_over = True
                             pygame.time.set_timer(pygame.USEREVENT, 1) #0.001초
                     else:
-                        bottom_count += 1
+                        bottom_count += plus
 
                 # Erase line
-                erase_count = 0
-                rainbow_count = 0
+                erase_count = mino_zero
+                rainbow_count = mino_zero
                 matrix_contents = []
-                combo_value = 0
+                combo_value = zero
 
-                for j in range(board_y+1):
+                for j in range(board_y+one):
                     is_full = True
                     for i in range(board_x):
-                        if matrix[i][j] == 0 or matrix[i][j] == 9 : #빈 공간이거나, 장애물블록
+                        if matrix[i][j] == mino_zero or matrix[i][j] == f_mino : #빈 공간이거나, 장애물블록
                             is_full = False
                     if is_full: # 한 줄 꽉 찼을 때
-                        erase_count += 1
+                        erase_count += one
                         k = j
-                        combo_value += 1
+                        combo_value += one
                         combo_status = True
-                        combo_count += 1 
-                        total_time += 5 # 콤보 시 시간 5초 연장
+                        combo_count += one 
+                        total_time += five # 콤보 시 시간 5초 연장
 
                         #rainbow보너스 점수
                         rainbow = [1,2,3,4,5,6,7] #각 mino에 해당하는 숫자
@@ -2469,90 +2172,90 @@ while not done:
                             matrix_contents.append(matrix[i][j]) #현재 클리어된 줄에 있는 mino 종류들 저장
                         rainbow_check = list(set(matrix_contents).intersection(rainbow)) #현재 클리어된 줄에 있는 mino와 mino의 종류중 겹치는 것 저장
                         if rainbow == rainbow_check: #현재 클리어된 줄에 모든 종류 mino 있다면
-                            rainbow_count += 1
+                            rainbow_count += plus
 
-                        while k > 0:
+                        while k > zero:
                             for i in range(board_x):
-                                matrix[i][k] = matrix[i][k - 1]  # 남아있는 블록 한 줄씩 내리기(덮어쓰기)
-                            k -= 1
-                if erase_count >= 1:
-                    if rainbow_count >= 1:
-                        score += 500 * rainbow_count #임의로 rainbow는 한 줄당 500점으로 잡음
-                        rainbow_count = 0 #다시 초기화
+                                matrix[i][k] = matrix[i][k - one]  # 남아있는 블록 한 줄씩 내리기(덮어쓰기)
+                            k -= one
+                if erase_count >= one:
+                    if rainbow_count >= one:
+                        score += rainbow_score * rainbow_count #임의로 rainbow는 한 줄당 500점으로 잡음
+                        rainbow_count = zero #다시 초기화
                         screen.blit(ui_variables.rainbow_vector,
                          (board_width * 0.3175, board_height * 0.25)) #blit(이미지, 위치)
                         pygame.display.update()
-                        pygame.time.delay(400) #0.4초
+                        pygame.time.delay(set_400) #0.4초
 
                     previous_time = current_time
                     
                     #점수 계산
-                    if erase_count == 1:
+                    if erase_count == ec_1:
                         ui_variables.break_sound.play()
                         ui_variables.single_sound.play()
-                        score += 50 * level * erase_count + combo_count
+                        score += ec_1_score * level * erase_count + combo_count
                         
-                    elif erase_count == 2:
+                    elif erase_count == ec_2:
                         ui_variables.break_sound.play()
                         ui_variables.double_sound.play()
                         ui_variables.double_sound.play()
-                        score += 150 * level * erase_count + 2 * combo_count
+                        score += ec_2_score * level * erase_count + ec_2 * combo_count
                         
-                    elif erase_count == 3:
+                    elif erase_count == ec_3:
                         ui_variables.break_sound.play()
                         ui_variables.triple_sound.play()
                         ui_variables.triple_sound.play()
                         ui_variables.triple_sound.play()
-                        score += 350 * level * erase_count + 3 * combo_count
+                        score += ec_3_score * level * erase_count + ec_3 * combo_count
                         
-                    elif erase_count == 4:
+                    elif erase_count == ec_4:
                         ui_variables.break_sound.play()
                         ui_variables.tetris_sound.play()
                         ui_variables.tetris_sound.play()
                         ui_variables.tetris_sound.play()
                         ui_variables.tetris_sound.play()
-                        score += 1000 * level * erase_count + 4 * combo_count
+                        score += ec_4_score * level * erase_count + ec_4 * combo_count
                         
                         screen.blit(ui_variables.combo_4ring,
                          (int(board_width*0.24), int(board_height*0.2))) #blit(이미지, 위치)
                     
                     # 도전과제 2 달성시 골드 777 추가
-                    if combo_count == 7 :
+                    if combo_count == combo_7 :
                         if ch_2 :
-                            gold += 777
+                            gold += gold_777
                             update_gold_data(gold,user_id)
 
-                    for i in range(1, 11):
+                    for i in range(one, eleven):
                         if combo_count == i:  # 1 ~ 10 콤보 이미지
-                            screen.blit(ui_variables.large_combos[i - 1],
+                            screen.blit(ui_variables.large_combos[i - one],
                             (board_width * 0.27, board_height * 0.35))
                             #각 콤보 이미지에 대해 blit(이미지, 위치)
                             pygame.display.update()
-                            pygame.time.delay(500)
-                        elif combo_count > 10:  # 11 이상 콤보 이미지
+                            pygame.time.delay(set_500)
+                        elif combo_count > ten:  # 11 이상 콤보 이미지
                             screen.blit(tetris4,
                             (board_width*0.27, board_height * 0.35))
                             pygame.display.update()
-                            pygame.time.delay(300)
+                            pygame.time.delay(set_300)
 
-                    for i in range(1, 9): # 1~8의 콤보 사운드
-                        if combo_count == i + 2:  # 3 ~ 11 콤보 사운드
-                            ui_variables.combos_sound[i - 1].play()
-                        if combo_count > 11:
+                    for i in range(one, nine): # 1~8의 콤보 사운드
+                        if combo_count == i + two:  # 3 ~ 11 콤보 사운드
+                            ui_variables.combos_sound[i - one].play()
+                        if combo_count > eleven:
                             ui_variables.combos_sound[8].play()
-                if current_time - previous_time > 10000: #10초가 지나면
+                if current_time - previous_time > set_10000: #10초가 지나면
                     previous_time = current_time #현재 시간을 과거시간으로 하고
                     combo_count = 0 #콤보 수 초기화
-                if current_time - previous_time > 1000: #콤보만들고 1초 뒤에
+                if current_time - previous_time > set_1000: #콤보만들고 1초 뒤에
                     combo_status = False #combo_Status가 true가 된 걸 false로 바꿔줌
 
 
                 # Increase level
                 goal -= erase_count
-                if goal < 1 and level < 15:
-                    level += 1
+                if goal < one and level < level_15:
+                    level += level_1
                     ui_variables.LevelUp_sound.play()
-                    goal += level * 5
+                    goal += level * level_5
                     game_speed = int(game_speed - speed_change)
                     pygame.time.set_timer(pygame.USEREVENT, game_speed)
                     #Change_RATE += 1
@@ -2569,7 +2272,7 @@ while not done:
                     ui_variables.fall_sound.play()
                     ui_variables.drop_sound.play()
                     while not is_bottom(dx, dy, mino, rotation, matrix):
-                        dy += 1
+                        dy += plus
                     hard_drop = True
                     pygame.time.set_timer(pygame.USEREVENT, framerate)
                     draw_mino(dx, dy, mino, rotation, matrix)
@@ -2585,7 +2288,7 @@ while not done:
                 elif event.key == K_RSHIFT : #keyboard 변경하기
                     if hold == False:
                         ui_variables.move_sound.play()
-                        if hold_mino == -1:
+                        if hold_mino == h_mino:
                             hold_mino = mino
                             mino = next_mino1
                             next_mino1 = next_mino2
@@ -2605,34 +2308,34 @@ while not done:
                 elif event.key == K_UP:
                     if is_turnable_r(dx, dy, mino, rotation, matrix):
                         ui_variables.move_sound.play()
-                        rotation += 1
+                        rotation += one
                     # Kick
-                    elif is_turnable_r(dx, dy - 1, mino, rotation, matrix):
+                    elif is_turnable_r(dx, dy - one, mino, rotation, matrix):
                         ui_variables.move_sound.play()
-                        dy -= 1
-                        rotation += 1
-                    elif is_turnable_r(dx + 1, dy, mino, rotation, matrix):
+                        dy -= one
+                        rotation += one
+                    elif is_turnable_r(dx + one, dy, mino, rotation, matrix):
                         ui_variables.move_sound.play()
-                        dx += 1
-                        rotation += 1
-                    elif is_turnable_r(dx - 1, dy, mino, rotation, matrix):
+                        dx += one
+                        rotation += one
+                    elif is_turnable_r(dx - one, dy, mino, rotation, matrix):
                         ui_variables.move_sound.play()
-                        dx -= 1
-                        rotation += 1
-                    elif is_turnable_r(dx, dy - 2, mino, rotation, matrix):
+                        dx -= one
+                        rotation += one
+                    elif is_turnable_r(dx, dy - two, mino, rotation, matrix):
                         ui_variables.move_sound.play()
-                        dy -= 2
-                        rotation += 1
-                    elif is_turnable_r(dx + 2, dy, mino, rotation, matrix):
+                        dy -= two
+                        rotation += one
+                    elif is_turnable_r(dx + two, dy, mino, rotation, matrix):
                         ui_variables.move_sound.play()
-                        dx += 2
-                        rotation += 1
-                    elif is_turnable_r(dx - 2, dy, mino, rotation, matrix):
+                        dx += two
+                        rotation += one
+                    elif is_turnable_r(dx - two, dy, mino, rotation, matrix):
                         ui_variables.move_sound.play()
-                        dx -= 2
-                        rotation += 1
-                    if rotation == 4:
-                        rotation = 0
+                        dx -= two
+                        rotation += one
+                    if rotation == r_4:
+                        rotation = one
                     draw_mino(dx, dy, mino, rotation, matrix)
                     screen.fill(ui_variables.real_white)
                     draw_image(screen, gamebackground_image , board_width * 0.5, board_height * 0.5, board_width, board_height) #(window, 이미지주소, x좌표, y좌표, 너비, 높이)
@@ -2641,33 +2344,33 @@ while not done:
                 elif event.key == K_m:
                     if is_turnable_l(dx, dy, mino, rotation, matrix):
                         ui_variables.move_sound.play()
-                        rotation -= 1
+                        rotation -= one
                     # Kick
-                    elif is_turnable_l(dx, dy - 1, mino, rotation, matrix):
+                    elif is_turnable_l(dx, dy - one, mino, rotation, matrix):
                         ui_variables.move_sound.play()
-                        dy -= 1
-                        rotation -= 1
-                    elif is_turnable_l(dx + 1, dy, mino, rotation, matrix):
+                        dy -= one
+                        rotation -= one
+                    elif is_turnable_l(dx + one, dy, mino, rotation, matrix):
                         ui_variables.move_sound.play()
-                        dx += 1
-                        rotation -= 1
-                    elif is_turnable_l(dx - 1, dy, mino, rotation, matrix):
+                        dx += one
+                        rotation -= one
+                    elif is_turnable_l(dx - one, dy, mino, rotation, matrix):
                         ui_variables.move_sound.play()
-                        dx -= 1
-                        rotation -= 1
-                    elif is_turnable_l(dx, dy - 2, mino, rotation, matrix):
+                        dx -= one
+                        rotation -= one
+                    elif is_turnable_l(dx, dy - two, mino, rotation, matrix):
                         ui_variables.move_sound.play()
-                        dy -= 2
-                        rotation += 1
-                    elif is_turnable_l(dx + 2, dy, mino, rotation, matrix):
+                        dy -= two
+                        rotation += one
+                    elif is_turnable_l(dx + two, dy, mino, rotation, matrix):
                         ui_variables.move_sound.play()
-                        dx += 2
-                        rotation += 1
-                    elif is_turnable_l(dx - 2, dy, mino, rotation, matrix):
+                        dx += two
+                        rotation += one
+                    elif is_turnable_l(dx - two, dy, mino, rotation, matrix):
                         ui_variables.move_sound.play()
-                        dx -= 2
-                    if rotation == -1:
-                        rotation = 3
+                        dx -= two
+                    if rotation == h_mino:
+                        rotation = r_3
                     draw_mino(dx, dy, mino, rotation, matrix)
                     screen.fill(ui_variables.real_white)
                     draw_image(screen, gamebackground_image , board_width * 0.5, board_height * 0.5, board_width, board_height) #(window, 이미지주소, x좌표, y좌표, 너비, 높이)
@@ -2677,7 +2380,7 @@ while not done:
                 elif event.key == K_LEFT:
                     if not is_leftedge(dx, dy, mino, rotation, matrix):
                         ui_variables.move_sound.play()
-                        dx -= 1
+                        dx -= one
                     draw_mino(dx, dy, mino, rotation, matrix)
                     screen.fill(ui_variables.real_white)
                     draw_image(screen, gamebackground_image , board_width * 0.5, board_height * 0.5, board_width, board_height) #(window, 이미지주소, x좌표, y좌표, 너비, 높이)
@@ -2686,7 +2389,7 @@ while not done:
                 elif event.key == K_RIGHT:
                     if not is_rightedge(dx, dy, mino, rotation, matrix):
                         ui_variables.move_sound.play()
-                        dx += 1
+                        dx += one
                     draw_mino(dx, dy, mino, rotation, matrix)
                     screen.fill(ui_variables.real_white)
                     draw_image(screen, gamebackground_image , board_width * 0.5, board_height * 0.5, board_width, board_height) #(window, 이미지주소, x좌표, y좌표, 너비, 높이)
@@ -2707,9 +2410,10 @@ while not done:
                 # item click
                 # light item use
                 elif event.key == K_z :
-                    if num_light>0 :
+                    if num_light>no_item :
                         mino = light_mino
-                        num_light -= 1
+                        num_light -= item_r
+                        update_light_data(num_light,id_text)
                         erase_mino(dx, dy, mino, rotation, matrix)
                         
                     
@@ -2720,9 +2424,10 @@ while not done:
                     
                 # tnt item use
                 elif event.key == K_x :
-                    if num_tnt>0 :
+                    if num_tnt>no_item :
                         mino = tnt_mino
-                        num_tnt -= 1
+                        num_tnt -= item_r
+                        update_tnt_data(num_tnt,id_text)
                         erase_mino(dx, dy, mino, rotation, matrix)
                     
                     
@@ -2732,15 +2437,16 @@ while not done:
                     draw_board(next_mino1, next_mino2, hold_mino, score, level, goal)
                 # earthquake use
                 elif event.key == K_c :
-                    if num_earthquake>0 :
+                    if num_earthquake>no_item :
                         earthquake(board_y, matrix)
-                        num_earthquake -= 1
-                        score += 100
-                        k=20
-                        while k > 0:
+                        num_earthquake -= item_r
+                        update_earthquake_data(num_earthquake,id_text)
+                        score += erase_score
+                        k=board_y
+                        while k > zero:
                             for i in range(board_x):
-                                matrix[i][k] = matrix[i][k - 1]  # 남아있는 블록 한 줄씩 내리기(덮어쓰기)
-                            k -= 1
+                                matrix[i][k] = matrix[i][k - one]  # 남아있는 블록 한 줄씩 내리기(덮어쓰기)
+                            k -= one
                     
                     draw_mino(dx, dy, mino, rotation, matrix)
                     screen.fill(ui_variables.real_white)
@@ -2779,17 +2485,17 @@ while not done:
                 if sandbox_mode:
                     if level_plus_button.isOver(pos):
                         ui_variables.click_sound.play()
-                        if level < 15:
-                            level += 1
-                            goal += level * 5
+                        if level < level_15:
+                            level += level_1
+                            goal += level * level_5
                             #Change_RATE = level + 1
                             #set_music_playing(CHANNELS, swidth)
                             set_music_playing(CHANNELS, swidth)
                     if level_minus_button.isOver(pos):
                         ui_variables.click_sound.play()
-                        if level > 1:
-                            level -= 1
-                            goal += level * 5
+                        if level > level_1:
+                            level -= level_1
+                            goal += level * level_5
                             #Change_RATE = level + 1
                             set_music_playing(CHANNELS, swidth)
 
@@ -2799,13 +2505,13 @@ while not done:
             game_status = 'time_attack'
             game_over = True
             time_attack = False
-            pygame.time.set_timer(pygame.USEREVENT, 1)
+            pygame.time.set_timer(pygame.USEREVENT, set_1)
 
         if attack_mode: #어택모드일 때 
-            if attack_time - elapsed_attack_time < 0: # attack_time이 다 지났을 때 
+            if attack_time - elapsed_attack_time < zero: # attack_time이 다 지났을 때 
                 attack(attack_board_y,matrix) 
                 attack_mode_time = False #elapsed_attack_time 초기화 
-                attack_board_y -= 1 #장애물 블록 만든 윗 줄에 다음 장애물블록 생성하도록
+                attack_board_y -= one #장애물 블록 만든 윗 줄에 다음 장애물블록 생성하도록
             elif combo_status == True: #콤보 만들어졌을 때
                 attack_mode_time = False #elapsed_attack_time 초기화
 
@@ -2825,7 +2531,7 @@ while not done:
             if event.type == QUIT:
                 done = True
             elif event.type == USEREVENT:
-                pygame.time.set_timer(pygame.USEREVENT, 300)
+                pygame.time.set_timer(pygame.USEREVENT, set_300)
                 pygame.display.update()
             elif event.type == pygame.MOUSEMOTION:
                 if sign_up_button1.isOver_2(pos):
@@ -2875,7 +2581,7 @@ while not done:
             pygame.display.update()
 
             if event.type == USEREVENT:
-                pygame.time.set_timer(pygame.USEREVENT, 300)
+                pygame.time.set_timer(pygame.USEREVENT, set_300)
             elif event.type == pygame.MOUSEMOTION:
                 if sign_up_button2.isOver_2(pos):
                     sign_up_button2.image = button_sign_up_clicked
@@ -2921,7 +2627,7 @@ while not done:
                 box.draw(screen)
             pygame.display.update()
             if event.type == USEREVENT:
-                pygame.time.set_timer(pygame.USEREVENT, 300)
+                pygame.time.set_timer(pygame.USEREVENT, set_300)
                 pygame.display.update()
             elif event.type == pygame.MOUSEMOTION:
                 if sign_in_button2.isOver_2(pos):
@@ -2964,7 +2670,7 @@ while not done:
                 done = True
             elif event.type == USEREVENT:
                 pygame.mixer.music.stop()
-                pygame.time.set_timer(pygame.USEREVENT, 300) #0.3초
+                pygame.time.set_timer(pygame.USEREVENT, set_300) #0.3초
 
                 draw_image(screen, board_gameover, board_width * 0.5, board_height * 0.5, int(board_height * 0.7428), board_height) #(window, 이미지주소, x좌표, y좌표, 너비, 높이)
                 menu_button.draw(screen, (0, 0, 0)) #rgb(0,0,0) = 검정색
@@ -2972,9 +2678,9 @@ while not done:
                 ok_button.draw(screen, (0, 0, 0))
 
                 #render("텍스트이름", 안티에일리어싱 적용, 색깔), 즉 아래의 코드에서 숫자 1=안티에일리어싱 적용에 관한 코드
-                name_1 = ui_variables.h1_b.render(chr(name[0]), 1, ui_variables.skyblue)
-                name_2 = ui_variables.h1_b.render(chr(name[1]), 1, ui_variables.skyblue)
-                name_3 = ui_variables.h1_b.render(chr(name[2]), 1, ui_variables.skyblue)
+                name_1 = ui_variables.h1_b.render(chr(name[loc_0]), 1, ui_variables.skyblue)
+                name_2 = ui_variables.h1_b.render(chr(name[loc_1]), 1, ui_variables.skyblue)
+                name_3 = ui_variables.h1_b.render(chr(name[loc_2]), 1, ui_variables.skyblue)
 
                 underbar_1 = ui_variables.h1_b.render("_", 1, ui_variables.skyblue)
                 underbar_2 = ui_variables.h1_b.render("_", 1, ui_variables.skyblue)
@@ -2987,11 +2693,11 @@ while not done:
                 if blink:
                     blink = False
                 else:
-                    if name_location == 0:
+                    if name_location == loc_0:
                         screen.blit(underbar_1, ((int(board_width * 0.437), int(board_height * 0.56)))) #위치 비율 고정
-                    elif name_location == 1:
+                    elif name_location == loc_1:
                         screen.blit(underbar_2, ((int(board_width * 0.497), int(board_height * 0.56)))) #위치 비율 고정
-                    elif name_location == 2:
+                    elif name_location == loc_2:
                         screen.blit(underbar_3, ((int(board_width * 0.557), int(board_height * 0.56)))) #위치 비율 고정
                     blink = True
 
@@ -3003,39 +2709,39 @@ while not done:
 
                     #1p점수만 저장함
                     outfile = open('leaderboard.txt', 'a')
-                    outfile.write(chr(name[0]) + chr(name[1]) + chr(name[2]) + ' ' + str(score) + '\n')
+                    outfile.write(chr(name[loc_0]) + chr(name[loc_1]) + chr(name[loc_2]) + ' ' + str(score) + '\n')
                     outfile.close()
 
                     game_over = False
-                    pygame.time.set_timer(pygame.USEREVENT, 1) #0.001초
+                    pygame.time.set_timer(pygame.USEREVENT, set_1) #0.001초
 
                 #name은 3글자로 name_locationd은 0~2, name[name_location]은 영어 아스키코드로 65~90.
                 elif event.key == K_RIGHT:
-                    if name_location != 2:
-                        name_location += 1
+                    if name_location != loc_2:
+                        name_location += loc_1
                     else:
-                        name_location = 0
-                    pygame.time.set_timer(pygame.USEREVENT, 1) #0.001초
+                        name_location = loc_0
+                    pygame.time.set_timer(pygame.USEREVENT, set_1) #0.001초
                 elif event.key == K_LEFT:
-                    if name_location != 0:
-                        name_location -= 1
+                    if name_location != loc_0:
+                        name_location -= loc_1
                     else:
-                        name_location = 2
-                    pygame.time.set_timer(pygame.USEREVENT, 1)
+                        name_location = loc_2
+                    pygame.time.set_timer(pygame.USEREVENT, set_1)
                 elif event.key == K_UP:
                     ui_variables.click_sound.play()
-                    if name[name_location] != 90:
-                        name[name_location] += 1
+                    if name[name_location] != asc_2:
+                        name[name_location] += loc_1
                     else:
-                        name[name_location] = 65
-                    pygame.time.set_timer(pygame.USEREVENT, 1)
+                        name[name_location] = asc_1
+                    pygame.time.set_timer(pygame.USEREVENT, set_1)
                 elif event.key == K_DOWN:
                     ui_variables.click_sound.play()
-                    if name[name_location] != 65:
-                        name[name_location] -= 1
+                    if name[name_location] != asc_1:
+                        name[name_location] -= loc_1
                     else:
-                        name[name_location] = 90
-                    pygame.time.set_timer(pygame.USEREVENT, 1)
+                        name[name_location] = asc_2
+                    pygame.time.set_timer(pygame.USEREVENT, set_1)
 
             elif event.type == pygame.MOUSEMOTION:
                 if resume_button.isOver_2(pos):
@@ -3060,44 +2766,44 @@ while not done:
                     # 도전과제 1 활성화시
                     if ch_1 :
                         # 3만점 달성시
-                        if score >= 30000 :
+                        if score >= score_ch1 :
                             # 모든 아이템 1개 증가
-                            num_light += 1
-                            num_earthquake += 1
-                            num_tnt += 1
-                            update_light_data(num_light,user_id)
-                            update_earthquake_data(num_earthquake,user_id)
-                            update_tnt_data(num_tnt,user_id)
+                            num_light += item_r
+                            num_earthquake += item_r
+                            num_tnt += item_r
+                            update_light_data(num_light,id_text)
+                            update_earthquake_data(num_earthquake,id_text)
+                            update_tnt_data(num_tnt,id_text)
 
                     # 도전과제 3 활성화시
                     if ch_3 :
                         # 5만점 달성시
-                        if score >= 50000 :
+                        if score >= score_ch3 :
                             # 1000골드 증가
-                            gold += 1000
+                            gold += gold_1000
                             update_gold_data(gold,user_id)
 
                     if difficulty_mode:  # 난이도모드였을 때
                         # 점수에 따라서 골드 획득량 달라지게
                         if game_status == 'easy':  # easy모드일때
-                            s_gold = int(score * 0.2)  # score*0.1 만큼 판골드 획득
+                            s_gold = int(score * easy_r)  # score*0.1 만큼 판골드 획득
                             gold += s_gold  # 기존 골드에 판골드 더하기
                             update_gold_data(gold, id_text)
                         elif game_status == 'normal':  # normal모드일때
-                            s_gold = int(score * 0.3)  # score*0.2 만큼 판골드 획득
+                            s_gold = int(score * mid_r)  # score*0.2 만큼 판골드 획득
                             gold += s_gold  # 기존 골드에 판골드 더하기
                             update_gold_data(gold, id_text)
                         elif game_status == 'hard':  # hard모드일때
-                            s_gold = int(score * 0.4)  # score*0.5 만큼 판골드 획득
+                            s_gold = int(score * hard_r)  # score*0.5 만큼 판골드 획득
                             gold += s_gold  # 기존 골드에 판골드 더하기
                             update_gold_data(gold, id_text)
  
                     #현재 1p점수만 저장함
                     outfile = open('leaderboard.txt', 'a')
-                    outfile.write(chr(name[0]) + chr(name[1]) + chr(name[2]) + ' ' + str(score) + '\n')
+                    outfile.write(chr(name[loc_0]) + chr(name[loc_1]) + chr(name[loc_2]) + ' ' + str(score) + '\n')
                     outfile.close()
                     game_over = False
-                    pygame.time.set_timer(pygame.USEREVENT, 1)
+                    pygame.time.set_timer(pygame.USEREVENT, set_1)
 
                     if game_status == 'single':
                         add_score(game_status,  user_id, score)
@@ -3117,41 +2823,24 @@ while not done:
                 if restart_button.isOver_2(pos):
                     if game_status == 'single':
                         start = True
-                        pygame.mixer.music.play(-1) #play(-1) = 노래 반복재생
+                        pygame.mixer.music.play(minus) #play(-1) = 노래 반복재생
                     if game_status == 'time_attack':
                         time_attack = True
-                        pygame.mixer.music.play(-1)
+                        pygame.mixer.music.play(minus)
                     if game_status == 'easy':
                         attack_mode = True
                         gravity_mode = False
-                        pygame.mixer.music.play(-1)
+                        pygame.mixer.music.play(minus)
                     if game_status == 'normal':
                         attack_mode = False
                         gravity_mode = True
-                        pygame.mixer.music.play(-1)
+                        pygame.mixer.music.play(minus)
                     if game_status == 'hard':
                         attack_mode = True
                         gravity_mode = True
-                        pygame.mixer.music.play(-1)
+                        pygame.mixer.music.play(minus)
                     ui_variables.click_sound.play()
-                    hold = False
-                    dx, dy = 3, 0
-                    rotation = 0
-                    mino = randint(1,7)
-                    next_mino1=randint(1,7)
-                    next_mino2=randint(1,7)
-                    hold_mino = -1
-                    framerate = 30
-                    score = 0
-                    level = 1
-                    combo_count = 0
-                    hard_drop = False
-                    goal = level *5
-                    s_gold = 0
-                    bottom_count = 0
-                    name_location = 0
-                    name = [65, 65, 65]
-                    matrix = [[0 for y in range(height + 1)] for x in range(width)]
+                    set_initial_values2()
 
                     game_over = False
                     pause = False
