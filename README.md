@@ -12,8 +12,11 @@
 1. 터미널에 `git clone https://github.com/CSID-DGU/2021-1-OSSPC-BINSU-7.git ` 입력  
 (터미널 실행 경로에서 Binsu라는 이름의 폴더에 해당 프로젝트 복사)
 
-2. 'pip install pygame' 입력  
+2. `pip3 install pygame` 입력  
 (게임에 활용될 pygame package 설치)
+
+3. `pip3 install pymysql` , `pip3 install bcrypt` 입력  
+(DB에 활용될 pymysql, bcrypt package 설치)
 
 3. `cd PBSPYTRIS` 입력  
 (PBSPYTRIS 디렉토리로 이동)
@@ -47,7 +50,20 @@ Single, Difficulty, Time attack, Sandbox 총 네가지 플레이모드로 구성
   
 ## 새로운 기능
 
-### 상점 & 아이템
+### 1. 회원가입 및 로그인  
+게임 시작 첫화면인 로그인 페이지    
+  
+<img src="PBSPYTRIS/assets/Screenshots/login1.png" width="500" height="250">   
+  
+singup 클릭시 회원가입을 할 수 있는 페이지   
+  
+<img src="PBSPYTRIS/assets/Screenshots/signup.png" width="500" height="250">  
+  
+ signup 완료시 로그인을 할 수 있는 페이지  
+    
+<img src="PBSPYTRIS/assets/Screenshots/signin.png" width="500" height="250">  
+
+### 2. 상점 & 아이템
 
 #### <상점>
 gold를 소모해 item을 구매하는 창  
@@ -62,7 +78,7 @@ gold를 소모해 구매한 후 Difficulty mode 에서 사용 가능한 아이�
 <img src="PBSPYTRIS/assets/vector/item_earth.png" width="50" height="50"> : 즉시 맨 아랫줄 블록 모두 삭제 및  
  score 100점 증가 
 
-### challenge
+### 3. challenge
 200 gold를 소모하여 도전과제 on 가능   
 <img src="PBSPYTRIS/assets/Screenshots/challenge.png" width="500" height="250"> 
 
@@ -81,6 +97,6 @@ gold를 소모해 구매한 후 Difficulty mode 에서 사용 가능한 아이�
 * Rainbow count: 누적 레인보우 달성 횟수(초기화 X)
 
 ## Etc
-[Screenshot](캡처사진 모아둔 폴더)  
-[발표 자료](발표 자료 모아둔 폴더)  
-협업 규칙
+[Screenshot](https://github.com/CSID-DGU/2021-1-OSSPC-BINSU-7/tree/main/PBSPYTRIS/assets/Screenshots)  
+[DOC(발표 자료)](https://github.com/CSID-DGU/2021-1-OSSPC-BINSU-7/tree/main/Doc)  
+[협업 규칙](https://github.com/CSID-DGU/2021-1-OSSPC-BINSU-7/wiki/BINSU-%ED%98%91%EC%97%85%EA%B7%9C%EC%B9%99)
