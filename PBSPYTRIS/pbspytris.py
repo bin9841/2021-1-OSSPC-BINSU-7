@@ -330,7 +330,6 @@ quit_game_button = button(board_width, board_height, 0.5, 0.87, 0.16, 0.084, but
 # 위와 동일
 
 # game page 5) game over board
-menu_button = button(board_width, board_height, 0.5, 0.42, 0.16, 0.084, button_menu)
 restart_over_button = button(board_width, board_height, 0.5, 0.6, 0.16, 0.084, button_restart)
 ok_button = button(board_width, board_height, 0.5, 0.78, 0.16, 0.084, button_ok)
 
@@ -350,7 +349,7 @@ button_list = [
     effect_plus_vector, effect_minus_vector, effect_on_button,
     smallsize_button, midiumsize_button, bigsize_button, light_buy_button,
     tnt_buy_button, earth_buy_button, resume_button,
-    restart_button, setting_button, quit_game_button, menu_button, ok_button,
+    restart_button, setting_button, quit_game_button, ok_button,
     level_plus_button, level_minus_button, off1_button, off2_button, off3_button,
     sign_up_button1, sign_up_button2, sign_in_button1, sign_in_button2,
     log_back, log_quit, rank_single, rank_easy, rank_normal, rank_hard, rank_ta, restart_over_button
@@ -803,8 +802,7 @@ def set_initial_values():
     tnt_mino = 11 # tnt 블럭 11
     item_mino = -2 #아이템을 사용 안한 상태
 
-    name_location = 0
-    name = [65, 65, 65]
+ 
 
     previous_time = pygame.time.get_ticks()
     current_time = pygame.time.get_ticks()
@@ -825,6 +823,7 @@ def set_initial_values():
     game_status = ''
 
 def set_initial_values2():
+    global hold, dx, dy, rotation, mino, next_mino1, next_mino2, hold_mino, framerate, score, level, combo_count, hard_drop, goal, bottom_count, matrix    
     hold = False
     dx, dy = 3, 0
     rotation = 0
@@ -839,8 +838,6 @@ def set_initial_values2():
     hard_drop = False
     goal = level *5
     bottom_count = 0
-    name_location = 0
-    name = [65, 65, 65]
     matrix = [[0 for y in range(height + 1)] for x in range(width)]
     ui_variables.click_sound.play()
     
@@ -1285,8 +1282,6 @@ while not done:
                         attack_mode = True
                         gravity_mode = True
                         pygame.mixer.music.play(minus)
-
-
                     set_initial_values2()
                     pause = False
 
@@ -2659,6 +2654,11 @@ while not done:
 
     # Game over screen
     elif game_over:
+        draw_image(screen, board_gameover, board_width * 0.5, board_height * 0.5, int(board_height * 0.7428), board_height) #(window, 이미지주소, x좌표, y좌표, 너비, 높이)
+        restart_over_button.draw(screen, (0, 0, 0))
+        ok_button.draw(screen, (0, 0, 0))
+
+        pygame.display.update()
 
         for event in pygame.event.get():
             pos = pygame.mouse.get_pos()
@@ -2668,32 +2668,18 @@ while not done:
             elif event.type == USEREVENT:
                 pygame.mixer.music.stop()
                 pygame.time.set_timer(pygame.USEREVENT, set_300) #0.3초
-
-                draw_image(screen, board_gameover, board_width * 0.5, board_height * 0.5, int(board_height * 0.7428), board_height) #(window, 이미지주소, x좌표, y좌표, 너비, 높이)
-                menu_button.draw(screen, (0, 0, 0)) #rgb(0,0,0) = 검정색
-                restart_over_button.draw(screen, (0, 0, 0))
-                ok_button.draw(screen, (0, 0, 0))
-
-                pygame.display.update()
-
-
-
             elif event.type == KEYDOWN:
                 if event.key == K_RETURN:
                     ui_variables.click_sound.play()
                     game_over = False
+                    main = True
                     pygame.time.set_timer(pygame.USEREVENT, set_1) #0.001초
 
             elif event.type == pygame.MOUSEMOTION:
-                if menu_button.isOver_2(pos):
-                    menu_button.image = button_menu_clicked
+                if restart_over_button.isOver_2(pos):
+                    restart_over_button.image = button_restart_clicked
                 else:
-                    menu_button.image = button_menu
-
-                if restart_button.isOver_2(pos):
-                    restart_button.image = button_restart_clicked
-                else:
-                    restart_button.image = button_restart
+                    restart_over_button.image = button_restart
 
                 if ok_button.isOver_2(pos):
                     ok_button.image = button_ok_clicked
@@ -2749,9 +2735,7 @@ while not done:
                         add_score(game_status,  id_text, score)
                     if game_status == 'hard':
                         add_score(game_status,  id_text, score)
-        
-                if menu_button.isOver(pos):
-                    ui_variables.click_sound.play()
+
                     game_over = False
                     main = True
 
@@ -2777,9 +2761,7 @@ while not done:
                         pygame.mixer.music.play(minus)
                     ui_variables.click_sound.play()
                     set_initial_values2()
-
-                    game_over = False
-                    pause = False
+                    game_over=False
 
             elif event.type == VIDEORESIZE:
                 board_width = event.w
