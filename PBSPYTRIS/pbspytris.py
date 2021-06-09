@@ -2668,7 +2668,6 @@ while not done:
             elif event.type == USEREVENT:
                 pygame.mixer.music.stop()
                 pygame.time.set_timer(pygame.USEREVENT, set_300) #0.3초
-
             elif event.type == KEYDOWN:
                 if event.key == K_RETURN:
                     ui_variables.click_sound.play()
@@ -2727,13 +2726,13 @@ while not done:
                             update_gold_data(gold, id_text)
  
                     if game_status == 'single':
-                        add_score(game_status,  user_id, score)
+                        add_score(game_status,  id_text, score)
                     if game_status == 'time_attack':
-                        add_score(game_status,  user_id, score)
+                        add_score(game_status,  id_text, score)
                     if game_status == 'easy':
-                        add_score(game_status,  user_id, score)
+                        add_score(game_status,  id_text, score)
                     if game_status == 'normal':
-                        add_score(game_status,  user_id, score)
+                        add_score(game_status,  id_text, score)
                     if game_status == 'hard':
                         add_score(game_status,  user_id, score)
                     game_over = False
