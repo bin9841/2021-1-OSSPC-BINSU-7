@@ -21,7 +21,7 @@
 3. `cd PBSPYTRIS` 입력  
 (PBSPYTRIS 디렉토리로 이동)
 
-4. `python tetrisKingdom.py` 입력   
+4. `python pbspytris.py` 입력   
 (게임 실행)
 
 ### 조작키 안내
