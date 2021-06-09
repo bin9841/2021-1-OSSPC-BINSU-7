@@ -11,40 +11,7 @@ from pygame.locals import *
 from var import *
 from DB import *
 
-# Unchanged values Define 변하지 않는 변수 선언
-
-block_size = 17  # Height, width of single block
-width = 10
-height = 20
-
-board_x = 10
-board_y = 20
-board_width = 800 # Board width
-board_height = 450 # Board height
-board_rate = 0.5625 #가로세로비율
-block_size = int(board_height * 0.045)
-mino_matrix_x = 4 #mino는 4*4 배열이어서 이를 for문에 사용
-mino_matrix_y = 4 #mino는 4*4 배열이어서 이를 for문에 사용
-
-speed_change = 40 # 레벨별 블록 하강 속도 상승 정도
-
-framerate = 30  # Bigger -> Slower
-
-min_width = 400
-min_height = 225
-mid_width = 1200
-
-total_time = 60 # 타임 어택 시간
-attack_time = 30 # 어택모드 제한시간
-
-# 기본 볼륨
-music_volume = 5
-effect_volume = 5
-
-initalize = True
-
 pygame.init()
-
 
 # Class 설정
 # Inputbox 초기 설정
@@ -363,9 +330,9 @@ quit_game_button = button(board_width, board_height, 0.5, 0.87, 0.16, 0.084, but
 # 위와 동일
 
 # game page 5) game over board
-menu_button = button(board_width, board_height, 0.5, 0.33, 0.16, 0.084, button_menu)
-# restart
-ok_button = button(board_width, board_height, 0.5, 0.87, 0.16, 0.084, button_ok)
+menu_button = button(board_width, board_height, 0.5, 0.42, 0.16, 0.084, button_menu)
+restart_over_button = button(board_width, board_height, 0.5, 0.6, 0.16, 0.084, button_restart)
+ok_button = button(board_width, board_height, 0.5, 0.78, 0.16, 0.084, button_ok)
 
 # sandbox
 level_plus_button = button(board_width, board_height, 0.63, 0.7719, 0.0375, 0.0666, vector_plus)
@@ -386,7 +353,7 @@ button_list = [
     restart_button, setting_button, quit_game_button, menu_button, ok_button,
     level_plus_button, level_minus_button, off1_button, off2_button, off3_button,
     sign_up_button1, sign_up_button2, sign_in_button1, sign_in_button2,
-    log_back, log_quit, rank_single, rank_easy, rank_normal, rank_hard, rank_ta
+    log_back, log_quit, rank_single, rank_easy, rank_normal, rank_hard, rank_ta, restart_over_button
 ]
 
 def set_volume():
@@ -645,8 +612,7 @@ def earthquake(y,matrix):
     
     for i in range(board_x): # 가로줄 전체에 대해서
         matrix[i][y] = mino_zero
-    
-        
+      
 def gravity(x, y, mino, r, matrix):
     grid = tetrimino.mino_map[mino - mino_x][r] #grid : 출력할 테트리스
 
@@ -737,14 +703,10 @@ def is_stackable(mino, matrix):
 
     return True
 
-
-
-
 def set_vol(val):
     volume = int(val) / vol_range #set_volume argenment로 넣기 위해서(소수점을 만들어주기 위해서) 100으로 나눠줌
     print(volume)
     ui_variables.click_sound.set_volume(volume)
-
 
 def set_music_playing(CHANNELS, swidth):
     spf = wave.open('assets/sounds/SFX_BattleMusic.wav', 'rb')
@@ -882,8 +844,6 @@ def set_initial_values2():
     matrix = [[0 for y in range(height + 1)] for x in range(width)]
     ui_variables.click_sound.play()
     
-
-
 def set_initial_items():
     global num_light, num_earthquake, num_tnt
     num_light = no_item
@@ -897,7 +857,6 @@ def item_off():
         num_light = no_item
         num_earthquake = no_item
         num_tnt = no_item
-
 
 set_initial_values()
 pygame.time.set_timer(pygame.USEREVENT, 10)
@@ -2712,8 +2671,10 @@ while not done:
 
                 draw_image(screen, board_gameover, board_width * 0.5, board_height * 0.5, int(board_height * 0.7428), board_height) #(window, 이미지주소, x좌표, y좌표, 너비, 높이)
                 menu_button.draw(screen, (0, 0, 0)) #rgb(0,0,0) = 검정색
-                restart_button.draw(screen, (0, 0, 0))
+                restart_over_button.draw(screen, (0, 0, 0))
                 ok_button.draw(screen, (0, 0, 0))
+
+                pygame.display.update()
 
 
 
@@ -2724,7 +2685,7 @@ while not done:
                     pygame.time.set_timer(pygame.USEREVENT, set_1) #0.001초
 
             elif event.type == pygame.MOUSEMOTION:
-                if resume_button.isOver_2(pos):
+                if menu_button.isOver_2(pos):
                     menu_button.image = button_menu_clicked
                 else:
                     menu_button.image = button_menu
@@ -2792,8 +2753,9 @@ while not done:
                 if menu_button.isOver(pos):
                     ui_variables.click_sound.play()
                     game_over = False
+                    main = True
 
-                if restart_button.isOver_2(pos):
+                if restart_over_button.isOver_2(pos):
                     if game_status == 'single':
                         start = True
                         pygame.mixer.music.play(minus) #play(-1) = 노래 반복재생
@@ -2910,7 +2872,6 @@ while not done:
                     ui_variables.click_sound.play()
                     challenge = True
                 pygame.display.update()
-
 
             elif event.type == VIDEORESIZE:
                 board_width = event.w
