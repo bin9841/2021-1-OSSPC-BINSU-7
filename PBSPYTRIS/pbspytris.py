@@ -1655,7 +1655,6 @@ while not done:
                     start = True
                     previous_time = pygame.time.get_ticks()
                     initalize = True
-                    game_status == 'easy'
                     set_music_playing(CHANNELS, swidth)
 
                 if normal_button.isOver_2(pos):
@@ -1669,7 +1668,6 @@ while not done:
                     start = True
                     previous_time = pygame.time.get_ticks()
                     initalize = True
-                    game_status == 'normal'
                     set_music_playing(CHANNELS, swidth)
 
                 if hard_button.isOver_2(pos):
@@ -1684,7 +1682,6 @@ while not done:
                     start = True
                     previous_time = pygame.time.get_ticks()
                     initalize = True
-                    game_status == 'hard'
                     set_music_playing(CHANNELS, swidth)
             elif event.type == VIDEORESIZE:
                 board_width = event.w
@@ -2552,12 +2549,15 @@ while not done:
             pygame.time.set_timer(pygame.USEREVENT, set_1)
 
         if attack_mode: #어택모드일 때 
+            game_status = 'easy'
             if attack_time - elapsed_attack_time < zero: # attack_time이 다 지났을 때 
                 attack(attack_board_y,matrix) 
                 attack_mode_time = False #elapsed_attack_time 초기화 
                 attack_board_y -= one #장애물 블록 만든 윗 줄에 다음 장애물블록 생성하도록
             elif combo_status == True: #콤보 만들어졌을 때
                 attack_mode_time = False #elapsed_attack_time 초기화
+        if attack_mode and gravity_mode:
+            game_status = 'hard'
 
         pygame.display.update()
        
@@ -2735,10 +2735,12 @@ while not done:
                         add_score(game_status,  id_text, score)
                     if game_status == 'hard':
                         add_score(game_status,  id_text, score)
+
                     game_over = False
                     main = True
 
                 if restart_over_button.isOver_2(pos):
+                    
                     if game_status == 'single':
                         start = True
                         pygame.mixer.music.play(minus) #play(-1) = 노래 반복재생
