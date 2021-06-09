@@ -1,2 +1,12 @@
 normal #6d78ff
 clicked #a1a8ff
+on #7868e6
+
+board margin #ffc288
+board color #fcecdd
+board name #ff6701
+board name margin #fea82f
+
+yellow #ffcc00
+
+
