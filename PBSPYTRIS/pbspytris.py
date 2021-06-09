@@ -2727,15 +2727,15 @@ while not done:
                             update_gold_data(gold, id_text)
  
                     if game_status == 'single':
-                        add_score(game_status,  user_id, score)
+                        add_score(game_status,  id_text, score)
                     if game_status == 'time_attack':
-                        add_score(game_status,  user_id, score)
+                        add_score(game_status,  id_text, score)
                     if game_status == 'easy':
-                        add_score(game_status,  user_id, score)
+                        add_score(game_status,  id_text, score)
                     if game_status == 'normal':
-                        add_score(game_status,  user_id, score)
+                        add_score(game_status,  id_text, score)
                     if game_status == 'hard':
-                        add_score(game_status,  user_id, score)
+                        add_score(game_status,  id_text, score)
                     game_over = False
                     main = True
 
