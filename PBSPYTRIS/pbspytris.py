@@ -2668,7 +2668,6 @@ while not done:
             elif event.type == USEREVENT:
                 pygame.mixer.music.stop()
                 pygame.time.set_timer(pygame.USEREVENT, set_300) #0.3초
-
             elif event.type == KEYDOWN:
                 if event.key == K_RETURN:
                     ui_variables.click_sound.play()
