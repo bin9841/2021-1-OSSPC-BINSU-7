@@ -2677,10 +2677,10 @@ while not done:
                     pygame.time.set_timer(pygame.USEREVENT, set_1) #0.001초
 
             elif event.type == pygame.MOUSEMOTION:
-                if restart_button.isOver_2(pos):
-                    restart_button.image = button_restart_clicked
+                if restart_over_button.isOver_2(pos):
+                    restart_over_button.image = button_restart_clicked
                 else:
-                    restart_button.image = button_restart
+                    restart_over_button.image = button_restart
 
                 if ok_button.isOver_2(pos):
                     ok_button.image = button_ok_clicked
