@@ -2730,10 +2730,10 @@ while not done:
                             # 1000골드 증가
                             gold += gold_1000
                             update_gold_data(gold,user_id)
-                            item_on()
-                            update_light_data(num_light,id_text)
-                            update_earthquake_data(num_earthquake,id_text)
-                            update_tnt_data(num_tnt,id_text)
+                        item_on()
+                        update_light_data(num_light,id_text)
+                        update_earthquake_data(num_earthquake,id_text)
+                        update_tnt_data(num_tnt,id_text)
                             
 
                     if difficulty_mode:  # 난이도모드였을 때
