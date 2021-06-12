@@ -2731,7 +2731,7 @@ while not done:
                     # 도전과제 3 활성화시
                     if ch_3 :
                         # 5만점 달성시
-                        if score >= 500 :
+                        if score >= score_ch3 :
                             # 1000골드 증가
                             gold += gold_1000
                             update_gold_data(gold,user_id)
