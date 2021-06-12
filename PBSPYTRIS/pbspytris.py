@@ -710,7 +710,7 @@ def set_music_playing(CHANNELS, swidth):
     pygame.mixer.music.play(minus) #위 노래를 반복재생하기 위해 play(-1)로 설정
 
 def set_initial_values():
-    global r_n,r_s,rank, main, signin, signup, combo_status, combo_count, score, level, goal, bottom_count, hard_drop, attack_point, dx, dy, rotation, mino, next_mino1, next_mino2, hold, hold_mino, framerate, matrix, blink, start, pause, done, game_over, leader_board, setting, volume_setting, screen_setting, help, gravity_mode, time_attack, time_attack_time, start_ticks, textsize, attack_mode, attack_mode_time, attack_board_y, CHANNELS, swidth, name_location, name, previous_time, current_time, pause_time, lines, leaders, volume, game_status, framerate_blockmove, game_speed, sandbox,sandbox_mode, difficulty, difficulty_mode, shop, challenge, single, game, gold, s_gold, item, item_mino, light_mino, earth_mino, tnt_mino, ch_1, ch_2, ch_3, num_light, num_earthquake, num_tnt
+    global hard_mode, r_n,r_s,rank, main, signin, signup, combo_status, combo_count, score, level, goal, bottom_count, hard_drop, attack_point, dx, dy, rotation, mino, next_mino1, next_mino2, hold, hold_mino, framerate, matrix, blink, start, pause, done, game_over, leader_board, setting, volume_setting, screen_setting, help, gravity_mode, time_attack, time_attack_time, start_ticks, textsize, attack_mode, attack_mode_time, attack_board_y, CHANNELS, swidth, name_location, name, previous_time, current_time, pause_time, lines, leaders, volume, game_status, framerate_blockmove, game_speed, sandbox,sandbox_mode, difficulty, difficulty_mode, shop, challenge, single, game, gold, s_gold, item, item_mino, light_mino, earth_mino, tnt_mino, ch_1, ch_2, ch_3, num_light, num_earthquake, num_tnt
 
 
     framerate = 30 # Bigger -> Slower  기본 블록 하강 속도, 2도 할만 함, 0 또는 음수 이상이어야 함
@@ -750,6 +750,7 @@ def set_initial_values():
     signup = False
     main = False
     rank = [0,1,2]
+    hard_mode = False
 
     attack_mode = False # 어택모드
     attack_mode_time = False # 어택모드 30초마다 시간 초기화하도록
@@ -1678,6 +1679,7 @@ while not done:
                     start = True
                     previous_time = pygame.time.get_ticks()
                     initalize = True
+                    hard_mode = True
                     set_music_playing(CHANNELS, swidth)
             elif event.type == VIDEORESIZE:
                 board_width = event.w
@@ -2542,7 +2544,7 @@ while not done:
                 attack_board_y -= one #장애물 블록 만든 윗 줄에 다음 장애물블록 생성하도록
             elif combo_status == True: #콤보 만들어졌을 때
                 attack_mode_time = False #elapsed_attack_time 초기화
-        if attack_mode and gravity_mode:
+        if hard_mode:
             game_status = 'hard'
 
         pygame.display.update()
@@ -2728,16 +2730,11 @@ while not done:
                             # 1000골드 증가
                             gold += gold_1000
                             update_gold_data(gold,user_id)
-                            item_on()
-                            update_light_data(num_light,id_text)
-                            update_earthquake_data(num_earthquake,id_text)
-                            update_tnt_data(num_tnt,id_text)
-                            
-                    else : 
                         item_on()
                         update_light_data(num_light,id_text)
                         update_earthquake_data(num_earthquake,id_text)
                         update_tnt_data(num_tnt,id_text)
+                            
 
                     if difficulty_mode:  # 난이도모드였을 때
                         # 점수에 따라서 골드 획득량 달라지게
