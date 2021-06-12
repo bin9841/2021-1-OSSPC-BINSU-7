@@ -110,24 +110,9 @@ class ui_variables:
     LevelUp_sound = pygame.mixer.Sound("assets/sounds/SFX_LevelUp.wav")
     GameOver_sound = pygame.mixer.Sound("assets/sounds/SFX_GameOver.wav")
 
-    # Combo graphic
-    combos = []
-    large_combos = []
-    combo_ring = pygame.image.load("assets/Combo/4combo ring.png")  # 4블록 동시제거 그래픽
-    combo_4ring = pygame.transform.smoothscale(combo_ring,
-                     (int(board_width*0.25), int(board_height*0.222)))
-    #이미지를 특정 크기로 불러옴, 200=가로크기, 100=세로크기
-    for i in range(1, 11): #10가지의 콤보 이미지 존재. 각 숫자에 해당하는 이미지 불러옴
-        combos.append(pygame.image.load("assets/Combo/" + str(i) + "combo.png"))
-        large_combos.append(pygame.transform.smoothscale(combos[i - 1],
-         (int(board_width*0.1875), int(board_height*0.4444)))) #콤보이미지를 특정 크기로 불러옴, 150=가로크기, 200=세로크기#
-
     combos_sound = []
     for i in range(1, 10): #1-9까지 콤보사운드 존재. 각 숫자에 해당하는 음악 불러옴
         combos_sound.append(pygame.mixer.Sound("assets/sounds/SFX_" + str(i + 2) + "Combo.wav"))
-
-    #rainbow 보너스점수 graphic
-    rainbow_vector = pygame.image.load('assets/vector/rainbow.png')
 
     # Background colors. RGB 값에 해당함
     black = (10, 10, 10)  # rgb(10, 10, 10)
@@ -330,8 +315,8 @@ quit_game_button = button(board_width, board_height, 0.5, 0.87, 0.16, 0.084, but
 # 위와 동일
 
 # game page 5) game over board
-restart_over_button = button(board_width, board_height, 0.5, 0.6, 0.16, 0.084, button_restart)
-ok_button = button(board_width, board_height, 0.5, 0.78, 0.16, 0.084, button_ok)
+restart_over_button = button(board_width, board_height, 0.5, 0.51, 0.16, 0.084, button_restart)
+ok_button = button(board_width, board_height, 0.5, 0.69, 0.16, 0.084, button_ok)
 
 # sandbox
 level_plus_button = button(board_width, board_height, 0.63, 0.7719, 0.0375, 0.0666, vector_plus)
@@ -2234,8 +2219,9 @@ while not done:
                     if rainbow_count >= one:
                         score += rainbow_score * rainbow_count #임의로 rainbow는 한 줄당 500점으로 잡음
                         rainbow_count = zero #다시 초기화
-                        screen.blit(ui_variables.rainbow_vector,
-                         (board_width * 0.3175, board_height * 0.25)) #blit(이미지, 위치)
+                        draw_image(screen, "assets/vector/rainbow.png",
+                        board_width * 0.4, board_height * 0.15,
+                        int(board_width*128/800),int(board_height*128/450))
                         pygame.display.update()
                         pygame.time.delay(set_400) #0.4초
 
@@ -2267,9 +2253,9 @@ while not done:
                         ui_variables.tetris_sound.play()
                         ui_variables.tetris_sound.play()
                         score += ec_4_score * level * erase_count + ec_4 * combo_count
-                        
-                        screen.blit(ui_variables.combo_4ring,
-                         (int(board_width*0.24), int(board_height*0.2))) #blit(이미지, 위치)
+                        draw_image(screen, "assets/Combo/4combo ring.png",
+                        board_width*0.4,board_height*0.5,
+                        int(board_width*120/800),int(board_height*60/450))
                     
                     # 도전과제 2 달성시 골드 777 추가
                     if combo_count == combo_7 :
@@ -2279,14 +2265,15 @@ while not done:
 
                     for i in range(one, eleven):
                         if combo_count == i:  # 1 ~ 10 콤보 이미지
-                            screen.blit(ui_variables.large_combos[i - one],
-                            (board_width * 0.27, board_height * 0.35))
-                            #각 콤보 이미지에 대해 blit(이미지, 위치)
+                            draw_image(screen, "assets/Combo/"+str(i)+"combo.png",
+                            board_width*0.4,board_height*0.65,
+                            int(board_width*150/800),int(board_height*150/450))
                             pygame.display.update()
                             pygame.time.delay(set_500)
                         elif combo_count > ten:  # 11 이상 콤보 이미지
-                            screen.blit(tetris4,
-                            (board_width*0.27, board_height * 0.35))
+                            draw_image(screen,tetris,
+                            board_width*0.4, board_height*0.45,
+                            int(board_width*0.15),int(board_height*0.0844))
                             pygame.display.update()
                             pygame.time.delay(set_300)
 
@@ -2446,19 +2433,7 @@ while not done:
                     screen.fill(ui_variables.real_white)
                     draw_image(screen, gamebackground_image , board_width * 0.5, board_height * 0.5, board_width, board_height) #(window, 이미지주소, x좌표, y좌표, 너비, 높이)
                     draw_board(next_mino1, next_mino2, hold_mino, score, level, goal)
-                # rainbow test
-                elif event.key == K_F1:
-                    ui_variables.click_sound.play()
-                    matrix[0][20] = 7 #빨
-                    matrix[1][20] = 7 #빨
-                    matrix[2][20] = 3#주
-                    matrix[3][20] = 3#주
-                    matrix[4][20] = 4#노
-                    matrix[5][20] = 5#초
-                    matrix[6][20] = 5#초
-                    matrix[7][20] = 1#하
-                    matrix[8][20] = 2#파
-                    mino = 6
+
                 # item click
                 # light item use
                 elif event.key == K_z :
@@ -2613,6 +2588,22 @@ while not done:
                 if log_back.isOver_2(pos):
                     ui_variables.click_sound.play()
                     signup = False
+            elif event.type == VIDEORESIZE:
+                board_width = event.w
+                board_height = event.h
+                if board_width < min_width or board_height < min_height: #최소 너비 또는 높이를 설정하려는 경우
+                    board_width = min_width
+                    board_height = min_height
+                if not ((board_rate-0.1) < (board_height/board_width) < (board_rate+0.05)): #높이 또는 너비가 비율의 일정수준 이상을 넘어서게 되면
+                    board_width = int(board_height / board_rate) #너비를 적정 비율로 바꿔줌
+                    board_height = int(board_width*board_rate) #높이를 적정 비율로 바꿔줌
+
+
+                block_size = int(board_height * 0.045)
+                screen = pygame.display.set_mode((board_width, board_height), pygame.RESIZABLE)
+
+                for i in range(len(button_list)):
+                        button_list[i].change(board_width, board_height)
 
     elif signin:
         draw_image(screen, login_bg, board_width*0.5, board_height*0.5,
@@ -2662,6 +2653,22 @@ while not done:
                 if log_back.isOver_2(pos):
                     ui_variables.click_sound.play()
                     signin = False
+            elif event.type == VIDEORESIZE:
+                board_width = event.w
+                board_height = event.h
+                if board_width < min_width or board_height < min_height: #최소 너비 또는 높이를 설정하려는 경우
+                    board_width = min_width
+                    board_height = min_height
+                if not ((board_rate-0.1) < (board_height/board_width) < (board_rate+0.05)): #높이 또는 너비가 비율의 일정수준 이상을 넘어서게 되면
+                    board_width = int(board_height / board_rate) #너비를 적정 비율로 바꿔줌
+                    board_height = int(board_width*board_rate) #높이를 적정 비율로 바꿔줌
+
+
+                block_size = int(board_height * 0.045)
+                screen = pygame.display.set_mode((board_width, board_height), pygame.RESIZABLE)
+
+                for i in range(len(button_list)):
+                        button_list[i].change(board_width, board_height)
 
     # Game over screen
     elif game_over:
@@ -2951,6 +2958,23 @@ while not done:
                 if log_quit.isOver_2(pos):
                     ui_variables.click_sound.play()
                     done = True
+            elif event.type == VIDEORESIZE:
+                board_width = event.w
+                board_height = event.h
+                if board_width < min_width or board_height < min_height: #최소 너비 또는 높이를 설정하려는 경우
+                    board_width = min_width
+                    board_height = min_height
+                if not ((board_rate-0.1) < (board_height/board_width) < (board_rate+0.05)): #높이 또는 너비가 비율의 일정수준 이상을 넘어서게 되면
+                    board_width = int(board_height / board_rate) #너비를 적정 비율로 바꿔줌
+                    board_height = int(board_width*board_rate) #높이를 적정 비율로 바꿔줌
+
+
+                block_size = int(board_height * 0.045)
+                screen = pygame.display.set_mode((board_width, board_height), pygame.RESIZABLE)
+
+                for i in range(len(button_list)):
+                        button_list[i].change(board_width, board_height)
+
 
 
 
