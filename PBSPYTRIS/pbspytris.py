@@ -664,7 +664,7 @@ def is_turnable_r(x, y, mino, r, matrix):
     if r != 3:  #회전모양 총 0, 1, 2, 3번째 총 4가지 있음
         grid = tetrimino.mino_map[mino - mino_x][r + mino_r] #3이 아니면 그 다음 모양
     else:
-        grid = tetrimino.mino_map[mino - mino_x][mino_y] #3이면 0번째 모양으로
+        grid = tetrimino.mino_map[mino - mino_x][mino_zero] #3이면 0번째 모양으로
 
     for i in range(mino_matrix_y):
         for j in range(mino_matrix_x):
@@ -2384,7 +2384,7 @@ while not done:
                         dx -= two
                         rotation += one
                     if rotation == r_4:
-                        rotation = one
+                        rotation = mino_zero
                     draw_mino(dx, dy, mino, rotation, matrix)
                     screen.fill(ui_variables.real_white)
                     draw_image(screen, gamebackground_image , board_width * 0.5, board_height * 0.5, board_width, board_height) #(window, 이미지주소, x좌표, y좌표, 너비, 높이)
