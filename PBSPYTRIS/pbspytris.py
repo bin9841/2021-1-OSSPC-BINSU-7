@@ -852,11 +852,22 @@ def set_initial_items():
 
 # item 사용 금지
 def item_off():
+    global num_light, num_earthquake, num_tnt, temp_light, temp_earth, temp_tnt
     item = False
     if item == False:
+        temp_light = num_light
         num_light = no_item
+        temp_earth = num_earthquake
         num_earthquake = no_item
+        temp_tnt = num_tnt
         num_tnt = no_item
+
+def item_on() :
+    global num_light, num_earthquake, num_tnt, temp_light, temp_earth, temp_tnt
+
+    num_light = temp_light
+    num_earthquake = temp_earth
+    num_tnt = temp_tnt
 
 set_initial_values()
 pygame.time.set_timer(pygame.USEREVENT, 10)
@@ -2715,14 +2726,25 @@ while not done:
                             update_light_data(num_light,id_text)
                             update_earthquake_data(num_earthquake,id_text)
                             update_tnt_data(num_tnt,id_text)
+                            
 
                     # 도전과제 3 활성화시
                     if ch_3 :
                         # 5만점 달성시
-                        if score >= score_ch3 :
+                        if score >= 500 :
                             # 1000골드 증가
                             gold += gold_1000
                             update_gold_data(gold,user_id)
+                            item_on()
+                            update_light_data(num_light,id_text)
+                            update_earthquake_data(num_earthquake,id_text)
+                            update_tnt_data(num_tnt,id_text)
+                            
+                    else : 
+                        item_on()
+                        update_light_data(num_light,id_text)
+                        update_earthquake_data(num_earthquake,id_text)
+                        update_tnt_data(num_tnt,id_text)
 
                     if difficulty_mode:  # 난이도모드였을 때
                         # 점수에 따라서 골드 획득량 달라지게
