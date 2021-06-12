@@ -648,7 +648,7 @@ def is_turnable_r(x, y, mino, r, matrix):
     if r != 3:  #회전모양 총 0, 1, 2, 3번째 총 4가지 있음
         grid = tetrimino.mino_map[mino - mino_x][r + mino_r] #3이 아니면 그 다음 모양
     else:
-        grid = tetrimino.mino_map[mino - mino_x][mino_y] #3이면 0번째 모양으로
+        grid = tetrimino.mino_map[mino - mino_x][mino_zero] #3이면 0번째 모양으로
 
     for i in range(mino_matrix_y):
         for j in range(mino_matrix_x):
@@ -710,7 +710,7 @@ def set_music_playing(CHANNELS, swidth):
     pygame.mixer.music.play(minus) #위 노래를 반복재생하기 위해 play(-1)로 설정
 
 def set_initial_values():
-    global r_n,r_s,rank, main, signin, signup, combo_status, combo_count, score, level, goal, bottom_count, hard_drop, attack_point, dx, dy, rotation, mino, next_mino1, next_mino2, hold, hold_mino, framerate, matrix, blink, start, pause, done, game_over, leader_board, setting, volume_setting, screen_setting, help, gravity_mode, time_attack, time_attack_time, start_ticks, textsize, attack_mode, attack_mode_time, attack_board_y, CHANNELS, swidth, name_location, name, previous_time, current_time, pause_time, lines, leaders, volume, game_status, framerate_blockmove, game_speed, sandbox,sandbox_mode, difficulty, difficulty_mode, shop, challenge, single, game, gold, s_gold, item, item_mino, light_mino, earth_mino, tnt_mino, ch_1, ch_2, ch_3, num_light, num_earthquake, num_tnt
+    global hard_mode, r_n,r_s,rank, main, signin, signup, combo_status, combo_count, score, level, goal, bottom_count, hard_drop, attack_point, dx, dy, rotation, mino, next_mino1, next_mino2, hold, hold_mino, framerate, matrix, blink, start, pause, done, game_over, leader_board, setting, volume_setting, screen_setting, help, gravity_mode, time_attack, time_attack_time, start_ticks, textsize, attack_mode, attack_mode_time, attack_board_y, CHANNELS, swidth, name_location, name, previous_time, current_time, pause_time, lines, leaders, volume, game_status, framerate_blockmove, game_speed, sandbox,sandbox_mode, difficulty, difficulty_mode, shop, challenge, single, game, gold, s_gold, item, item_mino, light_mino, earth_mino, tnt_mino, ch_1, ch_2, ch_3, num_light, num_earthquake, num_tnt
 
 
     framerate = 30 # Bigger -> Slower  기본 블록 하강 속도, 2도 할만 함, 0 또는 음수 이상이어야 함
@@ -750,6 +750,7 @@ def set_initial_values():
     signup = False
     main = False
     rank = [0,1,2]
+    hard_mode = False
 
     attack_mode = False # 어택모드
     attack_mode_time = False # 어택모드 30초마다 시간 초기화하도록
@@ -834,11 +835,22 @@ def set_initial_items():
 
 # item 사용 금지
 def item_off():
+    global num_light, num_earthquake, num_tnt, temp_light, temp_earth, temp_tnt
     item = False
     if item == False:
+        temp_light = num_light
         num_light = no_item
+        temp_earth = num_earthquake
         num_earthquake = no_item
+        temp_tnt = num_tnt
         num_tnt = no_item
+
+def item_on() :
+    global num_light, num_earthquake, num_tnt, temp_light, temp_earth, temp_tnt
+
+    num_light = temp_light
+    num_earthquake = temp_earth
+    num_tnt = temp_tnt
 
 set_initial_values()
 pygame.time.set_timer(pygame.USEREVENT, 10)
@@ -1640,7 +1652,6 @@ while not done:
                     start = True
                     previous_time = pygame.time.get_ticks()
                     initalize = True
-                    game_status == 'easy'
                     set_music_playing(CHANNELS, swidth)
 
                 if normal_button.isOver_2(pos):
@@ -1654,7 +1665,6 @@ while not done:
                     start = True
                     previous_time = pygame.time.get_ticks()
                     initalize = True
-                    game_status == 'normal'
                     set_music_playing(CHANNELS, swidth)
 
                 if hard_button.isOver_2(pos):
@@ -1669,7 +1679,7 @@ while not done:
                     start = True
                     previous_time = pygame.time.get_ticks()
                     initalize = True
-                    game_status == 'hard'
+                    hard_mode = True
                     set_music_playing(CHANNELS, swidth)
             elif event.type == VIDEORESIZE:
                 board_width = event.w
@@ -2366,7 +2376,7 @@ while not done:
                         dx -= two
                         rotation += one
                     if rotation == r_4:
-                        rotation = one
+                        rotation = mino_zero
                     draw_mino(dx, dy, mino, rotation, matrix)
                     screen.fill(ui_variables.real_white)
                     draw_image(screen, gamebackground_image , board_width * 0.5, board_height * 0.5, board_width, board_height) #(window, 이미지주소, x좌표, y좌표, 너비, 높이)
@@ -2527,12 +2537,15 @@ while not done:
             pygame.time.set_timer(pygame.USEREVENT, set_1)
 
         if attack_mode: #어택모드일 때 
+            game_status = 'easy'
             if attack_time - elapsed_attack_time < zero: # attack_time이 다 지났을 때 
                 attack(attack_board_y,matrix) 
                 attack_mode_time = False #elapsed_attack_time 초기화 
                 attack_board_y -= one #장애물 블록 만든 윗 줄에 다음 장애물블록 생성하도록
             elif combo_status == True: #콤보 만들어졌을 때
                 attack_mode_time = False #elapsed_attack_time 초기화
+        if hard_mode:
+            game_status = 'hard'
 
         pygame.display.update()
        
@@ -2708,6 +2721,7 @@ while not done:
                             update_light_data(num_light,id_text)
                             update_earthquake_data(num_earthquake,id_text)
                             update_tnt_data(num_tnt,id_text)
+                            
 
                     # 도전과제 3 활성화시
                     if ch_3 :
@@ -2716,6 +2730,11 @@ while not done:
                             # 1000골드 증가
                             gold += gold_1000
                             update_gold_data(gold,user_id)
+                        item_on()
+                        update_light_data(num_light,id_text)
+                        update_earthquake_data(num_earthquake,id_text)
+                        update_tnt_data(num_tnt,id_text)
+                            
 
                     if difficulty_mode:  # 난이도모드였을 때
                         # 점수에 따라서 골드 획득량 달라지게
@@ -2742,10 +2761,12 @@ while not done:
                         add_score(game_status,  id_text, score)
                     if game_status == 'hard':
                         add_score(game_status,  id_text, score)
+
                     game_over = False
                     main = True
 
                 if restart_over_button.isOver_2(pos):
+                    
                     if game_status == 'single':
                         start = True
                         pygame.mixer.music.play(minus) #play(-1) = 노래 반복재생
