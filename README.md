@@ -47,7 +47,7 @@ Single, Difficulty, Time attack, Sandbox 총 네가지 플레이모드로 구성
 - Time attack mode : 제한시간 60초가 주어지는 모드 
 - Sandbox mode : 게임모드와 레벨을 플레이어가 조작할 수 있는 연습 모드
   - 게임 시작 전 모드와 레벨 지정 가능
-  - 인게임에서 레벨 변경 가능
+  - 인게임에서 레벨 변경 가능  
   | Attack    | Gravity   |                   |
   |-----------|-----------|-------------------|
   | off       | off       | Single mode       |
@@ -86,7 +86,7 @@ gold를 소모해 구매한 후 Difficulty mode 에서 사용 가능한 아이�
 <img src="PBSPYTRIS/assets/vector/item_earth.png" width="50" height="50"> : c버튼을 누르는 즉시 맨 아랫줄 블록 모두 삭제 및 score 100점 증가 
 
 ### 3. challenge
-PBSPYTRIS만의 특징적인 기능으로 on으로 설정해둔 도전과제를 게임 내에서 달성하면 보상을 받을 수 있음
+PBSPYTRIS만의 특징적인 기능으로 on으로 설정해둔 도전과제를 게임 내에서 달성하면 보상을 받을 수 있음  
 200 gold를 소모하여 도전과제 on 가능   
 <img src="PBSPYTRIS/assets/Screenshots/challenge.png" width="500" height="250"> 
 
