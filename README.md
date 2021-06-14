@@ -48,8 +48,9 @@ Single, Difficulty, Time attack, Sandbox 총 네가지 플레이모드로 구성
 - Sandbox mode : 게임모드와 레벨을 플레이어가 조작할 수 있는 연습 모드
   - 게임 시작 전 모드와 레벨 지정 가능
   - 인게임에서 레벨 변경 가능  
+  
   | Attack    | Gravity   |                   |  
-  |-----------|-----------|-------------------|  
+  |-----------|-----------|-------------------|   
   | off       | off       | Single mode       |  
   | on        | off       | Easy mode         |  
   | off       | on        | Normal mode       |  
