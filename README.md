@@ -43,7 +43,8 @@ Single, Difficulty, Time attack, Sandbox 총 네가지 플레이모드로 구성
 - Difficulty mode : easy, normal, hard 총 세가지 플레이모드가 있는 난이도 모드
   - easy mode : Attack mode on
   - normal mode : Gravity mode on
-  - hard mode : Attack mode, Gravity mode on
+  - hard mode : Attack mode, Gravity mode on  
+  - 아이템 사용 가능
 - Time attack mode : 제한시간 60초가 주어지는 모드 
 - Sandbox mode : 게임모드와 레벨을 플레이어가 조작할 수 있는 연습 모드
   - 게임 시작 전 모드와 레벨 지정 가능
