@@ -279,9 +279,7 @@ vector_sound_on = 'assets/vector/vector_sound_on.png'
 vector_volume = 'assets/vector/vector_volume.png'
 vector_volume_clicked = 'assets/vector/vector_volume_clicked.png'
 
-tetris3 = pygame.image.load("assets/Combo/tetris4.png")
-tetris4 = pygame.transform.smoothscale(tetris3,
-                    (int(board_width*0.225),int(board_height*0.1266)))
+tetris = "assets/Combo/tetris4.png"
 
 challenge_info1 = 'assets/vector/challenge_info1.PNG'
 challenge_info2 = 'assets/vector/challenge_info2.PNG'

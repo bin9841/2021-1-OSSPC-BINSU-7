@@ -110,24 +110,9 @@ class ui_variables:
     LevelUp_sound = pygame.mixer.Sound("assets/sounds/SFX_LevelUp.wav")
     GameOver_sound = pygame.mixer.Sound("assets/sounds/SFX_GameOver.wav")
 
-    # Combo graphic
-    combos = []
-    large_combos = []
-    combo_ring = pygame.image.load("assets/Combo/4combo ring.png")  # 4블록 동시제거 그래픽
-    combo_4ring = pygame.transform.smoothscale(combo_ring,
-                     (int(board_width*0.25), int(board_height*0.222)))
-    #이미지를 특정 크기로 불러옴, 200=가로크기, 100=세로크기
-    for i in range(1, 11): #10가지의 콤보 이미지 존재. 각 숫자에 해당하는 이미지 불러옴
-        combos.append(pygame.image.load("assets/Combo/" + str(i) + "combo.png"))
-        large_combos.append(pygame.transform.smoothscale(combos[i - 1],
-         (int(board_width*0.1875), int(board_height*0.4444)))) #콤보이미지를 특정 크기로 불러옴, 150=가로크기, 200=세로크기#
-
     combos_sound = []
     for i in range(1, 10): #1-9까지 콤보사운드 존재. 각 숫자에 해당하는 음악 불러옴
         combos_sound.append(pygame.mixer.Sound("assets/sounds/SFX_" + str(i + 2) + "Combo.wav"))
-
-    #rainbow 보너스점수 graphic
-    rainbow_vector = pygame.image.load('assets/vector/rainbow.png')
 
     # Background colors. RGB 값에 해당함
     black = (10, 10, 10)  # rgb(10, 10, 10)
@@ -330,9 +315,8 @@ quit_game_button = button(board_width, board_height, 0.5, 0.87, 0.16, 0.084, but
 # 위와 동일
 
 # game page 5) game over board
-menu_button = button(board_width, board_height, 0.5, 0.42, 0.16, 0.084, button_menu)
-restart_over_button = button(board_width, board_height, 0.5, 0.6, 0.16, 0.084, button_restart)
-ok_button = button(board_width, board_height, 0.5, 0.78, 0.16, 0.084, button_ok)
+restart_over_button = button(board_width, board_height, 0.5, 0.51, 0.16, 0.084, button_restart)
+ok_button = button(board_width, board_height, 0.5, 0.69, 0.16, 0.084, button_ok)
 
 # sandbox
 level_plus_button = button(board_width, board_height, 0.63, 0.7719, 0.0375, 0.0666, vector_plus)
@@ -350,7 +334,7 @@ button_list = [
     effect_plus_vector, effect_minus_vector, effect_on_button,
     smallsize_button, midiumsize_button, bigsize_button, light_buy_button,
     tnt_buy_button, earth_buy_button, resume_button,
-    restart_button, setting_button, quit_game_button, menu_button, ok_button,
+    restart_button, setting_button, quit_game_button, ok_button,
     level_plus_button, level_minus_button, off1_button, off2_button, off3_button,
     sign_up_button1, sign_up_button2, sign_in_button1, sign_in_button2,
     log_back, log_quit, rank_single, rank_easy, rank_normal, rank_hard, rank_ta, restart_over_button
@@ -664,7 +648,7 @@ def is_turnable_r(x, y, mino, r, matrix):
     if r != 3:  #회전모양 총 0, 1, 2, 3번째 총 4가지 있음
         grid = tetrimino.mino_map[mino - mino_x][r + mino_r] #3이 아니면 그 다음 모양
     else:
-        grid = tetrimino.mino_map[mino - mino_x][mino_y] #3이면 0번째 모양으로
+        grid = tetrimino.mino_map[mino - mino_x][mino_zero] #3이면 0번째 모양으로
 
     for i in range(mino_matrix_y):
         for j in range(mino_matrix_x):
@@ -726,7 +710,7 @@ def set_music_playing(CHANNELS, swidth):
     pygame.mixer.music.play(minus) #위 노래를 반복재생하기 위해 play(-1)로 설정
 
 def set_initial_values():
-    global r_n,r_s,rank, main, signin, signup, combo_status, combo_count, score, level, goal, bottom_count, hard_drop, attack_point, dx, dy, rotation, mino, next_mino1, next_mino2, hold, hold_mino, framerate, matrix, blink, start, pause, done, game_over, leader_board, setting, volume_setting, screen_setting, help, gravity_mode, time_attack, time_attack_time, start_ticks, textsize, attack_mode, attack_mode_time, attack_board_y, CHANNELS, swidth, name_location, name, previous_time, current_time, pause_time, lines, leaders, volume, game_status, framerate_blockmove, game_speed, sandbox,sandbox_mode, difficulty, difficulty_mode, shop, challenge, single, game, gold, s_gold, item, item_mino, light_mino, earth_mino, tnt_mino, ch_1, ch_2, ch_3, num_light, num_earthquake, num_tnt
+    global hard_mode, r_n,r_s,rank, main, signin, signup, combo_status, combo_count, score, level, goal, bottom_count, hard_drop, attack_point, dx, dy, rotation, mino, next_mino1, next_mino2, hold, hold_mino, framerate, matrix, blink, start, pause, done, game_over, leader_board, setting, volume_setting, screen_setting, help, gravity_mode, time_attack, time_attack_time, start_ticks, textsize, attack_mode, attack_mode_time, attack_board_y, CHANNELS, swidth, name_location, name, previous_time, current_time, pause_time, lines, leaders, volume, game_status, framerate_blockmove, game_speed, sandbox,sandbox_mode, difficulty, difficulty_mode, shop, challenge, single, game, gold, s_gold, item, item_mino, light_mino, earth_mino, tnt_mino, ch_1, ch_2, ch_3, num_light, num_earthquake, num_tnt
 
 
     framerate = 30 # Bigger -> Slower  기본 블록 하강 속도, 2도 할만 함, 0 또는 음수 이상이어야 함
@@ -766,6 +750,7 @@ def set_initial_values():
     signup = False
     main = False
     rank = [0,1,2]
+    hard_mode = False
 
     attack_mode = False # 어택모드
     attack_mode_time = False # 어택모드 30초마다 시간 초기화하도록
@@ -803,8 +788,7 @@ def set_initial_values():
     tnt_mino = 11 # tnt 블럭 11
     item_mino = -2 #아이템을 사용 안한 상태
 
-    name_location = 0
-    name = [65, 65, 65]
+ 
 
     previous_time = pygame.time.get_ticks()
     current_time = pygame.time.get_ticks()
@@ -825,6 +809,7 @@ def set_initial_values():
     game_status = ''
 
 def set_initial_values2():
+    global hold, dx, dy, rotation, mino, next_mino1, next_mino2, hold_mino, framerate, score, level, combo_count, hard_drop, goal, bottom_count, matrix    
     hold = False
     dx, dy = 3, 0
     rotation = 0
@@ -839,8 +824,6 @@ def set_initial_values2():
     hard_drop = False
     goal = level *5
     bottom_count = 0
-    name_location = 0
-    name = [65, 65, 65]
     matrix = [[0 for y in range(height + 1)] for x in range(width)]
     ui_variables.click_sound.play()
     
@@ -852,11 +835,22 @@ def set_initial_items():
 
 # item 사용 금지
 def item_off():
+    global num_light, num_earthquake, num_tnt, temp_light, temp_earth, temp_tnt
     item = False
     if item == False:
+        temp_light = num_light
         num_light = no_item
+        temp_earth = num_earthquake
         num_earthquake = no_item
+        temp_tnt = num_tnt
         num_tnt = no_item
+
+def item_on() :
+    global num_light, num_earthquake, num_tnt, temp_light, temp_earth, temp_tnt
+
+    num_light = temp_light
+    num_earthquake = temp_earth
+    num_tnt = temp_tnt
 
 set_initial_values()
 pygame.time.set_timer(pygame.USEREVENT, 10)
@@ -1285,8 +1279,6 @@ while not done:
                         attack_mode = True
                         gravity_mode = True
                         pygame.mixer.music.play(minus)
-
-
                     set_initial_values2()
                     pause = False
 
@@ -1660,7 +1652,6 @@ while not done:
                     start = True
                     previous_time = pygame.time.get_ticks()
                     initalize = True
-                    game_status == 'easy'
                     set_music_playing(CHANNELS, swidth)
 
                 if normal_button.isOver_2(pos):
@@ -1674,7 +1665,6 @@ while not done:
                     start = True
                     previous_time = pygame.time.get_ticks()
                     initalize = True
-                    game_status == 'normal'
                     set_music_playing(CHANNELS, swidth)
 
                 if hard_button.isOver_2(pos):
@@ -1689,7 +1679,7 @@ while not done:
                     start = True
                     previous_time = pygame.time.get_ticks()
                     initalize = True
-                    game_status == 'hard'
+                    hard_mode = True
                     set_music_playing(CHANNELS, swidth)
             elif event.type == VIDEORESIZE:
                 board_width = event.w
@@ -2231,8 +2221,9 @@ while not done:
                     if rainbow_count >= one:
                         score += rainbow_score * rainbow_count #임의로 rainbow는 한 줄당 500점으로 잡음
                         rainbow_count = zero #다시 초기화
-                        screen.blit(ui_variables.rainbow_vector,
-                         (board_width * 0.3175, board_height * 0.25)) #blit(이미지, 위치)
+                        draw_image(screen, "assets/vector/rainbow.png",
+                        board_width * 0.4, board_height * 0.15,
+                        int(board_width*128/800),int(board_height*128/450))
                         pygame.display.update()
                         pygame.time.delay(set_400) #0.4초
 
@@ -2264,9 +2255,9 @@ while not done:
                         ui_variables.tetris_sound.play()
                         ui_variables.tetris_sound.play()
                         score += ec_4_score * level * erase_count + ec_4 * combo_count
-                        
-                        screen.blit(ui_variables.combo_4ring,
-                         (int(board_width*0.24), int(board_height*0.2))) #blit(이미지, 위치)
+                        draw_image(screen, "assets/Combo/4combo ring.png",
+                        board_width*0.4,board_height*0.5,
+                        int(board_width*120/800),int(board_height*60/450))
                     
                     # 도전과제 2 달성시 골드 777 추가
                     if combo_count == combo_7 :
@@ -2276,14 +2267,15 @@ while not done:
 
                     for i in range(one, eleven):
                         if combo_count == i:  # 1 ~ 10 콤보 이미지
-                            screen.blit(ui_variables.large_combos[i - one],
-                            (board_width * 0.27, board_height * 0.35))
-                            #각 콤보 이미지에 대해 blit(이미지, 위치)
+                            draw_image(screen, "assets/Combo/"+str(i)+"combo.png",
+                            board_width*0.4,board_height*0.65,
+                            int(board_width*150/800),int(board_height*150/450))
                             pygame.display.update()
                             pygame.time.delay(set_500)
                         elif combo_count > ten:  # 11 이상 콤보 이미지
-                            screen.blit(tetris4,
-                            (board_width*0.27, board_height * 0.35))
+                            draw_image(screen,tetris,
+                            board_width*0.4, board_height*0.45,
+                            int(board_width*0.15),int(board_height*0.0844))
                             pygame.display.update()
                             pygame.time.delay(set_300)
 
@@ -2384,7 +2376,7 @@ while not done:
                         dx -= two
                         rotation += one
                     if rotation == r_4:
-                        rotation = one
+                        rotation = mino_zero
                     draw_mino(dx, dy, mino, rotation, matrix)
                     screen.fill(ui_variables.real_white)
                     draw_image(screen, gamebackground_image , board_width * 0.5, board_height * 0.5, board_width, board_height) #(window, 이미지주소, x좌표, y좌표, 너비, 높이)
@@ -2443,19 +2435,7 @@ while not done:
                     screen.fill(ui_variables.real_white)
                     draw_image(screen, gamebackground_image , board_width * 0.5, board_height * 0.5, board_width, board_height) #(window, 이미지주소, x좌표, y좌표, 너비, 높이)
                     draw_board(next_mino1, next_mino2, hold_mino, score, level, goal)
-                # rainbow test
-                elif event.key == K_F1:
-                    ui_variables.click_sound.play()
-                    matrix[0][20] = 7 #빨
-                    matrix[1][20] = 7 #빨
-                    matrix[2][20] = 3#주
-                    matrix[3][20] = 3#주
-                    matrix[4][20] = 4#노
-                    matrix[5][20] = 5#초
-                    matrix[6][20] = 5#초
-                    matrix[7][20] = 1#하
-                    matrix[8][20] = 2#파
-                    mino = 6
+
                 # item click
                 # light item use
                 elif event.key == K_z :
@@ -2557,12 +2537,15 @@ while not done:
             pygame.time.set_timer(pygame.USEREVENT, set_1)
 
         if attack_mode: #어택모드일 때 
+            game_status = 'easy'
             if attack_time - elapsed_attack_time < zero: # attack_time이 다 지났을 때 
                 attack(attack_board_y,matrix) 
                 attack_mode_time = False #elapsed_attack_time 초기화 
                 attack_board_y -= one #장애물 블록 만든 윗 줄에 다음 장애물블록 생성하도록
             elif combo_status == True: #콤보 만들어졌을 때
                 attack_mode_time = False #elapsed_attack_time 초기화
+        if hard_mode:
+            game_status = 'hard'
 
         pygame.display.update()
        
@@ -2607,6 +2590,22 @@ while not done:
                 if log_back.isOver_2(pos):
                     ui_variables.click_sound.play()
                     signup = False
+            elif event.type == VIDEORESIZE:
+                board_width = event.w
+                board_height = event.h
+                if board_width < min_width or board_height < min_height: #최소 너비 또는 높이를 설정하려는 경우
+                    board_width = min_width
+                    board_height = min_height
+                if not ((board_rate-0.1) < (board_height/board_width) < (board_rate+0.05)): #높이 또는 너비가 비율의 일정수준 이상을 넘어서게 되면
+                    board_width = int(board_height / board_rate) #너비를 적정 비율로 바꿔줌
+                    board_height = int(board_width*board_rate) #높이를 적정 비율로 바꿔줌
+
+
+                block_size = int(board_height * 0.045)
+                screen = pygame.display.set_mode((board_width, board_height), pygame.RESIZABLE)
+
+                for i in range(len(button_list)):
+                        button_list[i].change(board_width, board_height)
 
     elif signin:
         draw_image(screen, login_bg, board_width*0.5, board_height*0.5,
@@ -2656,9 +2655,30 @@ while not done:
                 if log_back.isOver_2(pos):
                     ui_variables.click_sound.play()
                     signin = False
+            elif event.type == VIDEORESIZE:
+                board_width = event.w
+                board_height = event.h
+                if board_width < min_width or board_height < min_height: #최소 너비 또는 높이를 설정하려는 경우
+                    board_width = min_width
+                    board_height = min_height
+                if not ((board_rate-0.1) < (board_height/board_width) < (board_rate+0.05)): #높이 또는 너비가 비율의 일정수준 이상을 넘어서게 되면
+                    board_width = int(board_height / board_rate) #너비를 적정 비율로 바꿔줌
+                    board_height = int(board_width*board_rate) #높이를 적정 비율로 바꿔줌
+
+
+                block_size = int(board_height * 0.045)
+                screen = pygame.display.set_mode((board_width, board_height), pygame.RESIZABLE)
+
+                for i in range(len(button_list)):
+                        button_list[i].change(board_width, board_height)
 
     # Game over screen
     elif game_over:
+        draw_image(screen, board_gameover, board_width * 0.5, board_height * 0.5, int(board_height * 0.7428), board_height) #(window, 이미지주소, x좌표, y좌표, 너비, 높이)
+        restart_over_button.draw(screen, (0, 0, 0))
+        ok_button.draw(screen, (0, 0, 0))
+
+        pygame.display.update()
 
         for event in pygame.event.get():
             pos = pygame.mouse.get_pos()
@@ -2668,32 +2688,18 @@ while not done:
             elif event.type == USEREVENT:
                 pygame.mixer.music.stop()
                 pygame.time.set_timer(pygame.USEREVENT, set_300) #0.3초
-
-                draw_image(screen, board_gameover, board_width * 0.5, board_height * 0.5, int(board_height * 0.7428), board_height) #(window, 이미지주소, x좌표, y좌표, 너비, 높이)
-                menu_button.draw(screen, (0, 0, 0)) #rgb(0,0,0) = 검정색
-                restart_over_button.draw(screen, (0, 0, 0))
-                ok_button.draw(screen, (0, 0, 0))
-
-                pygame.display.update()
-
-
-
             elif event.type == KEYDOWN:
                 if event.key == K_RETURN:
                     ui_variables.click_sound.play()
                     game_over = False
+                    main = True
                     pygame.time.set_timer(pygame.USEREVENT, set_1) #0.001초
 
             elif event.type == pygame.MOUSEMOTION:
-                if menu_button.isOver_2(pos):
-                    menu_button.image = button_menu_clicked
+                if restart_over_button.isOver_2(pos):
+                    restart_over_button.image = button_restart_clicked
                 else:
-                    menu_button.image = button_menu
-
-                if restart_button.isOver_2(pos):
-                    restart_button.image = button_restart_clicked
-                else:
-                    restart_button.image = button_restart
+                    restart_over_button.image = button_restart
 
                 if ok_button.isOver_2(pos):
                     ok_button.image = button_ok_clicked
@@ -2715,6 +2721,7 @@ while not done:
                             update_light_data(num_light,id_text)
                             update_earthquake_data(num_earthquake,id_text)
                             update_tnt_data(num_tnt,id_text)
+                            
 
                     # 도전과제 3 활성화시
                     if ch_3 :
@@ -2723,6 +2730,11 @@ while not done:
                             # 1000골드 증가
                             gold += gold_1000
                             update_gold_data(gold,user_id)
+                        item_on()
+                        update_light_data(num_light,id_text)
+                        update_earthquake_data(num_earthquake,id_text)
+                        update_tnt_data(num_tnt,id_text)
+                            
 
                     if difficulty_mode:  # 난이도모드였을 때
                         # 점수에 따라서 골드 획득량 달라지게
@@ -2740,22 +2752,21 @@ while not done:
                             update_gold_data(gold, id_text)
  
                     if game_status == 'single':
-                        add_score(game_status,  user_id, score)
+                        add_score(game_status,  id_text, score)
                     if game_status == 'time_attack':
-                        add_score(game_status,  user_id, score)
+                        add_score(game_status,  id_text, score)
                     if game_status == 'easy':
-                        add_score(game_status,  user_id, score)
+                        add_score(game_status,  id_text, score)
                     if game_status == 'normal':
-                        add_score(game_status,  user_id, score)
+                        add_score(game_status,  id_text, score)
                     if game_status == 'hard':
-                        add_score(game_status,  user_id, score)
-        
-                if menu_button.isOver(pos):
-                    ui_variables.click_sound.play()
+                        add_score(game_status,  id_text, score)
+
                     game_over = False
                     main = True
 
                 if restart_over_button.isOver_2(pos):
+                    
                     if game_status == 'single':
                         start = True
                         pygame.mixer.music.play(minus) #play(-1) = 노래 반복재생
@@ -2776,9 +2787,7 @@ while not done:
                         pygame.mixer.music.play(minus)
                     ui_variables.click_sound.play()
                     set_initial_values2()
-
-                    game_over = False
-                    pause = False
+                    game_over=False
 
             elif event.type == VIDEORESIZE:
                 board_width = event.w
@@ -2946,6 +2955,23 @@ while not done:
                 if log_quit.isOver_2(pos):
                     ui_variables.click_sound.play()
                     done = True
+            elif event.type == VIDEORESIZE:
+                board_width = event.w
+                board_height = event.h
+                if board_width < min_width or board_height < min_height: #최소 너비 또는 높이를 설정하려는 경우
+                    board_width = min_width
+                    board_height = min_height
+                if not ((board_rate-0.1) < (board_height/board_width) < (board_rate+0.05)): #높이 또는 너비가 비율의 일정수준 이상을 넘어서게 되면
+                    board_width = int(board_height / board_rate) #너비를 적정 비율로 바꿔줌
+                    board_height = int(board_width*board_rate) #높이를 적정 비율로 바꿔줌
+
+
+                block_size = int(board_height * 0.045)
+                screen = pygame.display.set_mode((board_width, board_height), pygame.RESIZABLE)
+
+                for i in range(len(button_list)):
+                        button_list[i].change(board_width, board_height)
+
 
 
 
