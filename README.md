@@ -21,7 +21,7 @@
 3. `cd PBSPYTRIS` 입력  
 (PBSPYTRIS 디렉토리로 이동)
 
-4. `python tetrisKingdom.py` 입력   
+4. `python3 pbspytris.py` 입력   
 (게임 실행)
 
 ### 조작키 안내
@@ -36,22 +36,32 @@ Single, Difficulty, Time attack, Sandbox 총 네가지 플레이모드로 구성
 #### <구성모드>
 - Gravity mode : 블록이 쌓일 때 아래가 빈칸일 시, 블록이 아래 비워진 빈칸을 채우며  
 동시에 쌓인 블록이 장애물 블록으로 변하는 모드  
-- Attack mode : 제한시간 (30초) 내에 콤보를 만들지 못하면 맨 밑에 장애물 블록 줄이 생성되는 모드  
+- Attack mode : PBSPYTRIS에서 만든 모드로 제한시간 (30초) 내에 콤보를 만들지 못하면 맨 밑에 장애물 블록 줄이 생성되는 모드  
 
 #### <플레이모드>
 - Single mode : 일반 테트리스 게임 모드
 - Difficulty mode : easy, normal, hard 총 세가지 플레이모드가 있는 난이도 모드
   - easy mode : Attack mode on
   - normal mode : Gravity mode on
-  - hard mode : Attack mode, Gravity mode on
+  - hard mode : Attack mode, Gravity mode on  
+  - 아이템 사용 가능
 - Time attack mode : 제한시간 60초가 주어지는 모드 
 - Sandbox mode : 게임모드와 레벨을 플레이어가 조작할 수 있는 연습 모드
+  - 게임 시작 전 모드와 레벨 지정 가능
+  - 인게임에서 레벨 변경 가능  
+  
+  | Attack    | Gravity   |                   |  
+  |-----------|-----------|-------------------|   
+  | off       | off       | Single mode       |  
+  | on        | off       | Easy mode         |  
+  | off       | on        | Normal mode       |  
+  | on        | on        | Hard mode         |  
 
   
 ## 새로운 기능
 
 ### 1. 회원가입 및 로그인  
-게임 시작 첫화면인 로그인 페이지    
+게임 시작 첫화면인 회원가입 및 로그인 선택 페이지    
   
 <img src="PBSPYTRIS/assets/Screenshots/login1.png" width="500" height="250">   
   
@@ -71,14 +81,14 @@ gold를 소모해 item을 구매하는 창
 #### <아이템>
 gold를 소모해 구매한 후 Difficulty mode 에서 사용 가능한 아이템   
 - Lightning  
-<img src="PBSPYTRIS/assets/vector/item_lightning.png" width="50" height="50"> : lightning 블록중심으로 3x3 위치의 블록 삭제  
+<img src="PBSPYTRIS/assets/vector/item_lightning.png" width="50" height="50"> : z버튼을 눌러 lightning 블록중심으로 3x3 위치의 블록 삭제  
 - TNT   
-<img src="PBSPYTRIS/assets/vector/item_tnt.png" width="50" height="50"> : TNT 블록을 중심으로 5x5 위치의 블록 삭제
+<img src="PBSPYTRIS/assets/vector/item_tnt.png" width="50" height="50"> : x버튼을 눌러 TNT 블록을 중심으로 5x5 위치의 블록 삭제
 - Earthquake  
-<img src="PBSPYTRIS/assets/vector/item_earth.png" width="50" height="50"> : 즉시 맨 아랫줄 블록 모두 삭제 및  
- score 100점 증가 
+<img src="PBSPYTRIS/assets/vector/item_earth.png" width="50" height="50"> : c버튼을 누르는 즉시 맨 아랫줄 블록 모두 삭제 및 score 100점 증가 
 
 ### 3. challenge
+PBSPYTRIS만의 특징적인 기능으로 on으로 설정해둔 도전과제를 게임 내에서 달성하면 보상을 받을 수 있음  
 200 gold를 소모하여 도전과제 on 가능   
 <img src="PBSPYTRIS/assets/Screenshots/challenge.png" width="500" height="250"> 
 
